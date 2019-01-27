@@ -74,7 +74,7 @@ body {
   border-bottom-width: 2px;
 }
 
-.pr-piano-key.active {
+.pr-piano-key.pr-piano-key-active {
   background-color: #f20231;
 }
 

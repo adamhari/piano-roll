@@ -6,7 +6,8 @@ export default class PianoKey extends Component {
     let classNames = [
       'pr-piano-key',
       `pr-piano-key-${this.props.note}`,
-      this.props.name.includes('♯') ? 'pr-piano-key-black' : 'pr-piano-key-white'
+      this.props.name.includes('♯') ? 'pr-piano-key-black' : 'pr-piano-key-white',
+      this.props.active ? 'pr-piano-key-active' : this.props.disabled ? 'pr-piano-key-disabled' : 'pr-piano-key-inactive'
     ];
 
     return classNames.join(' ');

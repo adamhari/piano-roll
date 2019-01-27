@@ -7,41 +7,46 @@ class PianoRoll extends Component {
 
     this.state = {
       keyMap: {
-        'q' : 'C6',
-        'w' : 'D6',
-        'e' : 'E6', 
-        'r' : 'F6',
-        't' : 'G6',
-        'y' : 'A6',
-        'u' : 'B6',
-        'i' : 'C7',
-        'o' : 'D7',
-        'p' : 'E7',
-        '[' : 'F7',
-        '{' : 'F7',
-        ']' : 'G7',
-        '}' : 'G7',
-        'a' : 'C5',
-        's' : 'D5',
-        'd' : 'E5',
-        'f' : 'F5',
-        'g' : 'G5',
-        'h' : 'A5',
-        'j' : 'B5',
-        'k' : 'C6',
-        'l' : 'D6',
-        ';' : 'E6',
-        ':' : 'E6',
-        "'" : 'F6',
-        '"' : 'F6',
-        'n' : 'A4',
-        'm' : 'B4',
-        ',' : 'C5',
-        '<' : 'C5',
-        '.' : 'D5',
-        '>' : 'D5',
-        '/' : 'E5',
-        '?' : 'E5'
+        'q': 'C2',
+        'w': 'D2',
+        'e': 'E2',
+        'r': 'F2',
+        't': 'G2',
+        'y': 'A2',
+        'u': 'B2',
+        'i': 'C3',
+        'o': 'D3',
+        'p': 'E3',
+        '[': 'F3',
+        '{': 'F3',
+        ']': 'G3',
+        '}': 'G3',
+        'a': 'C1',
+        's': 'D1',
+        'd': 'E1',
+        'f': 'F1',
+        'g': 'G1',
+        'h': 'A1',
+        'j': 'B1',
+        'k': 'C2',
+        'l': 'D2',
+        ';': 'E2',
+        ':': 'E2',
+        "'": 'F2',
+        '"': 'F2',
+        'z': 'C0',
+        'x': 'D0',
+        'c': 'E0',
+        'v': 'F0',
+        'b': 'G0',
+        'n': 'A0',
+        'm': 'B0',
+        ',': 'C1',
+        '<': 'C1',
+        '.': 'D1',
+        '>': 'D1',
+        '/': 'E1',
+        '?': 'E1'
       },
       activeKeys: []
     }
@@ -54,7 +59,7 @@ class PianoRoll extends Component {
   }
 
   componentDidUpdate(newProps, newState) {
-    console.log(newState);
+    // console.log(newState);
   }
 
   registerEvents = () => {
@@ -64,24 +69,31 @@ class PianoRoll extends Component {
 
   handleKeyboardInput = (e) => {
     // console.log(e);
-
     const activeKeys = this.state.activeKeys;
-    if (!activeKeys.includes(e.key))
-      activeKeys.push(this.state.keyMap[e.key.toLowerCase()]);
+    const computerKey = e.key.toLowerCase();
+    const pianoKey = this.state.keyMap[computerKey];
+
+
+    if (!activeKeys.includes(pianoKey))
+      activeKeys.push(pianoKey);
 
     this.setState({ activeKeys });
   }
 
   handleKeyboardOutput = (e) => {
-    console.log(e);
+    // console.log(e);
     const activeKeys = this.state.activeKeys;
+    const computerKey = e.key.toLowerCase();
+    const pianoKey = this.state.keyMap[computerKey];
 
     for (var i = activeKeys.length - 1; i >= 0; i--) {
-      if (activeKeys[i] === this.state.keyMap[e.key]) {
+      if (activeKeys[i] === pianoKey) {
         activeKeys.splice(i, 1);
         break;
       }
     }
+
+    this.setState({ activeKeys });
   }
 
 

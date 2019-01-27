@@ -8,7 +8,9 @@ export default class Piano extends Component {
     return (
       <div id="pr-piano">
         <div id="pr-piano-top">
-          <PianoTopControls />
+          <PianoTopControls 
+            {...this.props}
+          />
         </div>
         <div id="pr-piano-bottom">
           <PianoKeys 

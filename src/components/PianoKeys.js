@@ -15,10 +15,9 @@ export default class PianoKeys extends Component {
 
             const keyName = `${key.name}${i}`;
 
-            console.log(keyName);
-
               keySet.push(
                 <PianoKey
+                  {...this.props}
                   key={(i * 12) + (index)}
                   name={keyName}
                   note={key.name}
@@ -38,8 +37,6 @@ export default class PianoKeys extends Component {
   };
 
   render() {
-    console.log(this.props.activeKeys);
-
     return this.renderKeys()
   }
 }

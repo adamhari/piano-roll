@@ -5,8 +5,34 @@ class PianoRoll extends Component {
   constructor(props) {
     super(props);
 
+    this.octaves = this.props.octaves;
+    if (!this.octaves || this.octaves > 10 || !Number.isInteger(this.octaves))
+      this.octaves = 4;
+
     this.state = {
+      octaves: this.octaves,
       keyMap: {
+        'z': 'C0',
+        'x': 'D0',
+        'c': 'E0',
+        'v': 'F0',
+        'b': 'G0',
+        'n': 'A0',
+        'm': 'B0',
+        'a': 'C1',
+        's': 'D1',
+        'd': 'E1',
+        'f': 'F1',
+        'g': 'G1',
+        'h': 'A1',
+        'j': 'B1',
+        'k': 'C2',
+        'l': 'D2',
+        ';': 'E2',
+        "'": 'F2',
+        ',': 'C1',
+        '.': 'D1',
+        '/': 'E1',
         'q': 'C2',
         'w': 'D2',
         'e': 'E2',
@@ -18,42 +44,14 @@ class PianoRoll extends Component {
         'o': 'D3',
         'p': 'E3',
         '[': 'F3',
-        '{': 'F3',
         ']': 'G3',
-        '}': 'G3',
-        'a': 'C1',
-        's': 'D1',
-        'd': 'E1',
-        'f': 'F1',
-        'g': 'G1',
-        'h': 'A1',
-        'j': 'B1',
-        'k': 'C2',
-        'l': 'D2',
-        ';': 'E2',
-        ':': 'E2',
-        "'": 'F2',
-        '"': 'F2',
-        'z': 'C0',
-        'x': 'D0',
-        'c': 'E0',
-        'v': 'F0',
-        'b': 'G0',
-        'n': 'A0',
-        'm': 'B0',
-        ',': 'C1',
-        '<': 'C1',
-        '.': 'D1',
-        '>': 'D1',
-        '/': 'E1',
-        '?': 'E1'
-      },
-      activeKeys: []
-    }
 
-    this.octaves = this.props.octaves;
-    if (!this.octaves || this.octaves > 10 || !Number.isInteger(this.octaves))
-      this.octaves = 4;
+
+      },
+      activeKeys: [],
+      transposition: 0,
+      mouseDown: false
+    }
 
     this.registerEvents();
   }
@@ -63,37 +61,86 @@ class PianoRoll extends Component {
   }
 
   registerEvents = () => {
-    document.addEventListener('keydown', this.handleKeyboardInput);
-    document.addEventListener('keyup', this.handleKeyboardOutput);
+    document.addEventListener('keydown', this.handleKeyboardKeyDown);
+    document.addEventListener('keyup', this.handleKeyboardKeyUp);
+
   }
 
-  handleKeyboardInput = (e) => {
+  handleKeyboardKeyDown = (e) => {
     // console.log(e);
-    const activeKeys = this.state.activeKeys;
     const computerKey = e.key.toLowerCase();
     const pianoKey = this.state.keyMap[computerKey];
 
+    this.activateKey(pianoKey);
+  }
 
-    if (!activeKeys.includes(pianoKey))
-      activeKeys.push(pianoKey);
+  handleKeyboardKeyUp = (e) => {
+    // console.log(e);
+    const computerKey = e.key.toLowerCase();
+    const pianoKey = this.state.keyMap[computerKey];
+    this.deactivateKey(pianoKey);
+  }
+
+  handleMouseDownKey = (e) => {
+    this.setState({ mouseDown: true });
+    this.activateKey(e.target.title)
+  };
+
+  handleMouseUpKey = (e) => {
+    this.setState({ mouseDown: false });
+    this.deactivateKeys()
+  };
+
+  handleMouseOverKey = (e) => {
+    if (this.state.mouseDown)
+      this.setState({activeKeys:[e.target.title]})
+  }
+
+  activateKey = (key) => {
+    const activeKeys = this.state.activeKeys;
+
+    if (!activeKeys.includes(key))
+      activeKeys.push(key);
 
     this.setState({ activeKeys });
   }
 
-  handleKeyboardOutput = (e) => {
-    // console.log(e);
+  deactivateKey = (key) => {
     const activeKeys = this.state.activeKeys;
-    const computerKey = e.key.toLowerCase();
-    const pianoKey = this.state.keyMap[computerKey];
 
     for (var i = activeKeys.length - 1; i >= 0; i--) {
-      if (activeKeys[i] === pianoKey) {
+      if (activeKeys[i] === key) {
         activeKeys.splice(i, 1);
         break;
       }
     }
 
     this.setState({ activeKeys });
+  }
+
+  deactivateKeys = (e = null) => {
+    if (e)
+      e.preventDefault()
+
+    this.setState({ activeKeys: [] });
+  }
+
+  handleTranspositionChange = (event) => {
+    const oldTransposition = this.state.transposition;
+    const transposition = event.target.value;
+    const difference = transposition - oldTransposition;
+
+    let keyMap = this.state.keyMap;
+
+    for (let i = 0; i < Math.abs(difference); i++) {
+      let keys = Object.keys(keyMap);
+      keyMap = Object.assign(...keys.map((k, i) => ({ [k]: keyMap[keys[(i + 1) % keys.length]] })));
+    }
+    this.setState({
+      transposition,
+      keyMap,
+      activeKeys: []
+    });
   }
 
 
@@ -104,8 +151,15 @@ class PianoRoll extends Component {
         id="pr-container"
       >
         <Piano
-          octaves={this.octaves}
+          octaves={this.state.octaves}
+          transposition={this.state.transposition}
           activeKeys={this.state.activeKeys}
+
+          handleMouseDownKey={this.handleMouseDownKey}
+          handleMouseUpKey={this.handleMouseUpKey}
+          handleMouseOverKey={this.handleMouseOverKey}
+
+          handleTranspositionChange={this.handleTranspositionChange}
         />
       </div>
     )

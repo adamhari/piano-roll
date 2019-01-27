@@ -19,6 +19,11 @@ export default class PianoKey extends Component {
         title={this.props.name}
         className={this.getClassNames()}
         id={`pr-piano-key-${this.props.name}`}
+        tabIndex="0"
+        // onKeyDown={this.props.handleKeyDown}
+        onMouseDown={this.props.handleMouseDownKey}
+        onMouseUp={this.props.handleMouseUpKey}
+        onMouseOver={this.props.handleMouseOverKey}
       >
       </div>
     );

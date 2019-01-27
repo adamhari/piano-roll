@@ -49,7 +49,7 @@ class PianoRoll extends Component {
 
       },
       activeKeys: [],
-      transposition: 0,
+      transposition: 3,
       mouseDown: false
     }
 
@@ -64,6 +64,18 @@ class PianoRoll extends Component {
     document.addEventListener('keydown', this.handleKeyboardKeyDown);
     document.addEventListener('keyup', this.handleKeyboardKeyUp);
 
+    document.addEventListener('mouseleave', this.deactivateKeys);
+    document.addEventListener('mouseout', this.deactivateKeys);
+    document.addEventListener('mouseup', this.handleMouseUpKey);
+
+    document.addEventListener('drag', (e) => e.preventDefault());
+    document.addEventListener('dragend', (e) => e.preventDefault());
+    document.addEventListener('dragenter', (e) => e.preventDefault());
+    document.addEventListener('dragexit', (e) => e.preventDefault());
+    document.addEventListener('dragleave', (e) => e.preventDefault());
+    document.addEventListener('dragover', (e) => e.preventDefault());
+    document.addEventListener('dragstart', (e) => e.preventDefault());
+    document.addEventListener('drop', (e) => e.preventDefault());
   }
 
   handleKeyboardKeyDown = (e) => {
@@ -136,6 +148,7 @@ class PianoRoll extends Component {
       let keys = Object.keys(keyMap);
       keyMap = Object.assign(...keys.map((k, i) => ({ [k]: keyMap[keys[(i + 1) % keys.length]] })));
     }
+
     this.setState({
       transposition,
       keyMap,

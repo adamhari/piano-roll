@@ -5,6 +5,7 @@
 
 html {
   font-size:24px; //global scale
+  -webkit-font-smoothing: antialiased;
 }
 
 #pr-container{
@@ -127,8 +128,6 @@ html {
       background-color: $color-digital-background;
       margin:0.5rem 0.09375rem 0 0.125rem;
 
-      cursor:grab;
-
       &.single-digit{
         width:2.75rem;
         padding:0.375rem 0rem 0.375rem 0.5rem;
@@ -161,12 +160,19 @@ html {
         0 0 0.375rem rgba($color-digital-text,0.375),
         0 0 0.125rem rgba($color-digital-text,0.25);
       border-color:transparent;
+
+      cursor:grab;
+
+      &:focus{
+        cursor:grabbing;
+      }
     }
   }
 }
 
 #pr-piano-keys {
   display:inline-block;
+  cursor:pointer;
 }
 
 #pr-piano-black-keys{

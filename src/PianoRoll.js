@@ -179,7 +179,7 @@ class PianoRoll extends Component {
           case 'keyMap':
             break;
           case 'octave':
-            if (newVal > OCTAVE_RANGE.min && newVal < OCTAVE_RANGE.max) {
+            if (newVal >= OCTAVE_RANGE.min && newVal <= OCTAVE_RANGE.max) {
               this.setState({
                 octave: newVal,
                 activeScreenY: event.screenY
@@ -187,7 +187,7 @@ class PianoRoll extends Component {
             }
             break;
           case 'transposition':
-            if (newVal > TRANSPOSITION_RANGE.min && newVal < TRANSPOSITION_RANGE.max) {
+            if (newVal >= TRANSPOSITION_RANGE.min && newVal <= TRANSPOSITION_RANGE.max) {
               this.setState({
                 transposition: newVal,
                 activeScreenY: event.screenY

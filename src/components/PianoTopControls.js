@@ -21,7 +21,7 @@ export default class PianoTopControls extends Component {
       if (val === 1)
         styles.left = "0.1875rem";
       if (val === -1) {
-        styles.left = "0.1875rem";
+        styles.left = "-0.25rem";
         styles.letterSpacing = "0.5625rem";
       }
       return styles;

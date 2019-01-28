@@ -53,7 +53,7 @@ export const KEYS = [
 ];
 
 // Controls
-export const CONTROL_PIXEL_STEP = 25;
+export const CONTROL_PIXEL_STEP = 10;
 export const LAYOUT_RANGE = {
   min: 1,
   max: 2

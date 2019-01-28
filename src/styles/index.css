@@ -1,7 +1,17 @@
 @charset "UTF-8";
 @font-face {
   font-family: "DS Digital";
-  src: url("./assets/fonts/ds-digital/DS-DIGIT.TTF");
+  src: url("../assets/fonts/ds-digital/DS-DIGIT.TTF");
+}
+
+@font-face {
+  font-family: "Russo One";
+  src: url("../assets/fonts/russo-one/Russo_One.ttf");
+}
+
+@font-face {
+  font-family: "Heroic Avenger";
+  src: url("../assets/fonts/heroic-avenger/AVENGEANCE HEROIC AVENGER.ttf");
 }
 
 * {
@@ -13,25 +23,20 @@
   outline: none;
 }
 
-html {
-  font-size: 20px;
-}
-
 body {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 24px;
 }
 
 #pr-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -42,7 +47,7 @@ body {
   display: inline-block;
   background-color: #303030;
   padding: 0rem 3rem 0.375rem 8rem;
-  border: solid #111 0.125rem;
+  border: solid #232323 0.125rem;
   border-top-left-radius: 1.5rem 1.2rem;
   border-top-right-radius: 1.5rem 1.2rem;
   border-bottom-left-radius: .8rem .8rem;
@@ -50,8 +55,7 @@ body {
 }
 
 #pr-piano-top-controls {
-  height: 7rem;
-  color: white;
+  height: 8rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,6 +66,41 @@ body {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+#pr-piano-top-controls #pr-logo-section {
+  color: #ababab;
+  text-align: left;
+  width: 15rem;
+  height: 4.25rem;
+  padding: 0 0 0 0.375rem;
+}
+
+#pr-piano-top-controls #pr-logo-section #pr-logo {
+  font-family: "Heroic Avenger", sans-serif;
+  font-size: 2.5rem;
+}
+
+#pr-piano-top-controls #pr-logo-section #pr-logo-subtext {
+  position: relative;
+  right: 0.1875rem;
+  line-height: 0.375;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.125rem;
+}
+
+#pr-piano-top-controls #pr-logo-section #pr-logo-subtext #pr-logo-subtext-bold {
+  display: inline-block;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  letter-spacing: -0.0375rem;
+  padding-right: 0.0625rem;
 }
 
 #pr-piano-top-controls .pr-control {
@@ -79,48 +118,86 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  border: solid transparent 0.375rem;
+  border-top-width: 0;
+  border-radius: 0.1875rem;
+}
+
+#pr-piano-top-controls .pr-control.pr-control-outlined {
+  border-color: #ababab;
+  border-width: 0.1875rem;
+  border-top-width: 0;
+  background-color: #ababab;
+  margin: 0 0.25rem;
+  top: 0.1875rem;
+}
+
+#pr-piano-top-controls .pr-control.pr-control-outlined .pr-control-label {
+  color: #303030;
+  background: #ababab;
+}
+
+#pr-piano-top-controls .pr-control.pr-control-outlined .pr-control-input-container {
+  padding: 0 0.5rem 0.5rem 0.5rem;
+  background: #303030;
+}
+
+#pr-piano-top-controls .pr-control.pr-control-outlined .pr-control-input {
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 #pr-piano-top-controls .pr-control .pr-control-label {
   text-transform: uppercase;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.05rem;
-  margin: 0 0 0.625em;
+  color: #ababab;
+  font-family: "Russo One",sans-serif;
+  font-size: 0.5625rem;
+  line-height: 1.15;
+  letter-spacing: 0.03125rem;
+  padding: 0.125rem 0 0.09375rem;
+  width: calc(100% + 1px);
 }
 
 #pr-piano-top-controls .pr-control .pr-control-input {
   position: relative;
   font-family: "DS Digital", monospace;
   font-size: 2rem;
-  width: 4rem;
-  padding: 0.375rem 0.625rem 0.375rem 0;
-  border: solid #111 0.125rem;
+  border: solid #232323 0.125rem;
+  border-bottom-color: #3a3a3a;
+  border-top-color: #3a3a3a;
   color: transparent;
   background-color: #0b0b0b;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  margin: 0.5rem 0.09375rem 0 0.125rem;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+#pr-piano-top-controls .pr-control .pr-control-input.single-digit {
+  width: 2.75rem;
+  padding: 0.375rem 0rem 0.375rem 0.5rem;
+}
+
+#pr-piano-top-controls .pr-control .pr-control-input.single-digit-negative {
+  width: 3.375rem;
+  padding: 0.375rem 0rem 0.375rem 0.25rem;
 }
 
 #pr-piano-top-controls .pr-control .pr-control-input-background {
   position: absolute;
-  top: -0.125rem;
-  left: -0.125rem;
+  top: -0.625rem;
+  left: -0.5625rem;
   background: none;
-  color: #ff2600;
-  opacity: 0.125;
+  color: rgba(255, 38, 0, 0.625);
+  opacity: 0.1875;
   border-color: transparent;
 }
 
 #pr-piano-top-controls .pr-control .pr-control-input-foreground {
   position: absolute;
-  top: -0.125rem;
-  left: -0.125rem;
+  top: -0.625rem;
+  left: -0.5625rem;
   background: none;
   color: #ff2600;
-  text-shadow: 0 0 0.625rem rgba(255, 38, 0, 0.625), 0 0 0.375rem rgba(255, 38, 0, 0.375);
+  text-shadow: 0 0 0.625rem rgba(255, 38, 0, 0.625), 0 0 0.375rem rgba(255, 38, 0, 0.375), 0 0 0.125rem rgba(255, 38, 0, 0.25);
   border-color: transparent;
 }
 
@@ -147,41 +224,45 @@ body {
 
 .pr-piano-key {
   display: inline-block;
-  border: solid #111 0.0625rem;
-  border-top: solid #111 0.125rem;
-  border-bottom: solid #111 0.125rem;
+  border: solid #232323 0.0625rem;
+  border-top: solid #232323 0.125rem;
+  border-bottom: solid #232323 0.125rem;
+  -webkit-transition: 0.0625s ease-out;
+  transition: 0.0625s ease-out;
 }
 
 .pr-piano-key:first-child {
-  border-left: solid #111 0.125rem;
+  border-left: solid #232323 0.125rem;
+  border-bottom-left-radius: 0.3125rem;
 }
 
 .pr-piano-key:last-child {
-  border-right: solid #111 0.125rem;
+  border-right: solid #232323 0.125rem;
+  border-bottom-right-radius: 0.3125rem;
 }
 
 .pr-piano-key-white {
   width: 2.3rem;
   height: 12.0rem;
-  background-color: #ddd;
+  background: #d7d7d7;
 }
 
 .pr-piano-key-white.pr-piano-key-active {
-  background-color: #fff;
+  background: #fff;
 }
 
 .pr-piano-key-black {
   width: 1.3rem;
   height: 8.0rem;
-  border: solid #111 0.125rem;
-  border-bottom-left-radius: .1rem .2rem;
-  border-bottom-right-radius: .1rem .2rem;
-  background-color: #231f20;
+  border: solid #232323 0.125rem;
+  border-bottom-left-radius: .2rem .3rem;
+  border-bottom-right-radius: .2rem .3rem;
+  background: #231f20;
   position: absolute;
 }
 
 .pr-piano-key-black.pr-piano-key-active {
-  background-color: #fff;
+  background: #999;
 }
 
 .pr-piano-key-black:nth-child(1) {

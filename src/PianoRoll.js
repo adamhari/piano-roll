@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import {
+  CONTROL_PIXEL_STEP,
+  LAYOUT_RANGE,
+  OCTAVE_RANGE,
+  TRANSPOSITION_RANGE
+} from "./statics";
 import Piano from "./components/Piano";
 
 class PianoRoll extends Component {
@@ -45,11 +51,12 @@ class PianoRoll extends Component {
         'p': 'E3',
         '[': 'F3',
         ']': 'G3',
-
-
+        '\\': 'A3'
       },
       activeKeys: [],
-      transposition: 3,
+      activeControl: null,
+      transposition: 0,
+      octave: 5,
       mouseDown: false
     }
 
@@ -64,9 +71,18 @@ class PianoRoll extends Component {
     document.addEventListener('keydown', this.handleKeyboardKeyDown);
     document.addEventListener('keyup', this.handleKeyboardKeyUp);
 
-    document.addEventListener('mouseleave', this.deactivateKeys);
-    document.addEventListener('mouseout', this.deactivateKeys);
-    document.addEventListener('mouseup', this.handleMouseUpKey);
+    document.addEventListener('mouseleave', () => {
+      this.deactivateKeys();
+      this.handleMouseUpControl();
+    });
+    document.addEventListener('mouseout', () => {
+      this.deactivateKeys();
+    });
+    document.addEventListener('mouseup', () => {
+      this.handleMouseUpKey();
+      this.handleMouseUpControl();
+    });
+    document.addEventListener('mousemove', this.handleMouseMove);
 
     document.addEventListener('drag', (e) => e.preventDefault());
     document.addEventListener('dragend', (e) => e.preventDefault());
@@ -105,7 +121,7 @@ class PianoRoll extends Component {
 
   handleMouseOverKey = (e) => {
     if (this.state.mouseDown)
-      this.setState({activeKeys:[e.target.title]})
+      this.setState({ activeKeys: [e.target.title] })
   }
 
   activateKey = (key) => {
@@ -126,7 +142,6 @@ class PianoRoll extends Component {
         break;
       }
     }
-
     this.setState({ activeKeys });
   }
 
@@ -137,24 +152,85 @@ class PianoRoll extends Component {
     this.setState({ activeKeys: [] });
   }
 
-  handleTranspositionChange = (event) => {
-    const oldTransposition = this.state.transposition;
-    const transposition = event.target.value;
-    const difference = transposition - oldTransposition;
-
-    let keyMap = this.state.keyMap;
-
-    for (let i = 0; i < Math.abs(difference); i++) {
-      let keys = Object.keys(keyMap);
-      keyMap = Object.assign(...keys.map((k, i) => ({ [k]: keyMap[keys[(i + 1) % keys.length]] })));
-    }
+  handleMouseDownControl = (activeControl, e) => {
 
     this.setState({
-      transposition,
-      keyMap,
-      activeKeys: []
-    });
+      activeControl,
+      activeScreenY: e.screenY
+    })
   }
+
+  handleMouseUpControl = (activeControl, e) => {
+    this.setState({ activeControl: null })
+  }
+
+  handleMouseMove = (event) => {
+
+    if (this.state.activeControl) {
+      let change = 0;
+      if ((event.screenY - CONTROL_PIXEL_STEP) > this.state.activeScreenY)
+        change = -1;
+      else if ((event.screenY + CONTROL_PIXEL_STEP) < this.state.activeScreenY)
+        change = 1;
+
+      if (change !== 0) {
+        const newVal = this.state[this.state.activeControl] + change;
+        switch (this.state.activeControl) {
+          case 'keyMap':
+            break;
+          case 'octave':
+            if (newVal > OCTAVE_RANGE.min && newVal < OCTAVE_RANGE.max) {
+              this.setState({
+                octave: newVal,
+                activeScreenY: event.screenY
+              });
+            }
+            break;
+          case 'transposition':
+            if (newVal > TRANSPOSITION_RANGE.min && newVal < TRANSPOSITION_RANGE.max) {
+              this.setState({
+                transposition: newVal,
+                activeScreenY: event.screenY
+              })
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  changeMap = (keyMap) => {
+    this.setState({ keyMap })
+  }
+
+  changeOctave = (octave) => {
+    this.setState({ octave })
+  }
+
+  changeTransposition = (transposition) => {
+    this.setState({ transposition })
+  }
+
+  // handleTranspositionChange = (event) => {
+  //   const oldTransposition = this.state.transposition;
+  //   const transposition = event.target.value;
+  //   const difference = transposition - oldTransposition;
+
+  //   let keyMap = this.state.keyMap;
+
+  //   for (let i = 0; i < Math.abs(difference); i++) {
+  //     let keys = Object.keys(keyMap);
+  //     keyMap = Object.assign(...keys.map((k, i) => ({ [k]: keyMap[keys[(i + 1) % keys.length]] })));
+  //   }
+
+  //   this.setState({
+  //     transposition,
+  //     keyMap,
+  //     activeKeys: []
+  //   });
+  // }
 
 
 
@@ -166,13 +242,15 @@ class PianoRoll extends Component {
         <Piano
           octaves={this.state.octaves}
           transposition={this.state.transposition}
+          octave={this.state.octave}
           activeKeys={this.state.activeKeys}
 
           handleMouseDownKey={this.handleMouseDownKey}
           handleMouseUpKey={this.handleMouseUpKey}
           handleMouseOverKey={this.handleMouseOverKey}
 
-          handleTranspositionChange={this.handleTranspositionChange}
+          handleMouseDownControl={this.handleMouseDownControl}
+          handleMouseUpControl={this.handleMouseUpControl}
         />
       </div>
     )

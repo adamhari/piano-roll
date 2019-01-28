@@ -1,0 +1,299 @@
+@import './_fonts';
+@import './_mixins';
+@import './_variables';
+@import './reset';
+
+html {
+  font-size:24px; //global scale
+}
+
+#pr-container{
+  display:flex;
+  // justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+#pr-piano {
+  display:inline-block;
+  background-color:$color-piano-plastic;
+  padding:0rem 3rem 0.375rem 8rem;
+  
+  border: $normal-border;
+  border-top-left-radius:1.5rem 1.2rem;
+  border-top-right-radius:1.5rem 1.2rem;
+  border-bottom-left-radius:.8rem .8rem;
+  border-bottom-right-radius:.8rem .8rem;
+}
+
+#pr-piano-top-controls {
+  height:8rem;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+  text-align:center;
+  user-select:none;
+
+  #pr-logo-section{
+    color:$color-piano-label;
+    text-align:left;
+
+    width:15rem;
+    height:4.25rem;
+    padding:0 0 0 0.375rem;
+
+    #pr-logo {
+      font-family:"Heroic Avenger", sans-serif;
+      font-size:2.5rem;
+      
+    }
+  
+    #pr-logo-subtext {
+      position:relative;
+      right:0.1875rem;
+      line-height:0.375;
+      text-transform:uppercase;
+      font-style:italic;
+      font-weight:600;
+      letter-spacing:0.125rem;
+
+      #pr-logo-subtext-bold{
+        display:inline-block;
+        font-weight:800;
+        font-size:1.0625rem;
+        letter-spacing:-0.0375rem;
+        padding-right:0.0625rem;
+      }
+    }
+  }
+
+  
+
+  .pr-control {
+    position:relative;
+    display:flex;
+    flex-flow:column wrap;
+    justify-content:center;
+    align-items:center;
+
+    border: solid transparent 0.375rem;
+    border-top-width:0;
+    border-radius:0.1875rem;
+
+    &.pr-control-outlined{
+        border-color:$color-piano-label;
+        border-width:0.1875rem;
+        border-top-width:0;
+        background-color:$color-piano-label;
+
+        margin:0 0.25rem;
+        top:0.1875rem;
+
+        .pr-control-label {
+          color:$color-piano-plastic;
+          background:$color-piano-label;
+        }
+
+        .pr-control-input-container{
+          padding:0 0.5rem 0.5rem 0.5rem;
+          background:$color-piano-plastic;
+        }
+
+        .pr-control-input{
+          padding:0 0.5rem 0.5rem 0.5rem;
+        }
+    }
+
+    .pr-control-label {
+      text-transform:uppercase;
+      color:$color-piano-label;
+      font-family:"Russo One",sans-serif;
+      font-size:0.5625rem;
+      line-height:1.15;
+      letter-spacing:0.03125rem;
+      padding:0.125rem 0 0.09375rem;
+      width:calc(100% + 1px);
+    }
+  
+    .pr-control-input {
+      position:relative;
+      font-family: "DS Digital", monospace;
+      font-size:2rem;
+      
+      border:$normal-border;
+      border-bottom-color:#3a3a3a;
+      border-top-color:#3a3a3a;
+      color:transparent;
+      background-color: $color-digital-background;
+      margin:0.5rem 0.09375rem 0 0.125rem;
+
+      cursor:grab;
+
+      &.single-digit{
+        width:2.75rem;
+        padding:0.375rem 0rem 0.375rem 0.5rem;
+      }
+
+      &.single-digit-negative{
+        width:3.375rem;
+        padding:0.375rem 0rem 0.375rem 0.25rem;
+      }
+    }
+
+    .pr-control-input-background {
+      position:absolute;
+      top:-0.625rem;
+      left:-0.5625rem;
+      background:none;
+      color:rgba($color-digital-text, 0.625);
+      opacity:0.1875;
+      border-color:transparent;
+    }
+
+    .pr-control-input-foreground {
+      position:absolute;
+      top:-0.625rem;
+      left:-0.5625rem;
+      background:none;
+      color:$color-digital-text;
+      text-shadow:
+        0 0 0.625rem rgba($color-digital-text,0.625),
+        0 0 0.375rem rgba($color-digital-text,0.375),
+        0 0 0.125rem rgba($color-digital-text,0.25);
+      border-color:transparent;
+    }
+  }
+}
+
+#pr-piano-keys {
+  display:inline-block;
+}
+
+#pr-piano-black-keys{
+  display: flex;
+  flex-flow:row;
+  position:absolute;
+}
+
+#pr-piano-white-keys{
+  display:flex;
+}
+
+.pr-piano-key {
+  display: inline-block;
+  border: $thin-border;
+  border-top: $normal-border;
+  border-bottom: $normal-border;
+
+  transition:0.0625s ease-out;
+}
+
+.pr-piano-key:first-child{
+  border-left:$normal-border;
+  border-bottom-left-radius:0.3125rem;
+}
+.pr-piano-key:last-child{
+  border-right:$normal-border;
+  border-bottom-right-radius:0.3125rem;
+}
+
+.pr-piano-key-white {
+  width: 2.3rem;
+  height: 12.0rem;
+  background:#d7d7d7;
+
+  &.pr-piano-key-active{
+    // @include linear-gradient(#c0c0c0, #fff);
+    background: #fff;
+  }
+}
+
+.pr-piano-key-black {
+  width: 1.3rem;
+  height: 8.0rem;
+  border:$normal-border;
+  border-bottom-left-radius:.2rem .3rem;
+  border-bottom-right-radius: .2rem .3rem;
+  background: #231f20;
+  position:absolute;
+
+  &.pr-piano-key-active{
+    // @include linear-gradient(#c0c0c0, #231f20);
+    background:#999;
+  }
+
+  @for $i from 0 through 9 {
+    $offset: $octave-width * ($i);
+
+    &:nth-child(#{($i * 5) + 1}) {
+      left: #{$offset + 1.433333}rem;
+    }
+  
+    &:nth-child(#{($i * 5) + 2}) {
+      left: #{$offset + 4.166666}rem;
+    }
+  
+    &:nth-child(#{($i * 5) + 3}) {
+      left: #{$offset + 8.225}rem;
+    }
+  
+    &:nth-child(#{($i * 5) + 4}) {
+      left: #{$offset + 10.825}rem;
+    }
+  
+    &:nth-child(#{($i * 5) + 5}){
+      left: #{$offset + 13.475}rem;
+    }
+  }
+
+
+
+}
+
+.pr-piano-key-C {
+  color: green;
+}
+
+.pr-piano-key-C♯ {
+  color: green;
+}
+
+.pr-piano-key-D {
+  color: green;
+}
+
+.pr-piano-key-D♯ {
+  color: green;
+}
+
+.pr-piano-key-E {
+  color: green;
+}
+
+.pr-piano-key-F {
+  color: green;
+}
+
+.pr-piano-key-F♯ {
+  color: green;
+}
+
+.pr-piano-key-G {
+  color: green;
+}
+
+.pr-piano-key-G♯ {
+  color: green;
+}
+
+.pr-piano-key-A {
+  color: green;
+}
+
+.pr-piano-key-A♯ {
+  color: green;
+}
+
+.pr-piano-key-B {
+  color: green;
+}

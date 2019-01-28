@@ -1,3 +1,4 @@
+// Musical
 export const BASE_FREQ = 16.3516;
 export const FREQ_MULTIPLIER = 1.0594630943593;
 export const KEYS = [
@@ -50,3 +51,18 @@ export const KEYS = [
     freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 11)
   }
 ];
+
+// Controls
+export const CONTROL_PIXEL_STEP = 25;
+export const LAYOUT_RANGE = {
+  min: 1,
+  max: 2
+}
+export const OCTAVE_RANGE = {
+  min: 0, 
+  max: 9
+};
+export const TRANSPOSITION_RANGE = {
+  min:-9,
+  max: 9
+}

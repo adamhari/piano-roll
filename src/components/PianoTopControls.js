@@ -23,48 +23,42 @@ export default class PianoTopControls extends Component {
     )
   }
 
-  renderTransposer = () => {
+  renderMapper = () => {
 
     const overlayPositionFix = (val) => {
       const styles = {};
-      if (val > 1 | val === 0)
-        styles.left = "-0.0625rem";
       if (val === 1)
-        styles.left = "0.1875rem";
-      if (val === -1) {
         styles.left = "-0.25rem";
-        styles.letterSpacing = "0.5625rem";
-      }
       return styles;
     }
 
     return (
       <div className="pr-control">
         <label
-          id="pr-transposer-label"
+          id="pr-mapper-label"
           className="pr-control-label"
-          htmlFor="pr-transposer"
+          htmlFor="pr-mapper"
         >
-          Transpose
+          Layout
         </label>
         <div className="pr-control-input-container">
           <div
-            id="pr-transposer"
-            className="pr-control-input single-digit-negative"
+            id="pr-mapper"
+            className="pr-control-input single-digit"
           >
             {8}
             <div
-              id="pr-transposer-background"
-              className="pr-control-input single-digit-negative pr-control-input-background"
-              children={-8}
+              id="pr-mapper-background"
+              className="pr-control-input single-digit pr-control-input-background"
+              children={8}
             />
             <div
-              id="pr-transposer-foreground"
-              className="pr-control-input single-digit-negative pr-control-input-foreground"
-              children={this.props.transposition}
-              style={overlayPositionFix(this.props.transposition)}
-              onMouseDown={(e) => this.props.handleMouseDownControl("transposition", e)}
-              onMouseUp={(e) => this.props.handleMouseUpControl("transposition", e)}
+              id="pr-mapper-foreground"
+              className="pr-control-input single-digit pr-control-input-foreground"
+              children={0}
+              style={overlayPositionFix(0)}
+              onMouseDown={(e) => this.props.handleMouseDownControl("keyMap", e)}
+              onMouseUp={(e) => this.props.handleMouseUpControl("keyMap", e)}
             />
           </div>
         </div>
@@ -117,42 +111,48 @@ export default class PianoTopControls extends Component {
     )
   }
 
-  renderMapper = () => {
+  renderTransposer = () => {
 
     const overlayPositionFix = (val) => {
       const styles = {};
+      if (val > 1 | val === 0)
+        styles.left = "-0.0625rem";
       if (val === 1)
+        styles.left = "0.1875rem";
+      if (val === -1) {
         styles.left = "-0.25rem";
+        styles.letterSpacing = "0.5625rem";
+      }
       return styles;
     }
 
     return (
       <div className="pr-control">
         <label
-          id="pr-mapper-label"
+          id="pr-transposer-label"
           className="pr-control-label"
-          htmlFor="pr-mapper"
+          htmlFor="pr-transposer"
         >
-          Layout
+          Transpose
         </label>
         <div className="pr-control-input-container">
           <div
-            id="pr-mapper"
-            className="pr-control-input single-digit"
+            id="pr-transposer"
+            className="pr-control-input single-digit-negative"
           >
             {8}
             <div
-              id="pr-mapper-background"
-              className="pr-control-input single-digit pr-control-input-background"
-              children={8}
+              id="pr-transposer-background"
+              className="pr-control-input single-digit-negative pr-control-input-background"
+              children={-8}
             />
             <div
-              id="pr-mapper-foreground"
-              className="pr-control-input single-digit pr-control-input-foreground"
-              children={0}
-              style={overlayPositionFix(0)}
-              onMouseDown={(e) => this.props.handleMouseDownControl("keyMap", e)}
-              onMouseUp={(e) => this.props.handleMouseUpControl("keyMap", e)}
+              id="pr-transposer-foreground"
+              className="pr-control-input single-digit-negative pr-control-input-foreground"
+              children={this.props.transposition}
+              style={overlayPositionFix(this.props.transposition)}
+              onMouseDown={(e) => this.props.handleMouseDownControl("transposition", e)}
+              onMouseUp={(e) => this.props.handleMouseUpControl("transposition", e)}
             />
           </div>
         </div>

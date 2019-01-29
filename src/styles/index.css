@@ -30,7 +30,7 @@ body {
 }
 
 html {
-  font-size: 24px;
+  font-size: 32px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -77,24 +77,23 @@ html {
   position: relative;
   color: #ababab;
   text-align: left;
-  width: 16rem;
-  height: 4.75rem;
+  width: 14rem;
+  height: 4.375rem;
   padding: 0 0 0 0.375rem;
 }
 
 #pr-piano-top-controls #pr-logo-section #pr-logo {
-  width: 14rem;
+  width: 12rem;
 }
 
 #pr-piano-top-controls #pr-logo-section #pr-logo-subtext {
   position: absolute;
   left: 0.09375rem;
-  line-height: 0.375;
+  line-height: 1.25;
   text-transform: uppercase;
   font-style: italic;
   font-weight: 600;
   letter-spacing: 0.125rem;
-  margin-top: 0.375rem;
 }
 
 #pr-piano-top-controls #pr-logo-section #pr-logo-subtext #pr-logo-subtext-bold {
@@ -181,31 +180,28 @@ html {
   padding: 0.375rem 0rem 0.375rem 0.25rem;
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input-background {
+#pr-piano-top-controls .pr-control .pr-control-input-background,
+#pr-piano-top-controls .pr-control .pr-control-input-foreground {
   position: absolute;
-  top: -0.625rem;
+  top: -0.59375rem;
   left: -0.5625rem;
   background: none;
+  border-color: transparent;
+}
+
+#pr-piano-top-controls .pr-control .pr-control-input-background {
   color: rgba(255, 38, 0, 0.625);
   opacity: 0.1875;
-  border-color: transparent;
 }
 
 #pr-piano-top-controls .pr-control .pr-control-input-foreground {
-  position: absolute;
-  top: -0.625rem;
-  left: -0.5625rem;
-  background: none;
   color: #ff2600;
   text-shadow: 0 0 0.625rem rgba(255, 38, 0, 0.625), 0 0 0.375rem rgba(255, 38, 0, 0.375), 0 0 0.125rem rgba(255, 38, 0, 0.25);
-  border-color: transparent;
-  cursor: -webkit-grab;
-  cursor: grab;
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input-foreground:focus {
-  cursor: -webkit-grabbing;
-  cursor: grabbing;
+#pr-piano-top-controls .pr-control .pr-control-input-foreground:hover {
+  cursor: -webkit-grab;
+  cursor: grab;
 }
 
 #pr-piano-keys {

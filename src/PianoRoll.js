@@ -55,7 +55,7 @@ class PianoRoll extends Component {
       },
       activeKeys: [],
       activeControl: null,
-      transposition: 0,
+      transpose: 0,
       octave: 5,
       mouseDown: false
     }
@@ -186,10 +186,10 @@ class PianoRoll extends Component {
               });
             }
             break;
-          case 'transposition':
+          case 'transpose':
             if (newVal >= TRANSPOSITION_RANGE.min && newVal <= TRANSPOSITION_RANGE.max) {
               this.setState({
-                transposition: newVal,
+                transpose: newVal,
                 activeScreenY: event.screenY
               })
             }
@@ -209,8 +209,8 @@ class PianoRoll extends Component {
     this.setState({ octave })
   }
 
-  changeTransposition = (transposition) => {
-    this.setState({ transposition })
+  changeTransposition = (transpose) => {
+    this.setState({ transpose })
   }
 
   // handleTranspositionChange = (event) => {
@@ -241,7 +241,7 @@ class PianoRoll extends Component {
       >
         <Piano
           octaves={this.state.octaves}
-          transposition={this.state.transposition}
+          transpose={this.state.transpose}
           octave={this.state.octave}
           activeKeys={this.state.activeKeys}
 

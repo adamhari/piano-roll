@@ -52,17 +52,39 @@ export const KEYS = [
   }
 ];
 
-// Controls
-export const CONTROL_PIXEL_STEP = 10;
-export const LAYOUT_RANGE = {
-  min: 1,
-  max: 2
+
+export const CONTROL_TYPES = {
+  digital : {
+    pixelStep: 10
+  },
+  knob: {
+    pixelStep: 1
+  }
 }
-export const OCTAVE_RANGE = {
-  min: 0, 
-  max: 9
-};
-export const TRANSPOSITION_RANGE = {
-  min:-9,
-  max: 9
+
+export const CONTROLS = {
+  map: {
+    range: {
+      min: 1,
+      max: 2
+    }
+  },
+  octave: {
+    range : {
+      min: 0, 
+      max: 9
+    }
+  },
+  transpose: {
+    range: {
+      min:-9,
+      max:9
+    }
+  },
+  master: {
+    range: {
+      min:0,
+      max:100
+    }
+  }
 }

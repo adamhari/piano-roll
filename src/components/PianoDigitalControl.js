@@ -56,10 +56,10 @@ export default class PianoDigitalControl extends Component {
               children={this.props.value}
               style={this.controlTypes[this.props.type].style(this.props.value)}
               onMouseDown={e =>
-                this.props.handleMouseDownControl(this.props.name, e)
+                this.props.handleMouseDownControl(this.props.name, "digital", e)
               }
               onMouseUp={e =>
-                this.props.handleMouseUpControl(this.props.name, e)
+                this.props.handleMouseUpControl(this.props.name, "digital", e)
               }
             />
           </div>

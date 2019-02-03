@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PianoKeys from "./PianoKeys";
 import PianoDigitalControl from "./PianoDigitalControl";
+import PianoKnobControl from "./PianoKnobControl";
+import { CONTROLS } from "../statics";
 
 export default class Piano extends Component {
 
@@ -22,11 +24,15 @@ export default class Piano extends Component {
 
   renderMasterControls = () => {
 
-    
-
     return (
       <div id="pr-master-controls">
-      
+        <PianoKnobControl
+          name="master"
+          min={CONTROLS.master.range.min}
+          max={CONTROLS.master.range.max}
+          value={this.props.master}
+          {...this.props}
+        />
       </div>
     )
   }
@@ -45,10 +51,10 @@ export default class Piano extends Component {
           </div>
           <div id="pr-piano-right">
             <div id="pr-piano-right-top">
-            <div id="pr-master-section">
-            {this.renderLogo()}
-            {this.renderMasterControls()}
-            </div>
+              <div id="pr-master-section">
+                {this.renderLogo()}
+                {this.renderMasterControls()}
+              </div>
               <div id="pr-piano-top-controls">
 
                 <PianoDigitalControl

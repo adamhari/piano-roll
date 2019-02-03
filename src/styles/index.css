@@ -48,6 +48,10 @@ html {
 }
 
 #pr-piano {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -75,7 +79,7 @@ html {
 }
 
 #pr-piano-right-top {
-  height: 12rem;
+  height: 14rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -85,6 +89,7 @@ html {
 }
 
 #pr-piano-right-top #pr-master-section #pr-logo-section {
+  cursor: default;
   position: relative;
   color: #ababab;
   text-align: left;
@@ -237,22 +242,25 @@ html {
 }
 
 .pr-knob-control-label {
-  color: #ababab;
-  text-align: center;
   text-transform: uppercase;
+  color: #ababab;
+  font-family: "Russo One",sans-serif;
+  font-size: 0.5625rem;
+  line-height: 1.15;
+  letter-spacing: 0.03125rem;
 }
 
 .pr-knob-control {
+  cursor: -webkit-grab;
+  cursor: grab;
   width: 2rem;
   height: 2rem;
   margin: 0.4rem auto;
   position: relative;
   border-radius: 50%;
-  background-color: #333;
-  -webkit-transform: rotate(30deg);
-          transform: rotate(30deg);
-  -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.625);
-          box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.625);
+  background-color: #222;
+  -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.5);
 }
 
 .pr-knob-control:before {
@@ -283,13 +291,16 @@ html {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  background-color: #333;
+  background-color: #222;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
 }
 
+/***************************************
+************ PIANO KEYS ****************
+****************************************/
 #pr-piano-keys {
   display: inline-block;
   cursor: pointer;

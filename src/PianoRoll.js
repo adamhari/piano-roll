@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import {
-  CONTROL_PIXEL_STEP,
-  LAYOUT_RANGE,
-  OCTAVE_RANGE,
-  TRANSPOSITION_RANGE
+  CONTROL_TYPES,
+  CONTROLS
 } from "./statics";
 import Piano from "./components/Piano";
 
@@ -56,8 +54,10 @@ class PianoRoll extends Component {
       hasUserGestured: false,
       activeKeys: [],
       activeControl: null,
+      activeControlType: null,
       transpose: 0,
       octave: 5,
+      master:80,
       mouseDown: false
     }
 
@@ -114,19 +114,27 @@ class PianoRoll extends Component {
 
 
   handleKeyboardKeyDown = (e) => {
+    // console.log(e);
     if (!this.state.hasUserGestured)
         this.setState({hasUserGestured:true});
 
-    // console.log(e);
     const computerKey = e.key.toLowerCase();
-    const pianoKey = this.state.keyMap[computerKey];
 
-    this.activateKey(pianoKey);
+    if (computerKey === "control" || computerKey === "command")
+      this.setState({fineControl: true});
+
+    const pianoKey = this.state.keyMap[computerKey];
+    if (pianoKey)
+      this.activateKey(pianoKey);
   }
 
   handleKeyboardKeyUp = (e) => {
     // console.log(e);
     const computerKey = e.key.toLowerCase();
+
+    if (computerKey === "control" || computerKey === "command")
+      this.setState({fineControl: false});
+
     const pianoKey = this.state.keyMap[computerKey];
     this.deactivateKey(pianoKey);
   }
@@ -174,9 +182,10 @@ class PianoRoll extends Component {
     this.setState({ activeKeys: [] });
   }
 
-  handleMouseDownControl = (activeControl, e) => {
+  handleMouseDownControl = (activeControl, activeControlType, e) => {
     this.setState({
       activeControl,
+      activeControlType,
       activeScreenY: e.screenY
     })
   }
@@ -186,37 +195,36 @@ class PianoRoll extends Component {
   }
 
   handleMouseMove = (event) => {
+    const {
+      fineControl,
+      activeControl,
+      activeControlType,
+      activeScreenY
+    } = this.state;
 
-    if (this.state.activeControl) {
+    if (activeControl) {
+      let pixelStep = CONTROL_TYPES[activeControlType].pixelStep;
+
+      if (fineControl)
+        pixelStep = pixelStep * 32;
+
       let change = 0;
-      if ((event.screenY - CONTROL_PIXEL_STEP) > this.state.activeScreenY)
+      if ((event.screenY - pixelStep) > activeScreenY)
         change = -1;
-      else if ((event.screenY + CONTROL_PIXEL_STEP) < this.state.activeScreenY)
+      else if ((event.screenY + pixelStep) < activeScreenY)
         change = 1;
 
       if (change !== 0) {
-        const newVal = this.state[this.state.activeControl] + change;
-        switch (this.state.activeControl) {
-          case 'keyMap':
-            break;
-          case 'octave':
-            if (newVal >= OCTAVE_RANGE.min && newVal <= OCTAVE_RANGE.max) {
-              this.setState({
-                octave: newVal,
-                activeScreenY: event.screenY
-              });
-            }
-            break;
-          case 'transpose':
-            if (newVal >= TRANSPOSITION_RANGE.min && newVal <= TRANSPOSITION_RANGE.max) {
-              this.setState({
-                transpose: newVal,
-                activeScreenY: event.screenY
-              })
-            }
-            break;
-          default:
-            break;
+        const newState = {...this.state};
+        const newVal = newState[this.state.activeControl] + change;
+
+        const min = CONTROLS[this.state.activeControl].range.min;
+        const max = CONTROLS[this.state.activeControl].range.max;
+
+        if (newVal >= min && newVal <= max){
+          newState[activeControl] = newVal;
+          newState["activeScreenY"] = event.screenY;
+          this.setState(newState);
         }
       }
     }
@@ -264,6 +272,9 @@ class PianoRoll extends Component {
           octaves={this.state.octaves}
           transpose={this.state.transpose}
           octave={this.state.octave}
+
+          master={this.state.master}
+
           activeKeys={this.state.activeKeys}
 
           handleMouseDownKey={this.handleMouseDownKey}

@@ -12,3 +12,13 @@
   font-family: "Heroic Avenger";
   src: url("../assets/fonts/heroic-avenger/AVENGEANCE\ HEROIC\ AVENGER.ttf");
 }
+
+
+@mixin label-text {
+  text-transform:uppercase;
+  color:$color-piano-label;
+  font-family:"Russo One",sans-serif;
+  font-size:0.5625rem;
+  line-height:1.15;
+  letter-spacing:0.03125rem;
+}

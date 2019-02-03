@@ -53,6 +53,7 @@ class PianoRoll extends Component {
         ']': 'G3',
         '\\': 'A3'
       },
+      hasUserGestured: false,
       activeKeys: [],
       activeControl: null,
       transpose: 0,
@@ -61,10 +62,12 @@ class PianoRoll extends Component {
     }
 
     this.registerEvents();
+    this.initializeSoundEngine();
   }
 
-  componentDidUpdate(newProps, newState) {
-    // console.log(newState);
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.hasUserGestured && this.state.hasUserGestured)
+      this.resumeAudioContext();
   }
 
   registerEvents = () => {
@@ -82,7 +85,12 @@ class PianoRoll extends Component {
       this.handleMouseUpKey();
       this.handleMouseUpControl();
     });
+
     document.addEventListener('mousemove', this.handleMouseMove);
+    document.addEventListener('mousedown', () => {
+      if (!this.state.hasUserGestured)
+        this.setState({hasUserGestured:true});
+    });
 
     document.addEventListener('drag', (e) => e.preventDefault());
     document.addEventListener('dragend', (e) => e.preventDefault());
@@ -94,7 +102,21 @@ class PianoRoll extends Component {
     document.addEventListener('drop', (e) => e.preventDefault());
   }
 
+
+  initializeSoundEngine = () => {
+
+  }
+
+  resumeAudioContext = () => {
+
+  }
+
+
+
   handleKeyboardKeyDown = (e) => {
+    if (!this.state.hasUserGestured)
+        this.setState({hasUserGestured:true});
+
     // console.log(e);
     const computerKey = e.key.toLowerCase();
     const pianoKey = this.state.keyMap[computerKey];
@@ -153,7 +175,6 @@ class PianoRoll extends Component {
   }
 
   handleMouseDownControl = (activeControl, e) => {
-
     this.setState({
       activeControl,
       activeScreenY: e.screenY

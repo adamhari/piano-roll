@@ -34,6 +34,9 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+/***************************************
+************** LAYOUT ******************
+****************************************/
 #pr-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -45,17 +48,20 @@ html {
 }
 
 #pr-piano {
-  display: inline-block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   background-color: #303030;
-  padding: 0rem 3rem 0.375rem 8rem;
-  border: solid #232323 0.125rem;
+  padding: 0rem 3rem 0.25rem 0rem;
+  border: solid #231f20 0.125rem;
   border-top-left-radius: 1.5rem 1.2rem;
   border-top-right-radius: 1.5rem 1.2rem;
   border-bottom-left-radius: .8rem .8rem;
   border-bottom-right-radius: .8rem .8rem;
 }
 
-#pr-piano-right-top {
+#pr-piano-left {
+  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -64,7 +70,21 @@ html {
           align-items: center;
 }
 
-#pr-piano-right-top #pr-logo-section {
+#pr-piano-top-left {
+  padding: 0 3rem;
+}
+
+#pr-piano-right-top {
+  height: 12rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#pr-piano-right-top #pr-master-section #pr-logo-section {
   position: relative;
   color: #ababab;
   text-align: left;
@@ -73,11 +93,11 @@ html {
   padding: 0 0 0 0.375rem;
 }
 
-#pr-piano-right-top #pr-logo-section #pr-logo {
+#pr-piano-right-top #pr-master-section #pr-logo-section #pr-logo {
   width: 12rem;
 }
 
-#pr-piano-right-top #pr-logo-section #pr-logo-subtext {
+#pr-piano-right-top #pr-master-section #pr-logo-section #pr-logo-subtext {
   position: absolute;
   left: 0.09375rem;
   line-height: 1.25;
@@ -87,7 +107,7 @@ html {
   letter-spacing: 0.125rem;
 }
 
-#pr-piano-right-top #pr-logo-section #pr-logo-subtext #pr-logo-subtext-bold {
+#pr-piano-right-top #pr-master-section #pr-logo-section #pr-logo-subtext #pr-logo-subtext-bold {
   display: inline-block;
   font-weight: 800;
   font-size: 1.0625rem;
@@ -96,7 +116,6 @@ html {
 }
 
 #pr-piano-top-controls {
-  height: 8rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -107,13 +126,12 @@ html {
       -ms-flex-align: center;
           align-items: center;
   text-align: center;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 
-#pr-piano-top-controls .pr-control {
+/***************************************
+************* CONTROLS *****************
+****************************************/
+.pr-digital-control {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -131,9 +149,13 @@ html {
   border: solid transparent 0.375rem;
   border-top-width: 0;
   border-radius: 0.1875rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
-#pr-piano-top-controls .pr-control.pr-control-outlined {
+.pr-digital-control.pr-digital-control-outlined {
   border-color: #ababab;
   border-width: 0.1875rem;
   border-top-width: 0;
@@ -142,21 +164,21 @@ html {
   top: 0.1875rem;
 }
 
-#pr-piano-top-controls .pr-control.pr-control-outlined .pr-control-label {
+.pr-digital-control.pr-digital-control-outlined .pr-digital-control-label {
   color: #303030;
   background: #ababab;
 }
 
-#pr-piano-top-controls .pr-control.pr-control-outlined .pr-control-input-container {
+.pr-digital-control.pr-digital-control-outlined .pr-digital-control-input-container {
   padding: 0 0.5rem 0.5rem 0.5rem;
   background: #303030;
 }
 
-#pr-piano-top-controls .pr-control.pr-control-outlined .pr-control-input {
+.pr-digital-control.pr-digital-control-outlined .pr-digital-control-input {
   padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
-#pr-piano-top-controls .pr-control .pr-control-label {
+.pr-digital-control .pr-digital-control-label {
   text-transform: uppercase;
   color: #ababab;
   font-family: "Russo One",sans-serif;
@@ -167,11 +189,11 @@ html {
   width: calc(100% + 1px);
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input {
+.pr-digital-control .pr-digital-control-input {
   position: relative;
   font-family: "DS Digital", monospace;
   font-size: 2rem;
-  border: solid #232323 0.125rem;
+  border: solid #231f20 0.125rem;
   border-bottom-color: #3a3a3a;
   border-top-color: #3a3a3a;
   color: transparent;
@@ -179,38 +201,93 @@ html {
   margin: 0.5rem 0.09375rem 0 0.125rem;
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input.single-digit {
+.pr-digital-control .pr-digital-control-input.single-digit {
   width: 2.75rem;
   padding: 0.375rem 0rem 0.375rem 0.5rem;
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input.single-digit-negative {
+.pr-digital-control .pr-digital-control-input.single-digit-negative {
   width: 3.375rem;
   padding: 0.375rem 0rem 0.375rem 0.25rem;
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input-background,
-#pr-piano-top-controls .pr-control .pr-control-input-foreground {
+.pr-digital-control .pr-digital-control-input-background,
+.pr-digital-control .pr-digital-control-input-foreground {
   position: absolute;
   top: -0.59375rem;
-  left: -0.5625rem;
+  left: -0.53125rem;
   background: none;
   border-color: transparent;
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input-background {
+.pr-digital-control .pr-digital-control-input-background {
   color: rgba(255, 38, 0, 0.625);
   opacity: 0.1875;
+  text-shadow: 0.03125rem 0.03125rem 0rem rgba(98, 145, 131, 0.5);
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input-foreground {
-  color: #ff2600;
+.pr-digital-control .pr-digital-control-input-foreground {
+  color: rgba(255, 38, 0, 0.9375);
   text-shadow: 0 0 0.625rem rgba(255, 38, 0, 0.625), 0 0 0.375rem rgba(255, 38, 0, 0.375), 0 0 0.125rem rgba(255, 38, 0, 0.25);
 }
 
-#pr-piano-top-controls .pr-control .pr-control-input-foreground:hover {
+.pr-digital-control .pr-digital-control-input-foreground:hover {
   cursor: -webkit-grab;
   cursor: grab;
+}
+
+.pr-knob-control-label {
+  color: #ababab;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.pr-knob-control {
+  width: 2rem;
+  height: 2rem;
+  margin: 0.4rem auto;
+  position: relative;
+  border-radius: 50%;
+  background-color: #333;
+  -webkit-transform: rotate(30deg);
+          transform: rotate(30deg);
+  -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.625);
+          box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.625);
+}
+
+.pr-knob-control:before {
+  content: '';
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: #ddd;
+  background-image: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.2)), linear-gradient(-100deg, rgba(0, 0, 0, 0) 47%, rgba(0, 0, 0, 0.035) 53%), linear-gradient(30deg, rgba(0, 0, 0, 0.035) 47%, rgba(0, 0, 0, 0) 53%), linear-gradient(-230deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.035) 52%), linear-gradient(330deg, rgba(0, 0, 0, 0.03) 48%, rgba(0, 0, 0, 0) 52%);
+}
+
+.pr-knob-control:after {
+  content: '';
+  display: block;
+  width: 0.1875rem;
+  height: 0.625rem;
+  margin: auto;
+  position: absolute;
+  top: 0.3125rem;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  background-color: #333;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 #pr-piano-keys {
@@ -237,20 +314,20 @@ html {
 
 .pr-piano-key {
   display: inline-block;
-  border: solid #232323 0.0625rem;
-  border-top: solid #232323 0.125rem;
-  border-bottom: solid #232323 0.125rem;
+  border: solid #231f20 0.0625rem;
+  border-top: solid #231f20 0.125rem;
+  border-bottom: solid #231f20 0.125rem;
   -webkit-transition: 0.0625s ease-out;
   transition: 0.0625s ease-out;
 }
 
 .pr-piano-key:first-child {
-  border-left: solid #232323 0.125rem;
+  border-left: solid #231f20 0.125rem;
   border-bottom-left-radius: 0.3125rem;
 }
 
 .pr-piano-key:last-child {
-  border-right: solid #232323 0.125rem;
+  border-right: solid #231f20 0.125rem;
   border-bottom-right-radius: 0.3125rem;
 }
 
@@ -261,22 +338,21 @@ html {
 }
 
 .pr-piano-key-white.pr-piano-key-active {
-  background: -webkit-gradient(linear, left bottom, left top, from(#c0c0c0), to(#fff));
-  background: linear-gradient(to top, #c0c0c0, #fff);
+  background: #fff;
 }
 
 .pr-piano-key-black {
   width: 1.3rem;
   height: 8.0rem;
-  border: solid #232323 0.125rem;
+  border: solid #231f20 0.125rem;
   border-bottom-left-radius: .2rem .3rem;
   border-bottom-right-radius: .2rem .3rem;
-  background: #231f20;
+  background: #161616;
   position: absolute;
 }
 
 .pr-piano-key-black.pr-piano-key-active {
-  background: #999;
+  background: #5a5a5a;
 }
 
 .pr-piano-key-black:nth-child(1) {

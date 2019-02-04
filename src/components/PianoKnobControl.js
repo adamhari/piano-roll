@@ -22,11 +22,23 @@ export default class PianoDigitalControl extends Component {
     // (15 - 0) * 100 / (50 - 0) = 30
   }
 
+  getValueStyles = () => {
+    const {activeControl, name} = this.props;
+    const styles = {};
+    if (activeControl === name)
+      styles.display = "inline-block";
+
+    return styles;
+  }
+
   renderControl = () => {
     return (
       <div className="pr-knob-container">
         <span className="pr-knob-control-label">{this.props.name}</span>
-        <span className="pr-knob-control-value">{this.props.value}</span>
+        <span 
+          className="pr-knob-control-value"
+          style={this.getValueStyles()}
+        >{this.props.value}</span>
         <div
           className="pr-knob-control"
           style={this.getKnobStyle()}

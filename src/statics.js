@@ -55,33 +55,39 @@ export const KEYS = [
 
 export const CONTROL_TYPES = {
   digital : {
-    pixelStep: 10
+    pixelStep: 10,
+    valueStep: 1
   },
   knob: {
-    pixelStep: 1
+    pixelStep: 1,
+    valueStep: 1,
   }
 }
 
 export const CONTROLS = {
   map: {
+    defaultValue: 1,
     range: {
       min: 1,
       max: 2
     }
   },
   octave: {
+    defaultValue: 5,
     range : {
       min: 0, 
       max: 9
     }
   },
   transpose: {
+    defaultValue: 0,
     range: {
       min:-9,
       max:9
     }
   },
   master: {
+    defaultValue: 80,
     range: {
       min:0,
       max:100

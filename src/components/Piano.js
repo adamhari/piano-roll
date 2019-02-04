@@ -33,6 +33,20 @@ export default class Piano extends Component {
           value={this.props.master}
           {...this.props}
         />
+        <PianoKnobControl
+          name="master"
+          min={CONTROLS.master.range.min}
+          max={CONTROLS.master.range.max}
+          value={this.props.master}
+          {...this.props}
+        />
+        <PianoKnobControl
+          name="master"
+          min={CONTROLS.master.range.min}
+          max={CONTROLS.master.range.max}
+          value={this.props.master}
+          {...this.props}
+        />
       </div>
     )
   }

@@ -52,12 +52,13 @@ class PianoRoll extends Component {
         '\\': 'A3'
       },
       hasUserGestured: false,
+      alternateControl: false,
       activeKeys: [],
       activeControl: null,
       activeControlType: null,
-      transpose: 0,
-      octave: 5,
-      master:80,
+      transpose: CONTROLS["transpose"].defaultValue,
+      octave: CONTROLS["octave"].defaultValue,
+      master:CONTROLS["master"].defaultValue,
       mouseDown: false
     }
 
@@ -74,16 +75,15 @@ class PianoRoll extends Component {
     document.addEventListener('keydown', this.handleKeyboardKeyDown);
     document.addEventListener('keyup', this.handleKeyboardKeyUp);
 
-    document.addEventListener('mouseleave', () => {
-      this.deactivateKeys();
-      this.handleMouseUpControl();
-    });
-    document.addEventListener('mouseout', () => {
-      this.deactivateKeys();
-    });
+    // document.addEventListener('mouseleave', () => {
+    //   this.deactivateKeys();
+    //   this.handleMouseUpControl();
+    // });
+    // document.addEventListener('mouseout', () => {
+    //   this.deactivateKeys();
+    // });
     document.addEventListener('mouseup', () => {
-      this.handleMouseUpKey();
-      this.handleMouseUpControl();
+      this.resetControlState();
     });
 
     document.addEventListener('mousemove', this.handleMouseMove);
@@ -111,7 +111,12 @@ class PianoRoll extends Component {
 
   }
 
-
+  resetControlState = () => {
+    this.setState({
+      activeControl: null,
+      alternateControl: false
+    })
+  }
 
   handleKeyboardKeyDown = (e) => {
     // console.log(e);
@@ -121,7 +126,7 @@ class PianoRoll extends Component {
     const computerKey = e.key.toLowerCase();
 
     if (computerKey === "control" || computerKey === "command")
-      this.setState({fineControl: true});
+      this.setState({alternateControl: true});
 
     const pianoKey = this.state.keyMap[computerKey];
     if (pianoKey)
@@ -133,7 +138,7 @@ class PianoRoll extends Component {
     const computerKey = e.key.toLowerCase();
 
     if (computerKey === "control" || computerKey === "command")
-      this.setState({fineControl: false});
+      this.setState({alternateControl: false});
 
     const pianoKey = this.state.keyMap[computerKey];
     this.deactivateKey(pianoKey);
@@ -183,11 +188,18 @@ class PianoRoll extends Component {
   }
 
   handleMouseDownControl = (activeControl, activeControlType, e) => {
-    this.setState({
-      activeControl,
-      activeControlType,
-      activeScreenY: e.screenY
-    })
+    if (this.state.alternateControl){
+      const newVal = CONTROLS[activeControl].defaultValue;
+      const newState = {...this.state}
+      newState[activeControl] = newVal;
+      this.setState(newState);
+    } else {
+      this.setState({
+        activeControl,
+        activeControlType,
+        activeScreenY: e.screenY
+      })
+    }
   }
 
   handleMouseUpControl = (activeControl, e) => {
@@ -196,23 +208,26 @@ class PianoRoll extends Component {
 
   handleMouseMove = (event) => {
     const {
-      fineControl,
+      alternateControl,
       activeControl,
       activeControlType,
       activeScreenY
     } = this.state;
 
     if (activeControl) {
-      let pixelStep = CONTROL_TYPES[activeControlType].pixelStep;
+      let pixelStep = CONTROL_TYPES[activeControlType].pixelStep || 5;
+      let valueStep = CONTROL_TYPES[activeControlType].valueStep || 1;
 
-      if (fineControl)
-        pixelStep = pixelStep * 32;
-
+      if (alternateControl){
+        pixelStep = pixelStep * 8;
+        valueStep = 1;
+      }
+        
       let change = 0;
       if ((event.screenY - pixelStep) > activeScreenY)
-        change = -1;
+        change = -valueStep;
       else if ((event.screenY + pixelStep) < activeScreenY)
-        change = 1;
+        change = valueStep;
 
       if (change !== 0) {
         const newState = {...this.state};
@@ -276,6 +291,7 @@ class PianoRoll extends Component {
           master={this.state.master}
 
           activeKeys={this.state.activeKeys}
+          activeControl={this.state.activeControl}
 
           handleMouseDownKey={this.handleMouseDownKey}
           handleMouseUpKey={this.handleMouseUpKey}

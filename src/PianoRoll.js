@@ -76,11 +76,13 @@ class PianoRoll extends Component {
     this.audioContext = new AudioContext();
 
     this.osc1 = this.audioContext.createOscillator();
+    this.osc1.type = "sawtooth";
+
     this.osc1Gain = this.audioContext.createGain(0);
     this.osc1Gain.gain.value = 0;
     this.osc1.connect(this.osc1Gain);
 
-    this.osc1Attack = this.osc1Decay = this.osc1Release = 0.1;
+    this.osc1Attack = this.osc1Decay = this.osc1Release = 0.05;
     this.osc1Sustain = 1;
     
     this.masterGain = this.audioContext.createGain();
@@ -103,11 +105,19 @@ class PianoRoll extends Component {
   }
 
   startPlayingKey = (key) => {
-    console.log(KEYS_MAP[key]);
+    console.log("START " + KEYS_MAP[key].freq, this.osc1Gain);
+
+    const now = this.audioContext.currentTime;
+    this.osc1.frequency.setValueAtTime(KEYS_MAP[key].freq.toFixed(2) * 4, now);
+    this.osc1Gain.gain.linearRampToValueAtTime(1, now + this.osc1Attack);
+    // this.osc1Gain.gain.linearRampToValueAtTime(this.osc1Sustain, now + this.osc1Attack + this.osc1Decay);
   }
 
   stopPlayingKey = (key) => {
+    console.log("STOP " + key)
 
+    const now = this.audioContext.currentTime;
+    this.osc1Gain.gain.linearRampToValueAtTime(0, now + this.osc1Release);
   }
 
   handleKeyboardKeyDown = (e) => {
@@ -154,15 +164,15 @@ class PianoRoll extends Component {
   activateKey = (key) => {
     const activeKeys = this.state.activeKeys;
 
-    if (!activeKeys.includes(key))
+    if (!activeKeys.includes(key)){
+      this.startPlayingKey(key);
       activeKeys.push(key);
-
-    this.setState({ activeKeys });
-
-    this.startPlayingKey(key);
+      this.setState({ activeKeys });
+    }
   }
 
   deactivateKey = (key) => {
+    this.stopPlayingKey(key);
     const activeKeys = this.state.activeKeys;
 
     for (var i = activeKeys.length - 1; i >= 0; i--) {
@@ -172,8 +182,6 @@ class PianoRoll extends Component {
       }
     }
     this.setState({ activeKeys });
-
-    this.stopPlayingKey(key);
   }
 
   deactivateKeys = (e = null) => {

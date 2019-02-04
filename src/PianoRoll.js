@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import {
   CONTROL_TYPES,
-  CONTROLS
+  CONTROLS,
+  KEYS_MAP,
+  LAYOUTS,
 } from "./statics";
 import Piano from "./components/Piano";
 
@@ -15,42 +17,8 @@ class PianoRoll extends Component {
 
     this.state = {
       octaves: this.octaves,
-      keyMap: {
-        'z': 'C0',
-        'x': 'D0',
-        'c': 'E0',
-        'v': 'F0',
-        'b': 'G0',
-        'n': 'A0',
-        'm': 'B0',
-        'a': 'C1',
-        's': 'D1',
-        'd': 'E1',
-        'f': 'F1',
-        'g': 'G1',
-        'h': 'A1',
-        'j': 'B1',
-        'k': 'C2',
-        'l': 'D2',
-        ';': 'E2',
-        "'": 'F2',
-        ',': 'C1',
-        '.': 'D1',
-        '/': 'E1',
-        'q': 'C2',
-        'w': 'D2',
-        'e': 'E2',
-        'r': 'F2',
-        't': 'G2',
-        'y': 'A2',
-        'u': 'B2',
-        'i': 'C3',
-        'o': 'D3',
-        'p': 'E3',
-        '[': 'F3',
-        ']': 'G3',
-        '\\': 'A3'
-      },
+      layout: 1,
+      layoutMap: LAYOUTS['major'],
       hasUserGestured: false,
       alternateControl: false,
       activeKeys: [],
@@ -104,11 +72,27 @@ class PianoRoll extends Component {
 
 
   initializeSoundEngine = () => {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    this.audioContext = new AudioContext();
 
+    this.osc1 = this.audioContext.createOscillator();
+    this.osc1Gain = this.audioContext.createGain(0);
+    this.osc1Gain.gain.value = 0;
+    this.osc1.connect(this.osc1Gain);
+
+    this.osc1Attack = this.osc1Decay = this.osc1Release = 0.1;
+    this.osc1Sustain = 1;
+    
+    this.masterGain = this.audioContext.createGain();
+    this.destination = this.audioContext.destination;
+
+    this.osc1Gain.connect(this.masterGain);
+    this.masterGain.connect(this.destination);
+    this.osc1.start(0);
   }
 
   resumeAudioContext = () => {
-
+    this.audioContext.resume();
   }
 
   resetControlState = () => {
@@ -116,6 +100,14 @@ class PianoRoll extends Component {
       activeControl: null,
       alternateControl: false
     })
+  }
+
+  startPlayingKey = (key) => {
+    console.log(KEYS_MAP[key]);
+  }
+
+  stopPlayingKey = (key) => {
+
   }
 
   handleKeyboardKeyDown = (e) => {
@@ -128,7 +120,7 @@ class PianoRoll extends Component {
     if (computerKey === "control" || computerKey === "command")
       this.setState({alternateControl: true});
 
-    const pianoKey = this.state.keyMap[computerKey];
+    const pianoKey = this.state.layoutMap[computerKey];
     if (pianoKey)
       this.activateKey(pianoKey);
   }
@@ -140,7 +132,7 @@ class PianoRoll extends Component {
     if (computerKey === "control" || computerKey === "command")
       this.setState({alternateControl: false});
 
-    const pianoKey = this.state.keyMap[computerKey];
+    const pianoKey = this.state.layoutMap[computerKey];
     this.deactivateKey(pianoKey);
   }
 
@@ -166,6 +158,8 @@ class PianoRoll extends Component {
       activeKeys.push(key);
 
     this.setState({ activeKeys });
+
+    this.startPlayingKey(key);
   }
 
   deactivateKey = (key) => {
@@ -178,6 +172,8 @@ class PianoRoll extends Component {
       }
     }
     this.setState({ activeKeys });
+
+    this.stopPlayingKey(key);
   }
 
   deactivateKeys = (e = null) => {
@@ -245,8 +241,8 @@ class PianoRoll extends Component {
     }
   }
 
-  changeMap = (keyMap) => {
-    this.setState({ keyMap })
+  changeLayout = (layout) => {
+    this.setState({ layout })
   }
 
   changeOctave = (octave) => {
@@ -257,26 +253,6 @@ class PianoRoll extends Component {
     this.setState({ transpose })
   }
 
-  // handleTranspositionChange = (event) => {
-  //   const oldTransposition = this.state.transposition;
-  //   const transposition = event.target.value;
-  //   const difference = transposition - oldTransposition;
-
-  //   let keyMap = this.state.keyMap;
-
-  //   for (let i = 0; i < Math.abs(difference); i++) {
-  //     let keys = Object.keys(keyMap);
-  //     keyMap = Object.assign(...keys.map((k, i) => ({ [k]: keyMap[keys[(i + 1) % keys.length]] })));
-  //   }
-
-  //   this.setState({
-  //     transposition,
-  //     keyMap,
-  //     activeKeys: []
-  //   });
-  // }
-
-
 
   render() {
     return (
@@ -284,6 +260,7 @@ class PianoRoll extends Component {
         id="pr-container"
       >
         <Piano
+          layout={this.state.layout}
           octaves={this.state.octaves}
           transpose={this.state.transpose}
           octave={this.state.octave}

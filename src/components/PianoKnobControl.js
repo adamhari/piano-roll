@@ -26,7 +26,7 @@ export default class PianoDigitalControl extends Component {
     const {activeControl, name} = this.props;
     const styles = {};
     if (activeControl === name)
-      styles.display = "inline-block";
+      styles.display = "block";
 
     return styles;
   }
@@ -34,11 +34,13 @@ export default class PianoDigitalControl extends Component {
   renderControl = () => {
     return (
       <div className="pr-knob-container">
-        <span className="pr-knob-control-label">{this.props.name}</span>
-        <span 
+        <div className="pr-knob-control-label">{this.props.label || this.props.name}</div>
+        <div 
           className="pr-knob-control-value"
           style={this.getValueStyles()}
-        >{this.props.value}</span>
+        >
+          {this.props.value}
+        </div>
         <div
           className="pr-knob-control"
           style={this.getKnobStyle()}

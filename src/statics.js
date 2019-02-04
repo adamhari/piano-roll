@@ -1,7 +1,7 @@
 // Musical
 export const BASE_FREQ = 16.3516;
 export const FREQ_MULTIPLIER = 1.0594630943593;
-export const KEYS = [
+export const NOTES = [
   {
     name: "C",
     freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 0)
@@ -53,8 +53,63 @@ export const KEYS = [
 ];
 
 
+export const KEYS = [];
+export const KEYS_MAP = {};
+for (let i = 0; i < 10; i++) {
+  NOTES.forEach(note => {
+    const key = {
+      name: note.name + i,
+      freq: note.freq * Math.pow(2, i),
+      octave: i
+    };
+    KEYS.push(key);
+    KEYS_MAP[key.name] = key;
+  });
+};
+
+
+export const LAYOUTS = {
+  major: {
+    'z': 'C0',
+    'x': 'D0',
+    'c': 'E0',
+    'v': 'F0',
+    'b': 'G0',
+    'n': 'A0',
+    'm': 'B0',
+    'a': 'C1',
+    's': 'D1',
+    'd': 'E1',
+    'f': 'F1',
+    'g': 'G1',
+    'h': 'A1',
+    'j': 'B1',
+    'k': 'C2',
+    'l': 'D2',
+    ';': 'E2',
+    "'": 'F2',
+    ',': 'C1',
+    '.': 'D1',
+    '/': 'E1',
+    'q': 'C2',
+    'w': 'D2',
+    'e': 'E2',
+    'r': 'F2',
+    't': 'G2',
+    'y': 'A2',
+    'u': 'B2',
+    'i': 'C3',
+    'o': 'D3',
+    'p': 'E3',
+    '[': 'F3',
+    ']': 'G3',
+    '\\': 'A3'
+  }
+}
+
+
 export const CONTROL_TYPES = {
-  digital : {
+  digital: {
     pixelStep: 10,
     valueStep: 1
   },
@@ -65,32 +120,32 @@ export const CONTROL_TYPES = {
 }
 
 export const CONTROLS = {
-  map: {
+  layout: {
     defaultValue: 1,
     range: {
       min: 1,
-      max: 2
+      max: 1,
     }
   },
   octave: {
     defaultValue: 5,
-    range : {
-      min: 0, 
+    range: {
+      min: 0,
       max: 9
     }
   },
   transpose: {
     defaultValue: 0,
     range: {
-      min:-9,
-      max:9
+      min: -9,
+      max: 9
     }
   },
   master: {
-    defaultValue: 80,
+    defaultValue: 79,
     range: {
-      min:0,
-      max:100
+      min: 0,
+      max: 100
     }
   }
 }

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PianoKey from './PianoKey';
-import { KEYS } from '../statics';
+import {
+  KEYS
+} from '../statics';
 
 export default class PianoKeys extends Component {
 
@@ -8,26 +10,24 @@ export default class PianoKeys extends Component {
     const blackKeys = [];
     const whiteKeys = [];
 
-    for (let i = 0; i < this.props.octaves; i++) {
-        KEYS.forEach((key, index) => {
-            const keySet = key.name.includes('♯') ?
-              blackKeys : whiteKeys;
+    const pianoKeys = KEYS.slice(0, (12 * this.props.octaves));
 
-            const keyName = `${key.name}${i}`;
+    pianoKeys.forEach((key, index) => {
+      const keySet = key.name.includes('♯') ?
+        blackKeys : whiteKeys;
 
-              keySet.push(
-                <PianoKey
-                  {...this.props}
-                  key={(i * 12) + (index)}
-                  name={keyName}
-                  note={key.name}
-                  freq={key.freq * Math.pow(2, i)}
-                  active={this.props.activeKeys.includes(keyName)}
-                />
-              )
-        });
-    }
-
+      keySet.push(
+        <PianoKey
+          {...this.props}
+          key={(key.octave * 12) + (index)}
+          name={key.name}
+          note={key.name[0]}
+          freq={key.freq * Math.pow(2, key.octave)}
+          active={this.props.activeKeys.includes(key.name)}
+        />
+      );
+    });
+    
     return (
       <div id="pr-piano-keys">
         <div id="pr-piano-black-keys">{blackKeys}</div>

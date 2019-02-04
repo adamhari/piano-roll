@@ -4,7 +4,7 @@
 @import './_reset';
 
 html {
-  font-size:32px; //global scale
+  font-size:36px; //global scale
   -webkit-font-smoothing: antialiased;
 }
 
@@ -213,17 +213,18 @@ html {
 .pr-knob-container{
   position:relative;
   display:inline-block;
-  margin:0 0.75rem;
+  width:4rem;
   
 .pr-knob-control-label {
   @include label-text;
+  text-align:center;
 }
 
 .pr-knob-control-value {
   display:none;
   position:absolute;
-  bottom:-0.625rem;
-  right:0.53125rem;
+  bottom:-0.75rem;
+  right:1.21rem;
   z-index:2;
   width:1.5rem;
   padding:0 0 0.0625rem;
@@ -275,20 +276,17 @@ html {
   content: '';
   display: block;
   
-  width: 0.1875rem;
-  height: 0.625rem;
+  width: 0.21875rem;
+  height: 0.75rem;
   margin: auto;
   position: absolute;
-  top: 0.3125rem;
+  top: 0.2rem;
   left: 50%;
   transform: translateX(-50%);
   
   background-color:#222;
   
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-  border-bottom-left-radius:0.5rem;
-  border-bottom-right-radius:0.5rem;
+  border-radius:0.5rem;
 }
 }
 

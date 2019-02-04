@@ -37,7 +37,7 @@ export default class PianoDigitalControl extends Component {
           className="pr-digital-control-label"
           htmlFor={"pr-" + this.props.name}
         >
-          {this.props.name}
+          {this.props.label || this.props.name}
         </label>
         <div className="pr-digital-control-input-container">
           <div

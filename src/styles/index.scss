@@ -4,7 +4,7 @@
 @import './_reset';
 
 html {
-  font-size:36px; //global scale
+  font-size:32px; //global scale
   -webkit-font-smoothing: antialiased;
 }
 
@@ -238,15 +238,15 @@ html {
 .pr-knob-control {
   cursor:grab;
   
-  width: 2rem;
-  height: 2rem;
+  width: 2.2rem;
+  height: 2.2rem;
   margin: 0.4rem auto;
   position: relative;
   
   border-radius: 50%;
   background-color:#222;
   
-  box-shadow: inset 0 0 0rem 0.125rem rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 0rem 0.125rem rgba(0,0,0,0.375);
   
 }
 
@@ -255,8 +255,8 @@ html {
   display: block;
   box-sizing: border-box;
   
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 1.375rem;
+  height: 1.375rem;
   margin: auto;
   position: relative;
   top: 50%;
@@ -276,8 +276,8 @@ html {
   content: '';
   display: block;
   
-  width: 0.21875rem;
-  height: 0.75rem;
+  width: 0.325rem;
+  height: 0.9rem;
   margin: auto;
   position: absolute;
   top: 0.2rem;

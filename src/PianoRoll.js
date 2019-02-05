@@ -6,6 +6,7 @@ import {
   LAYOUTS,
 } from "./statics";
 import Piano from "./components/Piano";
+import Voice from "./Voice.js";
 
 class PianoRoll extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class PianoRoll extends Component {
       transpose: CONTROLS["transpose"].defaultValue,
       octave: CONTROLS["octave"].defaultValue,
       master:CONTROLS["master"].defaultValue,
-      mouseDown: false
+      mouseDownOnKey: false
     }
 
     this.registerEvents();
@@ -37,6 +38,8 @@ class PianoRoll extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.hasUserGestured && this.state.hasUserGestured)
       this.resumeAudioContext();
+    
+    
   }
 
   registerEvents = () => {
@@ -52,6 +55,8 @@ class PianoRoll extends Component {
     // });
     document.addEventListener('mouseup', () => {
       this.resetControlState();
+      if (this.state.mouseDownOnKey)
+        this.stopPlayingKeys();
     });
 
     document.addEventListener('mousemove', this.handleMouseMove);
@@ -75,22 +80,24 @@ class PianoRoll extends Component {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     this.audioContext = new AudioContext();
 
-    this.osc1 = this.audioContext.createOscillator();
-    this.osc1.type = "sawtooth";
+    this.voices = {};
 
-    this.osc1Gain = this.audioContext.createGain(0);
-    this.osc1Gain.gain.value = 0;
-    this.osc1.connect(this.osc1Gain);
+    // this.osc1 = this.audioContext.createOscillator();
+    // this.osc1.type = "sawtooth";
 
-    this.osc1Attack = this.osc1Decay = this.osc1Release = 0.05;
-    this.osc1Sustain = 1;
+    // this.osc1Gain = this.audioContext.createGain(0);
+    // this.osc1Gain.gain.value = 0;
+    // this.osc1.connect(this.osc1Gain);
+
+    // this.osc1Attack = this.osc1Decay = this.osc1Release = 0.05;
+    // this.osc1Sustain = 1;
     
     this.masterGain = this.audioContext.createGain();
     this.destination = this.audioContext.destination;
 
-    this.osc1Gain.connect(this.masterGain);
+    // this.osc1Gain.connect(this.masterGain);
     this.masterGain.connect(this.destination);
-    this.osc1.start(0);
+    // this.osc1.start(0);
   }
 
   resumeAudioContext = () => {
@@ -105,34 +112,35 @@ class PianoRoll extends Component {
   }
 
   startPlayingKey = (key) => {
-    console.log("START " + KEYS_MAP[key].freq, this.osc1Gain);
-
-    const now = this.audioContext.currentTime;
-    this.osc1.frequency.setValueAtTime(KEYS_MAP[key].freq.toFixed(2) * 4, now);
-    this.osc1Gain.gain.linearRampToValueAtTime(1, now + this.osc1Attack);
-    // this.osc1Gain.gain.linearRampToValueAtTime(this.osc1Sustain, now + this.osc1Attack + this.osc1Decay);
+    console.log("START " + KEYS_MAP[key].freq);
+    this.voices[key] = new Voice(KEYS_MAP[key].freq, this.audioContext);
+    this.voices[key].start();
   }
 
   stopPlayingKey = (key) => {
-    console.log("STOP " + key)
+    if (this.voices[key]){
+      this.voices[key].stop();
+      // delete this.voices[key];
+    }
+  }
 
-    const now = this.audioContext.currentTime;
-    this.osc1Gain.gain.linearRampToValueAtTime(0, now + this.osc1Release);
+  stopPlayingKeys = () => {
+    Object.keys(this.voices).forEach((key) => {
+      this.voices[key].stop()
+      // delete this.voices[key];
+    });
   }
 
   handleKeyboardKeyDown = (e) => {
     // console.log(e);
-    if (!this.state.hasUserGestured)
-        this.setState({hasUserGestured:true});
 
     const computerKey = e.key.toLowerCase();
+    const pianoKey = this.state.layoutMap[computerKey];
+    if (pianoKey)
+      this.activateKey(pianoKey)
 
     if (computerKey === "control" || computerKey === "command")
       this.setState({alternateControl: true});
-
-    const pianoKey = this.state.layoutMap[computerKey];
-    if (pianoKey)
-      this.activateKey(pianoKey);
   }
 
   handleKeyboardKeyUp = (e) => {
@@ -147,17 +155,17 @@ class PianoRoll extends Component {
   }
 
   handleMouseDownKey = (e) => {
-    this.setState({ mouseDown: true });
+    this.setState({ mouseDownOnKey: true });
     this.activateKey(e.target.title)
   };
 
   handleMouseUpKey = (e) => {
-    this.setState({ mouseDown: false });
+    this.setState({ mouseDownOnKey: false });
     this.deactivateKeys()
   };
 
   handleMouseOverKey = (e) => {
-    if (this.state.mouseDown)
+    if (this.state.mouseDownOnKey)
       this.setState({ activeKeys: [e.target.title] })
   }
 

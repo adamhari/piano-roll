@@ -235,11 +235,17 @@ class PianoRoll extends Component {
         valueStep = 1;
       }
         
+      const movement = Math.abs(event.screenY - activeScreenY) * valueStep;
       let change = 0;
-      if ((event.screenY - pixelStep) > activeScreenY)
-        change = -valueStep;
-      else if ((event.screenY + pixelStep) < activeScreenY)
-        change = valueStep;
+      if ((event.screenY - pixelStep) > activeScreenY){
+        change = (-movement);
+      } else if ((event.screenY + pixelStep) < activeScreenY){
+        change = (movement);
+      }
+        
+
+      console.log(change);
+
 
       if (change !== 0) {
         const newState = {...this.state};

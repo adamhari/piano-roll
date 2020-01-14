@@ -1,3 +1,5 @@
+$keys: C, C♯, D, D♯, E, F, F♯, G, G♯, A, A♯, B;
+
 $octave-width: 16.1;
 
 $color-piano-plastic: #303030;
@@ -9,3 +11,9 @@ $color-digital-text: #ff2600;
 
 $normal-border: solid #231f20 0.125rem;
 $thin-border: solid #231f20 0.0625rem;
+
+$key-shadow-inset-top: inset 0px 0.25rem 0.1rem 0rem rgba(0,0,0,0.3);
+$key-shadow-inset-left: inset 0.125rem 0 0.5rem 0rem rgba(0,0,0,0.45);
+$key-shadow-inset-right: inset -0.125rem 0 0.5em 0rem rgba(0,0,0,0.45);
+$white-key-shadow-outset: 0rem 0.125rem 0.03125rem 0rem rgba(0,0,0,0.15);
+$black-key-shadow-outset: 0 2px 0px 0px rgba(0,0,0,0.6);

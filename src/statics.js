@@ -103,14 +103,23 @@ export const LAYOUTS = {
     'p': 'E3',
     '[': 'F3',
     ']': 'G3',
-    '\\': 'A3'
+    '\\': 'A3',
+    'delete' : 'B3'
   }
 }
+
+export const OSC_SHAPES = [
+  "sawtooth",
+  "square",
+  "triangle",
+  "sine",
+  "custom"
+]
 
 
 export const CONTROL_TYPES = {
   digital: {
-    pixelStep: 10,
+    pixelStep: 8,
     valueStep: 1
   },
   knob: {
@@ -125,6 +134,20 @@ export const CONTROLS = {
     range: {
       min: 1,
       max: 1,
+    }
+  },
+  gain: {
+    defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  shape: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: 5
     }
   },
   octave: {

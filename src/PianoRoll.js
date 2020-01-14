@@ -25,21 +25,21 @@ class PianoRoll extends Component {
       activeKeys: [],
       activeControl: null,
       activeControlType: null,
+      gain: CONTROLS["gain"].defaultValue,
+      shape: CONTROLS["shape"].defaultValue,
       transpose: CONTROLS["transpose"].defaultValue,
       octave: CONTROLS["octave"].defaultValue,
-      master:CONTROLS["master"].defaultValue,
+      master: CONTROLS["master"].defaultValue,
       mouseDownOnKey: false
     }
 
-    this.registerEvents();
     this.initializeSoundEngine();
+    this.registerEvents();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (!prevState.hasUserGestured && this.state.hasUserGestured)
+    if (!prevState.hasUserGestured)
       this.resumeAudioContext();
-    
-    
   }
 
   registerEvents = () => {
@@ -62,7 +62,7 @@ class PianoRoll extends Component {
     document.addEventListener('mousemove', this.handleMouseMove);
     document.addEventListener('mousedown', () => {
       if (!this.state.hasUserGestured)
-        this.setState({hasUserGestured:true});
+        this.setState({ hasUserGestured: true });
     });
 
     document.addEventListener('drag', (e) => e.preventDefault());
@@ -79,25 +79,18 @@ class PianoRoll extends Component {
   initializeSoundEngine = () => {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     this.audioContext = new AudioContext();
-
-    this.voices = {};
-
-    // this.osc1 = this.audioContext.createOscillator();
-    // this.osc1.type = "sawtooth";
-
-    // this.osc1Gain = this.audioContext.createGain(0);
-    // this.osc1Gain.gain.value = 0;
-    // this.osc1.connect(this.osc1Gain);
-
-    // this.osc1Attack = this.osc1Decay = this.osc1Release = 0.05;
-    // this.osc1Sustain = 1;
-    
     this.masterGain = this.audioContext.createGain();
     this.destination = this.audioContext.destination;
-
-    // this.osc1Gain.connect(this.masterGain);
     this.masterGain.connect(this.destination);
-    // this.osc1.start(0);
+
+    this.generateVoices();
+  }
+
+  generateVoices = () => {
+    this.voices = {};
+    Object.keys(KEYS_MAP).forEach(key => {
+      this.voices[key] = new Voice(this.audioContext, KEYS_MAP[key].freq);
+    });
   }
 
   resumeAudioContext = () => {
@@ -112,13 +105,19 @@ class PianoRoll extends Component {
   }
 
   startPlayingKey = (key) => {
-    console.log("START " + KEYS_MAP[key].freq);
-    this.voices[key] = new Voice(KEYS_MAP[key].freq, this.audioContext);
-    this.voices[key].start();
+    // console.log("START " + KEYS_MAP[key].freq);
+
+    if (!this.voices[key].active)
+      this.voices[key].start(
+        this.state.gain,
+        this.state.shape,
+        this.state.octave,
+        this.state.transpose
+      );
   }
 
   stopPlayingKey = (key) => {
-    if (this.voices[key]){
+    if (this.voices[key]) {
       this.voices[key].stop();
       // delete this.voices[key];
     }
@@ -140,7 +139,7 @@ class PianoRoll extends Component {
       this.activateKey(pianoKey)
 
     if (computerKey === "control" || computerKey === "command")
-      this.setState({alternateControl: true});
+      this.setState({ alternateControl: true });
   }
 
   handleKeyboardKeyUp = (e) => {
@@ -148,7 +147,7 @@ class PianoRoll extends Component {
     const computerKey = e.key.toLowerCase();
 
     if (computerKey === "control" || computerKey === "command")
-      this.setState({alternateControl: false});
+      this.setState({ alternateControl: false });
 
     const pianoKey = this.state.layoutMap[computerKey];
     this.deactivateKey(pianoKey);
@@ -172,8 +171,9 @@ class PianoRoll extends Component {
   activateKey = (key) => {
     const activeKeys = this.state.activeKeys;
 
-    if (!activeKeys.includes(key)){
-      this.startPlayingKey(key);
+    this.startPlayingKey(key);
+
+    if (!activeKeys.includes(key)) {
       activeKeys.push(key);
       this.setState({ activeKeys });
     }
@@ -200,9 +200,9 @@ class PianoRoll extends Component {
   }
 
   handleMouseDownControl = (activeControl, activeControlType, e) => {
-    if (this.state.alternateControl){
+    if (this.state.alternateControl) {
       const newVal = CONTROLS[activeControl].defaultValue;
-      const newState = {...this.state}
+      const newState = { ...this.state }
       newState[activeControl] = newVal;
       this.setState(newState);
     } else {
@@ -230,41 +230,49 @@ class PianoRoll extends Component {
       let pixelStep = CONTROL_TYPES[activeControlType].pixelStep || 5;
       let valueStep = CONTROL_TYPES[activeControlType].valueStep || 1;
 
-      if (alternateControl){
-        pixelStep = pixelStep * 8;
-        valueStep = 1;
+      if (alternateControl) {
+        pixelStep *= 8;
       }
-        
+
       const movement = Math.abs(event.screenY - activeScreenY) * valueStep;
       let change = 0;
-      if ((event.screenY - pixelStep) > activeScreenY){
-        change = (-movement);
-      } else if ((event.screenY + pixelStep) < activeScreenY){
-        change = (movement);
+      if ((event.screenY - pixelStep) > activeScreenY) {
+        change = Math.round(-movement / pixelStep);
+      } else if ((event.screenY + pixelStep) < activeScreenY) {
+        change = Math.round(movement / pixelStep);
       }
-        
 
-      console.log(change);
+
+      // console.log(change);
 
 
       if (change !== 0) {
-        const newState = {...this.state};
-        const newVal = newState[this.state.activeControl] + change;
+        const newState = { ...this.state };
 
         const min = CONTROLS[this.state.activeControl].range.min;
         const max = CONTROLS[this.state.activeControl].range.max;
 
-        if (newVal >= min && newVal <= max){
-          newState[activeControl] = newVal;
-          newState["activeScreenY"] = event.screenY;
-          this.setState(newState);
-        }
+        let newVal = newState[this.state.activeControl] + change;
+
+        if (newVal > max)
+          newVal = max;
+        else if (newVal < min)
+          newVal = min;
+
+        newState[activeControl] = newVal;
+        newState["activeScreenY"] = event.screenY;
+
+        this.setState(newState, () => this.generateVoices());
       }
     }
   }
 
   changeLayout = (layout) => {
     this.setState({ layout })
+  }
+
+  changeShape = (shape) => {
+    this.setState({ shape });
   }
 
   changeOctave = (octave) => {
@@ -282,8 +290,11 @@ class PianoRoll extends Component {
         id="pr-container"
       >
         <Piano
-          layout={this.state.layout}
           octaves={this.state.octaves}
+          layout={this.state.layout}
+
+          gain={this.state.gain}
+          shape={this.state.shape}
           transpose={this.state.transpose}
           octave={this.state.octave}
 

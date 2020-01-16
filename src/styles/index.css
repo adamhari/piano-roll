@@ -56,11 +56,13 @@ html {
   display: flex;
   background-color: #303030;
   padding: 0rem 3rem 0.25rem 0rem;
-  border: solid #231f20 0.125rem;
+  border: solid #231f20 0.15rem;
   border-top-left-radius: 1.5rem 1.2rem;
   border-top-right-radius: 1.5rem 1.2rem;
   border-bottom-left-radius: .8rem .8rem;
   border-bottom-right-radius: .8rem .8rem;
+  -webkit-box-shadow: 0 0.25rem 0 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.25rem 0 0 rgba(0, 0, 0, 0.15);
 }
 
 #pr-piano-left {
@@ -211,7 +213,7 @@ html {
   position: relative;
   font-family: "DS Digital", monospace;
   font-size: 2rem;
-  border: solid #231f20 0.125rem;
+  border: solid #231f20 0.15rem;
   border-bottom-color: #3a3a3a;
   border-top-color: #3a3a3a;
   color: transparent;
@@ -292,9 +294,9 @@ html {
   margin: 0.4rem auto;
   position: relative;
   border-radius: 50%;
-  background-color: #222;
-  -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.375);
-          box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.375);
+  background-color: #231f20;
+  -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.125);
 }
 
 .pr-knob-container .pr-knob-control:before {
@@ -325,7 +327,7 @@ html {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  background-color: #222;
+  background-color: #231f20;
   border-radius: 0.5rem;
 }
 
@@ -356,59 +358,53 @@ html {
 
 .pr-piano-key {
   display: inline-block;
-  border: solid #231f20 0.0625rem;
-  border-top: solid #231f20 0.125rem;
-  border-bottom: solid #231f20 0.125rem;
+  border: solid #231f20 0.075rem;
+  border-top: solid #231f20 0.15rem;
+  border-bottom: solid #231f20 0.15rem;
   -webkit-transition: 0.0625s ease-out;
   transition: 0.0625s ease-out;
-}
-
-.pr-piano-key:first-child {
-  border-left: solid #231f20 0.125rem;
-  border-bottom-left-radius: 0.3125rem;
-}
-
-.pr-piano-key:last-child {
-  border-right: solid #231f20 0.125rem;
-  border-bottom-right-radius: 0.3125rem;
 }
 
 .pr-piano-key-white {
   width: 2.3rem;
   height: 12.0rem;
   background: #d7d7d7;
-  -webkit-box-shadow: inset 0px 0.25rem 0.1rem 0rem rgba(0, 0, 0, 0.3), 0rem 0.125rem 0.03125rem 0rem rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0px 0.25rem 0.1rem 0rem rgba(0, 0, 0, 0.3), 0rem 0.125rem 0.03125rem 0rem rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0 0.0625rem 0.5rem 0 rgba(0, 0, 0, 0.45), 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0 0.0625rem 0.5rem 0 rgba(0, 0, 0, 0.45), 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15);
 }
 
 .pr-piano-key-white:first-child {
-  -webkit-box-shadow: 0rem 0.125rem 0.03125rem 0rem rgba(0, 0, 0, 0.15), inset 0px 0.25rem 0.1rem 0rem rgba(0, 0, 0, 0.3), inset 0.125rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45);
-  box-shadow: 0rem 0.125rem 0.03125rem 0rem rgba(0, 0, 0, 0.15), inset 0px 0.25rem 0.1rem 0rem rgba(0, 0, 0, 0.3), inset 0.125rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45);
+  border-left: solid #231f20 0.15rem;
+  border-bottom-left-radius: 0.3125rem;
+  -webkit-box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0.15625rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45);
+  box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0.15625rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45);
 }
 
 .pr-piano-key-white:last-child {
-  -webkit-box-shadow: 0rem 0.125rem 0.03125rem 0rem rgba(0, 0, 0, 0.15), inset 0px 0.25rem 0.1rem 0rem rgba(0, 0, 0, 0.3), inset -0.125rem 0 0.5em 0rem rgba(0, 0, 0, 0.45);
-  box-shadow: 0rem 0.125rem 0.03125rem 0rem rgba(0, 0, 0, 0.15), inset 0px 0.25rem 0.1rem 0rem rgba(0, 0, 0, 0.3), inset -0.125rem 0 0.5em 0rem rgba(0, 0, 0, 0.45);
+  border-right: solid #231f20 0.15rem;
+  border-bottom-right-radius: 0.3125rem;
+  -webkit-box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset -0.15625rem 0 0.5em 0rem rgba(0, 0, 0, 0.45);
+  box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset -0.15625rem 0 0.5em 0rem rgba(0, 0, 0, 0.45);
 }
 
 .pr-piano-key-white.pr-piano-key-active {
-  background: #fff;
+  background: #ffffff;
 }
 
 .pr-piano-key-black {
   width: 1.3rem;
   height: 8.0rem;
-  border: solid #231f20 0.125rem;
+  border: solid #231f20 0.15rem;
   border-bottom-left-radius: .2rem .3rem;
   border-bottom-right-radius: .2rem .3rem;
-  background: #161616;
-  -webkit-box-shadow: 0 2px 0px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0 2px 0px 0px rgba(0, 0, 0, 0.6);
+  background: #191718;
+  -webkit-box-shadow: 0 0.0625rem 0.0125rem 0rem rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0.0625rem 0.0125rem 0rem rgba(0, 0, 0, 0.6);
   position: absolute;
 }
 
 .pr-piano-key-black.pr-piano-key-active {
-  background: #5a5a5a;
+  background: #0f0f0f;
 }
 
 .pr-piano-key-black:nth-child(1) {

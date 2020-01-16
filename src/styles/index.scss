@@ -25,11 +25,13 @@ html {
   background-color:$color-piano-plastic;
   padding:0rem 3rem 0.25rem 0rem;
 
-  border: $normal-border;
+  border: $border-normal;
   border-top-left-radius:1.5rem 1.2rem;
   border-top-right-radius:1.5rem 1.2rem;
   border-bottom-left-radius:.8rem .8rem;
   border-bottom-right-radius:.8rem .8rem;
+
+  @include box-shadow($piano-shadow-outset);
 }
 
 #pr-piano-left{
@@ -161,7 +163,7 @@ html {
     font-family: "DS Digital", monospace;
     font-size:2rem;
 
-    border:$normal-border;
+    border:$border-normal;
     border-bottom-color:#3a3a3a;
     border-top-color:#3a3a3a;
     color:transparent;
@@ -250,9 +252,9 @@ html {
   position: relative;
 
   border-radius: 50%;
-  background-color:#222;
+  background-color:$color-knob-rubber;
 
-  box-shadow: inset 0 0 0rem 0.125rem rgba(0,0,0,0.375);
+  box-shadow: inset 0 0 0rem 0.125rem rgba(0,0,0,0.125);
 
 }
 
@@ -269,7 +271,7 @@ html {
   transform: translateY(-50%);
 
   border-radius: 50%;
-  background-color: #ddd;
+  background-color: $color-knob-metal;
   background-image:
     linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,0.2)),
     linear-gradient(-100deg, rgba(0,0,0,0) 47%, rgba(0,0,0,0.035) 53%),
@@ -290,7 +292,7 @@ html {
   left: 50%;
   transform: translateX(-50%);
 
-  background-color:#222;
+  background-color:$color-knob-rubber;
 
   border-radius:0.5rem;
 }
@@ -325,20 +327,11 @@ html {
 
 .pr-piano-key {
   display: inline-block;
-  border: $thin-border;
-  border-top: $normal-border;
-  border-bottom: $normal-border;
+  border: $border-thin;
+  border-top: $border-normal;
+  border-bottom: $border-normal;
 
   transition:0.0625s ease-out;
-}
-
-.pr-piano-key:first-child{
-  border-left:$normal-border;
-  border-bottom-left-radius:0.3125rem;
-}
-.pr-piano-key:last-child{
-  border-right:$normal-border;
-  border-bottom-right-radius:0.3125rem;
 }
 
 .pr-piano-key-white {
@@ -348,10 +341,14 @@ html {
 
   @include box-shadow(
     $key-shadow-inset-top,
+    $key-shadow-inset-bottom,
     $white-key-shadow-outset
     );
 
   &:first-child {
+    border-left:$border-normal;
+    border-bottom-left-radius:0.3125rem;
+
     @include box-shadow(
       $white-key-shadow-outset,
       $key-shadow-inset-top,
@@ -360,6 +357,9 @@ html {
   }
 
   &:last-child {
+    border-right:$border-normal;
+    border-bottom-right-radius:0.3125rem;
+
     @include box-shadow(
       $white-key-shadow-outset,
       $key-shadow-inset-top,
@@ -367,17 +367,17 @@ html {
     );
   }
 
-  &.pr-piano-key-active{
+  &.pr-piano-key-active {
     // TODO: flicker bug
     // @include linear-gradient(#c0c0c0, #fff);
-    background: #fff;
+    background: $color-piano-key-white-active;
   }
 }
 
 .pr-piano-key-black {
   width: 1.3rem;
   height: 8.0rem;
-  border:$normal-border;
+  border: $border-normal;
   border-bottom-left-radius:.2rem .3rem;
   border-bottom-right-radius: .2rem .3rem;
   background: $color-piano-key-black;
@@ -388,7 +388,7 @@ html {
 
   &.pr-piano-key-active{
     // @include linear-gradient(#c0c0c0, #231f20);
-    background:#5a5a5a;
+    background:$color-piano-key-black-active;
   }
 
   @for $i from 0 through 9 {

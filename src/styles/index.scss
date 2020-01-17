@@ -8,6 +8,10 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  font-family: 'Segoe UI', sans-serif
+}
+
 /***************************************
 ************** LAYOUT ******************
 ****************************************/
@@ -272,12 +276,6 @@ html {
 
     border-radius: 50%;
     background-color: $color-knob-metal;
-    background-image:
-      linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.2)),
-      linear-gradient(-100deg, rgba(0, 0, 0, 0) 47%, rgba(0, 0, 0, 0.035) 53%),
-      linear-gradient(30deg, rgba(0, 0, 0, 0.035) 47%, rgba(0, 0, 0, 0) 53%),
-      linear-gradient(-230deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.035) 52%),
-      linear-gradient(330deg, rgba(0, 0, 0, 0.03) 48%, rgba(0, 0, 0, 0) 52%);
 
 
   }
@@ -297,8 +295,6 @@ html {
     background-color: $color-knob-rubber;
 
     border-radius: 0.5rem;
-
-    @include box-shadow($knob-tick-outset);
   }
 }
 

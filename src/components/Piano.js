@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PianoKeys from "./PianoKeys";
 import PianoDigitalControl from "./PianoDigitalControl";
 import PianoKnobControl from "./PianoKnobControl";
-import { CONTROLS } from "../statics";
+import { CONTROLS } from "../js/statics";
 
 export default class Piano extends Component {
 
@@ -34,11 +34,11 @@ export default class Piano extends Component {
     return (
       <div id="pr-master-controls">
         <PianoKnobControl
+          {...this.props}
           name="master"
           min={CONTROLS.master.range.min}
           max={CONTROLS.master.range.max}
           value={this.props.master}
-          {...this.props}
         />
       </div>
     )
@@ -50,11 +50,11 @@ export default class Piano extends Component {
         <div id="pr-piano-left">
           <div id="pr-piano-top-left">
             <PianoDigitalControl
+              {...this.props}
               name="layout"
               value={this.props.layout}
               type="single-digit"
               outline={true}
-              {...this.props}
             />
           </div>
         </div>
@@ -68,43 +68,43 @@ export default class Piano extends Component {
 
                 <div className="pr-piano-top-control-row">
                   <PianoDigitalControl
+                    {...this.props}
                     name="shape"
                     value={this.props.shape}
                     type="single-digit"
-                    {...this.props}
                   />
                   <PianoDigitalControl
+                    {...this.props}
                     name="octave"
                     value={this.props.octave}
                     type="single-digit"
-                    {...this.props}
                   />
                   <PianoDigitalControl
+                    {...this.props}
                     name="transpose"
                     value={this.props.transpose}
                     type="single-digit-negative"
-                    {...this.props}
                   />
                 </div>
 
                 <div className="pr-piano-top-control-row">
                   <PianoDigitalControl
+                    {...this.props}
                     name="shape"
                     value={this.props.shape}
                     type="single-digit"
-                    {...this.props}
                   />
                   <PianoDigitalControl
+                    {...this.props}
                     name="octave"
                     value={this.props.octave}
                     type="single-digit"
-                    {...this.props}
                   />
                   <PianoDigitalControl
+                    {...this.props}
                     name="transpose"
                     value={this.props.transpose}
                     type="single-digit-negative"
-                    {...this.props}
                   />
                 </div>
 
@@ -112,9 +112,7 @@ export default class Piano extends Component {
               </div>
             </div>
             <div id="pr-piano-right-bottom">
-              <PianoKeys
-                {...this.props}
-              />
+              <PianoKeys {...this.props} />
             </div>
           </div>
       </div>

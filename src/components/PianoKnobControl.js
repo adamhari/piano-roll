@@ -1,9 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
+import {CONTROL_TYPES} from "../js/statics";
 
-export default class PianoDigitalControl extends Component {
+const PianoKnobControl = ({
+  activeControl,
+  handleMouseDownControl,
+  handleMouseUpControl,
+  handleMouseWheelControl,
+  label,
+  max,
+  min,
+  name,
+  value
+}) => {
 
-  getKnobStyle = () => {
-    const {min, max, value} = this.props;
+  const handleMouseDown = (e) => handleMouseDownControl(name, CONTROL_TYPES.knob.name, e);
+
+  const handleMouseUp = (e) => handleMouseUpControl(name, CONTROL_TYPES.knob.name, e);
+
+  const handleMouseWheel = (e) => handleMouseWheelControl(name, CONTROL_TYPES.knob.name, e);
+
+  const getKnobStyle = () => {
     const style = {};
 
     const valueAsPercent = (value - min) * 100 / (max - min);
@@ -22,36 +38,33 @@ export default class PianoDigitalControl extends Component {
     // (15 - 0) * 100 / (50 - 0) = 30
   }
 
-  getValueStyles = () => {
-    const {activeControl, name} = this.props;
+  const getValueStyles = () => {
     const styles = {};
-    if (activeControl === name)
+    if (activeControl === name) {
       styles.display = "block";
+    }
 
     return styles;
   }
 
-  renderControl = () => {
-    return (
-      <div className="pr-knob-container">
-        <div className="pr-knob-control-label">{this.props.label || this.props.name}</div>
-        <div 
-          className="pr-knob-control-value"
-          style={this.getValueStyles()}
-        >
-          {this.props.value}
-        </div>
-        <div
-          className="pr-knob-control"
-          style={this.getKnobStyle()}
-          onMouseDown={e => this.props.handleMouseDownControl(this.props.name, "knob", e)}
-          onMouseUp={e => this.props.handleMouseUpControl(this.props.name, "knob", e)}
-        ></div>
+  return (
+    <div className="pr-knob-container">
+      <div className="pr-knob-control-label">{label || name}</div>
+      <div
+        className="pr-knob-control-value"
+        style={getValueStyles()}
+      >
+        {value}
       </div>
-    );
-  };
-
-  render() {
-    return this.renderControl();
-  }
+      <div
+        className="pr-knob-control"
+        style={getKnobStyle()}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onWheel={handleMouseWheel}
+      ></div>
+    </div>
+  );
 }
+
+export default PianoKnobControl;

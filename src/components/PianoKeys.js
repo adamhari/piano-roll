@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PianoKey from './PianoKey';
 import {
   KEYS
-} from '../statics';
+} from '../js/statics';
 
 export default class PianoKeys extends Component {
 
@@ -26,7 +26,7 @@ export default class PianoKeys extends Component {
         />
       );
     });
-    
+
     return (
       <div id="pr-piano-keys">
         <div id="pr-piano-black-keys">{blackKeys}</div>

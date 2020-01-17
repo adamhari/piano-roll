@@ -11,7 +11,7 @@ $color-piano-label: #ababab;
 $color-digital-background: #0b0b0b;
 $color-digital-text: #ff2600;
 $color-knob-rubber: #231f20;
-$color-knob-metal: #ddd;
+$color-knob-metal: #cacaca;
 
 $piano-border: solid #231f20 0.15rem;
 $key-border: solid #231f20 0.075rem;
@@ -29,6 +29,5 @@ $white-key-shadow-outset-active: 0rem 0.15rem 0.03125rem -0.0625rem rgba(0,0,0,0
 $black-key-shadow-outset: 0 0.1rem 0.03125rem 0rem rgba(0,0,0,0.3);
 $black-key-shadow-outset-active: 0 0.075rem 0.00625rem 0rem rgba(0,0,0,0.3);
 
-$knob-shadow-inset: inset 0 0 0rem 0.125rem rgba(0,0,0,0.2);
+$knob-shadow-inset: inset 0 0 0rem 0.125rem rgba(0,0,0,0.15);
 $knob-shadow-outset: 0 0.0625rem 2rem 0 rgba(0,0,0,0.45);
-$knob-tick-outset: 0 0.0625rem 2rem 0 rgba(0,0,0,0.45);

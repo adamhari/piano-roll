@@ -1,4 +1,4 @@
-import { CONTROLS, OSC_SHAPES } from "./statics";
+import { CONTROLS, OSC_SHAPES } from "../statics";
 
 export default class Voice {
 

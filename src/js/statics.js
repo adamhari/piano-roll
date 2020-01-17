@@ -162,10 +162,12 @@ export const OSC_SHAPES = [
 
 export const CONTROL_TYPES = {
   digital: {
+    name: 'digital',
     pixelStep: 10,
     valueStep: 1
   },
   knob: {
+    name: 'knob',
     pixelStep: 1,
     valueStep: 1,
   }
@@ -208,7 +210,7 @@ export const CONTROLS = {
     }
   },
   master: {
-    defaultValue: 80,
+    defaultValue: 50,
     range: {
       min: 0,
       max: 100

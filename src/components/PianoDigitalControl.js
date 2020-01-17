@@ -1,74 +1,80 @@
-import React, { Component } from "react";
+import React from "react";
+import {CONTROL_TYPES} from "../js/statics";
 
-export default class PianoDigitalControl extends Component {
-  constructor(props) {
-    super(props);
+const PianoDigitalControl = ({
+  handleMouseDownControl,
+  handleMouseUpControl,
+  handleMouseWheelControl,
+  label,
+  name,
+  outline,
+  type,
+  value
+}) => {
 
-    this.controlTypes = {
-      "single-digit": {
-        backgroundValue: 8,
-        style: val => {
-          const styles = {};
-          if (val === 1) styles.left = "-0.25rem";
-          return styles;
-        }
-      },
-      "single-digit-negative": {
-        backgroundValue: -8,
-        style: val => {
-          const styles = {};
-          if (val > 1 || val === 0) styles.left = "-0.0625rem";
-          if (val === 1) styles.left = "0.245rem";
-          if (val === -1) {
-            styles.left = "-0.225rem";
-            styles.letterSpacing = "0.5375rem";
-          }
-          return styles;
-        }
+  const handleMouseDown = (e) => handleMouseDownControl(name, CONTROL_TYPES.digital.name, e);
+
+  const handleMouseUp = (e) => handleMouseUpControl(name, CONTROL_TYPES.digital.name, e);
+
+  const handleMouseWheel = (e) => handleMouseWheelControl(name, CONTROL_TYPES.digital.name, e);
+
+  const controlTypes = {
+    "single-digit": {
+      backgroundValue: 8,
+      style: val => {
+        const styles = {};
+        if (val === 1) styles.left = "-0.25rem";
+        return styles;
       }
-    };
-  }
-
-  renderControl = () => {
-    return (
-      <div className={"pr-digital-control " + (this.props.outline ? "pr-digital-control-outlined" : "")}>
-        <label
-          id={"pr-" + this.props.name +"-label"}
-          className="pr-digital-control-label"
-          htmlFor={"pr-" + this.props.name}
-        >
-          {this.props.label || this.props.name}
-        </label>
-        <div className="pr-digital-control-input-container">
-          <div
-            id={"pr-" + this.props.name}
-            className={"pr-digital-control-input " + this.props.type}
-          >
-            {8}
-            <div
-              id={"pr-" + this.props.name + "-background"}
-              className={"pr-digital-control-input pr-digital-control-input-background " + this.props.type}
-              children={this.controlTypes[this.props.type].backgroundValue}
-            />
-            <div
-              id={"pr-" + this.props.name + "-foreground"}
-              className={"pr-digital-control-input pr-digital-control-input-foreground " + this.props.type}
-              children={this.props.value}
-              style={this.controlTypes[this.props.type].style(this.props.value)}
-              onMouseDown={e =>
-                this.props.handleMouseDownControl(this.props.name, "digital", e)
-              }
-              onMouseUp={e =>
-                this.props.handleMouseUpControl(this.props.name, "digital", e)
-              }
-            />
-          </div>
-        </div>
-      </div>
-    );
+    },
+    "single-digit-negative": {
+      backgroundValue: -8,
+      style: val => {
+        const styles = {};
+        if (val > 1 || val === 0) styles.left = "-0.0625rem";
+        if (val === 1) styles.left = "0.245rem";
+        if (val === -1) {
+          styles.left = "-0.225rem";
+          styles.letterSpacing = "0.5375rem";
+        }
+        return styles;
+      }
+    }
   };
 
-  render() {
-    return this.renderControl();
-  }
-}
+  return (
+    <div className={"pr-digital-control " + (outline ? "pr-digital-control-outlined" : "")}>
+      <label
+        id={"pr-" + name + "-label"}
+        className="pr-digital-control-label"
+        htmlFor={"pr-" + name}
+      >
+        {label || name}
+      </label>
+      <div className="pr-digital-control-input-container">
+        <div
+          id={"pr-" + name}
+          className={"pr-digital-control-input " + type}
+        >
+          {8}
+          <div
+            id={"pr-" + name + "-background"}
+            className={"pr-digital-control-input pr-digital-control-input-background " + type}
+            children={controlTypes[type].backgroundValue}
+          />
+          <div
+            id={"pr-" + name + "-foreground"}
+            className={"pr-digital-control-input pr-digital-control-input-foreground " + type}
+            children={value}
+            style={controlTypes[type].style(value)}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onWheel={handleMouseWheel}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PianoDigitalControl;

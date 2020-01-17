@@ -33,6 +33,10 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
 /***************************************
 ************** LAYOUT ******************
 ****************************************/
@@ -296,8 +300,8 @@ html {
   position: relative;
   border-radius: 50%;
   background-color: #231f20;
-  -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.2);
-  box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15);
 }
 
 .pr-knob-container .pr-knob-control:before {
@@ -313,8 +317,7 @@ html {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   border-radius: 50%;
-  background-color: #ddd;
-  background-image: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.2)), linear-gradient(-100deg, rgba(0, 0, 0, 0) 47%, rgba(0, 0, 0, 0.035) 53%), linear-gradient(30deg, rgba(0, 0, 0, 0.035) 47%, rgba(0, 0, 0, 0) 53%), linear-gradient(-230deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.035) 52%), linear-gradient(330deg, rgba(0, 0, 0, 0.03) 48%, rgba(0, 0, 0, 0) 52%);
+  background-color: #cacaca;
 }
 
 .pr-knob-container .pr-knob-control:after {
@@ -330,8 +333,6 @@ html {
           transform: translateX(-50%);
   background-color: #231f20;
   border-radius: 0.5rem;
-  -webkit-box-shadow: 0 0.0625rem 2rem 0 rgba(0, 0, 0, 0.45);
-  box-shadow: 0 0.0625rem 2rem 0 rgba(0, 0, 0, 0.45);
 }
 
 /***************************************

@@ -68,8 +68,8 @@ for (let i = 0; i < 10; i++) {
 };
 
 
-export const LAYOUTS = {
-  major: {
+export const LAYOUTS = [
+  { // MAJOR
     'z': 'C0',
     'x': 'D0',
     'c': 'E0',
@@ -105,8 +105,51 @@ export const LAYOUTS = {
     ']': 'G3',
     '\\': 'A3',
     'delete' : 'B3'
+  },
+  { // MINOR
+    'z': 'C0',
+    's': 'C♯0',
+    'x': 'D0',
+    'd': 'D♯0',
+    'c': 'E0',
+    'v': 'F0',
+    'g': 'F♯0',
+    'b': 'G0',
+    'h': 'G♯0',
+    'n': 'A0',
+    'j': 'A♯0',
+    'm': 'B0',
+    ',': 'C1',
+    'l': 'C♯1',
+    '.': 'D1',
+    ';': 'D#1',
+    '/': 'E1',
+    'q': 'C1',
+    '2': 'C♯1',
+    'w': 'D1',
+    '3': 'D#1',
+    'e': 'E1',
+    'r': 'F1',
+    '5': 'F♯1',
+    't': 'G1',
+    '6': 'G♯1',
+    'y': 'A1',
+    '7': 'A♯1',
+    'u': 'B1',
+    'i': 'C2',
+    '9': 'C♯2',
+    'o': 'D2',
+    '0': 'D♯2',
+    'p': 'E2',
+    '[': 'F2',
+    '=': 'F#2',
+    ']': 'G2',
+    'backspace': 'G♯2',
+    '\\': 'A2',
+    'insert': 'A♯2',
+    'delete': 'B2'
   }
-}
+]
 
 export const OSC_SHAPES = [
   "sawtooth",
@@ -130,9 +173,9 @@ export const CONTROL_TYPES = {
 
 export const CONTROLS = {
   layout: {
-    defaultValue: 1,
+    defaultValue: 0,
     range: {
-      min: 1,
+      min: 0,
       max: 1,
     }
   },
@@ -165,7 +208,7 @@ export const CONTROLS = {
     }
   },
   master: {
-    defaultValue: 79,
+    defaultValue: 80,
     range: {
       min: 0,
       max: 100

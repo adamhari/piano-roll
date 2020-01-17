@@ -61,8 +61,8 @@ html {
   border-top-right-radius: 1.5rem 1.2rem;
   border-bottom-left-radius: .8rem .8rem;
   border-bottom-right-radius: .8rem .8rem;
-  -webkit-box-shadow: 0 0.25rem 0.0625rem 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0.25rem 0.0625rem 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
 }
 
 #pr-piano-left {
@@ -427,11 +427,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(4) {
-  left: 10.825rem;
+  left: 10.8375rem;
 }
 
 .pr-piano-key-black:nth-child(5) {
-  left: 13.475rem;
+  left: 13.375rem;
 }
 
 .pr-piano-key-black:nth-child(6) {
@@ -447,11 +447,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(9) {
-  left: 26.925rem;
+  left: 26.9375rem;
 }
 
 .pr-piano-key-black:nth-child(10) {
-  left: 29.575rem;
+  left: 29.475rem;
 }
 
 .pr-piano-key-black:nth-child(11) {
@@ -467,11 +467,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(14) {
-  left: 43.025rem;
+  left: 43.0375rem;
 }
 
 .pr-piano-key-black:nth-child(15) {
-  left: 45.675rem;
+  left: 45.575rem;
 }
 
 .pr-piano-key-black:nth-child(16) {
@@ -487,11 +487,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(19) {
-  left: 59.125rem;
+  left: 59.1375rem;
 }
 
 .pr-piano-key-black:nth-child(20) {
-  left: 61.775rem;
+  left: 61.675rem;
 }
 
 .pr-piano-key-black:nth-child(21) {
@@ -507,11 +507,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(24) {
-  left: 75.225rem;
+  left: 75.2375rem;
 }
 
 .pr-piano-key-black:nth-child(25) {
-  left: 77.875rem;
+  left: 77.775rem;
 }
 
 .pr-piano-key-black:nth-child(26) {
@@ -527,11 +527,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(29) {
-  left: 91.325rem;
+  left: 91.3375rem;
 }
 
 .pr-piano-key-black:nth-child(30) {
-  left: 93.975rem;
+  left: 93.875rem;
 }
 
 .pr-piano-key-black:nth-child(31) {
@@ -547,11 +547,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(34) {
-  left: 107.425rem;
+  left: 107.4375rem;
 }
 
 .pr-piano-key-black:nth-child(35) {
-  left: 110.075rem;
+  left: 109.975rem;
 }
 
 .pr-piano-key-black:nth-child(36) {
@@ -567,11 +567,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(39) {
-  left: 123.525rem;
+  left: 123.5375rem;
 }
 
 .pr-piano-key-black:nth-child(40) {
-  left: 126.175rem;
+  left: 126.075rem;
 }
 
 .pr-piano-key-black:nth-child(41) {
@@ -587,11 +587,11 @@ html {
 }
 
 .pr-piano-key-black:nth-child(44) {
-  left: 139.625rem;
+  left: 139.6375rem;
 }
 
 .pr-piano-key-black:nth-child(45) {
-  left: 142.275rem;
+  left: 142.175rem;
 }
 
 .pr-piano-key-black:nth-child(46) {
@@ -607,10 +607,10 @@ html {
 }
 
 .pr-piano-key-black:nth-child(49) {
-  left: 155.725rem;
+  left: 155.7375rem;
 }
 
 .pr-piano-key-black:nth-child(50) {
-  left: 158.375rem;
+  left: 158.275rem;
 }
 /*# sourceMappingURL=index.css.map */

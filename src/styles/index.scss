@@ -407,11 +407,11 @@ html {
     }
 
     &:nth-child(#{($i * 5) + 4}) {
-      left: #{$offset + 10.825}rem;
+      left: #{$offset + 10.8375}rem;
     }
 
     &:nth-child(#{($i * 5) + 5}) {
-      left: #{$offset + 13.475}rem;
+      left: #{$offset + 13.375}rem;
     }
   }
 }

@@ -7,6 +7,7 @@ class PianoRoll extends Component {
   constructor(props) {
     super(props);
 
+    this.layout = props.layout || 0;
     this.octaves = props.octaves;
 
     if (!this.octaves || this.octaves > 10 || !Number.isInteger(this.octaves)) {
@@ -15,8 +16,7 @@ class PianoRoll extends Component {
 
     this.state = {
       octaves: this.octaves,
-      layout: 1,
-      layoutMap: LAYOUTS["major"],
+      layout: this.layout,
       hasUserGestured: false,
       alternateControl: false,
       activeKeys: [],
@@ -26,8 +26,7 @@ class PianoRoll extends Component {
       shape: CONTROLS["shape"].defaultValue,
       transpose: CONTROLS["transpose"].defaultValue,
       octave: CONTROLS["octave"].defaultValue,
-      master: CONTROLS["master"].defaultValue,
-      mouseDownOnKey: false
+      master: CONTROLS["master"].defaultValue
     };
 
     this.initializeSoundEngine();
@@ -42,8 +41,8 @@ class PianoRoll extends Component {
     document.addEventListener("keydown", this.handleKeyboardKeyDown);
     document.addEventListener("keyup", this.handleKeyboardKeyUp);
 
-    document.addEventListener('mouseleave', this.handleMouseLeave);
-    document.addEventListener('mouseout', this.handleMouseOut);
+    document.addEventListener("mouseleave", this.handleMouseLeave);
+    document.addEventListener("mouseout", this.handleMouseOut);
     document.addEventListener("mousedown", this.handleMouseDown);
     document.addEventListener("mouseup", this.handleMouseUp);
 
@@ -127,8 +126,8 @@ class PianoRoll extends Component {
     console.log("handleKeyboardKeyDown", e);
 
     const keyPressed = e.key.toLowerCase();
-    const pianoKey = this.state.layoutMap[keyPressed];
-    if (pianoKey) this.activateKey(pianoKey);
+    const pianoKey = LAYOUTS[this.state.layout][keyPressed];
+    !!pianoKey && this.activatePianoKey(pianoKey);
 
     if (keyPressed === "control" || keyPressed === "command")
       this.setState({ alternateControl: true });
@@ -142,8 +141,8 @@ class PianoRoll extends Component {
     if (keyReleased === "control" || keyReleased === "command")
       this.setState({ alternateControl: false });
 
-    const pianoKey = this.state.layoutMap[keyReleased];
-    this.deactivateKey(pianoKey);
+    const pianoKey = LAYOUTS[this.state.layout][keyReleased];
+    this.deactivatePianoKey(pianoKey);
   };
 
   handleMouseDown = e => {
@@ -155,62 +154,66 @@ class PianoRoll extends Component {
   handleMouseUp = e => {
     console.log("handleMouseUp", e);
 
-    this.resetControlState();
-    this.state.mouseDownOnKey && this.stopPlayingKeys();
+    this.state.activeControl && this.resetControlState();
+    this.state.activeKeys.length > 0 && this.stopPlayingKeys();
+    this.mouseDownOnKeys = false;
   };
 
   handleMouseLeave = e => {
     // console.log("handleMouseLeave", e);
-
-    // this.deactivateKeys();
+    // this.deactivatePianoKeys();
     // this.handleMouseUpControl();
   };
 
   handleMouseOut = e => {
     // console.log("handleMouseOut", e);
-
-    // this.deactivateKeys();
+    // this.deactivatePianoKeys();
   };
 
-  handleMouseDownKey = e => {
-    console.log("handleMouseDownKey", e);
+  handleMouseDownPianoKey = e => {
+    console.log("handleMouseDownPianoKey", e);
 
-    this.setState({ mouseDownOnKey: true });
-    this.activateKey(e.target.title);
+    this.activatePianoKey(e.target.title);
+    this.mouseDownOnKeys = true;
   };
 
-  handleMouseUpKey = e => {
-    console.log("handleMouseUpKey", e);
+  handleMouseUpPianoKey = e => {
+    console.log("handleMouseUpPianoKey", e);
 
-    this.setState({ mouseDownOnKey: false });
-    this.deactivateKeys();
+    this.mouseDownOnKeys = false;
+    this.deactivatePianoKey(e.target.title);
   };
 
-  handleMouseOverKey = e => {
-    // console.log("handleMouseOverKey", e);
+  handleMouseOverPianoKey = e => {
+    // console.log("handleMouseOverPianoKey", e);
 
-    if (this.state.mouseDownOnKey)
-      this.setState({ activeKeys: [e.target.title] });
+    this.mouseDownOnKeys && this.activatePianoKey(e.target.title);
   };
 
-  activateKey = key => {
-    console.log("activateKey", key);
+  handleMouseLeavePianoKey = e => {
+    console.log("handleMouseLeavePianoKey", e);
 
-    const activeKeys = this.state.activeKeys;
+    this.mouseDownOnKeys && this.deactivatePianoKey(e.target.title);
+  };
 
-    this.startPlayingKey(key);
+  activatePianoKey = key => {
+    console.log("activatePianoKey", key);
+
+    const { activeKeys } = this.state;
 
     if (!activeKeys.includes(key)) {
-      activeKeys.push(key);
-      this.setState({ activeKeys });
+      this.startPlayingKey(key);
+      this.setState(prevState => ({
+        activeKeys: [...prevState.activeKeys, key]
+      }));
     }
   };
 
-  deactivateKey = key => {
-    console.log("deactivateKey", key);
+  deactivatePianoKey = key => {
+    console.log("deactivatePianoKey", key);
 
     this.stopPlayingKey(key);
-    const activeKeys = this.state.activeKeys;
+    const activeKeys = [...this.state.activeKeys];
 
     for (var i = activeKeys.length - 1; i >= 0; i--) {
       if (activeKeys[i] === key) {
@@ -218,13 +221,14 @@ class PianoRoll extends Component {
         break;
       }
     }
+
     this.setState({ activeKeys });
   };
 
-  deactivateKeys = (e = null) => {
-    console.log("deactivateKeys", e);
+  deactivatePianoKeys = (e = null) => {
+    console.log("deactivatePianoKeys", e);
 
-    if (e) e.preventDefault();
+    e && e.preventDefault();
 
     this.setState({ activeKeys: [] });
   };
@@ -303,26 +307,26 @@ class PianoRoll extends Component {
     }
   };
 
-  changeLayout = layout => {
-    console.log("changeLayout", layout);
+  handleChangeLayout = layout => {
+    console.log("handleChangeLayout", layout);
 
     this.setState({ layout });
   };
 
-  changeShape = shape => {
-    console.log("changeShape", shape);
+  handleChangeShape = shape => {
+    console.log("handleChangeShape", shape);
 
     this.setState({ shape });
   };
 
-  changeOctave = octave => {
-    console.log("changeOctave", octave);
+  handleChangeOctave = octave => {
+    console.log("handleChangeOctave", octave);
 
     this.setState({ octave });
   };
 
-  changeTransposition = transpose => {
-    console.log("changeTransposition", transpose);
+  handleChangeTransposition = transpose => {
+    console.log("handleChangeTransposition", transpose);
 
     this.setState({ transpose });
   };
@@ -340,9 +344,10 @@ class PianoRoll extends Component {
           master={this.state.master}
           activeKeys={this.state.activeKeys}
           activeControl={this.state.activeControl}
-          handleMouseDownKey={this.handleMouseDownKey}
-          handleMouseUpKey={this.handleMouseUpKey}
-          handleMouseOverKey={this.handleMouseOverKey}
+          handleMouseDownPianoKey={this.handleMouseDownPianoKey}
+          handleMouseUpPianoKey={this.handleMouseUpPianoKey}
+          handleMouseOverPianoKey={this.handleMouseOverPianoKey}
+          handleMouseLeavePianoKey={this.handleMouseLeavePianoKey}
           handleMouseDownControl={this.handleMouseDownControl}
           handleMouseUpControl={this.handleMouseUpControl}
         />

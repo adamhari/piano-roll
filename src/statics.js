@@ -119,7 +119,7 @@ export const OSC_SHAPES = [
 
 export const CONTROL_TYPES = {
   digital: {
-    pixelStep: 8,
+    pixelStep: 10,
     valueStep: 1
   },
   knob: {

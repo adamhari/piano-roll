@@ -1,32 +1,39 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class PianoKey extends Component {
+const PianoKey = ({
+  active,
+  disabled,
+  handleMouseDownPianoKey,
+  handleMouseUpPianoKey,
+  handleMouseOverPianoKey,
+  handleMouseLeavePianoKey,
+  name,
+  note
+}) => {
 
-  getClassNames = () => {
+  const getClassNames = () => {
     let classNames = [
       'pr-piano-key',
-      `pr-piano-key-${this.props.note}`,
-      this.props.name.includes('♯') ? 'pr-piano-key-black' : 'pr-piano-key-white',
-      this.props.active ? 'pr-piano-key-active' : this.props.disabled ? 'pr-piano-key-disabled' : 'pr-piano-key-inactive'
+      `pr-piano-key-${note}`,
+      name.includes('♯') ? 'pr-piano-key-black' : 'pr-piano-key-white',
+      active ? 'pr-piano-key-active' : disabled ? 'pr-piano-key-disabled' : 'pr-piano-key-inactive'
     ];
 
     return classNames.join(' ');
   }
 
-  render() {
-    return (
-      <div
-        title={this.props.name}
-        className={this.getClassNames()}
-        id={`pr-piano-key-${this.props.name}`}
-        tabIndex="0"
-        // onKeyDown={this.props.handleKeyDown}
-        onMouseDown={this.props.handleMouseDownPianoKey}
-        onMouseUp={this.props.handleMouseUpPianoKey}
-        onMouseOver={this.props.handleMouseOverPianoKey}
-        onMouseLeave={this.props.handleMouseLeavePianoKey}
-      >
-      </div>
-    );
-  }
+  return (
+    <div
+      title={name}
+      className={getClassNames()}
+      id={`pr-piano-key-${name}`}
+      tabIndex="0"
+      onMouseDown={handleMouseDownPianoKey}
+      onMouseUp={handleMouseUpPianoKey}
+      onMouseOver={handleMouseOverPianoKey}
+      onMouseLeave={handleMouseLeavePianoKey}
+    />
+  );
 }
+
+export default PianoKey;

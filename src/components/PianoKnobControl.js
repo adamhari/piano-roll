@@ -62,7 +62,7 @@ const PianoKnobControl = ({
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onWheel={handleMouseWheel}
-      ></div>
+      />
     </div>
   );
 }

@@ -1,41 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PianoKey from './PianoKey';
-import {
-  KEYS
-} from '../js/statics';
+import {KEYS} from '../js/statics';
 
-export default class PianoKeys extends Component {
+const PianoKeys = (props) => {
+  const {activeKeys, octaves} = props;
 
-  renderKeys = () => {
-    const blackKeys = [];
-    const whiteKeys = [];
+  const blackKeys = [];
+  const whiteKeys = [];
 
-    const pianoKeys = KEYS.slice(0, (12 * this.props.octaves));
+  const pianoKeys = KEYS.slice(0, (12 * octaves));
 
-    pianoKeys.forEach((key, index) => {
-      const keySet = key.name.includes('♯') ? blackKeys : whiteKeys;
+  pianoKeys.forEach((key, index) => {
+    const keySet = key.name.includes('♯') ? blackKeys : whiteKeys;
 
-      keySet.push(
-        <PianoKey
-          {...this.props}
-          key={(key.octave * 12) + (index)}
-          name={key.name}
-          note={key.name.substring(0, key.name.length - 1)}
-          freq={key.freq * Math.pow(2, key.octave)}
-          active={this.props.activeKeys.includes(key.name)}
-        />
-      );
-    });
-
-    return (
-      <div id="pr-piano-keys">
-        <div id="pr-piano-black-keys">{blackKeys}</div>
-        <div id="pr-piano-white-keys">{whiteKeys}</div>
-      </div>
+    keySet.push(
+      <PianoKey
+        {...props}
+        key={(key.octave * 12) + (index)}
+        name={key.name}
+        note={key.name.substring(0, key.name.length - 1)}
+        freq={key.freq * Math.pow(2, key.octave)}
+        active={activeKeys.includes(key.name)}
+      />
     );
-  };
+  });
 
-  render() {
-    return this.renderKeys()
-  }
+  return (
+    <div id="pr-piano-keys">
+      <div id="pr-piano-black-keys">{blackKeys}</div>
+      <div id="pr-piano-white-keys">{whiteKeys}</div>
+    </div>
+  );
 }
+
+export default PianoKeys;

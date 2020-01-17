@@ -3,7 +3,8 @@ import { CONTROL_TYPES, CONTROLS, KEYS_MAP, LAYOUTS } from "./statics";
 import Piano from "./components/Piano";
 import Voice from "./Voice.js";
 
-class PianoRoll extends Component {
+class App extends Component {
+
   constructor(props) {
     super(props);
 
@@ -15,13 +16,14 @@ class PianoRoll extends Component {
     }
 
     this.state = {
+      hasUserGestured: false,
       octaves: this.octaves,
       layout: this.layout,
-      hasUserGestured: false,
-      alternateControl: false,
       activeKeys: [],
       activeControl: null,
       activeControlType: null,
+      activeScreenY: null,
+      alternateControl: false,
       gain: CONTROLS["gain"].defaultValue,
       shape: CONTROLS["shape"].defaultValue,
       transpose: CONTROLS["transpose"].defaultValue,
@@ -81,15 +83,6 @@ class PianoRoll extends Component {
     console.log("resumeAudioContext");
 
     this.audioContext.resume();
-  };
-
-  resetControlState = () => {
-    console.log("resetControlState");
-
-    this.setState({
-      activeControl: null,
-      alternateControl: false
-    });
   };
 
   startPlayingKey = key => {
@@ -154,9 +147,12 @@ class PianoRoll extends Component {
   handleMouseUp = e => {
     console.log("handleMouseUp", e);
 
-    this.state.activeControl && this.resetControlState();
     this.state.activeKeys.length > 0 && this.stopPlayingKeys();
     this.mouseDownOnKeys = false;
+    this.state.activeControl && this.setState({
+      activeControl: null,
+      alternateControl: false
+    });
   };
 
   handleMouseLeave = e => {
@@ -191,7 +187,7 @@ class PianoRoll extends Component {
   };
 
   handleMouseLeavePianoKey = e => {
-    console.log("handleMouseLeavePianoKey", e);
+    // console.log("handleMouseLeavePianoKey", e);
 
     this.mouseDownOnKeys && this.deactivatePianoKey(e.target.title);
   };
@@ -291,18 +287,18 @@ class PianoRoll extends Component {
       if (change !== 0) {
         const newState = { ...this.state };
 
-        const min = CONTROLS[this.state.activeControl].range.min;
-        const max = CONTROLS[this.state.activeControl].range.max;
+        const minValue = CONTROLS[this.state.activeControl].range.min;
+        const maxValue = CONTROLS[this.state.activeControl].range.max;
 
         let newVal = newState[this.state.activeControl] + change;
 
-        if (newVal > max) newVal = max;
-        else if (newVal < min) newVal = min;
+        if (newVal > maxValue) newVal = maxValue;
+        else if (newVal < minValue) newVal = minValue;
 
         newState[activeControl] = newVal;
         newState["activeScreenY"] = event.screenY;
 
-        this.setState(newState, () => this.initializeVoices());
+        this.setState(newState);
       }
     }
   };
@@ -356,4 +352,4 @@ class PianoRoll extends Component {
   }
 }
 
-export default PianoRoll;
+export default App;

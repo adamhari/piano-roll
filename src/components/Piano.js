@@ -57,7 +57,8 @@ export default class Piano extends Component {
               {...this.props}
             />
           </div>
-          <div id="pr-piano-right">
+        </div>
+        <div id="pr-piano-right">
             <div id="pr-piano-right-top">
               <div id="pr-master-section">
                 {this.renderLogo()}
@@ -116,7 +117,6 @@ export default class Piano extends Component {
               />
             </div>
           </div>
-        </div>
       </div>
     );
   }

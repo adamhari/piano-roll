@@ -1,59 +1,95 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CONTROL_TYPES, CONTROLS, KEYS_MAP, LAYOUTS } from "./js/statics";
 import Piano from "./components/Piano";
 import Voice from "./js/classes/Voice";
 
-class App extends Component {
+const App = props => {
 
-  /** LIFECYCLE */
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  const audioContext = useRef(new AudioContext());
+  const voices = {};
 
-  constructor(props) {
-    super(props);
+  const [hasUserGestured, setHasUserGestured] = useState(false);
+  const [octaves, setOctaves] = useState(props.octaves || 4);
+  const [layout, setLayout] = useState(props.layout || 0);
+  const [mouseDownOnKeys, setMouseDownOnKeys] = useState(false);
+  const [activeKeys, setActiveKeys] = useState([]);
+  const [activeControl, setActiveControl] = useState(null);
+  const [activeControlType, setActiveControlType] = useState(null);
+  const [activeScreenY, setActiveScreenY] = useState(null);
+  const [alternateControl, setAlternateControl] = useState(false);
+  const [gain, setGain] = useState(CONTROLS["gain"].defaultValue);
+  const [shape, setShape] = useState(CONTROLS["shape"].defaultValue);
+  const [transpose, setTranspose] = useState(CONTROLS["transpose"].defaultValue);
+  const [octave, setOctave] = useState(CONTROLS["octave"].defaultValue);
+  const [master, setMaster] = useState(CONTROLS["master"].defaultValue);
 
-    this.layout = props.layout || 0;
-    this.octaves = props.octaves;
-    this.voices = {};
 
-    if (!this.octaves || this.octaves > 10 || !Number.isInteger(this.octaves)) {
-      this.octaves = 4;
-    }
 
-    this.state = {
-      hasUserGestured: false,
-      octaves: this.octaves,
-      layout: this.layout,
-      activeKeys: [],
-      activeControl: null,
-      activeControlType: null,
-      activeScreenY: null,
-      alternateControl: false,
-      gain: CONTROLS["gain"].defaultValue,
-      shape: CONTROLS["shape"].defaultValue,
-      transpose: CONTROLS["transpose"].defaultValue,
-      octave: CONTROLS["octave"].defaultValue,
-      master: CONTROLS["master"].defaultValue
-    };
-  }
 
-  componentDidMount() {
-    this.initializeSoundEngine();
-    this.registerEvents();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    !prevState.hasUserGestured && this.state.hasUserGestured && this.resumeAudioContext();
-  }
 
   /** INIT */
 
-  registerEvents = () => {
-    document.addEventListener("keydown", this.handleKeyDown);
-    document.addEventListener("keyup", this.handleKeyUp);
+  useEffect(() => {
+    console.log("initializeSoundEngine");
+    const masterGain = audioContext.current.createGain();
+    const destination = audioContext.current.destination;
+    masterGain.connect(destination);
 
-    document.addEventListener("mousedown", this.handleMouseDown);
-    document.addEventListener("mouseup", this.handleMouseUp);
-    document.addEventListener("mouseleave", this.handleMouseLeave);
-    document.addEventListener("mouseout", this.handleMouseOut);
+    console.log("initializeVoices");
+    Object.keys(KEYS_MAP).forEach(key => {
+      voices[key] = new Voice(audioContext.current, KEYS_MAP[key].freq);
+    });
+
+    /** GLOBAL EVENT HANDLERS */
+
+    document.addEventListener("keydown", e => {
+      console.log("handleKeyDown", e);
+
+      const keyPressed = e.key.toLowerCase();
+
+      (keyPressed === "control" || keyPressed === "command") && setAlternateControl(true);
+      const pianoKey = LAYOUTS[layout][keyPressed];
+      !!pianoKey && activatePianoKey(pianoKey);
+    });
+
+    document.addEventListener("keyup", e => {
+      console.log("handleKeyUp", e);
+
+      const keyReleased = e.key.toLowerCase();
+
+      (keyReleased === "control" || keyReleased === "command") && setAlternateControl(false);
+      const pianoKey = LAYOUTS[layout][keyReleased];
+      deactivatePianoKey(pianoKey);
+    });
+
+    document.addEventListener("mousedown", e => {
+      console.log("handleMouseDown", e);
+
+      !hasUserGestured && setHasUserGestured(true);
+    });
+
+    document.addEventListener("mouseup", e => {
+      console.log("handleMouseUp", e);
+
+      setMouseDownOnKeys(false);
+
+      if (activeControl) {
+        setActiveControl(null);
+        setAlternateControl(false);
+      }
+    });
+
+    document.addEventListener("mouseleave", e => {
+      // console.log("handleMouseLeave", e);
+      // deactivatePianoKeys();
+      // handleMouseUpControl();
+    });
+
+    document.addEventListener("mouseout", e => {
+      // console.log("handleMouseOut", e);
+      // deactivatePianoKeys();
+    });
 
     document.addEventListener("drag", e => e.preventDefault());
     document.addEventListener("dragend", e => e.preventDefault());
@@ -63,207 +99,125 @@ class App extends Component {
     document.addEventListener("dragover", e => e.preventDefault());
     document.addEventListener("dragstart", e => e.preventDefault());
     document.addEventListener("drop", e => e.preventDefault());
-  };
 
-  initializeSoundEngine = () => {
-    console.log("initializeSoundEngine");
+    return () => {};
+  }, []);
 
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    this.audioContext = new AudioContext();
-    this.masterGain = this.audioContext.createGain();
-    this.destination = this.audioContext.destination;
-    this.masterGain.connect(this.destination);
+  useEffect(() => {
+    audioContext.current && audioContext.current.resume();
+    return () => {};
+  }, [audioContext, hasUserGestured]);
 
-    this.initializeVoices();
-  };
 
-  initializeVoices = () => {
-    console.log("initializeVoices");
 
-    Object.keys(KEYS_MAP).forEach(key => {
-      this.voices[key] = new Voice(this.audioContext, KEYS_MAP[key].freq);
-    });
-  };
 
-  resumeAudioContext = () => {
-    console.log("resumeAudioContext");
-
-    this.audioContext.resume();
-  };
-
-  /** GLOBAL EVENT HANDLERS */
-
-  handleKeyDown = e => {
-    console.log("handleKeyDown", e);
-
-    const keyPressed = e.key.toLowerCase();
-    const pianoKey = LAYOUTS[this.state.layout][keyPressed];
-    !!pianoKey && this.activatePianoKey(pianoKey);
-
-    if (keyPressed === "control" || keyPressed === "command")
-      this.setState({ alternateControl: true });
-  };
-
-  handleKeyUp = e => {
-    console.log("handleKeyUp", e);
-
-    const keyReleased = e.key.toLowerCase();
-
-    if (keyReleased === "control" || keyReleased === "command")
-      this.setState({ alternateControl: false });
-
-    const pianoKey = LAYOUTS[this.state.layout][keyReleased];
-    this.deactivatePianoKey(pianoKey);
-  };
-
-  handleMouseDown = e => {
-    console.log("handleMouseDown", e);
-
-    !this.state.hasUserGestured && this.setState({ hasUserGestured: true });
-  };
-
-  handleMouseUp = e => {
-    console.log("handleMouseUp", e);
-
-    this.mouseDownOnKeys = false;
-    this.state.activeControl && this.setState({
-      activeControl: null,
-      alternateControl: false
-    });
-  };
-
-  handleMouseLeave = e => {
-    // console.log("handleMouseLeave", e);
-    // this.deactivatePianoKeys();
-    // this.handleMouseUpControl();
-  };
-
-  handleMouseOut = e => {
-    // console.log("handleMouseOut", e);
-    // this.deactivatePianoKeys();
-  };
 
   /** PIANO KEYS */
 
-  handleMouseDownPianoKey = e => {
+  const handleMouseDownPianoKey = e => {
     console.log("handleMouseDownPianoKey", e);
 
     if (e.button === 0) {
-      this.activatePianoKey(e.target.title);
-      this.mouseDownOnKeys = true;
+      activatePianoKey(e.target.title);
+      setMouseDownOnKeys(true);
     }
   };
 
-  handleMouseUpPianoKey = e => {
+  const handleMouseUpPianoKey = e => {
     console.log("handleMouseUpPianoKey", e);
 
     if (e.button === 0) {
-      this.mouseDownOnKeys = false;
-      this.deactivatePianoKey(e.target.title);
+      setMouseDownOnKeys(false);
+      deactivatePianoKey(e.target.title);
     }
   };
 
-  handleMouseOverPianoKey = e => {
+  const handleMouseOverPianoKey = e => {
     // console.log("handleMouseOverPianoKey", e);
 
-    this.mouseDownOnKeys && this.activatePianoKey(e.target.title);
+    mouseDownOnKeys && activatePianoKey(e.target.title);
   };
 
-  handleMouseLeavePianoKey = e => {
+  const handleMouseLeavePianoKey = e => {
     // console.log("handleMouseLeavePianoKey", e);
 
-    this.mouseDownOnKeys && this.deactivatePianoKey(e.target.title);
+    mouseDownOnKeys && deactivatePianoKey(e.target.title);
   };
 
-  activatePianoKey = key => {
+  const activatePianoKey = key => {
     console.log("activatePianoKey", key);
 
-    const { activeKeys } = this.state;
-
     if (!activeKeys.includes(key)) {
-      this.startPlayingKey(key);
-      this.setState(prevState => ({
-        activeKeys: [...prevState.activeKeys, key]
-      }));
+      startPlayingKey(key);
+      setActiveKeys(prevActiveKeys => [...prevActiveKeys, key]);
     }
   };
 
-  deactivatePianoKey = key => {
+  const deactivatePianoKey = key => {
     console.log("deactivatePianoKey", key);
 
-    this.stopPlayingKey(key);
-
-    this.setState(prevState => ({
-      activeKeys: prevState.activeKeys.filter(k => k !== key)
-    }));
+    stopPlayingKey(key);
+    setActiveKeys(prevActiveKeys => prevActiveKeys.filter(k => k !== key));
   };
 
-  deactivatePianoKeys = (e = null) => {
-    console.log("deactivatePianoKeys", e);
+  // const deactivatePianoKeys = (e = null) => {
+  //   console.log("deactivatePianoKeys", e);
 
-    e && e.preventDefault();
+  //   e && e.preventDefault();
 
-    this.setState({ activeKeys: [] });
-  };
+  //   setActiveKeys([]);
+  // };
 
-  startPlayingKey = key => {
+  const startPlayingKey = key => {
     console.log("startPlayingKey", KEYS_MAP[key]);
 
-    if (!this.voices[key].active) {
-      this.voices[key].start(
-        this.state.gain,
-        this.state.shape,
-        this.state.octave,
-        this.state.transpose
-      );
+    if (voices[key] && !voices[key].active) {
+      voices[key].start(gain, shape, octave, transpose);
     }
   };
 
-  stopPlayingKey = key => {
+  const stopPlayingKey = key => {
     console.log("stopPlayingKey", KEYS_MAP[key]);
 
-    this.voices[key] && this.voices[key].stop();
+    voices[key] && voices[key].stop();
   };
 
-  stopPlayingKeys = () => {
-    console.log("stopPlayingKeys");
+  // const stopPlayingKeys = () => {
+  //   console.log("stopPlayingKeys");
 
-    Object.keys(this.voices).forEach(key => this.voices[key].stop());
-  };
+  //   Object.keys(voices).forEach(key => voices[key].stop());
+  // };
+
+
+
+
 
   /** SYNTH CONTROLS */
 
-  handleMouseDownControl = (activeControl, activeControlType, e) => {
+  const handleMouseDownControl = (activeControl, activeControlType, e) => {
     console.log("handleMouseDownControl", activeControl, activeControlType, e);
 
     if (e.button === 0) {
       // left click
-      if (this.state.alternateControl) {
+      if (alternateControl) {
         // holding ctrl
-        this.resetControlValue(activeControl);
+        resetControlValue(activeControl);
       } else {
-        this.activateControl(activeControl, activeControlType, e.screenY);
+        activateControl(activeControl, activeControlType, e.screenY);
       }
     }
   };
 
-  handleMouseUpControl = (activeControl, e) => {
+  const handleMouseUpControl = (activeControl, e) => {
     console.log("handleMouseUpControl", activeControl, e);
 
     if (e.button === 0) {
-      this.deactivateControl(activeControl);
+      deactivateControl(activeControl);
     }
   };
 
-  handleMouseMoveControl = event => {
+  const handleMouseMoveControl = event => {
     // console.log("handleMouseMove", event);
-
-    const {
-      alternateControl,
-      activeControl,
-      activeControlType,
-      activeScreenY
-    } = this.state;
 
     if (activeControl) {
       let pixelStep = CONTROL_TYPES[activeControlType].pixelStep || 5;
@@ -284,83 +238,74 @@ class App extends Component {
       // console.log(change);
 
       if (change !== 0) {
-        const newState = { ...this.state };
-        newState["activeScreenY"] = event.screenY;
-        this.setState(newState);
-        this.changeControlValue(activeControl, change);
+        setActiveScreenY(event.screenY);
+        changeControlValue(activeControl, change);
       }
     }
   };
 
-  activateControl = (activeControl, activeControlType, screenY) => {
+  const activateControl = (activeControl, activeControlType, screenY) => {
     console.log("activateControl", activeControl, activeControlType, screenY);
 
-    document.addEventListener("mousemove", this.handleMouseMoveControl);
+    document.addEventListener("mousemove", handleMouseMoveControl);
 
-    this.setState({
-      activeControl,
-      activeControlType,
-      activeScreenY: screenY
-    });
-  }
-
-  deactivateControl = (activeControl) => {
-    console.log("deactiveControl", activeControl);
-
-    document.removeEventListener("mousemove", this.handleMouseMoveControl);
-
-    this.setState({ activeControl: null });
+    setActiveControl(activeControl);
+    setActiveControlType(activeControlType);
+    setActiveScreenY(screenY);
   };
 
-  changeControlValue = (control, change) => {
-    // console.log("changeControlValue", control, change);
+  const deactivateControl = activeControl => {
+    console.log("deactiveControl", activeControl);
 
-    const newState = { ...this.state };
+    document.removeEventListener("mousemove", handleMouseMoveControl);
+
+    setActiveControl(null);
+  };
+
+  const changeControlValue = (control, change) => {
+    // console.log("changeControlValue", control, change);
 
     const minValue = CONTROLS[control].range.min;
     const maxValue = CONTROLS[control].range.max;
 
-    let newVal = newState[control] + change;
+    let value = [control] + change;
 
-    if (newVal > maxValue) newVal = maxValue;
-    else if (newVal < minValue) newVal = minValue;
+    if (value > maxValue) value = maxValue;
+    else if (value < minValue) value = minValue;
 
-    newState[control] = newVal;
-
-    this.setState(newState);
+    setControlValue(control, value);
   };
 
-  resetControlValue = (control) => {
-    const newState = { ...this.state };
-    const newVal = CONTROLS[control].defaultValue;
-    newState[control] = newVal;
-
-    this.setState(newState);
+  const resetControlValue = control => {
+    setControlValue(control, CONTROLS[control].defaultValue);
   };
 
-  render() {
-    return (
-      <div id="pr-container" onContextMenu={(e) => {e.preventDefault()}}>
-        <Piano
-          octaves={this.state.octaves}
-          layout={this.state.layout}
-          gain={this.state.gain}
-          shape={this.state.shape}
-          transpose={this.state.transpose}
-          octave={this.state.octave}
-          master={this.state.master}
-          activeKeys={this.state.activeKeys}
-          activeControl={this.state.activeControl}
-          handleMouseDownPianoKey={this.handleMouseDownPianoKey}
-          handleMouseUpPianoKey={this.handleMouseUpPianoKey}
-          handleMouseOverPianoKey={this.handleMouseOverPianoKey}
-          handleMouseLeavePianoKey={this.handleMouseLeavePianoKey}
-          handleMouseDownControl={this.handleMouseDownControl}
-          handleMouseUpControl={this.handleMouseUpControl}
-        />
-      </div>
-    );
-  }
-}
+  const setControlValue = (control, value) => {
+    const setter = `set${control.charAt(0).toUpperCase() + control.slice(1)}`;
+    window[setter](value);
+  };
+
+  return (
+    <div id="pr-container" onContextMenu={e => e.preventDefault()}>
+      <Piano
+        octaves={octaves}
+        layout={layout}
+        gain={gain}
+        shape={shape}
+        transpose={transpose}
+        octave={octave}
+        master={master}
+        activeKeys={activeKeys}
+        activeControl={activeControl}
+        handleMouseDownPianoKey={handleMouseDownPianoKey}
+        handleMouseUpPianoKey={handleMouseUpPianoKey}
+        handleMouseOverPianoKey={handleMouseOverPianoKey}
+        handleMouseLeavePianoKey={handleMouseLeavePianoKey}
+        handleMouseDownControl={handleMouseDownControl}
+        handleMouseUpControl={handleMouseUpControl}
+      />
+    </div>
+  );
+};
 
 export default App;

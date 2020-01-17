@@ -4,7 +4,7 @@
 @import './_reset';
 
 html {
-  font-size:28px; //global scale
+  font-size: 28px; //global scale
   -webkit-font-smoothing: antialiased;
 }
 
@@ -12,102 +12,101 @@ html {
 ************** LAYOUT ******************
 ****************************************/
 
-#pr-container{
-  display:flex;
+#pr-container {
+  display: flex;
   // justify-content:center;
-  align-items:center;
-  height:100vh;
+  align-items: center;
+  height: 100vh;
 }
 
 #pr-piano {
-  user-select:none;
-  display:flex;
-  background-color:$color-piano-plastic;
-  padding:0rem 3rem 0.25rem 0rem;
+  user-select: none;
+  display: flex;
+  background-color: $color-piano-plastic;
+  padding: 0rem 3rem 0.25rem 0rem;
 
-  border: $border-normal;
-  border-top-left-radius:1.5rem 1.2rem;
-  border-top-right-radius:1.5rem 1.2rem;
-  border-bottom-left-radius:.8rem .8rem;
-  border-bottom-right-radius:.8rem .8rem;
+  border: $piano-border;
+  border-top-left-radius: 1.5rem 1.2rem;
+  border-top-right-radius: 1.5rem 1.2rem;
+  border-bottom-left-radius: .8rem .8rem;
+  border-bottom-right-radius: .8rem .8rem;
 
   @include box-shadow($piano-shadow-outset);
 }
 
-#pr-piano-left{
-  text-align:center;
-  display:flex;
-  align-items:center;
+#pr-piano-left {
+  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
-#pr-piano-top-left{
-  padding:0 3rem;
+#pr-piano-top-left {
+  padding: 0 3rem;
 }
 
-#pr-piano-right-top{
-  height:15rem;
-  display:flex;
-  align-items:center;
+#pr-piano-right-top {
+  height: 15rem;
+  display: flex;
+  align-items: center;
 
-  #pr-master-section{
-    #pr-logo-section{
-      cursor:default;
-      position:relative;
-      color:$color-piano-label;
-      text-align:left;
+  #pr-master-section {
+    #pr-logo-section {
+      cursor: default;
+      position: relative;
+      color: $color-piano-label;
+      text-align: left;
 
-      width:14rem;
-      height:4.375rem;
-      padding:0 0 0 0.375rem;
+      width: 14rem;
+      height: 4.375rem;
+      padding: 0 0 0 0.375rem;
 
       #pr-logo {
         // font-family:"Heroic Avenger", sans-serif;
         // font-size:2.5rem;
 
-        width:12rem;
+        width: 12rem;
       }
 
       #pr-logo-subtext {
-        position:absolute;
-        left:0.09375rem;
-        line-height:1.25;
-        text-transform:uppercase;
-        font-style:italic;
-        font-weight:600;
-        letter-spacing:0.125rem;
+        position: absolute;
+        left: 0.09375rem;
+        line-height: 1.25;
+        text-transform: uppercase;
+        font-style: italic;
+        font-weight: 600;
+        letter-spacing: 0.125rem;
 
-        #pr-logo-subtext-bold{
-          display:inline-block;
-          font-weight:800;
-          font-size:1.0625rem;
-          letter-spacing:-0.0375rem;
-          padding-right:0.0625rem;
+        #pr-logo-subtext-bold {
+          display: inline-block;
+          font-weight: 800;
+          font-size: 1.0625rem;
+          letter-spacing: -0.0375rem;
+          padding-right: 0.0625rem;
         }
       }
     }
+
     #pr-master-controls {
-      text-align:left;
-      margin:0.75rem 0 0;
+      text-align: left;
+      margin: 0.75rem 0 0;
     }
   }
 
 
 }
 
-#pr-piano-right-bottom{
-
-}
+#pr-piano-right-bottom {}
 
 #pr-piano-top-controls {
-  height:100%;
-  display:flex;
-  flex-flow:column wrap;
-  justify-content:center;
-  text-align:center;
+  height: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  text-align: center;
 
-  .pr-piano-top-control-row{
-    display:flex;
-    margin:0.625rem 0;
+  .pr-piano-top-control-row {
+    display: flex;
+    margin: 0.625rem 0;
   }
 }
 
@@ -116,96 +115,97 @@ html {
 ****************************************/
 
 .pr-digital-control {
-  position:relative;
-  display:flex;
-  flex-flow:column wrap;
-  justify-content:center;
-  align-items:center;
+  position: relative;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 
   border: solid transparent 0.375rem;
-  border-top-width:0;
-  border-radius:0.1875rem;
+  border-top-width: 0;
+  border-radius: 0.1875rem;
 
-  user-select:none;
+  user-select: none;
 
-  &.pr-digital-control-outlined{
-      border-color:$color-piano-label;
-      border-width:0.1875rem;
-      border-top-width:0;
-      background-color:$color-piano-label;
+  &.pr-digital-control-outlined {
+    border-color: $color-piano-label;
+    border-width: 0.1875rem;
+    border-top-width: 0;
+    background-color: $color-piano-label;
 
-      margin:0 0.25rem;
-      top:0.1875rem;
+    margin: 0 0.25rem;
+    top: 0.1875rem;
 
-      .pr-digital-control-label {
-        color:$color-piano-plastic;
-        background:$color-piano-label;
-      }
+    .pr-digital-control-label {
+      color: $color-piano-plastic;
+      background: $color-piano-label;
+    }
 
-      .pr-digital-control-input-container{
-        padding:0 0.5rem 0.5rem 0.5rem;
-        background:$color-piano-plastic;
-      }
+    .pr-digital-control-input-container {
+      padding: 0 0.5rem 0.5rem 0.5rem;
+      background: $color-piano-plastic;
+    }
 
-      .pr-digital-control-input{
-        padding:0 0.5rem 0.5rem 0.5rem;
-      }
+    .pr-digital-control-input {
+      padding: 0 0.5rem 0.5rem 0.5rem;
+    }
   }
 
   .pr-digital-control-label {
     @include label-text;
-    padding:0.125rem 0 0.09375rem;
-    width:calc(100% + 1px);
+    padding: 0.125rem 0 0.09375rem;
+    width: calc(100% + 1px);
   }
 
   .pr-digital-control-input {
-    position:relative;
+    position: relative;
     font-family: "DS Digital", monospace;
-    font-size:2rem;
+    font-size: 2rem;
 
-    border:$border-normal;
-    border-bottom-color:#3a3a3a;
-    border-top-color:#3a3a3a;
-    color:transparent;
+    border-left: $digital-control-vertical-border;
+    border-right: $digital-control-vertical-border;
+    border-bottom: $digital-control-horizontal-border;
+    border-top: $digital-control-horizontal-border;
+    color: transparent;
     background-color: $color-digital-background;
-    margin:0.5rem 0.09375rem 0 0.125rem;
+    margin: 0.5rem 0.09375rem 0 0.125rem;
 
-    &.single-digit{
-      width:2.75rem;
-      padding:0.375rem 0rem 0.375rem 0.5rem;
+    &.single-digit {
+      width: 2.75rem;
+      padding: 0.375rem 0rem 0.375rem 0.5rem;
     }
 
-    &.single-digit-negative{
-      width:3.375rem;
-      padding:0.375rem 0rem 0.375rem 0.25rem;
+    &.single-digit-negative {
+      width: 3.375rem;
+      padding: 0.375rem 0rem 0.375rem 0.25rem;
     }
   }
 
   .pr-digital-control-input-background,
   .pr-digital-control-input-foreground {
-    position:absolute;
-    top:-0.59375rem;
-    left:-0.53125rem;
-    background:none;
-    border-color:transparent;
+    position: absolute;
+    top: -0.59375rem;
+    left: -0.53125rem;
+    background: none;
+    border-color: transparent;
   }
 
   .pr-digital-control-input-background {
-    color:rgba($color-digital-text, 0.625);
-    opacity:0.1875;
+    color: rgba($color-digital-text, 0.625);
+    opacity: 0.1875;
     text-shadow:
       0.03125rem 0.03125rem 0rem rgba(98, 145, 131, 0.5)
   }
 
   .pr-digital-control-input-foreground {
-    color:rgba($color-digital-text, 0.9375);
+    color: rgba($color-digital-text, 0.9375);
     text-shadow:
-      0 0 0.625rem rgba($color-digital-text,0.625),
-      0 0 0.375rem rgba($color-digital-text,0.375),
-      0 0 0.125rem rgba($color-digital-text,0.25);
+      0 0 0.625rem rgba($color-digital-text, 0.625),
+      0 0 0.375rem rgba($color-digital-text, 0.375),
+      0 0 0.125rem rgba($color-digital-text, 0.25);
 
-    &:hover{
-      cursor:grab;
+    &:hover {
+      cursor: grab;
     }
   }
 }
@@ -218,84 +218,88 @@ html {
 
 
 
-.pr-knob-container{
-  position:relative;
-  display:inline-block;
-  width:4rem;
-
-.pr-knob-control-label {
-  @include label-text;
-  text-align:center;
-}
-
-.pr-knob-control-value {
-  display:none;
-  position:absolute;
-  bottom:-0.75rem;
-  right:1.21rem;
-  z-index:2;
-  width:1.5rem;
-  padding:0 0 0.0625rem;
-  background-color:rgba(255,255,255,0.625);
-
-  text-align:center;
-  font-size:0.5rem;
-  font-weight:700;
-}
-
-.pr-knob-control {
-  cursor:grab;
-
-  width: 2rem;
-  height: 2rem;
-  margin: 0.4rem auto;
+.pr-knob-container {
   position: relative;
+  display: inline-block;
+  width: 4rem;
 
-  border-radius: 50%;
-  background-color:$color-knob-rubber;
+  .pr-knob-control-label {
+    @include label-text;
+    text-align: center;
+  }
 
-  box-shadow: inset 0 0 0rem 0.125rem rgba(0,0,0,0.125);
+  .pr-knob-control-value {
+    display: none;
+    position: absolute;
+    bottom: -0.75rem;
+    right: 1.21rem;
+    z-index: 2;
+    width: 1.5rem;
+    padding: 0 0 0.0625rem;
+    background-color: rgba(255, 255, 255, 0.625);
 
-}
+    text-align: center;
+    font-size: 0.5rem;
+    font-weight: 700;
+  }
 
-.pr-knob-control:before {
-  content: '';
-  display: block;
-  box-sizing: border-box;
+  .pr-knob-control {
+    cursor: grab;
 
-  width: 1.175rem;
-  height: 1.175rem;
-  margin: auto;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+    width: 2rem;
+    height: 2rem;
+    margin: 0.4rem auto;
+    position: relative;
 
-  border-radius: 50%;
-  background-color: $color-knob-metal;
-  background-image:
-    linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,0.2)),
-    linear-gradient(-100deg, rgba(0,0,0,0) 47%, rgba(0,0,0,0.035) 53%),
-    linear-gradient(30deg, rgba(0,0,0,0.035) 47%, rgba(0,0,0,0) 53%),
-    linear-gradient(-230deg, rgba(0,0,0,0) 48%, rgba(0,0,0,0.035) 52%),
-    linear-gradient(330deg, rgba(0,0,0,0.03) 48%, rgba(0,0,0,0) 52%);
-}
+    border-radius: 50%;
+    background-color: $color-knob-rubber;
 
-.pr-knob-control:after {
-  content: '';
-  display: block;
+    @include box-shadow($knob-shadow-inset);
 
-  width: 0.28125rem;
-  height: 0.85rem;
-  margin: auto;
-  position: absolute;
-  top: 0.2rem;
-  left: 50%;
-  transform: translateX(-50%);
+  }
 
-  background-color:$color-knob-rubber;
+  .pr-knob-control:before {
+    content: '';
+    display: block;
+    box-sizing: border-box;
 
-  border-radius:0.5rem;
-}
+    width: 1.15rem;
+    height: 1.15rem;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+    background-color: $color-knob-metal;
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.2)),
+      linear-gradient(-100deg, rgba(0, 0, 0, 0) 47%, rgba(0, 0, 0, 0.035) 53%),
+      linear-gradient(30deg, rgba(0, 0, 0, 0.035) 47%, rgba(0, 0, 0, 0) 53%),
+      linear-gradient(-230deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.035) 52%),
+      linear-gradient(330deg, rgba(0, 0, 0, 0.03) 48%, rgba(0, 0, 0, 0) 52%);
+
+
+  }
+
+  .pr-knob-control:after {
+    content: '';
+    display: block;
+
+    width: 0.28125rem;
+    height: 0.85rem;
+    margin: auto;
+    position: absolute;
+    top: 0.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    background-color: $color-knob-rubber;
+
+    border-radius: 0.5rem;
+
+    @include box-shadow($knob-tick-outset);
+  }
 }
 
 
@@ -310,85 +314,81 @@ html {
 ****************************************/
 
 #pr-piano-keys {
-  display:inline-block;
-  cursor:pointer;
+  display: inline-block;
+  cursor: pointer;
 
 }
 
-#pr-piano-black-keys{
+#pr-piano-black-keys {
   display: flex;
-  flex-flow:row;
-  position:absolute;
+  flex-flow: row;
+  position: absolute;
 }
 
-#pr-piano-white-keys{
-  display:flex;
+#pr-piano-white-keys {
+  display: flex;
 }
 
 .pr-piano-key {
   display: inline-block;
-  border: $border-thin;
-  border-top: $border-normal;
-  border-bottom: $border-normal;
+  border: $key-border;
+  border-top: $piano-border;
+  border-bottom: $piano-border;
 
-  transition:0.0625s ease-out;
+  transition: 0.0625s ease-out;
 }
 
 .pr-piano-key-white {
   width: 2.3rem;
   height: 12.0rem;
-  background:#d7d7d7;
+  background: #d7d7d7;
 
-  @include box-shadow(
-    $key-shadow-inset-top,
+  @include box-shadow($key-shadow-inset-top,
     $key-shadow-inset-bottom,
-    $white-key-shadow-outset
-    );
+    $white-key-shadow-outset);
 
   &:first-child {
-    border-left:$border-normal;
-    border-bottom-left-radius:0.3125rem;
+    border-left: $piano-border;
+    border-bottom-left-radius: 0.3125rem;
 
-    @include box-shadow(
-      $white-key-shadow-outset,
+    @include box-shadow($white-key-shadow-outset,
       $key-shadow-inset-top,
-      $key-shadow-inset-left
-    );
+      $key-shadow-inset-left);
   }
 
   &:last-child {
-    border-right:$border-normal;
-    border-bottom-right-radius:0.3125rem;
+    border-right: $piano-border;
+    border-bottom-right-radius: 0.3125rem;
 
-    @include box-shadow(
-      $white-key-shadow-outset,
+    @include box-shadow($white-key-shadow-outset,
       $key-shadow-inset-top,
-      $key-shadow-inset-right
-    );
+      $key-shadow-inset-right);
   }
 
   &.pr-piano-key-active {
     // TODO: flicker bug
     // @include linear-gradient(#c0c0c0, #fff);
-    background: $color-piano-key-white-active;
+    background: $color-key-white-active;
+    @include box-shadow($white-key-shadow-outset-active);
   }
 }
 
 .pr-piano-key-black {
   width: 1.3rem;
   height: 8.0rem;
-  border: $border-normal;
-  border-bottom-left-radius:.2rem .3rem;
+  border: $key-border;
+  border-bottom-left-radius: .2rem .3rem;
   border-bottom-right-radius: .2rem .3rem;
-  background: $color-piano-key-black;
+  background: $color-key-black;
   @include box-shadow($black-key-shadow-outset);
 
-  position:absolute;
+  position: absolute;
 
 
-  &.pr-piano-key-active{
+  &.pr-piano-key-active {
     // @include linear-gradient(#c0c0c0, #231f20);
-    background:$color-piano-key-black-active;
+    background: $color-key-black-active;
+    @include box-shadow($black-key-shadow-outset-active);
   }
 
   @for $i from 0 through 9 {
@@ -410,13 +410,12 @@ html {
       left: #{$offset + 10.825}rem;
     }
 
-    &:nth-child(#{($i * 5) + 5}){
+    &:nth-child(#{($i * 5) + 5}) {
       left: #{$offset + 13.475}rem;
     }
   }
 }
 
 @each $key in $keys {
-  .pr-piano-key-#{$key} {
-  }
+  .pr-piano-key-#{$key} {}
 }

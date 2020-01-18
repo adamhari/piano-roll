@@ -1,46 +1,63 @@
-import { CONTROLS, OSC_SHAPES } from "../statics";
+import { FREQ_MULTIPLIER, OSC_SHAPES } from "../statics";
 
 export default class Voice {
-
-  constructor(audioContext, frequency) {
+  constructor(
+    audioContext,
+    frequency,
+    gain,
+    shape,
+    octave,
+    transpose,
+    attack = 1,
+    decay = 1,
+    sustain = 1,
+    release = 1
+    ) {
+    this.active = false;
     this.audioContext = audioContext;
     this.frequency = frequency;
-
-    this.vco = this.audioContext.createOscillator();
-    this.vco.frequency.value = this.frequency; //* Math.pow(2, octave);
-
-    this.vca = this.audioContext.createGain();
-    this.vca.gain.value = 0;
-    this.vco.connect(this.vca);
-    this.vca.connect(this.audioContext.destination);
+    this.gain = gain;
+    this.shape = shape;
+    this.octave = octave;
+    this.transpose = transpose;
+    this.attack = attack;
+    this.decay = decay;
+    this.sustain = sustain;
+    this.release = release;
 
     this.oscillators = [];
-    this.oscillators.push(this.vco);
-    this.vco.start();
 
-    this.active = false;
-    this.setParams();
+    this.osc1 = this.audioContext.createOscillator();
+    this.osc1.frequency.value = this.getFrequency(); //* Math.pow(2, octave);
+    this.osc1Gain = this.audioContext.createGain();
+    this.osc1Gain.gain.value = (this.gain / 100);
+    this.osc1.connect(this.osc1Gain);
+    this.osc1Gain.connect(this.audioContext.destination);
+    this.osc1.type = OSC_SHAPES[shape];
+
+    this.oscillators.push(this.osc1);
+
+    this.start();
   }
-
-  setParams = (
-    gain = CONTROLS["gain"].defaultValue,
-    shape = CONTROLS["shape"].defaultValue,
-    octave = CONTROLS["octave"].defaultValue,
-    transpose = CONTROLS["transpose"].defaultValue
-  ) => {
-    this.gain = gain;
-    this.vco.type = OSC_SHAPES[shape];
-  };
 
   start = () => {
     this.active = true;
-    this.vca.gain.exponentialRampToValueAtTime(
-      1,
-      this.audioContext.currentTime + 5
-    );
+
+    this.osc1.start();
   };
 
   stop = () => {
     this.active = false;
+
+    const now = this.audioContext.currentTime;
+    const release = now + (this.release / 1000);
+
+    this.osc1.stop(release);
+  };
+
+  getFrequency = () => {
+    const octavedFrequency = this.frequency * Math.pow(2, this.octave);
+    const transposedFrequency = octavedFrequency * Math.pow(FREQ_MULTIPLIER, this.transpose);
+    return transposedFrequency;
   };
 }

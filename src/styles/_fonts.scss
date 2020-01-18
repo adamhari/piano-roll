@@ -21,4 +21,22 @@
   font-size:0.5625rem;
   line-height:1.15;
   letter-spacing:0.03125rem;
+  padding: 0.1875rem 0 0.09375rem;
+}
+
+@mixin control-outline {
+  border: solid $color-piano-label 0.1875rem;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+@mixin control-outline-label {
+  @include label-text;
+  color: $color-piano-plastic;
+  background-color: $color-piano-label;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }

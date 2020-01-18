@@ -3,15 +3,16 @@ $keys: C, C♯, D, D♯, E, F, F♯, G, G♯, A, A♯, B;
 $octave-width: 16.1;
 
 $color-piano-plastic: #303030;
+$color-piano-label: #ababab;
 $color-key-white: #eeeeee;
 $color-key-white-active: #ffffff;
 $color-key-black: #191718;
 $color-key-black-active: #0f0f0f;
-$color-piano-label: #ababab;
 $color-digital-background: #0b0b0b;
 $color-digital-text: #ff2600;
 $color-knob-rubber: #231f20;
 $color-knob-metal: #cacaca;
+$color-knob-dial: #999;
 
 $piano-border: solid #231f20 0.15rem;
 $key-border: solid #231f20 0.075rem;
@@ -31,3 +32,6 @@ $black-key-shadow-outset-active: 0 0.075rem 0.00625rem 0rem rgba(0,0,0,0.3);
 
 $knob-shadow-inset: inset 0 0 0rem 0.125rem rgba(0,0,0,0.15);
 $knob-shadow-outset: 0 0.0625rem 2rem 0 rgba(0,0,0,0.45);
+
+$knob-dial-shadow-inset: inset 0rem 0.125rem 0.125rem 0.00625rem rgba(0,0,0, 0.1);
+$knob-large-dial-shadow-inset: inset 0rem 0.25rem 0.125rem 0.0125rem rgba(0,0,0 ,0.1);

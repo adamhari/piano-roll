@@ -10,6 +10,7 @@ const PianoKnobControl = ({
   max,
   min,
   name,
+  size,
   value
 }) => {
 
@@ -48,21 +49,23 @@ const PianoKnobControl = ({
   }
 
   return (
-    <div className="pr-knob-container">
-      <div className="pr-knob-control-label">{label || name}</div>
+    <div className={"pr-knob-control-container " + (size ? size : "")}>
+      <div className="pr-control-label">{label || name}</div>
       <div
         className="pr-knob-control-value"
         style={getValueStyles()}
       >
         {value}
       </div>
-      <div
-        className="pr-knob-control"
-        style={getKnobStyle()}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onWheel={handleMouseWheel}
-      />
+      <div className="pr-knob-container">
+        <div
+          className="pr-knob"
+          style={getKnobStyle()}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onWheel={handleMouseWheel}
+        />
+      </div>
     </div>
   );
 }

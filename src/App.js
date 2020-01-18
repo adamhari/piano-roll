@@ -19,19 +19,25 @@ class App extends Component {
     }
 
     this.state = {
-      audioContextStarted: false,
-      octaves: this.octaves,
-      layout: this.layout,
       activeKeys: [],
       activeControl: null,
       activeControlType: null,
       activeScreenY: null,
       alternateControl: false,
-      gain: CONTROLS["gain"].defaultValue,
+      audioContextStarted: false,
+      octaves: this.octaves,
+      layout: this.layout,
+      master: CONTROLS["master"].defaultValue,
+      attack: CONTROLS["attack"].defaultValue,
+      decay: CONTROLS["decay"].defaultValue,
+      sustain: CONTROLS["sustain"].defaultValue,
+      release: CONTROLS["release"].defaultValue,
       shape: CONTROLS["shape"].defaultValue,
-      transpose: CONTROLS["transpose"].defaultValue,
       octave: CONTROLS["octave"].defaultValue,
-      master: CONTROLS["master"].defaultValue
+      transpose: CONTROLS["transpose"].defaultValue,
+      detune: CONTROLS["detune"].defaultValue,
+      gain: CONTROLS["gain"].defaultValue,
+
     };
   }
 
@@ -72,7 +78,6 @@ class App extends Component {
     console.log("initializeVoices");
 
     Object.keys(KEYS_MAP).forEach(key => {
-      console.log(key);
       this.voices[key] = new Voice(
         this.audioContext,
         KEYS_MAP[key].freq,
@@ -238,7 +243,7 @@ class App extends Component {
   };
 
   handleMouseMoveControl = event => {
-    // console.log("handleMouseMove", event);
+    // console.log("handleMouseMoveControl", event, this.state);
 
     const {
       alternateControl,
@@ -249,13 +254,13 @@ class App extends Component {
 
     if (activeControl) {
       let pixelStep = CONTROL_TYPES[activeControlType].pixelStep || 5;
-      let valueStep = CONTROL_TYPES[activeControlType].valueStep || 1;
 
       if (alternateControl) {
         pixelStep *= 10;
       }
 
-      const movement = Math.abs(event.screenY - activeScreenY) * valueStep;
+      const movement = Math.abs(event.screenY - activeScreenY);
+
       let change = 0;
       if (event.screenY - pixelStep > activeScreenY) {
         change = Math.round(-movement / pixelStep);
@@ -263,15 +268,17 @@ class App extends Component {
         change = Math.round(movement / pixelStep);
       }
 
-      // console.log(change);
-
-      if (change !== 0) {
+      if (change) {
         const newState = { ...this.state };
         newState["activeScreenY"] = event.screenY;
         this.setState(newState);
         this.changeControlValue(activeControl, change);
       }
     }
+  };
+
+  handleMouseWheelControl = (activeControl, activeControlType, e) => {
+    console.log("handleMouseWheelControl", activeControl, activeControlType, e);
   };
 
   activateControl = (activeControl, activeControlType, screenY) => {
@@ -295,7 +302,7 @@ class App extends Component {
   };
 
   changeControlValue = (control, change) => {
-    // console.log("changeControlValue", control, change);
+    console.log("changeControlValue", control, change);
 
     const newState = { ...this.state };
 
@@ -321,26 +328,22 @@ class App extends Component {
   };
 
   render() {
-    console.log("State:", this.state);
+    // console.log("State:", this.state);
 
     return (
-      <div id="pr-container" onContextMenu={(e) => {e.preventDefault()}}>
+      <div
+        id="pr-container"
+        // onContextMenu={(e) => {e.preventDefault()}}
+      >
         <Piano
-          octaves={this.state.octaves}
-          layout={this.state.layout}
-          gain={this.state.gain}
-          shape={this.state.shape}
-          transpose={this.state.transpose}
-          octave={this.state.octave}
-          master={this.state.master}
-          activeKeys={this.state.activeKeys}
-          activeControl={this.state.activeControl}
+          {...this.state}
           handleMouseDownPianoKey={this.handleMouseDownPianoKey}
           handleMouseUpPianoKey={this.handleMouseUpPianoKey}
           handleMouseOverPianoKey={this.handleMouseOverPianoKey}
           handleMouseLeavePianoKey={this.handleMouseLeavePianoKey}
           handleMouseDownControl={this.handleMouseDownControl}
           handleMouseUpControl={this.handleMouseUpControl}
+          handleMouseWheelControl={this.handleMouseWheelControl}
         />
       </div>
     );

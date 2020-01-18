@@ -163,12 +163,10 @@ export const CONTROL_TYPES = {
   digital: {
     name: 'digital',
     pixelStep: 10,
-    valueStep: 1
   },
   knob: {
     name: 'knob',
     pixelStep: 1,
-    valueStep: 1,
   }
 }
 
@@ -215,13 +213,6 @@ export const CONTROLS = {
       max: 100
     }
   },
-  gain: {
-    defaultValue: 80,
-    range: {
-      min: 0,
-      max: 100
-    }
-  },
   shape: {
     defaultValue: 0,
     range: {
@@ -242,5 +233,19 @@ export const CONTROLS = {
       min: -9,
       max: 9
     }
-  }
+  },
+  detune: {
+    defaultValue: 0,
+    range: {
+      min: -100,
+      max: 100
+    }
+  },
+  gain: {
+    defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
 }

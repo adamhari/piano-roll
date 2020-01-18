@@ -46,7 +46,7 @@ const PianoDigitalControl = ({
     <div className={"pr-digital-control " + (outline ? "pr-digital-control-outlined" : "")}>
       <label
         id={"pr-" + name + "-label"}
-        className="pr-digital-control-label"
+        className="pr-control-label"
         htmlFor={"pr-" + name}
       >
         {label || name}

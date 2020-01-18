@@ -19,7 +19,7 @@ class App extends Component {
     }
 
     this.state = {
-      hasUserGestured: false,
+      audioContextStarted: false,
       octaves: this.octaves,
       layout: this.layout,
       activeKeys: [],
@@ -35,13 +35,9 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.initializeSoundEngine();
     this.registerEvents();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    !prevState.hasUserGestured && this.state.hasUserGestured && this.resumeAudioContext();
   }
 
   /** INIT */
@@ -74,21 +70,22 @@ class App extends Component {
     this.destination = this.audioContext.destination;
     this.masterGain.connect(this.destination);
 
-    this.initializeVoices();
+    console.log("LATENCY", this.audioContext.baseLatency, this.audioContext.outputLatency)
+
+    // console.log("initializeVoices");
+
+    // Object.keys(KEYS_MAP).forEach(key => {
+    //   this.voices[key] = new Voice(this.audioContext, KEYS_MAP[key].freq);
+    // });
   };
 
-  initializeVoices = () => {
-    console.log("initializeVoices");
+  startAudioContext = () => {
+    console.log("startAudioContext");
 
-    Object.keys(KEYS_MAP).forEach(key => {
-      this.voices[key] = new Voice(this.audioContext, KEYS_MAP[key].freq);
-    });
-  };
-
-  resumeAudioContext = () => {
-    console.log("resumeAudioContext");
-
-    this.audioContext.resume();
+    if (!this.state.audioContextStarted) {
+      this.audioContext.resume();
+      this.setState({audioContextStarted: true});
+    }
   };
 
   /** GLOBAL EVENT HANDLERS */
@@ -102,6 +99,8 @@ class App extends Component {
 
     if (keyPressed === "control" || keyPressed === "command")
       this.setState({ alternateControl: true });
+
+    this.startAudioContext();
   };
 
   handleKeyUp = e => {
@@ -119,7 +118,7 @@ class App extends Component {
   handleMouseDown = e => {
     console.log("handleMouseDown", e);
 
-    !this.state.hasUserGestured && this.setState({ hasUserGestured: true });
+    this.startAudioContext();
   };
 
   handleMouseUp = e => {
@@ -178,9 +177,7 @@ class App extends Component {
   activatePianoKey = key => {
     console.log("activatePianoKey", key);
 
-    const { activeKeys } = this.state;
-
-    if (!activeKeys.includes(key)) {
+    if (!this.state.activeKeys.includes(key)) {
       this.startPlayingKey(key);
       this.setState(prevState => ({
         activeKeys: [...prevState.activeKeys, key]
@@ -209,14 +206,14 @@ class App extends Component {
   startPlayingKey = key => {
     console.log("startPlayingKey", KEYS_MAP[key]);
 
-    if (!this.voices[key].active) {
-      this.voices[key].start(
-        this.state.gain,
-        this.state.shape,
-        this.state.octave,
-        this.state.transpose
-      );
-    }
+    this.voices[key] = new Voice(
+      this.audioContext,
+      KEYS_MAP[key].freq,
+      this.state.gain,
+      this.state.shape,
+      this.state.octave,
+      this.state.transpose
+    );
   };
 
   stopPlayingKey = key => {
@@ -339,6 +336,8 @@ class App extends Component {
   };
 
   render() {
+    console.log("State:", this.state);
+
     return (
       <div id="pr-container" onContextMenu={(e) => {e.preventDefault()}}>
         <Piano

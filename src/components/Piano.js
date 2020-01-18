@@ -88,7 +88,7 @@ const Piano = (props) => {
                 />
               </div>
 
-              <div className="pr-piano-top-control-row">
+              {/* <div className="pr-piano-top-control-row">
                 <PianoDigitalControl
                   {...props}
                   name="shape"
@@ -107,7 +107,7 @@ const Piano = (props) => {
                   value={transpose}
                   type="single-digit-negative"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div id="pr-piano-right-bottom">

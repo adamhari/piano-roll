@@ -155,8 +155,7 @@ export const OSC_SHAPES = [
   "sawtooth",
   "square",
   "triangle",
-  "sine",
-  "custom"
+  "sine"
 ]
 
 
@@ -192,7 +191,7 @@ export const CONTROLS = {
     defaultValue: 0,
     range: {
       min: 0,
-      max: 5
+      max: 3
     }
   },
   octave: {

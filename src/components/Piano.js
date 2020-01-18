@@ -7,6 +7,13 @@ import { CONTROLS } from "../js/statics";
 const Piano = props => {
   const { attack, decay, detune, gain, layout, master, octave, release, shape, sustain, transpose } = props;
 
+  const renderGlobalSection = () => (
+    <div id="pr-global-section">
+      {renderLogo()}
+      {renderGlobalControls()}
+    </div>
+  );
+
   const renderLogo = () => (
     <div id="pr-logo-section">
       <svg id="pr-logo" viewBox="304.103 332.216 470.661 104.256">
@@ -131,7 +138,7 @@ const Piano = props => {
           <PianoKnobControl
             {...props}
             name="detune"
-            label="detune"
+            label="tune"
             size="medium"
             min={CONTROLS.detune.range.min}
             max={CONTROLS.detune.range.max}
@@ -157,7 +164,7 @@ const Piano = props => {
           <PianoKnobControl
             {...props}
             name="detune"
-            label="detune"
+            label="tune"
             size="medium"
             min={CONTROLS.detune.range.min}
             max={CONTROLS.detune.range.max}
@@ -177,6 +184,52 @@ const Piano = props => {
     </div>
   );
 
+  const renderFilter = () => (
+    <div id="pr-filter">
+      <div className="pr-filter-label">
+          FILTER
+        </div>
+      <div className="pr-filter-controls-container">
+        <PianoKnobControl
+          {...props}
+          name="master"
+          label="volume"
+          size="large"
+          min={CONTROLS.master.range.min}
+          max={CONTROLS.master.range.max}
+          value={master}
+        />
+        <PianoKnobControl
+          {...props}
+          name="master"
+          label="volume"
+          size="large"
+          min={CONTROLS.master.range.min}
+          max={CONTROLS.master.range.max}
+          value={master}
+        />
+        <PianoKnobControl
+          {...props}
+          name="master"
+          label="volume"
+          size="large"
+          min={CONTROLS.master.range.min}
+          max={CONTROLS.master.range.max}
+          value={master}
+        />
+        <PianoKnobControl
+          {...props}
+          name="master"
+          label="volume"
+          size="large"
+          min={CONTROLS.master.range.min}
+          max={CONTROLS.master.range.max}
+          value={master}
+        />
+      </div>
+    </div>
+  )
+
   return (
     <div id="pr-piano">
       <div id="pr-piano-left">
@@ -186,11 +239,9 @@ const Piano = props => {
       </div>
       <div id="pr-piano-right">
         <div id="pr-piano-right-top">
-          <div id="pr-global-section">
-            {renderLogo()}
-            {renderGlobalControls()}
-          </div>
-          <div id="pr-piano-top-controls">{renderOscillators()}</div>
+          {renderGlobalSection()}
+          {renderOscillators()}
+          {renderFilter()}
         </div>
         <div id="pr-piano-right-bottom">
           <PianoKeys {...props} />

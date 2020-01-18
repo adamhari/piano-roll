@@ -47,7 +47,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100vh;
+  height: 96vh;
 }
 
 #pr-piano {
@@ -150,11 +150,14 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-align: center;
 }
 
 #pr-oscillators .pr-oscillator-container {
-  margin: 0.4375rem 0;
+  margin: 0.5rem 0;
 }
 
 #pr-oscillators .pr-oscillator-container .pr-oscillator-label {
@@ -186,9 +189,20 @@ body {
 
 #pr-filter {
   height: 100%;
+  padding: 1rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
 }
 
 #pr-filter .pr-filter-label {
@@ -201,8 +215,27 @@ body {
   padding: 0.1875rem 0 0.09375rem;
   color: #303030;
   background-color: #ababab;
-  border-top-left-radius: 0.1875rem;
-  border-top-right-radius: 0.1875rem;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  width: 100%;
+  text-align: center;
+}
+
+#pr-filter .pr-filter-controls-container {
+  border: solid #ababab 0.1875rem;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  height: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  -ms-grid-rows: auto auto;
+      grid-template-rows: auto auto;
+  padding: 0.5rem;
 }
 
 /***************************************
@@ -383,14 +416,14 @@ body {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   border-radius: 50%;
-  border: solid #999 0.125rem;
+  border: solid #595959 0.1rem;
   background-color: #cacaca;
 }
 
 .pr-knob-control-container .pr-knob:after {
   content: '';
   display: block;
-  width: 0.25rem;
+  width: 0.2rem;
   height: 0.625rem;
   margin: auto;
   position: absolute;
@@ -398,13 +431,13 @@ body {
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
-  border-top-left-radius: 0.125rem;
-  border-top-right-radius: 0.125rem;
+  border-top-left-radius: 0.075rem;
+  border-top-right-radius: 0.075rem;
   border-bottom-left-radius: 0.125rem;
   border-bottom-right-radius: 0.125rem;
-  background-color: #999;
-  -webkit-box-shadow: inset 0rem 0.125rem 0.125rem 0.00625rem rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0rem 0.125rem 0.125rem 0.00625rem rgba(0, 0, 0, 0.1);
+  background-color: #333;
+  -webkit-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
+  box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
 }
 
 .pr-knob-control-container.medium {
@@ -432,11 +465,14 @@ body {
 .pr-knob-control-container.medium .pr-knob:after {
   width: 0.25rem;
   height: 0.875rem;
+  top: 0.5625rem;
+  -webkit-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
+  box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
 }
 
 .pr-knob-control-container.large {
   width: 5rem;
-  height: 5rem;
+  height: rem;
 }
 
 .pr-knob-control-container.large .pr-knob-control-value {
@@ -460,19 +496,20 @@ body {
 .pr-knob-control-container.large .pr-knob:before {
   width: 2.5rem;
   height: 2.5rem;
-  border: solid #737373 0.15rem;
+  border: solid #595959 0.16rem;
 }
 
 .pr-knob-control-container.large .pr-knob:after {
   top: 0.625rem;
-  height: 1.2rem;
-  width: 0.3rem;
-  -webkit-box-shadow: inset 0rem 0.25rem 0.125rem 0.0125rem rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0rem 0.25rem 0.125rem 0.0125rem rgba(0, 0, 0, 0.1);
+  height: 0.125rem;
+  width: 0.3125rem;
+  -webkit-box-shadow: inset 0rem -0.25rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
+  box-shadow: inset 0rem -0.25rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
   border-top-left-radius: 0.05rem;
   border-top-right-radius: 0.05rem;
-  border-bottom-left-radius: 0.125rem;
-  border-bottom-right-radius: 0.125rem;
+  border-bottom-left-radius: 0.0625rem;
+  border-bottom-right-radius: 0.0625rem;
+  background-color: black;
 }
 
 /***************************************

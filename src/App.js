@@ -14,7 +14,7 @@ class App extends Component {
     this.octaves = props.octaves;
     this.voices = {};
 
-    if (!this.octaves || this.octaves > 10 || !Number.isInteger(this.octaves)) {
+    if (!this.octaves || !Number.isInteger(this.octaves) || this.octaves > 10 || this.octaves < 4) {
       this.octaves = 4;
     }
 
@@ -278,7 +278,14 @@ class App extends Component {
   };
 
   handleMouseWheelControl = (activeControl, activeControlType, e) => {
-    console.log("handleMouseWheelControl", activeControl, activeControlType, e);
+    console.log("handleMouseWheelControl", activeControl, activeControlType, e.deltaY);
+
+    const { pixelStep } = CONTROL_TYPES[activeControlType];
+
+    const change = e.deltaY > 0 ? -1 : 1;
+    const value = change * Math.round(5 / pixelStep);
+    this.changeControlValue(activeControl, value);
+    return false;
   };
 
   activateControl = (activeControl, activeControlType, screenY) => {

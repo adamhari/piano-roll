@@ -20,7 +20,7 @@ body {
   display: flex;
   // justify-content:center;
   align-items: center;
-  height: 100vh;
+  height: 96vh;
 }
 
 #pr-piano {
@@ -111,10 +111,11 @@ body {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
   text-align: center;
 
   .pr-oscillator-container {
-    margin: 0.4375rem 0;
+    margin: 0.5rem 0;
 
     .pr-oscillator-label {
       @include control-outline-label;
@@ -132,18 +133,25 @@ body {
 
 #pr-filter {
   height: 100%;
+  padding: 1rem;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: column nowrap;
 
   .pr-filter-label {
-    @include label-text;
-    color: $color-piano-plastic;
-    background-color: $color-piano-label;
-    border-top-left-radius: 0.1875rem;
-    border-top-right-radius: 0.1875rem;
+    @include control-outline-label;
+    width: 100%;
+    text-align: center;
   }
 
   .pr-filter-controls-container {
-
+    @include control-outline;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    padding: 0.5rem;
   }
 }
 
@@ -292,48 +300,48 @@ body {
 
     @include box-shadow($knob-shadow-inset);
 
-  }
+    &:before {
+      content: '';
+      display: block;
+      box-sizing: border-box;
 
-  .pr-knob:before {
-    content: '';
-    display: block;
-    box-sizing: border-box;
+      width: 1.15rem;
+      height: 1.15rem;
+      margin: auto;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
 
-    width: 1.15rem;
-    height: 1.15rem;
-    margin: auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+      border-radius: 50%;
+      border: solid lighten($color-knob-dial, 15%) 0.1rem;
+      background-color: $color-knob-metal;
+    }
 
-    border-radius: 50%;
-    border: solid $color-knob-dial 0.125rem;
-    background-color: $color-knob-metal;
-  }
+    &:after {
+      content: '';
+      display: block;
 
-  .pr-knob:after {
-    content: '';
-    display: block;
+      width: 0.2rem;
+      height: 0.625rem;
+      margin: auto;
+      position: absolute;
+      top: 0.5rem;
+      left: 50%;
+      transform: translateX(-50%);
 
-    width: 0.25rem;
-    height: 0.625rem;
-    margin: auto;
-    position: absolute;
-    top: 0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+      border-top-left-radius: 0.075rem;
+      border-top-right-radius: 0.075rem;
+      border-bottom-left-radius: 0.125rem;
+      border-bottom-right-radius: 0.125rem;
 
-    border-top-left-radius: 0.125rem;
-    border-top-right-radius: 0.125rem;
-    border-bottom-left-radius: 0.125rem;
-    border-bottom-right-radius: 0.125rem;
+      background-color: $color-knob-dial;
 
-    background-color: $color-knob-dial;
-
-
-    @include box-shadow($knob-dial-shadow-inset);
+      @include box-shadow($knob-dial-shadow-inset);
+    }
 
   }
+
+
 
   &.medium {
     width: 3.25rem;
@@ -362,13 +370,16 @@ body {
       &:after {
         width: 0.25rem;
         height: 0.875rem;
+        top: 0.5625rem;
+
+        @include box-shadow($knob-dial-shadow-inset);
       }
     }
   }
 
   &.large {
     width: 5rem;
-    height: 5rem;
+    height: rem;
 
     .pr-knob-control-value {
       bottom: -0.75rem;
@@ -391,20 +402,22 @@ body {
       &:before {
         width: 2.5rem;
         height: 2.5rem;
-        border: solid darken($color-knob-dial, 15%) 0.15rem;
+        border: solid lighten($color-knob-dial, 15%) 0.16rem;
       }
 
       &:after {
         top: 0.625rem;
-        height: 1.2rem;
-        width: 0.3rem;
+        height: 0.125rem;
+        width: 0.3125rem;
 
         @include box-shadow($knob-large-dial-shadow-inset);
 
         border-top-left-radius: 0.05rem;
         border-top-right-radius: 0.05rem;
-        border-bottom-left-radius: 0.125rem;
-        border-bottom-right-radius: 0.125rem;
+        border-bottom-left-radius: 0.0625rem;
+        border-bottom-right-radius: 0.0625rem;
+
+        background-color: black;
       }
     }
   }

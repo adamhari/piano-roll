@@ -12,7 +12,7 @@ $color-digital-background: #0b0b0b;
 $color-digital-text: #ff2600;
 $color-knob-rubber: #231f20;
 $color-knob-metal: #cacaca;
-$color-knob-dial: #999;
+$color-knob-dial: #333;
 
 $piano-border: solid #231f20 0.15rem;
 $key-border: solid #231f20 0.075rem;
@@ -33,5 +33,5 @@ $black-key-shadow-outset-active: 0 0.075rem 0.00625rem 0rem rgba(0,0,0,0.3);
 $knob-shadow-inset: inset 0 0 0rem 0.125rem rgba(0,0,0,0.15);
 $knob-shadow-outset: 0 0.0625rem 2rem 0 rgba(0,0,0,0.45);
 
-$knob-dial-shadow-inset: inset 0rem 0.125rem 0.125rem 0.00625rem rgba(0,0,0, 0.1);
-$knob-large-dial-shadow-inset: inset 0rem 0.25rem 0.125rem 0.0125rem rgba(0,0,0 ,0.1);
+$knob-dial-shadow-inset: inset 0rem -0.5rem 0.3125rem 0 rgba(255,255,255, 0.375);
+$knob-large-dial-shadow-inset: inset 0rem -0.25rem 0.3125rem 0 rgba(255,255,255, 0.375);

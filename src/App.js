@@ -11,18 +11,30 @@ const App = props => {
 
   const [hasUserGestured, setHasUserGestured] = useState(false);
   const [octaves, setOctaves] = useState(props.octaves || 4);
-  const [layout, setLayout] = useState(props.layout || 0);
   const [mouseDownOnKeys, setMouseDownOnKeys] = useState(false);
   const [activeKeys, setActiveKeys] = useState([]);
   const [activeControl, setActiveControl] = useState(null);
   const [activeControlType, setActiveControlType] = useState(null);
   const [activeScreenY, setActiveScreenY] = useState(null);
   const [alternateControl, setAlternateControl] = useState(false);
-  const [gain, setGain] = useState(CONTROLS["gain"].defaultValue);
-  const [shape, setShape] = useState(CONTROLS["shape"].defaultValue);
-  const [transpose, setTranspose] = useState(CONTROLS["transpose"].defaultValue);
-  const [octave, setOctave] = useState(CONTROLS["octave"].defaultValue);
-  const [master, setMaster] = useState(CONTROLS["master"].defaultValue);
+
+  const [controls, setControls] = useState({
+    layout: props.layout || 0,
+    master: CONTROLS["master"].defaultValue,
+    gain: CONTROLS["gain"].defaultValue,
+    shape: CONTROLS["shape"].defaultValue,
+    octave: CONTROLS["octave"].defaultValue,
+    transpose: CONTROLS["transpose"].defaultValue
+  });
+
+  const {
+    layout,
+    master,
+    gain,
+    shape,
+    octave,
+    transpose
+  } = controls;
 
 
 
@@ -172,7 +184,7 @@ const App = props => {
     console.log("startPlayingKey", KEYS_MAP[key]);
 
     if (voices[key] && !voices[key].active) {
-      voices[key].start(gain, shape, octave, transpose);
+      voices[key].start(gain, shape,octave, transpose);
     }
   };
 
@@ -216,8 +228,8 @@ const App = props => {
     }
   };
 
-  const handleMouseMoveControl = event => {
-    // console.log("handleMouseMove", event);
+  const handleMouseMoveControl = e => {
+    // console.log("handleMouseMoveControl", e);
 
     if (activeControl) {
       let pixelStep = CONTROL_TYPES[activeControlType].pixelStep || 5;
@@ -227,18 +239,18 @@ const App = props => {
         pixelStep *= 10;
       }
 
-      const movement = Math.abs(event.screenY - activeScreenY) * valueStep;
+      const movement = Math.abs(e.screenY - activeScreenY) * valueStep;
       let change = 0;
-      if (event.screenY - pixelStep > activeScreenY) {
+      if (e.screenY - pixelStep > activeScreenY) {
         change = Math.round(-movement / pixelStep);
-      } else if (event.screenY + pixelStep < activeScreenY) {
+      } else if (e.screenY + pixelStep < activeScreenY) {
         change = Math.round(movement / pixelStep);
       }
 
       // console.log(change);
 
       if (change !== 0) {
-        setActiveScreenY(event.screenY);
+        setActiveScreenY(e.screenY);
         changeControlValue(activeControl, change);
       }
     }
@@ -263,12 +275,12 @@ const App = props => {
   };
 
   const changeControlValue = (control, change) => {
-    // console.log("changeControlValue", control, change);
+    console.log("changeControlValue", control, change);
 
     const minValue = CONTROLS[control].range.min;
     const maxValue = CONTROLS[control].range.max;
 
-    let value = [control] + change;
+    let value = controls[control] + change;
 
     if (value > maxValue) value = maxValue;
     else if (value < minValue) value = minValue;
@@ -281,8 +293,12 @@ const App = props => {
   };
 
   const setControlValue = (control, value) => {
-    const setter = `set${control.charAt(0).toUpperCase() + control.slice(1)}`;
-    window[setter](value);
+    console.log("setControlValue", value);
+
+    setControls(prevControls => ({
+      ...prevControls,
+      [control]: value
+    }));
   };
 
   return (

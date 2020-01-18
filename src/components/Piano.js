@@ -7,10 +7,14 @@ import { CONTROLS } from "../js/statics";
 const Piano = (props) => {
 
   const {
+    attack,
+    decay,
     layout,
     master,
     octave,
+    release,
     shape,
+    sustain,
     transpose
   } = props;
 
@@ -34,8 +38,8 @@ const Piano = (props) => {
     </div>
   );
 
-  const renderMasterControls = () => (
-    <div id="pr-master-controls">
+  const renderGlobalControls = () => (
+    <div id="pr-global-controls">
       <PianoKnobControl
         {...props}
         name="master"
@@ -43,6 +47,36 @@ const Piano = (props) => {
         max={CONTROLS.master.range.max}
         value={master}
       />
+      <div id="pr-envelope-controls">
+        <PianoKnobControl
+          {...props}
+          name="attack"
+          min={CONTROLS.attack.range.min}
+          max={CONTROLS.attack.range.max}
+          value={attack}
+        />
+        <PianoKnobControl
+          {...props}
+          name="decay"
+          min={CONTROLS.decay.range.min}
+          max={CONTROLS.decay.range.max}
+          value={decay}
+        />
+        <PianoKnobControl
+          {...props}
+          name="sustain"
+          min={CONTROLS.sustain.range.min}
+          max={CONTROLS.sustain.range.max}
+          value={sustain}
+        />
+        <PianoKnobControl
+          {...props}
+          name="release"
+          min={CONTROLS.release.range.min}
+          max={CONTROLS.release.range.max}
+          value={release}
+        />
+      </div>
     </div>
   );
 
@@ -61,9 +95,9 @@ const Piano = (props) => {
       </div>
       <div id="pr-piano-right">
           <div id="pr-piano-right-top">
-            <div id="pr-master-section">
+            <div id="pr-global-section">
               {renderLogo()}
-              {renderMasterControls()}
+              {renderGlobalControls()}
             </div>
             <div id="pr-piano-top-controls">
 

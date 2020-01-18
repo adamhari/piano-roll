@@ -66,17 +66,22 @@ class App extends Component {
 
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     this.audioContext = new AudioContext();
-    this.masterGain = this.audioContext.createGain();
-    this.destination = this.audioContext.destination;
-    this.masterGain.connect(this.destination);
+    this.audioContext.effectChain = this.audioContext.createGain();
+    this.audioContext.effectChain.connect(this.audioContext.destination);
 
-    console.log("LATENCY", this.audioContext.baseLatency, this.audioContext.outputLatency)
+    console.log("initializeVoices");
 
-    // console.log("initializeVoices");
-
-    // Object.keys(KEYS_MAP).forEach(key => {
-    //   this.voices[key] = new Voice(this.audioContext, KEYS_MAP[key].freq);
-    // });
+    Object.keys(KEYS_MAP).forEach(key => {
+      console.log(key);
+      this.voices[key] = new Voice(
+        this.audioContext,
+        KEYS_MAP[key].freq,
+        this.state.gain,
+        this.state.shape,
+        this.state.octave,
+        this.state.transpose
+      );;
+    });
   };
 
   startAudioContext = () => {
@@ -91,20 +96,24 @@ class App extends Component {
   /** GLOBAL EVENT HANDLERS */
 
   handleKeyDown = e => {
-    console.log("handleKeyDown", e);
+    // console.log("handleKeyDown", e);
 
+    e.preventDefault();
     const keyPressed = e.key.toLowerCase();
     const pianoKey = LAYOUTS[this.state.layout][keyPressed];
-    !!pianoKey && this.activatePianoKey(pianoKey);
 
-    if (keyPressed === "control" || keyPressed === "command")
+    if (pianoKey) {
+      this.activatePianoKey(pianoKey);
+    } else if (keyPressed === "control" || keyPressed === "command") {
       this.setState({ alternateControl: true });
+    }
+
 
     this.startAudioContext();
   };
 
   handleKeyUp = e => {
-    console.log("handleKeyUp", e);
+    // console.log("handleKeyUp", e);
 
     const keyReleased = e.key.toLowerCase();
 
@@ -133,13 +142,10 @@ class App extends Component {
 
   handleMouseLeave = e => {
     // console.log("handleMouseLeave", e);
-    // this.deactivatePianoKeys();
-    // this.handleMouseUpControl();
   };
 
   handleMouseOut = e => {
     // console.log("handleMouseOut", e);
-    // this.deactivatePianoKeys();
   };
 
   /** PIANO KEYS */
@@ -195,37 +201,16 @@ class App extends Component {
     }));
   };
 
-  deactivatePianoKeys = (e = null) => {
-    console.log("deactivatePianoKeys", e);
-
-    e && e.preventDefault();
-
-    this.setState({ activeKeys: [] });
-  };
-
   startPlayingKey = key => {
     console.log("startPlayingKey", KEYS_MAP[key]);
 
-    this.voices[key] = new Voice(
-      this.audioContext,
-      KEYS_MAP[key].freq,
-      this.state.gain,
-      this.state.shape,
-      this.state.octave,
-      this.state.transpose
-    );
+    this.voices[key] && this.voices[key].start();
   };
 
   stopPlayingKey = key => {
     console.log("stopPlayingKey", KEYS_MAP[key]);
 
     this.voices[key] && this.voices[key].stop();
-  };
-
-  stopPlayingKeys = () => {
-    console.log("stopPlayingKeys");
-
-    Object.keys(this.voices).forEach(key => this.voices[key].stop());
   };
 
   /** SYNTH CONTROLS */

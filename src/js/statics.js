@@ -122,12 +122,12 @@ export const LAYOUTS = [
     ',': 'C1',
     'l': 'C♯1',
     '.': 'D1',
-    ';': 'D#1',
+    ';': 'D♯1',
     '/': 'E1',
     'q': 'C1',
     '2': 'C♯1',
     'w': 'D1',
-    '3': 'D#1',
+    '3': 'D♯1',
     'e': 'E1',
     'r': 'F1',
     '5': 'F♯1',
@@ -142,7 +142,7 @@ export const LAYOUTS = [
     '0': 'D♯2',
     'p': 'E2',
     '[': 'F2',
-    '=': 'F#2',
+    '=': 'F♯2',
     ']': 'G2',
     'backspace': 'G♯2',
     '\\': 'A2',
@@ -180,8 +180,43 @@ export const CONTROLS = {
       max: 1,
     }
   },
-  gain: {
+  master: {
     defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  attack: {
+    defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  decay: {
+    defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  sustain: {
+    defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  release: {
+    defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  gain: {
+    defaultValue: 80,
     range: {
       min: 0,
       max: 100
@@ -206,13 +241,6 @@ export const CONTROLS = {
     range: {
       min: -9,
       max: 9
-    }
-  },
-  master: {
-    defaultValue: 50,
-    range: {
-      min: 0,
-      max: 100
     }
   }
 }

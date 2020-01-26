@@ -50,8 +50,14 @@ body {
 
 #pr-piano-right-top {
   height: 16rem;
+  padding: 1rem 0;
   display: flex;
   align-items: center;
+
+  > div:not(:last-child) {
+    margin-right: 1rem;
+  }
+
 
   #pr-global-section {
     #pr-logo-section {
@@ -59,7 +65,7 @@ body {
       position: relative;
       color: $color-piano-label;
 
-      width: 15rem;
+      width: 13rem;
       height: 4.375rem;
       padding: 0 0 0 0.375rem;
       margin-left: 1rem;
@@ -110,12 +116,21 @@ body {
 #pr-oscillators {
   height: 100%;
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
   text-align: center;
 
+  > div:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+  #pr-regular-oscillators {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+  }
+
   .pr-oscillator-container {
-    margin: 0.5rem 0;
+    display: flex;
+    flex-flow: column nowrap;
 
     .pr-oscillator-label {
       @include control-outline-label;
@@ -127,31 +142,49 @@ body {
       padding:0.375rem 0.25rem 0.25rem;
 
     }
+  }
 
+  #pr-mod-oscillator {
+    display :flex;
+
+    .pr-oscillator-controls-container {
+      flex-flow: column nowrap;
+      height: 100%;
+    }
   }
 }
 
-#pr-filter {
+#pr-filters {
   height: 100%;
-  padding: 1rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-flow: column nowrap;
 
-  .pr-filter-label {
-    @include control-outline-label;
-    width: 100%;
-    text-align: center;
-  }
-
-  .pr-filter-controls-container {
-    @include control-outline;
+  .pr-filter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-flow: column nowrap;
     height: 100%;
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    padding: 0.5rem;
+
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+
+    .pr-filter-label {
+      @include control-outline-label;
+      width: 100%;
+      text-align: center;
+    }
+
+    .pr-filter-controls-container {
+      @include control-outline;
+      height: 100%;
+      display: grid;
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto;
+      padding: 1rem 0.5rem 0.5rem;
+    }
   }
 }
 
@@ -345,10 +378,11 @@ body {
 
   &.medium {
     width: 3.25rem;
-    height: 3.25rem;
+    height: 4.5rem;
 
     .pr-knob-control-value {
-
+      bottom: -0.4375rem;
+      left: 0.875rem;
     }
 
     .pr-knob-container {
@@ -379,15 +413,12 @@ body {
 
   &.large {
     width: 5rem;
-    height: rem;
+    height: 5rem;
 
     .pr-knob-control-value {
-      bottom: -0.75rem;
-      // right: 1.76rem;
+      bottom: -0.875rem;
       right: 1.25rem;
       width: 2.5rem;
-      font-size: 0.75rem;
-      line-height: 1.25rem;
     }
 
     .pr-knob-container {

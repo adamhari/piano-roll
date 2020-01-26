@@ -129,106 +129,181 @@ const Piano = props => {
 
   const renderOscillators = () => (
     <div id="pr-oscillators">
-      <div className="pr-oscillator-container">
-        <div className="pr-oscillator-label">OSC 1</div>
-        <div className="pr-oscillator-controls-container">
-          <PianoDigitalControl {...props} name="shape" value={shape} type="single-digit" />
-          <PianoDigitalControl {...props} name="octave" value={octave} type="single-digit" />
-          <PianoDigitalControl {...props} name="transpose" value={transpose} type="single-digit-negative" />
-          <PianoKnobControl
-            {...props}
-            name="detune"
-            label="tune"
-            size="medium"
-            min={CONTROLS.detune.range.min}
-            max={CONTROLS.detune.range.max}
-            value={detune}
-          />
-          <PianoKnobControl
-            {...props}
-            name="gain"
-            label="vol"
-            size="medium"
-            min={CONTROLS.gain.range.min}
-            max={CONTROLS.gain.range.max}
-            value={gain}
-          />
+      <div id="pr-regular-oscillators">
+        <div className="pr-oscillator-container">
+          <div className="pr-oscillator-label">OSC 1</div>
+          <div className="pr-oscillator-controls-container">
+            <PianoDigitalControl {...props} name="shape" value={shape} type="single-digit" />
+            <PianoDigitalControl {...props} name="octave" value={octave} type="single-digit" />
+            <PianoDigitalControl {...props} name="transpose" value={transpose} type="single-digit-negative" />
+            <PianoKnobControl
+              {...props}
+              name="detune"
+              label="tune"
+              size="medium"
+              min={CONTROLS.detune.range.min}
+              max={CONTROLS.detune.range.max}
+              value={detune}
+            />
+            <PianoKnobControl
+              {...props}
+              name="gain"
+              label="vol"
+              size="medium"
+              min={CONTROLS.gain.range.min}
+              max={CONTROLS.gain.range.max}
+              value={gain}
+            />
+          </div>
+        </div>
+        <div className="pr-oscillator-container">
+          <div className="pr-oscillator-label">OSC 2</div>
+          <div className="pr-oscillator-controls-container">
+            <PianoDigitalControl {...props} name="shape" value={shape} type="single-digit" />
+            <PianoDigitalControl {...props} name="octave" value={octave} type="single-digit" />
+            <PianoDigitalControl {...props} name="transpose" value={transpose} type="single-digit-negative" />
+            <PianoKnobControl
+              {...props}
+              name="detune"
+              label="tune"
+              size="medium"
+              min={CONTROLS.detune.range.min}
+              max={CONTROLS.detune.range.max}
+              value={detune}
+            />
+            <PianoKnobControl
+              {...props}
+              name="gain"
+              label="vol"
+              size="medium"
+              min={CONTROLS.gain.range.min}
+              max={CONTROLS.gain.range.max}
+              value={gain}
+            />
+          </div>
         </div>
       </div>
-      <div className="pr-oscillator-container">
-        <div className="pr-oscillator-label">OSC 2</div>
-        <div className="pr-oscillator-controls-container">
-          <PianoDigitalControl {...props} name="shape" value={shape} type="single-digit" />
-          <PianoDigitalControl {...props} name="octave" value={octave} type="single-digit" />
-          <PianoDigitalControl {...props} name="transpose" value={transpose} type="single-digit-negative" />
-          <PianoKnobControl
-            {...props}
-            name="detune"
-            label="tune"
-            size="medium"
-            min={CONTROLS.detune.range.min}
-            max={CONTROLS.detune.range.max}
-            value={detune}
-          />
-          <PianoKnobControl
-            {...props}
-            name="gain"
-            label="vol"
-            size="medium"
-            min={CONTROLS.gain.range.min}
-            max={CONTROLS.gain.range.max}
-            value={gain}
-          />
+      <div id="pr-mod-oscillator">
+        <div className="pr-oscillator-container">
+          <div className="pr-oscillator-label">MOD OSC</div>
+          <div className="pr-oscillator-controls-container">
+            <PianoDigitalControl
+              {...props}
+              name="modOscShape"
+              label="shape"
+              value={shape}
+              type="single-digit"
+            />
+            <PianoKnobControl
+              {...props}
+              name="modOscGain"
+              label="vol"
+              size="small"
+              min={CONTROLS.gain.range.min}
+              max={CONTROLS.gain.range.max}
+              value={gain}
+            />
+            <PianoKnobControl
+              {...props}
+              name="modOscFreq"
+              label="freq"
+              size="small"
+              min={CONTROLS.gain.range.min}
+              max={CONTROLS.gain.range.max}
+              value={gain}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 
-  const renderFilter = () => (
-    <div id="pr-filter">
-      <div className="pr-filter-label">
-          FILTER
+  const renderFilters = () => (
+    <div id="pr-filters">
+      <div className="pr-filter pr-filter-1">
+        <div className="pr-filter-label">FILTER 1</div>
+        <div className="pr-filter-controls-container">
+          <PianoKnobControl
+            {...props}
+            name="filter1cutoff"
+            label="cutoff"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
+          <PianoKnobControl
+            {...props}
+            name="filter1res"
+            label="res"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
+          <PianoKnobControl
+            {...props}
+            name="filter1mod"
+            label="mod"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
+          <PianoKnobControl
+            {...props}
+            name="filter1env"
+            label="env"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
         </div>
-      <div className="pr-filter-controls-container">
-        <PianoKnobControl
-          {...props}
-          name="master"
-          label="volume"
-          size="large"
-          min={CONTROLS.master.range.min}
-          max={CONTROLS.master.range.max}
-          value={master}
-        />
-        <PianoKnobControl
-          {...props}
-          name="master"
-          label="volume"
-          size="large"
-          min={CONTROLS.master.range.min}
-          max={CONTROLS.master.range.max}
-          value={master}
-        />
-        <PianoKnobControl
-          {...props}
-          name="master"
-          label="volume"
-          size="large"
-          min={CONTROLS.master.range.min}
-          max={CONTROLS.master.range.max}
-          value={master}
-        />
-        <PianoKnobControl
-          {...props}
-          name="master"
-          label="volume"
-          size="large"
-          min={CONTROLS.master.range.min}
-          max={CONTROLS.master.range.max}
-          value={master}
-        />
+      </div>
+      <div className="pr-filter pr-filter-2">
+        <div className="pr-filter-label">FILTER 2</div>
+        <div className="pr-filter-controls-container">
+          <PianoKnobControl
+            {...props}
+            name="filter2cutoff"
+            label="cutoff"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
+          <PianoKnobControl
+            {...props}
+            name="filter2res"
+            label="res"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
+          <PianoKnobControl
+            {...props}
+            name="filter2mod"
+            label="mod"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
+          <PianoKnobControl
+            {...props}
+            name="filter2env"
+            label="env"
+            size="large"
+            min={CONTROLS.master.range.min}
+            max={CONTROLS.master.range.max}
+            value={master}
+          />
+        </div>
       </div>
     </div>
-  )
+  );
 
   return (
     <div id="pr-piano">
@@ -241,7 +316,7 @@ const Piano = props => {
         <div id="pr-piano-right-top">
           {renderGlobalSection()}
           {renderOscillators()}
-          {renderFilter()}
+          {renderFilters()}
         </div>
         <div id="pr-piano-right-bottom">
           <PianoKeys {...props} />

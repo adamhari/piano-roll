@@ -15,7 +15,7 @@ class App extends Component {
     this.voices = {};
 
     if (!this.octaves || !Number.isInteger(this.octaves) || this.octaves > 10 || this.octaves < 4) {
-      this.octaves = 4;
+      this.octaves = 6;
     }
 
     this.state = {
@@ -75,9 +75,11 @@ class App extends Component {
     this.audioContext.effectChain = this.audioContext.createGain();
     this.audioContext.effectChain.connect(this.audioContext.destination);
 
+    console.log("Audio Context Base Latency: ", this.audioContext.baseLatency);
+
     console.log("initializeVoices");
 
-    Object.keys(KEYS_MAP).forEach(key => {
+    Object.keys(KEYS_MAP).slice(0, this.state.octaves * 12).forEach(key => {
       this.voices[key] = new Voice(
         this.audioContext,
         KEYS_MAP[key].freq,

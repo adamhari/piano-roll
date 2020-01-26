@@ -33,15 +33,16 @@ export default class Voice {
 
   initializeOscillators = () => {
     this.osc1Gain = this.audioContext.createGain();
-    this.osc1Gain.gain.value = this.getGain();
+    this.osc1Gain.gain.value = 0;
     this.osc1Gain.connect(this.audioContext.effectChain);
     this.osc1 = this.audioContext.createOscillator();
     this.osc1.frequency.value = this.getFrequency(); //* Math.pow(2, octave);
     this.osc1.type = this.getOscType();
     this.osc1.connect(this.osc1Gain);
-
+    this.osc1.start();
 
     this.oscillators.push(this.osc1);
+
   };
 
   start = () => {
@@ -50,7 +51,7 @@ export default class Voice {
     const now = this.audioContext.currentTime;
     const attack = now + this.release / 1000;
 
-    this.osc1.start(attack);
+    this.osc1Gain.gain.setValueAtTime(this.getGain(), attack);
   };
 
   stop = () => {
@@ -59,11 +60,11 @@ export default class Voice {
     const now = this.audioContext.currentTime;
     const release = now + this.release / 1000;
 
-    this.osc1.stop(release);
+    this.osc1Gain.gain.setValueAtTime(0, release);
   };
 
   getFrequency = () => {
-    const octavedFrequency = this.frequency * Math.pow(2, this.octave);
+    const octavedFrequency = (this.frequency * Math.pow(2, this.octave)) / 16;
     const transposedFrequency = octavedFrequency * Math.pow(FREQ_MULTIPLIER, this.transpose);
     return transposedFrequency;
   };

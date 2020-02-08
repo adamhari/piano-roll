@@ -2,53 +2,64 @@
   font-family: "DS Digital";
   src: url("../assets/fonts/ds-digital/DS-DIGIT.TTF");
 }
+
 @font-face {
   font-family: "Russo One";
   src: url("../assets/fonts/russo-one/Russo_One.ttf");
 }
+
 @font-face {
   font-family: "Heroic Avenger";
   src: url("../assets/fonts/heroic-avenger/AVENGEANCE HEROIC AVENGER.ttf");
 }
+
 @font-face {
-  font-family: "Segoe UI";
-  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-light.woff2") format("woff2"), url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-light.woff") format("woff");
+  font-family: 'Segoe UI';
+  src: url("../assets/fonts/segoe-ui/segoe-ui-light.ttf");
   font-weight: 100;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "Segoe UI";
-  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-semilight.woff2") format("woff2"), url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-semilight.woff") format("woff");
+  font-family: 'Segoe UI';
+  src: url("../assets/fonts/segoe-ui/segoe-ui-semilight.ttf");
   font-weight: 300;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "Segoe UI";
-  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-regular.woff2") format("woff2"), url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-regular.woff") format("woff");
+  font-family: 'Segoe UI';
+  src: url("../assets/fonts/segoe-ui/segoe-ui-normal.ttf");
   font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "Segoe UI";
-  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-semibold.woff2") format("woff2"), url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-semibold.woff") format("woff");
+  font-family: 'Segoe UI';
+  src: url("../assets/fonts/segoe-ui/segoe-ui-semibold.ttf");
   font-weight: 600;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "Segoe UI";
-  src: url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-bold.woff2") format("woff2"), url("https://static2.sharepointonline.com/files/fabric/assets/fonts/segoeui-westeuropean/segoeui-bold.woff") format("woff");
+  font-family: 'Segoe UI';
+  src: url("../assets/fonts/segoe-ui/segoe-ui-bold.ttf");
   font-weight: 700;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "Segoe UI";
-  src: url("../assets/fonts/segoe-ui-black/segoe-ui-black.ttf");
+  font-family: 'Segoe UI';
+  src: url("../assets/fonts/segoe-ui/segoe-ui-black.ttf");
   font-weight: 800;
   font-style: normal;
 }
+
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
+
 *:focus {
   outline: none;
 }
@@ -56,7 +67,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
 html {
@@ -65,37 +76,49 @@ html {
 }
 
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 /***************************************
 ************** LAYOUT ******************
 ****************************************/
 #pr-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 96vh;
 }
 
 #pr-piano {
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   background-color: #303030;
   padding: 0rem 3rem 0.25rem 0rem;
   border: solid #231f20 0.15rem;
   border-top-left-radius: 1.5rem 1.2rem;
   border-top-right-radius: 1.5rem 1.2rem;
-  border-bottom-left-radius: 0.8rem 0.8rem;
-  border-bottom-right-radius: 0.8rem 0.8rem;
+  border-bottom-left-radius: .8rem .8rem;
+  border-bottom-right-radius: .8rem .8rem;
   -webkit-box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
 }
 
 #pr-piano-left {
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #pr-piano-top-left {
@@ -105,12 +128,18 @@ body {
 #pr-piano-right-top {
   height: 16rem;
   padding: 1rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
+
 #pr-piano-right-top > div:not(:last-child) {
   margin-right: 1rem;
 }
+
 #pr-piano-right-top #pr-global-section #pr-logo-section {
   cursor: default;
   position: relative;
@@ -120,9 +149,11 @@ body {
   padding: 0 0 0 0.375rem;
   margin-left: 1rem;
 }
+
 #pr-piano-right-top #pr-global-section #pr-logo-section #pr-logo {
   width: 12rem;
 }
+
 #pr-piano-right-top #pr-global-section #pr-logo-section #pr-logo-subtext {
   position: absolute;
   left: 0.09375rem;
@@ -132,6 +163,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.125rem;
 }
+
 #pr-piano-right-top #pr-global-section #pr-logo-section #pr-logo-subtext #pr-logo-subtext-bold {
   display: inline-block;
   font-weight: 800;
@@ -139,37 +171,62 @@ body {
   letter-spacing: -0.0375rem;
   padding-right: 0.0625rem;
 }
+
 #pr-piano-right-top #pr-global-section #pr-global-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 0.75rem 0 0;
 }
+
 #pr-piano-right-top #pr-global-section #pr-global-controls #pr-envelope-controls {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  -ms-grid-rows: auto auto;
+      grid-template-rows: auto auto;
 }
 
 #pr-oscillators {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   text-align: center;
 }
+
 #pr-oscillators > div:not(:last-child) {
   margin-right: 1rem;
 }
+
 #pr-oscillators #pr-regular-oscillators {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
+
 #pr-oscillators .pr-oscillator-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
 }
+
 #pr-oscillators .pr-oscillator-container .pr-oscillator-label {
   text-transform: uppercase;
   color: #ababab;
-  font-family: "Russo One", sans-serif;
+  font-family: "Russo One",sans-serif;
   font-size: 0.5625rem;
   line-height: 1.15;
   letter-spacing: 0.03125rem;
@@ -179,6 +236,7 @@ body {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
+
 #pr-oscillators .pr-oscillator-container .pr-oscillator-controls-container {
   border: solid #ababab 0.1875rem;
   border-top: none;
@@ -186,37 +244,64 @@ body {
   border-top-right-radius: 0;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 0.375rem 0.25rem 0.25rem;
 }
+
 #pr-oscillators #pr-mod-oscillator {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
+
 #pr-oscillators #pr-mod-oscillator .pr-oscillator-controls-container {
-  flex-flow: column nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
   height: 100%;
 }
 
 #pr-filters {
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
+
 #pr-filters .pr-filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-flow: column nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
   height: 100%;
 }
+
 #pr-filters .pr-filter:not(:last-child) {
   margin-right: 1rem;
 }
+
 #pr-filters .pr-filter .pr-filter-label {
   text-transform: uppercase;
   color: #ababab;
-  font-family: "Russo One", sans-serif;
+  font-family: "Russo One",sans-serif;
   font-size: 0.5625rem;
   line-height: 1.15;
   letter-spacing: 0.03125rem;
@@ -228,6 +313,7 @@ body {
   width: 100%;
   text-align: center;
 }
+
 #pr-filters .pr-filter .pr-filter-controls-container {
   border: solid #ababab 0.1875rem;
   border-top: none;
@@ -236,9 +322,12 @@ body {
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   height: 100%;
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
+  -ms-grid-columns: auto auto;
+      grid-template-columns: auto auto;
+  -ms-grid-rows: auto auto;
+      grid-template-rows: auto auto;
   padding: 1rem 0.5rem 0.5rem;
 }
 
@@ -248,7 +337,7 @@ body {
 .pr-control-label {
   text-transform: uppercase;
   color: #ababab;
-  font-family: "Russo One", sans-serif;
+  font-family: "Russo One",sans-serif;
   font-size: 0.5625rem;
   line-height: 1.15;
   letter-spacing: 0.03125rem;
@@ -258,17 +347,26 @@ body {
 
 .pr-digital-control {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
   border: solid transparent 0.25rem;
   border-top-width: 0;
   border-radius: 0.1875rem;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
+
 .pr-digital-control.pr-digital-control-outlined .pr-control-label {
   text-transform: uppercase;
   color: #ababab;
-  font-family: "Russo One", sans-serif;
+  font-family: "Russo One",sans-serif;
   font-size: 0.5625rem;
   line-height: 1.15;
   letter-spacing: 0.03125rem;
@@ -278,6 +376,7 @@ body {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
+
 .pr-digital-control.pr-digital-control-outlined .pr-digital-control-input-container {
   border: solid #ababab 0.1875rem;
   border-top: none;
@@ -288,9 +387,11 @@ body {
   padding: 0 0.5rem 0.5rem 0.375rem;
   background: #303030;
 }
+
 .pr-digital-control.pr-digital-control-outlined .pr-digital-control-input {
   padding: 0 0.5rem 0.5rem 0.5rem;
 }
+
 .pr-digital-control .pr-digital-control-input {
   position: relative;
   font-family: "DS Digital", monospace;
@@ -303,14 +404,17 @@ body {
   background-color: #0b0b0b;
   margin: 0.5rem 0.09375rem 0 0.125rem;
 }
+
 .pr-digital-control .pr-digital-control-input.single-digit {
   width: 2.75rem;
   padding: 0.375rem 0rem 0.375rem 0.5rem;
 }
+
 .pr-digital-control .pr-digital-control-input.single-digit-negative {
   width: 3.375rem;
   padding: 0.375rem 0rem 0.375rem 0.25rem;
 }
+
 .pr-digital-control .pr-digital-control-input-background,
 .pr-digital-control .pr-digital-control-input-foreground {
   position: absolute;
@@ -319,27 +423,41 @@ body {
   background: none;
   border-color: transparent;
 }
+
 .pr-digital-control .pr-digital-control-input-background {
   color: rgba(255, 38, 0, 0.625);
   opacity: 0.1875;
   text-shadow: 0.03125rem 0.03125rem 0rem rgba(98, 145, 131, 0.5);
 }
+
 .pr-digital-control .pr-digital-control-input-foreground {
   color: rgba(255, 38, 0, 0.9375);
   text-shadow: 0 0 0.625rem rgba(255, 38, 0, 0.625), 0 0 0.375rem rgba(255, 38, 0, 0.375), 0 0 0.125rem rgba(255, 38, 0, 0.25);
 }
+
 .pr-digital-control .pr-digital-control-input-foreground:hover {
+  cursor: -webkit-grab;
   cursor: grab;
 }
 
 .pr-knob-control-container {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 3.5rem;
 }
+
 .pr-knob-control-container .pr-knob-control-value {
   display: none;
   position: absolute;
@@ -355,16 +473,18 @@ body {
   font-size: 0.5rem;
   font-weight: 700;
 }
+
 .pr-knob-control-container .pr-knob-container {
   width: 2rem;
   height: 2rem;
   margin: 0.375rem 0;
   border-radius: 50%;
   -webkit-box-shadow: 0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
 }
+
 .pr-knob-control-container .pr-knob {
+  cursor: -webkit-grab;
   cursor: grab;
   width: 2rem;
   height: 2rem;
@@ -373,25 +493,28 @@ body {
   background-color: #231f20;
   border-radius: 50%;
   -webkit-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15);
 }
+
 .pr-knob-control-container .pr-knob:before {
-  content: "";
+  content: '';
   display: block;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   width: 1.15rem;
   height: 1.15rem;
   margin: auto;
   position: relative;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
   border-radius: 50%;
   border: solid #595959 0.1rem;
   background-color: #cacaca;
 }
+
 .pr-knob-control-container .pr-knob:after {
-  content: "";
+  content: '';
   display: block;
   width: 0.2rem;
   height: 0.625rem;
@@ -399,74 +522,84 @@ body {
   position: absolute;
   top: 0.5rem;
   left: 50%;
-  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   border-top-left-radius: 0.075rem;
   border-top-right-radius: 0.075rem;
   border-bottom-left-radius: 0.125rem;
   border-bottom-right-radius: 0.125rem;
   background-color: #333;
   -webkit-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
-  -moz-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
   box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
 }
+
 .pr-knob-control-container.medium {
   width: 3.25rem;
   height: 4.5rem;
 }
+
 .pr-knob-control-container.medium .pr-knob-control-value {
   bottom: -0.4375rem;
   left: 0.875rem;
 }
+
 .pr-knob-control-container.medium .pr-knob-container {
   margin-top: 0.75rem;
   width: 2.5rem;
   height: 2.5rem;
 }
+
 .pr-knob-control-container.medium .pr-knob {
   width: 2.5rem;
   height: 2.5rem;
 }
+
 .pr-knob-control-container.medium .pr-knob:before {
   width: 1.5rem;
   height: 1.5rem;
   border-width: 0.125rem;
 }
+
 .pr-knob-control-container.medium .pr-knob:after {
   width: 0.25rem;
   height: 0.875rem;
   top: 0.5625rem;
   -webkit-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
-  -moz-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
   box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
 }
+
 .pr-knob-control-container.large {
   width: 5rem;
   height: 5rem;
 }
+
 .pr-knob-control-container.large .pr-knob-control-value {
   bottom: -0.875rem;
   right: 1.25rem;
   width: 2.5rem;
 }
+
 .pr-knob-control-container.large .pr-knob-container {
   width: 3.5rem;
   height: 3.5rem;
 }
+
 .pr-knob-control-container.large .pr-knob {
   width: 3.5rem;
   height: 3.5rem;
 }
+
 .pr-knob-control-container.large .pr-knob:before {
   width: 2.5rem;
   height: 2.5rem;
   border: solid #595959 0.16rem;
 }
+
 .pr-knob-control-container.large .pr-knob:after {
   top: 0.625rem;
   height: 0.125rem;
   width: 0.3125rem;
   -webkit-box-shadow: inset 0rem -0.25rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
-  -moz-box-shadow: inset 0rem -0.25rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
   box-shadow: inset 0rem -0.25rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
   border-top-left-radius: 0.05rem;
   border-top-right-radius: 0.05rem;
@@ -484,12 +617,19 @@ body {
 }
 
 #pr-piano-black-keys {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row;
+          flex-flow: row;
   position: absolute;
 }
 
 #pr-piano-white-keys {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -498,205 +638,253 @@ body {
   border: solid #231f20 0.075rem;
   border-top: solid #231f20 0.15rem;
   border-bottom: solid #231f20 0.15rem;
+  -webkit-transition: 0.0625s ease-out;
   transition: 0.0625s ease-out;
 }
 
 .pr-piano-key-white {
   width: 2.3rem;
-  height: 12rem;
+  height: 12.0rem;
   background: #d7d7d7;
   -webkit-box-shadow: inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0 0.0625rem 0.5rem 0 rgba(0, 0, 0, 0.45), 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0 0.0625rem 0.5rem 0 rgba(0, 0, 0, 0.45), 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15);
   box-shadow: inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0 0.0625rem 0.5rem 0 rgba(0, 0, 0, 0.45), 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15);
 }
+
 .pr-piano-key-white:first-child {
   border-left: solid #231f20 0.15rem;
   border-bottom-left-radius: 0.3125rem;
   -webkit-box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0.15625rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45);
-  -moz-box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0.15625rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45);
   box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset 0.15625rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45);
 }
+
 .pr-piano-key-white:last-child {
   border-right: solid #231f20 0.15rem;
   border-bottom-right-radius: 0.3125rem;
   -webkit-box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset -0.15625rem 0 0.5em 0rem rgba(0, 0, 0, 0.45);
-  -moz-box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset -0.15625rem 0 0.5em 0rem rgba(0, 0, 0, 0.45);
   box-shadow: 0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15), inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15), inset -0.15625rem 0 0.5em 0rem rgba(0, 0, 0, 0.45);
 }
+
 .pr-piano-key-white.pr-piano-key-active {
   background: #ffffff;
   -webkit-box-shadow: 0rem 0.15rem 0.03125rem -0.0625rem rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0rem 0.15rem 0.03125rem -0.0625rem rgba(0, 0, 0, 0.15);
   box-shadow: 0rem 0.15rem 0.03125rem -0.0625rem rgba(0, 0, 0, 0.15);
 }
 
 .pr-piano-key-black {
   width: 1.3rem;
-  height: 8rem;
+  height: 8.0rem;
   border: solid #231f20 0.075rem;
-  border-bottom-left-radius: 0.2rem 0.3rem;
-  border-bottom-right-radius: 0.2rem 0.3rem;
+  border-bottom-left-radius: .2rem .3rem;
+  border-bottom-right-radius: .2rem .3rem;
   background: #191718;
   -webkit-box-shadow: 0 0.1rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0.1rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.1rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
   position: absolute;
 }
+
 .pr-piano-key-black.pr-piano-key-active {
   background: #0f0f0f;
   -webkit-box-shadow: 0 0.075rem 0.00625rem 0rem rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0 0.075rem 0.00625rem 0rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.075rem 0.00625rem 0rem rgba(0, 0, 0, 0.3);
 }
+
 .pr-piano-key-black:nth-child(1) {
-  left: 1.433333rem;
+  left: 1.43333rem;
 }
+
 .pr-piano-key-black:nth-child(2) {
-  left: 4.166666rem;
+  left: 4.16667rem;
 }
+
 .pr-piano-key-black:nth-child(3) {
   left: 8.225rem;
 }
+
 .pr-piano-key-black:nth-child(4) {
   left: 10.8375rem;
 }
+
 .pr-piano-key-black:nth-child(5) {
   left: 13.375rem;
 }
+
 .pr-piano-key-black:nth-child(6) {
-  left: 17.533333rem;
+  left: 17.53333rem;
 }
+
 .pr-piano-key-black:nth-child(7) {
-  left: 20.266666rem;
+  left: 20.26667rem;
 }
+
 .pr-piano-key-black:nth-child(8) {
   left: 24.325rem;
 }
+
 .pr-piano-key-black:nth-child(9) {
   left: 26.9375rem;
 }
+
 .pr-piano-key-black:nth-child(10) {
   left: 29.475rem;
 }
+
 .pr-piano-key-black:nth-child(11) {
-  left: 33.633333rem;
+  left: 33.63333rem;
 }
+
 .pr-piano-key-black:nth-child(12) {
-  left: 36.366666rem;
+  left: 36.36667rem;
 }
+
 .pr-piano-key-black:nth-child(13) {
   left: 40.425rem;
 }
+
 .pr-piano-key-black:nth-child(14) {
   left: 43.0375rem;
 }
+
 .pr-piano-key-black:nth-child(15) {
   left: 45.575rem;
 }
+
 .pr-piano-key-black:nth-child(16) {
-  left: 49.733333rem;
+  left: 49.73333rem;
 }
+
 .pr-piano-key-black:nth-child(17) {
-  left: 52.466666rem;
+  left: 52.46667rem;
 }
+
 .pr-piano-key-black:nth-child(18) {
   left: 56.525rem;
 }
+
 .pr-piano-key-black:nth-child(19) {
   left: 59.1375rem;
 }
+
 .pr-piano-key-black:nth-child(20) {
   left: 61.675rem;
 }
+
 .pr-piano-key-black:nth-child(21) {
-  left: 65.833333rem;
+  left: 65.83333rem;
 }
+
 .pr-piano-key-black:nth-child(22) {
-  left: 68.566666rem;
+  left: 68.56667rem;
 }
+
 .pr-piano-key-black:nth-child(23) {
   left: 72.625rem;
 }
+
 .pr-piano-key-black:nth-child(24) {
   left: 75.2375rem;
 }
+
 .pr-piano-key-black:nth-child(25) {
   left: 77.775rem;
 }
+
 .pr-piano-key-black:nth-child(26) {
-  left: 81.933333rem;
+  left: 81.93333rem;
 }
+
 .pr-piano-key-black:nth-child(27) {
-  left: 84.666666rem;
+  left: 84.66667rem;
 }
+
 .pr-piano-key-black:nth-child(28) {
   left: 88.725rem;
 }
+
 .pr-piano-key-black:nth-child(29) {
   left: 91.3375rem;
 }
+
 .pr-piano-key-black:nth-child(30) {
   left: 93.875rem;
 }
+
 .pr-piano-key-black:nth-child(31) {
-  left: 98.033333rem;
+  left: 98.03333rem;
 }
+
 .pr-piano-key-black:nth-child(32) {
-  left: 100.766666rem;
+  left: 100.76667rem;
 }
+
 .pr-piano-key-black:nth-child(33) {
   left: 104.825rem;
 }
+
 .pr-piano-key-black:nth-child(34) {
   left: 107.4375rem;
 }
+
 .pr-piano-key-black:nth-child(35) {
   left: 109.975rem;
 }
+
 .pr-piano-key-black:nth-child(36) {
-  left: 114.133333rem;
+  left: 114.13333rem;
 }
+
 .pr-piano-key-black:nth-child(37) {
-  left: 116.866666rem;
+  left: 116.86667rem;
 }
+
 .pr-piano-key-black:nth-child(38) {
   left: 120.925rem;
 }
+
 .pr-piano-key-black:nth-child(39) {
   left: 123.5375rem;
 }
+
 .pr-piano-key-black:nth-child(40) {
   left: 126.075rem;
 }
+
 .pr-piano-key-black:nth-child(41) {
-  left: 130.233333rem;
+  left: 130.23333rem;
 }
+
 .pr-piano-key-black:nth-child(42) {
-  left: 132.966666rem;
+  left: 132.96667rem;
 }
+
 .pr-piano-key-black:nth-child(43) {
   left: 137.025rem;
 }
+
 .pr-piano-key-black:nth-child(44) {
   left: 139.6375rem;
 }
+
 .pr-piano-key-black:nth-child(45) {
   left: 142.175rem;
 }
+
 .pr-piano-key-black:nth-child(46) {
-  left: 146.333333rem;
+  left: 146.33333rem;
 }
+
 .pr-piano-key-black:nth-child(47) {
-  left: 149.066666rem;
+  left: 149.06667rem;
 }
+
 .pr-piano-key-black:nth-child(48) {
   left: 153.125rem;
 }
+
 .pr-piano-key-black:nth-child(49) {
   left: 155.7375rem;
 }
+
 .pr-piano-key-black:nth-child(50) {
   left: 158.275rem;
 }
-
 /*# sourceMappingURL=index.css.map */

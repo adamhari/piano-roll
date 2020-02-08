@@ -7,12 +7,13 @@ const PianoKnobControl = ({
   handleMouseUpControl,
   handleMouseWheelControl,
   label,
-  max,
-  min,
   name,
+  control,
   size,
   value
 }) => {
+
+  const {min, max} = control.range;
 
   const handleMouseDown = (e) => handleMouseDownControl(name, CONTROL_TYPES.knob.name, e);
 
@@ -40,16 +41,15 @@ const PianoKnobControl = ({
   }
 
   const getValueStyles = () => {
-    const styles = {};
-    if (activeControl === name) {
-      styles.display = "block";
-    }
+    const styles = {
+      opacity: activeControl === name ? 1 : 0
+    };
 
     return styles;
   }
 
   return (
-    <div className={"pr-knob-control-container " + (size ? size : "")}>
+    <div className={"pr-knob-control-container " + (size || "")}>
       <div className="pr-control-label">{label || name}</div>
       <div
         className="pr-knob-control-value"

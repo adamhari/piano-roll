@@ -73,10 +73,19 @@ body {
 html {
   font-size: 28px;
   -webkit-font-smoothing: antialiased;
+  height: 100%;
 }
 
 body {
   font-family: 'Segoe UI', sans-serif;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 /***************************************
@@ -86,10 +95,13 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 96vh;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 1rem;
 }
 
 #pr-piano {
@@ -112,7 +124,6 @@ body {
 }
 
 #pr-piano-left {
-  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -160,7 +171,7 @@ body {
   line-height: 1.25;
   text-transform: uppercase;
   font-style: italic;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.125rem;
 }
 
@@ -237,19 +248,6 @@ body {
   border-top-right-radius: 0.25rem;
 }
 
-#pr-oscillators .pr-oscillator-container .pr-oscillator-controls-container {
-  border: solid #ababab 0.1875rem;
-  border-top: none;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 0.375rem 0.25rem 0.25rem;
-}
-
 #pr-oscillators #pr-mod-oscillator {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -269,12 +267,13 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #pr-filters .pr-filter {
@@ -291,11 +290,6 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-flow: column nowrap;
           flex-flow: column nowrap;
-  height: 100%;
-}
-
-#pr-filters .pr-filter:not(:last-child) {
-  margin-right: 1rem;
 }
 
 #pr-filters .pr-filter .pr-filter-label {
@@ -314,23 +308,6 @@ body {
   text-align: center;
 }
 
-#pr-filters .pr-filter .pr-filter-controls-container {
-  border: solid #ababab 0.1875rem;
-  border-top: none;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-  height: 100%;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto auto;
-      grid-template-columns: auto auto;
-  -ms-grid-rows: auto auto;
-      grid-template-rows: auto auto;
-  padding: 1rem 0.5rem 0.5rem;
-}
-
 /***************************************
 ************* CONTROLS *****************
 ****************************************/
@@ -345,6 +322,19 @@ body {
   text-align: center;
 }
 
+.pr-controls-container {
+  border: solid #ababab 0.1875rem;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.375rem 0.25rem 0.25rem;
+}
+
 .pr-digital-control {
   position: relative;
   display: -webkit-box;
@@ -354,6 +344,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
+  text-align: center;
   border: solid transparent 0.25rem;
   border-top-width: 0;
   border-radius: 0.1875rem;
@@ -459,7 +450,6 @@ body {
 }
 
 .pr-knob-control-container .pr-knob-control-value {
-  display: none;
   position: absolute;
   z-index: 2;
   bottom: -0.5rem;

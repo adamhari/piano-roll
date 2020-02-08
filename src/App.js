@@ -23,21 +23,11 @@ class App extends Component {
       activeControl: null,
       activeControlType: null,
       activeScreenY: null,
-      alternateControl: false,
+      activeModifierKey: false,
       audioContextStarted: false,
       octaves: this.octaves,
       layout: this.layout,
-      master: CONTROLS["master"].defaultValue,
-      attack: CONTROLS["attack"].defaultValue,
-      decay: CONTROLS["decay"].defaultValue,
-      sustain: CONTROLS["sustain"].defaultValue,
-      release: CONTROLS["release"].defaultValue,
-      shape: CONTROLS["shape"].defaultValue,
-      octave: CONTROLS["octave"].defaultValue,
-      transpose: CONTROLS["transpose"].defaultValue,
-      detune: CONTROLS["detune"].defaultValue,
-      gain: CONTROLS["gain"].defaultValue,
-
+      ...this.getDefaultControlValues()
     };
   }
 
@@ -45,6 +35,16 @@ class App extends Component {
     this.initializeSoundEngine();
     this.registerEvents();
   }
+
+  getDefaultControlValues = () => {
+    const defaultValues = {};
+
+    Object.keys(CONTROLS).forEach(k => {
+      defaultValues[k] = CONTROLS[k].defaultValue;
+    });
+
+    return defaultValues;
+  };
 
   /** INIT */
 
@@ -83,10 +83,10 @@ class App extends Component {
       this.voices[key] = new Voice(
         this.audioContext,
         KEYS_MAP[key].freq,
-        this.state.gain,
-        this.state.shape,
-        this.state.octave,
-        this.state.transpose
+        this.state.osc1Gain,
+        this.state.osc1Shape,
+        this.state.osc1Octave,
+        this.state.osc1Transpose
       );;
     });
   };
@@ -112,7 +112,7 @@ class App extends Component {
     if (pianoKey) {
       this.activatePianoKey(pianoKey);
     } else if (keyPressed === "control" || keyPressed === "command") {
-      this.setState({ alternateControl: true });
+      this.setState({ activeModifierKey: true });
     }
 
 
@@ -125,7 +125,7 @@ class App extends Component {
     const keyReleased = e.key.toLowerCase();
 
     if (keyReleased === "control" || keyReleased === "command")
-      this.setState({ alternateControl: false });
+      this.setState({ activeModifierKey: false });
 
     const pianoKey = LAYOUTS[this.state.layout][keyReleased];
     this.deactivatePianoKey(pianoKey);
@@ -143,7 +143,7 @@ class App extends Component {
     this.mouseDownOnKeys = false;
     this.state.activeControl && this.setState({
       activeControl: null,
-      alternateControl: false
+      activeModifierKey: false
     });
   };
 
@@ -227,7 +227,7 @@ class App extends Component {
 
     if (e.button === 0) {
       // left click
-      if (this.state.alternateControl) {
+      if (this.state.activeModifierKey) {
         // holding ctrl
         this.resetControlValue(activeControl);
       } else {
@@ -248,7 +248,7 @@ class App extends Component {
     // console.log("handleMouseMoveControl", event, this.state);
 
     const {
-      alternateControl,
+      activeModifierKey,
       activeControl,
       activeControlType,
       activeScreenY
@@ -257,7 +257,7 @@ class App extends Component {
     if (activeControl) {
       let pixelStep = CONTROL_TYPES[activeControlType].pixelStep || 5;
 
-      if (alternateControl) {
+      if (activeModifierKey) {
         pixelStep *= 10;
       }
 

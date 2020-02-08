@@ -1,73 +1,3 @@
-// Musical
-export const BASE_FREQ = 16.3516;
-export const FREQ_MULTIPLIER = 1.0594630943593;
-export const NOTES = [
-  {
-    name: "C",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 0)
-  },
-  {
-    name: "C♯",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 1)
-  },
-  {
-    name: "D",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 2)
-  },
-  {
-    name: "D♯",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 3)
-  },
-  {
-    name: "E",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 4)
-  },
-  {
-    name: "F",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 5)
-  },
-  {
-    name: "F♯",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 6)
-  },
-  {
-    name: "G",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 7)
-  },
-  {
-    name: "G♯",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 8)
-  },
-  {
-    name: "A",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 9)
-  },
-  {
-    name: "A♯",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 10)
-  },
-  {
-    name: "B",
-    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 11)
-  }
-];
-
-
-export const KEYS = [];
-export const KEYS_MAP = {};
-for (let i = 0; i < 10; i++) {
-  NOTES.forEach(note => {
-    const key = {
-      name: note.name + i,
-      freq: note.freq * Math.pow(2, i),
-      octave: i
-    };
-    KEYS.push(key);
-    KEYS_MAP[key.name] = key;
-  });
-};
-
-
 export const LAYOUTS = [
   { // MAJOR
     'z': 'C0',
@@ -151,11 +81,89 @@ export const LAYOUTS = [
   }
 ]
 
+export const BASE_FREQ = 16.3516;
+export const FREQ_MULTIPLIER = 1.0594630943593;
+export const NOTES = [
+  {
+    name: "C",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 0)
+  },
+  {
+    name: "C♯",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 1)
+  },
+  {
+    name: "D",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 2)
+  },
+  {
+    name: "D♯",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 3)
+  },
+  {
+    name: "E",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 4)
+  },
+  {
+    name: "F",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 5)
+  },
+  {
+    name: "F♯",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 6)
+  },
+  {
+    name: "G",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 7)
+  },
+  {
+    name: "G♯",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 8)
+  },
+  {
+    name: "A",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 9)
+  },
+  {
+    name: "A♯",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 10)
+  },
+  {
+    name: "B",
+    freq: BASE_FREQ * Math.pow(FREQ_MULTIPLIER, 11)
+  }
+];
+
+export const KEYS = [];
+export const KEYS_MAP = {};
+for (let i = 0; i < 10; i++) {
+  NOTES.forEach(note => {
+    const key = {
+      name: note.name + i,
+      freq: note.freq * Math.pow(2, i),
+      octave: i
+    };
+    KEYS.push(key);
+    KEYS_MAP[key.name] = key;
+  });
+};
+
 export const OSC_SHAPES = [
   "sawtooth",
   "square",
   "triangle",
   "sine"
+]
+
+export const FILTER_TYPES = [
+  "lowpass",
+  "highpass",
+  "bandpass",
+  "lowshelf",
+  "highshelf",
+  "peaking",
+  "notch",
+  "allpass"
 ]
 
 
@@ -171,11 +179,12 @@ export const CONTROL_TYPES = {
 }
 
 export const CONTROLS = {
+  /* GLOBAL */
   layout: {
     defaultValue: 0,
     range: {
       min: 0,
-      max: 1,
+      max: LAYOUTS.length - 1,
     }
   },
   master: {
@@ -186,14 +195,14 @@ export const CONTROLS = {
     }
   },
   attack: {
-    defaultValue: 50,
+    defaultValue: 10,
     range: {
       min: 0,
       max: 100
     }
   },
   decay: {
-    defaultValue: 50,
+    defaultValue: 30,
     range: {
       min: 0,
       max: 100
@@ -207,42 +216,143 @@ export const CONTROLS = {
     }
   },
   release: {
-    defaultValue: 50,
+    defaultValue: 25,
     range: {
       min: 0,
       max: 100
     }
   },
-  shape: {
+  /* OSC */
+  osc1Shape: {
     defaultValue: 0,
     range: {
       min: 0,
-      max: 3
+      max: OSC_SHAPES.length - 1
     }
   },
-  octave: {
+  osc1Octave: {
     defaultValue: 5,
     range: {
       min: 0,
       max: 9
     }
   },
-  transpose: {
+  osc1Transpose: {
     defaultValue: 0,
     range: {
       min: -9,
       max: 9
     }
   },
-  detune: {
+  osc1Detune: {
     defaultValue: 0,
     range: {
       min: -100,
       max: 100
     }
   },
-  gain: {
+  osc1Gain: {
     defaultValue: 50,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  osc2Shape: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: OSC_SHAPES.length - 1
+    }
+  },
+  osc2Octave: {
+    defaultValue: 5,
+    range: {
+      min: 0,
+      max: 9
+    }
+  },
+  osc2Transpose: {
+    defaultValue: 0,
+    range: {
+      min: -9,
+      max: 9
+    }
+  },
+  osc2Detune: {
+    defaultValue: 0,
+    range: {
+      min: -100,
+      max: 100
+    }
+  },
+  osc2Gain: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  /* MOD */
+  modOscShape: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: OSC_SHAPES.length - 1
+    }
+  },
+  modOscGain: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  modOscFreq: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  /* FILTERS */
+  filter1Type: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: FILTER_TYPES.length - 1
+    }
+  },
+  filter1Freq: {
+    defaultValue: 100,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  filter1Q: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  filter2Type: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: FILTER_TYPES.length - 1
+    }
+  },
+  filter2Freq: {
+    defaultValue: 100,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  filter2Q: {
+    defaultValue: 0,
     range: {
       min: 0,
       max: 100

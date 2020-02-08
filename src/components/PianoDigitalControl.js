@@ -5,12 +5,23 @@ const PianoDigitalControl = ({
   handleMouseDownControl,
   handleMouseUpControl,
   handleMouseWheelControl,
-  label,
   name,
+  label,
+  control,
   outline,
-  type,
   value
 }) => {
+
+  const getDigits = () => {
+    let typeOfDigits = "";
+    const {min, max} = control.range;
+    if (max > 9) typeOfDigits = "multi-digit"
+    else typeOfDigits = "single-digit";
+    if (min < 0) typeOfDigits += "-negative";
+    return typeOfDigits;
+  };
+
+  const digits = getDigits();
 
   const handleMouseDown = (e) => handleMouseDownControl(name, CONTROL_TYPES.digital.name, e);
 
@@ -18,7 +29,7 @@ const PianoDigitalControl = ({
 
   const handleMouseWheel = (e) => handleMouseWheelControl(name, CONTROL_TYPES.digital.name, e);
 
-  const controlTypes = {
+  const digitTypes = {
     "single-digit": {
       backgroundValue: 8,
       style: val => {
@@ -54,19 +65,19 @@ const PianoDigitalControl = ({
       <div className="pr-digital-control-input-container">
         <div
           id={"pr-" + name}
-          className={"pr-digital-control-input " + type}
+          className={"pr-digital-control-input " + digits}
         >
           {8}
           <div
             id={"pr-" + name + "-background"}
-            className={"pr-digital-control-input pr-digital-control-input-background " + type}
-            children={controlTypes[type].backgroundValue}
+            className={"pr-digital-control-input pr-digital-control-input-background " + digits}
+            children={digitTypes[digits].backgroundValue}
           />
           <div
             id={"pr-" + name + "-foreground"}
-            className={"pr-digital-control-input pr-digital-control-input-foreground " + type}
+            className={"pr-digital-control-input pr-digital-control-input-foreground " + digits}
             children={value}
-            style={controlTypes[type].style(value)}
+            style={digitTypes[digits].style(value)}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onWheel={handleMouseWheel}

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "DS Digital";
   src: url("../assets/fonts/ds-digital/DS-DIGIT.TTF");
@@ -71,7 +72,7 @@ body {
 }
 
 html {
-  font-size: 28px;
+  font-size: 24px;
   -webkit-font-smoothing: antialiased;
   height: 100%;
 }
@@ -115,8 +116,8 @@ body {
   background-color: #303030;
   padding: 0rem 3rem 0.25rem 0rem;
   border: solid #231f20 0.15rem;
-  border-top-left-radius: 1.5rem 1.2rem;
-  border-top-right-radius: 1.5rem 1.2rem;
+  border-top-left-radius: 2.4rem 1.8rem;
+  border-top-right-radius: 2.4rem 1.8rem;
   border-bottom-left-radius: .8rem .8rem;
   border-bottom-right-radius: .8rem .8rem;
   -webkit-box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
@@ -179,7 +180,7 @@ body {
   display: inline-block;
   font-weight: 800;
   font-size: 1.0625rem;
-  letter-spacing: -0.0375rem;
+  letter-spacing: -0.053125rem;
   padding-right: 0.0625rem;
 }
 
@@ -187,7 +188,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0.75rem 0 0;
+  margin: 0.75rem 0.375rem 0;
 }
 
 #pr-piano-right-top #pr-global-section #pr-global-controls #pr-envelope-controls {
@@ -197,6 +198,7 @@ body {
       grid-template-columns: auto auto;
   -ms-grid-rows: auto auto;
       grid-template-rows: auto auto;
+  margin: 0 0.5rem;
 }
 
 #pr-oscillators {
@@ -320,6 +322,7 @@ body {
   letter-spacing: 0.03125rem;
   padding: 0.1875rem 0 0.09375rem;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .pr-controls-container {
@@ -332,7 +335,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0.375rem 0.25rem 0.25rem;
+  padding: 0.375rem;
 }
 
 .pr-digital-control {
@@ -345,8 +348,7 @@ body {
       -ms-flex-flow: column wrap;
           flex-flow: column wrap;
   text-align: center;
-  border: solid transparent 0.25rem;
-  border-top-width: 0;
+  margin: 0 0.25rem;
   border-radius: 0.1875rem;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -366,6 +368,7 @@ body {
   background-color: #ababab;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
+  margin-bottom: 0;
 }
 
 .pr-digital-control.pr-digital-control-outlined .pr-digital-control-input-container {
@@ -375,7 +378,7 @@ body {
   border-top-right-radius: 0;
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
-  padding: 0 0.5rem 0.5rem 0.375rem;
+  padding: 0.5rem;
   background: #303030;
 }
 
@@ -393,7 +396,7 @@ body {
   border-top: solid #3a3a3a 0.15rem;
   color: transparent;
   background-color: #0b0b0b;
-  margin: 0.5rem 0.09375rem 0 0.125rem;
+  margin: 0rem 0.125rem 0 0.125rem;
 }
 
 .pr-digital-control .pr-digital-control-input.single-digit {
@@ -409,21 +412,21 @@ body {
 .pr-digital-control .pr-digital-control-input-background,
 .pr-digital-control .pr-digital-control-input-foreground {
   position: absolute;
-  top: -0.59375rem;
+  top: -0.1rem;
   left: -0.53125rem;
   background: none;
   border-color: transparent;
 }
 
 .pr-digital-control .pr-digital-control-input-background {
-  color: rgba(255, 38, 0, 0.625);
+  color: rgba(255, 38, 1, 0.625);
   opacity: 0.1875;
   text-shadow: 0.03125rem 0.03125rem 0rem rgba(98, 145, 131, 0.5);
 }
 
 .pr-digital-control .pr-digital-control-input-foreground {
-  color: rgba(255, 38, 0, 0.9375);
-  text-shadow: 0 0 0.625rem rgba(255, 38, 0, 0.625), 0 0 0.375rem rgba(255, 38, 0, 0.375), 0 0 0.125rem rgba(255, 38, 0, 0.25);
+  color: rgba(255, 38, 1, 0.9375);
+  text-shadow: 0 0 0.625rem rgba(255, 38, 1, 0.625), 0 0 0.375rem rgba(255, 38, 1, 0.375), 0 0 0.125rem rgba(255, 38, 1, 0.25);
 }
 
 .pr-digital-control .pr-digital-control-input-foreground:hover {
@@ -446,18 +449,15 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 3.5rem;
+  margin: 0 0.375rem 0.25rem;
 }
 
 .pr-knob-control-container .pr-knob-control-value {
   position: absolute;
   z-index: 2;
-  bottom: -0.5rem;
-  right: 1rem;
-  z-index: 2;
-  width: 1.5rem;
+  width: 3rem;
   padding: 0 0 0.0625rem;
-  background-color: #dfdfdf;
+  background-color: #ababab;
   border-radius: 1rem;
   text-align: center;
   font-size: 0.5rem;
@@ -465,9 +465,6 @@ body {
 }
 
 .pr-knob-control-container .pr-knob-container {
-  width: 2rem;
-  height: 2rem;
-  margin: 0.375rem 0;
   border-radius: 50%;
   -webkit-box-shadow: 0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
@@ -476,9 +473,6 @@ body {
 .pr-knob-control-container .pr-knob {
   cursor: -webkit-grab;
   cursor: grab;
-  width: 2rem;
-  height: 2rem;
-  margin: auto;
   position: relative;
   background-color: #231f20;
   border-radius: 50%;
@@ -491,111 +485,125 @@ body {
   display: block;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  width: 1.15rem;
-  height: 1.15rem;
-  margin: auto;
-  position: relative;
-  top: 50%;
+  background-color: #cacaca;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   border-radius: 50%;
-  border: solid #595959 0.1rem;
-  background-color: #cacaca;
+  position: relative;
+  top: 50%;
+  margin: auto;
+  border-style: solid;
+  border-color: #707071;
 }
 
 .pr-knob-control-container .pr-knob:after {
   content: '';
   display: block;
-  width: 0.2rem;
-  height: 0.625rem;
   margin: auto;
   position: absolute;
-  top: 0.5rem;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
   border-top-left-radius: 0.075rem;
   border-top-right-radius: 0.075rem;
   border-bottom-left-radius: 0.125rem;
   border-bottom-right-radius: 0.125rem;
-  background-color: #333;
-  -webkit-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
-  box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
+  background-color: #707071;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  left: 50%;
 }
 
-.pr-knob-control-container.medium {
-  width: 3.25rem;
-  height: 4.5rem;
+.pr-knob-control-container.small {
+  height: 3.5rem;
+}
+
+.pr-knob-control-container.small .pr-control-label {
+  margin-bottom: 0.25rem;
+}
+
+.pr-knob-control-container.small .pr-knob-control-value {
+  bottom: -1.05rem;
+}
+
+.pr-knob-control-container.small .pr-knob-container {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.pr-knob-control-container.small .pr-knob {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.pr-knob-control-container.small .pr-knob:before {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-width: 0.15rem;
+}
+
+.pr-knob-control-container.small .pr-knob:after {
+  width: 0.2rem;
+  height: 0.625rem;
+  top: 0.5625rem;
 }
 
 .pr-knob-control-container.medium .pr-knob-control-value {
-  bottom: -0.4375rem;
-  left: 0.875rem;
+  bottom: -1rem;
 }
 
 .pr-knob-control-container.medium .pr-knob-container {
-  margin-top: 0.75rem;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem;
+  height: 3rem;
 }
 
 .pr-knob-control-container.medium .pr-knob {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem;
+  height: 3em;
 }
 
 .pr-knob-control-container.medium .pr-knob:before {
-  width: 1.5rem;
-  height: 1.5rem;
-  border-width: 0.125rem;
+  width: 2rem;
+  height: 2rem;
+  border-width: 0.25rem;
 }
 
 .pr-knob-control-container.medium .pr-knob:after {
   width: 0.25rem;
   height: 0.875rem;
-  top: 0.5625rem;
-  -webkit-box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
-  box-shadow: inset 0rem -0.5rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
+  top: 0.6875rem;
 }
 
 .pr-knob-control-container.large {
-  width: 5rem;
-  height: 5rem;
+  height: 6.5rem;
 }
 
 .pr-knob-control-container.large .pr-knob-control-value {
-  bottom: -0.875rem;
-  right: 1.25rem;
-  width: 2.5rem;
+  bottom: 0;
 }
 
 .pr-knob-control-container.large .pr-knob-container {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 .pr-knob-control-container.large .pr-knob {
-  width: 3.5rem;
-  height: 3.5rem;
+  width: 4rem;
+  height: 4rem;
 }
 
 .pr-knob-control-container.large .pr-knob:before {
-  width: 2.5rem;
-  height: 2.5rem;
-  border: solid #595959 0.16rem;
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.1875rem;
 }
 
 .pr-knob-control-container.large .pr-knob:after {
-  top: 0.625rem;
-  height: 0.125rem;
+  top: 0.65625rem;
+  height: 0.15rem;
   width: 0.3125rem;
-  -webkit-box-shadow: inset 0rem -0.25rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
-  box-shadow: inset 0rem -0.25rem 0.3125rem 0 rgba(255, 255, 255, 0.375);
   border-top-left-radius: 0.05rem;
   border-top-right-radius: 0.05rem;
   border-bottom-left-radius: 0.0625rem;
   border-bottom-right-radius: 0.0625rem;
-  background-color: black;
+  background-color: #707071;
 }
 
 /***************************************
@@ -661,8 +669,9 @@ body {
 }
 
 .pr-piano-key-black {
+  margin-top: 0.1rem;
   width: 1.3rem;
-  height: 8.0rem;
+  height: 7.8rem;
   border: solid #231f20 0.075rem;
   border-bottom-left-radius: .2rem .3rem;
   border-bottom-right-radius: .2rem .3rem;
@@ -673,7 +682,7 @@ body {
 }
 
 .pr-piano-key-black.pr-piano-key-active {
-  background: #0f0f0f;
+  background: #666;
   -webkit-box-shadow: 0 0.075rem 0.00625rem 0rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.075rem 0.00625rem 0rem rgba(0, 0, 0, 0.3);
 }
@@ -876,5 +885,53 @@ body {
 
 .pr-piano-key-black:nth-child(50) {
   left: 158.275rem;
+}
+
+.pr-piano-key-C {
+  color: red;
+}
+
+.pr-piano-key-C♯ {
+  color: red;
+}
+
+.pr-piano-key-D {
+  color: red;
+}
+
+.pr-piano-key-D♯ {
+  color: red;
+}
+
+.pr-piano-key-E {
+  color: red;
+}
+
+.pr-piano-key-F {
+  color: red;
+}
+
+.pr-piano-key-F♯ {
+  color: red;
+}
+
+.pr-piano-key-G {
+  color: red;
+}
+
+.pr-piano-key-G♯ {
+  color: red;
+}
+
+.pr-piano-key-A {
+  color: red;
+}
+
+.pr-piano-key-A♯ {
+  color: red;
+}
+
+.pr-piano-key-B {
+  color: red;
 }
 /*# sourceMappingURL=index.css.map */

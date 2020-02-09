@@ -4,7 +4,7 @@
 @import './_reset';
 
 html {
-  font-size: 28px; //global scale
+  font-size: 24px; //global scale
   -webkit-font-smoothing: antialiased;
   height: 100%;
 }
@@ -38,8 +38,8 @@ body {
   padding: 0rem 3rem 0.25rem 0rem;
 
   border: $piano-border;
-  border-top-left-radius: 1.5rem 1.2rem;
-  border-top-right-radius: 1.5rem 1.2rem;
+  border-top-left-radius: 2.4rem 1.8rem;
+  border-top-right-radius: 2.4rem 1.8rem;
   border-bottom-left-radius: .8rem .8rem;
   border-bottom-right-radius: .8rem .8rem;
 
@@ -61,12 +61,13 @@ body {
   display: flex;
   align-items: center;
 
-  > div:not(:last-child) {
+  >div:not(:last-child) {
     margin-right: 1rem;
   }
 
 
   #pr-global-section {
+
     #pr-logo-section {
       cursor: default;
       position: relative;
@@ -97,7 +98,7 @@ body {
           display: inline-block;
           font-weight: 800;
           font-size: 1.0625rem;
-          letter-spacing: -0.0375rem;
+          letter-spacing: -0.053125rem;
           padding-right: 0.0625rem;
         }
       }
@@ -105,12 +106,13 @@ body {
 
     #pr-global-controls {
       display: flex;
-      margin: 0.75rem 0 0;
+      margin: 0.75rem 0.375rem 0;
 
       #pr-envelope-controls {
         display: grid;
         grid-template-columns: auto auto;
         grid-template-rows: auto auto;
+        margin: 0 0.5rem;
       }
     }
   }
@@ -126,7 +128,7 @@ body {
   display: flex;
   text-align: center;
 
-  > div:not(:last-child) {
+  >div:not(:last-child) {
     margin-right: 1rem;
   }
 
@@ -146,7 +148,7 @@ body {
   }
 
   #pr-mod-oscillator {
-    display :flex;
+    display: flex;
 
     .pr-oscillator-controls-container {
       flex-flow: column nowrap;
@@ -182,13 +184,16 @@ body {
 .pr-control-label {
   @include label-text;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 .pr-controls-container {
   @include control-outline;
   display: flex;
-  padding:0.375rem 0.25rem 0.25rem;
+  padding: 0.375rem;
 }
+
+// DIGITAL CONTROL
 
 .pr-digital-control {
   position: relative;
@@ -197,8 +202,7 @@ body {
 
   text-align: center;
 
-  border: solid transparent 0.25rem;
-  border-top-width: 0;
+  margin: 0 0.25rem;
   border-radius: 0.1875rem;
 
   user-select: none;
@@ -207,12 +211,12 @@ body {
 
     .pr-control-label {
       @include control-outline-label;
-
+      margin-bottom: 0;
     }
 
     .pr-digital-control-input-container {
       @include control-outline;
-      padding: 0 0.5rem 0.5rem 0.375rem;
+      padding: 0.5rem;
       background: $color-piano-plastic;
     }
 
@@ -232,7 +236,7 @@ body {
     border-top: $digital-control-horizontal-border;
     color: transparent;
     background-color: $color-digital-background;
-    margin: 0.5rem 0.09375rem 0 0.125rem;
+    margin: 0rem 0.125rem 0 0.125rem;
 
     &.single-digit {
       width: 2.75rem;
@@ -248,7 +252,7 @@ body {
   .pr-digital-control-input-background,
   .pr-digital-control-input-foreground {
     position: absolute;
-    top: -0.59375rem;
+    top: -0.1rem;
     left: -0.53125rem;
     background: none;
     border-color: transparent;
@@ -275,12 +279,7 @@ body {
 }
 
 
-
-
-
-
-
-
+// KNOB CONTROL
 
 .pr-knob-control-container {
   position: relative;
@@ -288,17 +287,14 @@ body {
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
-  width: 3.5rem;
+  margin: 0 0.375rem 0.25rem;
 
   .pr-knob-control-value {
     position: absolute;
     z-index: 2;
-    bottom: -0.5rem;
-    right: 1rem;
-    z-index: 2;
-    width: 1.5rem;
+    width: 3rem;
     padding: 0 0 0.0625rem;
-    background-color: rgba(223, 223, 223, 1);
+    background-color: $color-piano-label;
     border-radius: 1rem;
 
     text-align: center;
@@ -307,54 +303,36 @@ body {
   }
 
   .pr-knob-container {
-    width: 2rem;
-    height: 2rem;
-    margin: 0.375rem 0;
     border-radius: 50%;
-    @include box-shadow(0 0.0625rem 0.03125rem 0rem rgba(0,0,0,0.3));
+    @include box-shadow(0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3));
   }
 
   .pr-knob {
     cursor: grab;
-
-    width: 2rem;
-    height: 2rem;
-
-    margin: auto;
     position: relative;
     background-color: $color-knob-rubber;
     border-radius: 50%;
-
     @include box-shadow($knob-shadow-inset);
 
     &:before {
       content: '';
       display: block;
       box-sizing: border-box;
-
-      width: 1.15rem;
-      height: 1.15rem;
-      margin: auto;
+      background-color: $color-knob-metal;
+      transform: translateY(-50%);
+      border-radius: 50%;
       position: relative;
       top: 50%;
-      transform: translateY(-50%);
-
-      border-radius: 50%;
-      border: solid lighten($color-knob-dial, 15%) 0.1rem;
-      background-color: $color-knob-metal;
+      margin: auto;
+      border-style: solid;
+      border-color: $color-knob-dial;
     }
 
     &:after {
       content: '';
       display: block;
-
-      width: 0.2rem;
-      height: 0.625rem;
       margin: auto;
       position: absolute;
-      top: 0.5rem;
-      left: 50%;
-      transform: translateX(-50%);
 
       border-top-left-radius: 0.075rem;
       border-top-right-radius: 0.075rem;
@@ -363,86 +341,109 @@ body {
 
       background-color: $color-knob-dial;
 
-      @include box-shadow($knob-dial-shadow-inset);
+      transform: translateX(-50%);
+      left: 50%;
     }
-
   }
 
+  &.small {
+    height: 3.5rem;
 
-
-  &.medium {
-    width: 3.25rem;
-    height: 4.5rem;
+    .pr-control-label {
+      margin-bottom: 0.25rem;
+    }
 
     .pr-knob-control-value {
-      bottom: -0.4375rem;
-      left: 0.875rem;
+      bottom: -1.05rem;
     }
 
     .pr-knob-container {
-      margin-top: 0.75rem;
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.25rem;
+      height: 2.25rem;
     }
 
     .pr-knob {
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.25rem;
+      height: 2.25rem;
 
       &:before {
-        width: 1.5rem;
-        height: 1.5rem;
-        border-width: 0.125rem;
+        width: 1.375rem;
+        height: 1.375rem;
+        border-width: 0.15rem;
+      }
+
+      &:after {
+        width: 0.2rem;
+        height: 0.625rem;
+
+        top: 0.5625rem;
+
+      }
+    }
+  }
+
+  &.medium {
+
+    .pr-knob-control-value {
+      bottom: -1rem;
+    }
+
+    .pr-knob-container {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .pr-knob {
+      width: 3rem;
+      height: 3em;
+
+      &:before {
+        width: 2rem;
+        height: 2rem;
+        border-width: 0.25rem;
       }
 
       &:after {
         width: 0.25rem;
         height: 0.875rem;
-        top: 0.5625rem;
-
-        @include box-shadow($knob-dial-shadow-inset);
+        top: 0.6875rem;
       }
     }
   }
 
   &.large {
-    width: 5rem;
-    height: 5rem;
+    height: 6.5rem;
 
     .pr-knob-control-value {
-      bottom: -0.875rem;
-      right: 1.25rem;
-      width: 2.5rem;
+      bottom: 0;
     }
 
     .pr-knob-container {
-      width: 3.5rem;
-      height: 3.5rem;
+      width: 4rem;
+      height: 4rem;
     }
 
     .pr-knob {
-      width: 3.5rem;
-      height: 3.5rem;
+      width: 4rem;
+      height: 4rem;
 
       &:before {
-        width: 2.5rem;
-        height: 2.5rem;
-        border: solid lighten($color-knob-dial, 15%) 0.16rem;
+        width: 3rem;
+        height: 3rem;
+        border-width: 0.1875rem;
       }
 
       &:after {
-        top: 0.625rem;
-        height: 0.125rem;
+        top: 0.65625rem;
+        height: 0.15rem;
         width: 0.3125rem;
-
-        @include box-shadow($knob-large-dial-shadow-inset);
 
         border-top-left-radius: 0.05rem;
         border-top-right-radius: 0.05rem;
         border-bottom-left-radius: 0.0625rem;
         border-bottom-right-radius: 0.0625rem;
 
-        background-color: black;
+        background-color: $color-knob-dial;
       }
     }
   }
@@ -518,8 +519,9 @@ body {
 }
 
 .pr-piano-key-black {
+  margin-top: 0.1rem;
   width: 1.3rem;
-  height: 8.0rem;
+  height: 7.8rem;
   border: $key-border;
   border-bottom-left-radius: .2rem .3rem;
   border-bottom-right-radius: .2rem .3rem;
@@ -561,5 +563,7 @@ body {
 }
 
 @each $key in $keys {
-  .pr-piano-key-#{$key} {}
+  .pr-piano-key-#{$key} {
+    color: red;
+  }
 }

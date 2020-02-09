@@ -7,14 +7,13 @@ const PianoDigitalControl = ({
   handleMouseWheelControl,
   name,
   label,
-  control,
+  control: {range: {min, max}},
   outline,
   value
 }) => {
 
   const getDigits = () => {
     let typeOfDigits = "";
-    const {min, max} = control.range;
     if (max > 9) typeOfDigits = "multi-digit"
     else typeOfDigits = "single-digit";
     if (min < 0) typeOfDigits += "-negative";

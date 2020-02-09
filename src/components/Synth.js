@@ -1,10 +1,10 @@
 import React from 'react';
 import PianoKeys from './PianoKeys';
-import PianoDigitalControl from './PianoDigitalControl';
-import PianoKnobControl from './PianoKnobControl';
+import DigitalControl from './DigitalControl';
+import KnobControl from './KnobControl';
 import {CONTROLS} from '../js/statics';
 
-const Piano = props => {
+const Synth = props => {
 	const {
 		activeControl,
 		handleMouseDownControl,
@@ -46,15 +46,15 @@ const Piano = props => {
 	};
 
 	const renderGlobalSection = () => (
-		<div id="pr-global-section">
+		<div id="global-section">
 			{renderLogo()}
 			{renderGlobalControls()}
 		</div>
 	);
 
 	const renderLogo = () => (
-		<div id="pr-logo-section">
-			<svg id="pr-logo" viewBox="304.103 332.216 470.661 104.256">
+		<div id="logo-section">
+			<svg id="logo" viewBox="304.103 332.216 470.661 104.256">
 				<g>
 					<path
 						d="M 654.248 361.208 L 652.04 368.792 L 623.528 431 L 608.264 431 L 635.24 373.784 L 617.768 373.784 L 621.512 361.208 L 654.248 361.208 Z "
@@ -110,8 +110,8 @@ const Piano = props => {
 					/>
 				</g>
 			</svg>
-			<div id="pr-logo-subtext">
-				<span id="pr-logo-subtext-bold">
+			<div id="logo-subtext">
+				<span id="logo-subtext-bold">
 					<span>Re</span>
 					<span style={{letterSpacing: '-0.15625rem'}}>a</span>
 					<span>ct</span>
@@ -122,8 +122,8 @@ const Piano = props => {
 	);
 
 	const renderLeftControls = () => (
-		<div id="pr-piano-top-left">
-			<PianoDigitalControl
+		<div id="synth-top-left">
+			<DigitalControl
 				{...sharedControlProps}
 				name="layout"
 				control={CONTROLS.layout}
@@ -134,14 +134,14 @@ const Piano = props => {
 	);
 
 	const renderGlobalControls = () => (
-		<div id="pr-global-controls">
+		<div id="global-controls">
 			{renderMasterControl()}
 			{renderEnvelopeControls()}
 		</div>
 	);
 
 	const renderMasterControl = () => (
-		<PianoKnobControl
+		<KnobControl
 			{...sharedControlProps}
 			name="master"
 			label="volume"
@@ -152,29 +152,29 @@ const Piano = props => {
 	);
 
 	const renderEnvelopeControls = () => (
-		<div id="pr-envelope-controls">
-			<PianoKnobControl
+		<div id="envelope-controls">
+			<KnobControl
 				{...sharedControlProps}
 				name="attack"
 				control={CONTROLS.attack}
 				value={attack}
 				size="small"
 			/>
-			<PianoKnobControl
+			<KnobControl
 				{...sharedControlProps}
 				name="decay"
 				control={CONTROLS.decay}
 				value={decay}
 				size="small"
 			/>
-			<PianoKnobControl
+			<KnobControl
 				{...sharedControlProps}
 				name="sustain"
 				control={CONTROLS.sustain}
 				value={sustain}
 				size="small"
 			/>
-			<PianoKnobControl
+			<KnobControl
 				{...sharedControlProps}
 				name="release"
 				control={CONTROLS.release}
@@ -185,33 +185,33 @@ const Piano = props => {
 	);
 
 	const renderOscillators = () => (
-		<div id="pr-oscillators">
-			<div id="pr-regular-oscillators">
-				<div className="pr-oscillator-container">
-					<div className="pr-oscillator-label">OSC 1</div>
-					<div className="pr-oscillator-controls-container pr-controls-container">
-						<PianoDigitalControl
+		<div id="oscillators">
+			<div id="regular-oscillators">
+				<div className="oscillator-container">
+					<div className="oscillator-label">OSC 1</div>
+					<div className="oscillator-controls-container controls-container">
+						<DigitalControl
 							{...sharedControlProps}
 							name="osc1Shape"
 							label="shape"
 							control={CONTROLS.osc1Shape}
 							value={osc1Shape}
 						/>
-						<PianoDigitalControl
+						<DigitalControl
 							{...sharedControlProps}
 							name="osc1Octave"
 							label="octave"
 							control={CONTROLS.osc1Octave}
 							value={osc1Octave}
 						/>
-						<PianoDigitalControl
+						<DigitalControl
 							{...sharedControlProps}
 							name="osc1Transpose"
 							label="transpose"
 							control={CONTROLS.osc1Transpose}
 							value={osc1Transpose}
 						/>
-						<PianoKnobControl
+						<KnobControl
 							{...sharedControlProps}
 							name="osc1Detune"
 							label="tune"
@@ -219,7 +219,7 @@ const Piano = props => {
 							value={osc1Detune}
 							size="medium"
 						/>
-						<PianoKnobControl
+						<KnobControl
 							{...sharedControlProps}
 							name="osc1Gain"
 							label="vol"
@@ -229,10 +229,10 @@ const Piano = props => {
 						/>
 					</div>
 				</div>
-				<div className="pr-oscillator-container">
-					<div className="pr-oscillator-label">OSC 2</div>
-					<div className="pr-oscillator-controls-container pr-controls-container">
-						<PianoDigitalControl
+				<div className="oscillator-container">
+					<div className="oscillator-label">OSC 2</div>
+					<div className="oscillator-controls-container controls-container">
+						<DigitalControl
 							{...sharedControlProps}
 							name="osc2Shape"
 							label="shape"
@@ -240,21 +240,21 @@ const Piano = props => {
 							value={osc2Shape}
 							type="single-digit"
 						/>
-						<PianoDigitalControl
+						<DigitalControl
 							{...sharedControlProps}
 							name="osc2Octave"
 							label="octave"
 							control={CONTROLS.osc2Octave}
 							value={osc2Octave}
 						/>
-						<PianoDigitalControl
+						<DigitalControl
 							{...sharedControlProps}
 							name="osc2Transpose"
 							label="transpose"
 							control={CONTROLS.osc2Transpose}
 							value={osc2Transpose}
 						/>
-						<PianoKnobControl
+						<KnobControl
 							{...sharedControlProps}
 							name="osc2Detune"
 							label="tune"
@@ -262,7 +262,7 @@ const Piano = props => {
 							value={osc2Detune}
 							size="medium"
 						/>
-						<PianoKnobControl
+						<KnobControl
 							{...sharedControlProps}
 							name="osc2Gain"
 							label="vol"
@@ -273,11 +273,11 @@ const Piano = props => {
 					</div>
 				</div>
 			</div>
-			<div id="pr-mod-oscillator">
-				<div className="pr-oscillator-container">
-					<div className="pr-oscillator-label">MOD OSC</div>
-					<div className="pr-oscillator-controls-container pr-controls-container">
-						<PianoDigitalControl
+			<div id="mod-oscillator">
+				<div className="oscillator-container">
+					<div className="oscillator-label">MOD OSC</div>
+					<div className="oscillator-controls-container controls-container">
+						<DigitalControl
 							{...sharedControlProps}
 							name="modOscShape"
 							label="shape"
@@ -285,7 +285,7 @@ const Piano = props => {
 							value={modOscShape}
 							type="single-digit"
 						/>
-						<PianoKnobControl
+						<KnobControl
 							{...sharedControlProps}
 							name="modOscGain"
 							label="vol"
@@ -293,7 +293,7 @@ const Piano = props => {
 							value={modOscGain}
 							size="small"
 						/>
-						<PianoKnobControl
+						<KnobControl
 							{...sharedControlProps}
 							name="modOscFreq"
 							label="freq"
@@ -308,18 +308,18 @@ const Piano = props => {
 	);
 
 	const renderFilters = () => (
-		<div id="pr-filters">
-			<div className="pr-filter pr-filter-1">
-				<div className="pr-filter-label">FILTER 1</div>
-				<div className="pr-filter-controls-container pr-controls-container">
-					<PianoDigitalControl
+		<div id="filters">
+			<div className="filter filter-1">
+				<div className="filter-label">FILTER 1</div>
+				<div className="filter-controls-container controls-container">
+					<DigitalControl
 						{...sharedControlProps}
 						name="filter1Type"
 						label="type"
 						control={CONTROLS.filter1Type}
 						value={filter1Type}
 					/>
-					<PianoKnobControl
+					<KnobControl
 						{...sharedControlProps}
 						name="filter1Freq"
 						label="cutoff"
@@ -327,7 +327,7 @@ const Piano = props => {
 						value={filter1Freq}
 						size="medium"
 					/>
-					<PianoKnobControl
+					<KnobControl
 						{...sharedControlProps}
 						name="filter1Q"
 						label="res"
@@ -337,17 +337,17 @@ const Piano = props => {
 					/>
 				</div>
 			</div>
-			<div className="pr-filter pr-filter-2">
-				<div className="pr-filter-label">FILTER 2</div>
-				<div className="pr-filter-controls-container pr-controls-container">
-					<PianoDigitalControl
+			<div className="filter filter-2">
+				<div className="filter-label">FILTER 2</div>
+				<div className="filter-controls-container controls-container">
+					<DigitalControl
 						{...sharedControlProps}
 						name="filter2Type"
 						label="type"
 						control={CONTROLS.filter2Type}
 						value={filter2Type}
 					/>
-					<PianoKnobControl
+					<KnobControl
 						{...sharedControlProps}
 						name="filter2Freq"
 						label="cutoff"
@@ -355,7 +355,7 @@ const Piano = props => {
 						value={filter2Freq}
 						size="medium"
 					/>
-					<PianoKnobControl
+					<KnobControl
 						{...sharedControlProps}
 						name="filter2Q"
 						label="res"
@@ -368,21 +368,21 @@ const Piano = props => {
 		</div>
 	);
 
-	const renderKeys = () => <PianoKeys {...props} />;
+	const renderPianoKeys = () => <PianoKeys {...props} />;
 
 	return (
-		<div id="pr-piano">
-			<div id="pr-piano-left">{renderLeftControls()}</div>
-			<div id="pr-piano-right">
-				<div id="pr-piano-right-top">
+		<div id="synth">
+			<div id="synth-left">{renderLeftControls()}</div>
+			<div id="synth-right">
+				<div id="synth-right-top">
 					{renderGlobalSection()}
 					{renderOscillators()}
 					{renderFilters()}
 				</div>
-				<div id="pr-piano-right-bottom">{renderKeys()}</div>
+				<div id="synth-right-bottom">{renderPianoKeys()}</div>
 			</div>
 		</div>
 	);
 };
 
-export default Piano;
+export default Synth;

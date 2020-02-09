@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {CONTROL_TYPES, CONTROLS, CONTROLS_DEFAULT_VALUES, KEYS_MAP, LAYOUTS} from './js/statics';
-import Piano from './components/Piano';
+import Synth from './components/Synth';
 import Voice from './js/classes/Voice';
 
 class App extends Component {
@@ -337,10 +337,10 @@ class App extends Component {
 
 		return (
 			<div
-				id="pr-container"
+				id="container"
 				// onContextMenu={(e) => {e.preventDefault()}}
 			>
-				<Piano
+				<Synth
 					{...this.state}
 					handleMouseDownPianoKey={this.handleMouseDownPianoKey}
 					handleMouseUpPianoKey={this.handleMouseUpPianoKey}

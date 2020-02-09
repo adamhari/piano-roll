@@ -23,7 +23,7 @@ body {
 ************** LAYOUT ******************
 ****************************************/
 
-#pr-container {
+#container {
   display: flex;
   flex: 1;
   align-items: flex-start;
@@ -31,10 +31,10 @@ body {
 
 }
 
-#pr-piano {
+#synth {
   user-select: none;
   display: flex;
-  background-color: $color-piano-plastic;
+  background-color: $color-plastic;
   padding: 0rem 3rem 0.25rem 0rem;
 
   border: $piano-border;
@@ -46,16 +46,16 @@ body {
   @include box-shadow($piano-shadow-outset);
 }
 
-#pr-piano-left {
+#synth-left {
   display: flex;
   align-items: center;
 }
 
-#pr-piano-top-left {
+#synth-top-left {
   padding: 0 3rem;
 }
 
-#pr-piano-right-top {
+#synth-right-top {
   height: 16rem;
   padding: 1rem 0;
   display: flex;
@@ -66,26 +66,26 @@ body {
   }
 
 
-  #pr-global-section {
+  #global-section {
 
-    #pr-logo-section {
+    #logo-section {
       cursor: default;
       position: relative;
-      color: $color-piano-label;
+      color: $color-label;
 
       width: 13rem;
       height: 4.375rem;
       padding: 0 0 0 0.375rem;
       margin-left: 1rem;
 
-      #pr-logo {
+      #logo {
         // font-family:"Heroic Avenger", sans-serif;
         // font-size:2.5rem;
 
         width: 12rem;
       }
 
-      #pr-logo-subtext {
+      #logo-subtext {
         position: absolute;
         left: 0.09375rem;
         line-height: 1.25;
@@ -94,7 +94,7 @@ body {
         font-weight: 400;
         letter-spacing: 0.125rem;
 
-        #pr-logo-subtext-bold {
+        #logo-subtext-bold {
           display: inline-block;
           font-weight: 800;
           font-size: 1.0625rem;
@@ -104,11 +104,11 @@ body {
       }
     }
 
-    #pr-global-controls {
+    #global-controls {
       display: flex;
       margin: 0.75rem 0.375rem 0;
 
-      #pr-envelope-controls {
+      #envelope-controls {
         display: grid;
         grid-template-columns: auto auto;
         grid-template-rows: auto auto;
@@ -120,10 +120,10 @@ body {
 
 }
 
-#pr-piano-right-bottom {}
+#synth-right-bottom {}
 
 
-#pr-oscillators {
+#oscillators {
   height: 100%;
   display: flex;
   text-align: center;
@@ -132,44 +132,44 @@ body {
     margin-right: 1rem;
   }
 
-  #pr-regular-oscillators {
+  #regular-oscillators {
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
   }
 
-  .pr-oscillator-container {
+  .oscillator-container {
     display: flex;
     flex-flow: column nowrap;
 
-    .pr-oscillator-label {
+    .oscillator-label {
       @include control-outline-label;
     }
   }
 
-  #pr-mod-oscillator {
+  #mod-oscillator {
     display: flex;
 
-    .pr-oscillator-controls-container {
+    .oscillator-controls-container {
       flex-flow: column nowrap;
       height: 100%;
     }
   }
 }
 
-#pr-filters {
+#filters {
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
 
-  .pr-filter {
+  .filter {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-flow: column nowrap;
 
-    .pr-filter-label {
+    .filter-label {
       @include control-outline-label;
       width: 100%;
       text-align: center;
@@ -181,13 +181,13 @@ body {
 ************* CONTROLS *****************
 ****************************************/
 
-.pr-control-label {
+.control-label {
   @include label-text;
   text-align: center;
   margin-bottom: 0.5rem;
 }
 
-.pr-controls-container {
+.controls-container {
   @include control-outline;
   display: flex;
   padding: 0.375rem;
@@ -195,7 +195,7 @@ body {
 
 // DIGITAL CONTROL
 
-.pr-digital-control {
+.digital-control {
   position: relative;
   display: flex;
   flex-flow: column wrap;
@@ -207,25 +207,25 @@ body {
 
   user-select: none;
 
-  &.pr-digital-control-outlined {
+  &.digital-control-outlined {
 
-    .pr-control-label {
+    .control-label {
       @include control-outline-label;
       margin-bottom: 0;
     }
 
-    .pr-digital-control-input-container {
+    .digital-control-input-container {
       @include control-outline;
       padding: 0.5rem;
-      background: $color-piano-plastic;
+      background: $color-plastic;
     }
 
-    .pr-digital-control-input {
+    .digital-control-input {
       padding: 0 0.5rem 0.5rem 0.5rem;
     }
   }
 
-  .pr-digital-control-input {
+  .digital-control-input {
     position: relative;
     font-family: "DS Digital", monospace;
     font-size: 2rem;
@@ -249,8 +249,8 @@ body {
     }
   }
 
-  .pr-digital-control-input-background,
-  .pr-digital-control-input-foreground {
+  .digital-control-input-background,
+  .digital-control-input-foreground {
     position: absolute;
     top: -0.1rem;
     left: -0.53125rem;
@@ -258,14 +258,14 @@ body {
     border-color: transparent;
   }
 
-  .pr-digital-control-input-background {
+  .digital-control-input-background {
     color: rgba($color-digital-text, 0.625);
     opacity: 0.1875;
     text-shadow:
       0.03125rem 0.03125rem 0rem rgba(98, 145, 131, 0.5)
   }
 
-  .pr-digital-control-input-foreground {
+  .digital-control-input-foreground {
     color: rgba($color-digital-text, 0.9375);
     text-shadow:
       0 0 0.625rem rgba($color-digital-text, 0.625),
@@ -281,7 +281,7 @@ body {
 
 // KNOB CONTROL
 
-.pr-knob-control-container {
+.knob-control-container {
   position: relative;
   display: flex;
   flex-flow: column nowrap;
@@ -289,12 +289,12 @@ body {
   align-items: center;
   margin: 0 0.375rem 0.25rem;
 
-  .pr-knob-control-value {
+  .knob-control-value {
     position: absolute;
     z-index: 2;
     width: 3rem;
     padding: 0 0 0.0625rem;
-    background-color: $color-piano-label;
+    background-color: $color-label;
     border-radius: 1rem;
 
     text-align: center;
@@ -302,12 +302,12 @@ body {
     font-weight: 700;
   }
 
-  .pr-knob-container {
+  .knob-container {
     border-radius: 50%;
     @include box-shadow(0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3));
   }
 
-  .pr-knob {
+  .knob {
     cursor: grab;
     position: relative;
     background-color: $color-knob-rubber;
@@ -349,20 +349,20 @@ body {
   &.small {
     height: 3.5rem;
 
-    .pr-control-label {
+    .control-label {
       margin-bottom: 0.25rem;
     }
 
-    .pr-knob-control-value {
+    .knob-control-value {
       bottom: -1.05rem;
     }
 
-    .pr-knob-container {
+    .knob-container {
       width: 2.25rem;
       height: 2.25rem;
     }
 
-    .pr-knob {
+    .knob {
       width: 2.25rem;
       height: 2.25rem;
 
@@ -384,16 +384,16 @@ body {
 
   &.medium {
 
-    .pr-knob-control-value {
+    .knob-control-value {
       bottom: -1rem;
     }
 
-    .pr-knob-container {
+    .knob-container {
       width: 3rem;
       height: 3rem;
     }
 
-    .pr-knob {
+    .knob {
       width: 3rem;
       height: 3em;
 
@@ -414,16 +414,16 @@ body {
   &.large {
     height: 6.5rem;
 
-    .pr-knob-control-value {
+    .knob-control-value {
       bottom: 0;
     }
 
-    .pr-knob-container {
+    .knob-container {
       width: 4rem;
       height: 4rem;
     }
 
-    .pr-knob {
+    .knob {
       width: 4rem;
       height: 4rem;
 
@@ -460,23 +460,23 @@ body {
 ************ PIANO KEYS ****************
 ****************************************/
 
-#pr-piano-keys {
+#piano-keys {
   display: inline-block;
   cursor: pointer;
 
 }
 
-#pr-piano-black-keys {
+#piano-black-keys {
   display: flex;
   flex-flow: row;
   position: absolute;
 }
 
-#pr-piano-white-keys {
+#piano-white-keys {
   display: flex;
 }
 
-.pr-piano-key {
+.piano-key {
   display: inline-block;
   border: $key-border;
   border-top: $piano-border;
@@ -485,7 +485,7 @@ body {
   transition: 0.0625s ease-out;
 }
 
-.pr-piano-key-white {
+.piano-key-white {
   width: 2.3rem;
   height: 12.0rem;
   background: #d7d7d7;
@@ -512,13 +512,13 @@ body {
       $key-shadow-inset-right);
   }
 
-  &.pr-piano-key-active {
+  &.piano-key-active {
     background: $color-key-white-active;
     @include box-shadow($white-key-shadow-outset-active);
   }
 }
 
-.pr-piano-key-black {
+.piano-key-black {
   margin-top: 0.1rem;
   width: 1.3rem;
   height: 7.8rem;
@@ -531,7 +531,7 @@ body {
   position: absolute;
 
 
-  &.pr-piano-key-active {
+  &.piano-key-active {
     // @include linear-gradient(#c0c0c0, #231f20);
     background: $color-key-black-active;
     @include box-shadow($black-key-shadow-outset-active);
@@ -563,7 +563,7 @@ body {
 }
 
 @each $key in $keys {
-  .pr-piano-key-#{$key} {
+  .piano-key-#{$key} {
     color: red;
   }
 }

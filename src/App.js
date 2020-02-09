@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import {Context} from 'tone';
 import {CONTROL_TYPES, CONTROLS, CONTROLS_DEFAULT_VALUES, KEYS_MAP, LAYOUTS} from './js/statics';
 import Synth from './components/Synth';
-import Voice from './js/classes/Voice';
+import Output from './js/classes/Output';
 
 class App extends Component {
 	/** LIFECYCLE */
@@ -38,6 +39,8 @@ class App extends Component {
 	/** INIT */
 
 	registerEvents = () => {
+		// console.log("registerEvents");
+
 		document.addEventListener('keydown', this.handleKeyDown);
 		document.addEventListener('keyup', this.handleKeyUp);
 
@@ -57,43 +60,38 @@ class App extends Component {
 	};
 
 	initializeSoundEngine = () => {
-		console.log('initializeSoundEngine');
+		// console.log('initializeSoundEngine');
 
-		const AudioContext = window.AudioContext || window.webkitAudioContext;
-		this.audioContext = new AudioContext();
-		this.audioContext.effectChain = this.audioContext.createGain();
-		this.audioContext.effectChain.connect(this.audioContext.destination);
+		this.audioContext = new Context();
 
-		console.log('Audio Context Base Latency: ', this.audioContext.baseLatency);
-
-		console.log('initializeVoices');
-
-		Object.keys(KEYS_MAP)
-			.slice(0, this.state.octaves * 12)
-			.forEach(key => {
-				this.voices[key] = new Voice(
-					this.audioContext,
-					KEYS_MAP[key].freq,
-					this.state.attack,
-					this.state.decay,
-					this.state.sustain,
-					this.state.release,
-					this.state.osc1Shape,
-					this.state.osc1Octave,
-					this.state.osc1Transpose,
-					this.state.osc1Detune,
-					this.state.osc1Gain,
-					this.state.osc2Shape,
-					this.state.osc2Octave,
-					this.state.osc2Transpose,
-					this.state.osc2Detune,
-					this.state.osc2Gain
-				);
-			});
+		this.output = new Output(
+			this.audioContext,
+			this.state.volume,
+			this.state.attack,
+			this.state.decay,
+			this.state.sustain,
+			this.state.release,
+			this.state.osc1Shape,
+			this.state.osc1Octave,
+			this.state.osc1Transpose,
+			this.state.osc1Detune,
+			this.state.osc1Gain,
+			this.state.osc2Shape,
+			this.state.osc2Octave,
+			this.state.osc2Transpose,
+			this.state.osc2Detune,
+			this.state.osc2Gain,
+			this.state.filter1Type,
+			this.state.filter1Freq,
+			this.state.filter1Q,
+			this.state.filter2Type,
+			this.state.filter2Freq,
+			this.state.filter2Q
+		);
 	};
 
-	startAudioContext = () => {
-		console.log('startAudioContext');
+	resumeAudioContext = () => {
+		// console.log('resumeAudioContext');
 
 		if (!this.state.audioContextStarted) {
 			this.audioContext.resume();
@@ -116,7 +114,7 @@ class App extends Component {
 			this.setState({activeModifierKey: true});
 		}
 
-		this.startAudioContext();
+		this.resumeAudioContext();
 	};
 
 	handleKeyUp = e => {
@@ -128,17 +126,19 @@ class App extends Component {
 			this.setState({activeModifierKey: false});
 
 		const pianoKey = LAYOUTS[this.state.layout][keyReleased];
-		this.deactivatePianoKey(pianoKey);
+		if (pianoKey) {
+			this.deactivatePianoKey(pianoKey);
+		}
 	};
 
 	handleMouseDown = e => {
-		console.log('handleMouseDown', e);
+		// console.log('handleMouseDown', e);
 
-		this.startAudioContext();
+		this.resumeAudioContext();
 	};
 
 	handleMouseUp = e => {
-		console.log('handleMouseUp', e);
+		// console.log('handleMouseUp', e);
 
 		this.mouseDownOnKeys = false;
 		this.state.activeControl &&
@@ -159,7 +159,7 @@ class App extends Component {
 	/** PIANO KEYS */
 
 	handleMouseDownPianoKey = e => {
-		console.log('handleMouseDownPianoKey', e);
+		// console.log('handleMouseDownPianoKey', e);
 
 		if (e.button === 0) {
 			this.activatePianoKey(e.target.title);
@@ -168,7 +168,7 @@ class App extends Component {
 	};
 
 	handleMouseUpPianoKey = e => {
-		console.log('handleMouseUpPianoKey', e);
+		// console.log('handleMouseUpPianoKey', e);
 
 		if (e.button === 0) {
 			this.mouseDownOnKeys = false;
@@ -189,10 +189,10 @@ class App extends Component {
 	};
 
 	activatePianoKey = key => {
-		console.log('activatePianoKey', key);
+		// console.log('activatePianoKey', key);
 
 		if (!this.state.activeKeys.includes(key)) {
-			this.startPlayingKey(key);
+			this.output.startPlayingKey(KEYS_MAP[key].freq);
 			this.setState(prevState => ({
 				activeKeys: [...prevState.activeKeys, key]
 			}));
@@ -200,31 +200,19 @@ class App extends Component {
 	};
 
 	deactivatePianoKey = key => {
-		console.log('deactivatePianoKey', key);
+		// console.log('deactivatePianoKey', key);
 
-		this.stopPlayingKey(key);
+		this.output.stopPlayingKey(KEYS_MAP[key].freq);
 
 		this.setState(prevState => ({
 			activeKeys: prevState.activeKeys.filter(k => k !== key)
 		}));
 	};
 
-	startPlayingKey = key => {
-		console.log('startPlayingKey', KEYS_MAP[key]);
-
-		this.voices[key] && this.voices[key].start();
-	};
-
-	stopPlayingKey = key => {
-		console.log('stopPlayingKey', KEYS_MAP[key]);
-
-		this.voices[key] && this.voices[key].stop();
-	};
-
 	/** SYNTH CONTROLS */
 
 	handleMouseDownControl = (activeControl, activeControlType, e) => {
-		console.log('handleMouseDownControl', activeControl, activeControlType, e);
+		// console.log('handleMouseDownControl', activeControl, activeControlType, e);
 
 		if (e.button === 0) {
 			// left click
@@ -238,7 +226,7 @@ class App extends Component {
 	};
 
 	handleMouseUpControl = (activeControl, e) => {
-		console.log('handleMouseUpControl', activeControl, e);
+		// console.log('handleMouseUpControl', activeControl, e);
 
 		if (e.button === 0) {
 			this.deactivateControl(activeControl);
@@ -276,7 +264,7 @@ class App extends Component {
 	};
 
 	handleMouseWheelControl = (activeControl, activeControlType, e) => {
-		console.log('handleMouseWheelControl', activeControl, activeControlType, e.deltaY);
+		// console.log('handleMouseWheelControl', activeControl, activeControlType, e.deltaY);
 
 		const {pixelStep} = CONTROL_TYPES[activeControlType];
 
@@ -287,7 +275,7 @@ class App extends Component {
 	};
 
 	activateControl = (activeControl, activeControlType, screenY) => {
-		console.log('activateControl', activeControl, activeControlType, screenY);
+		// console.log('activateControl', activeControl, activeControlType, screenY);
 
 		document.addEventListener('mousemove', this.handleMouseMoveControl);
 
@@ -299,7 +287,7 @@ class App extends Component {
 	};
 
 	deactivateControl = activeControl => {
-		console.log('deactiveControl', activeControl);
+		// console.log('deactiveControl', activeControl);
 
 		document.removeEventListener('mousemove', this.handleMouseMoveControl);
 
@@ -314,12 +302,14 @@ class App extends Component {
 		const minValue = CONTROLS[control].range.min;
 		const maxValue = CONTROLS[control].range.max;
 
-		let newVal = newState[control] + change;
+		let value = newState[control] + change;
 
-		if (newVal > maxValue) newVal = maxValue;
-		else if (newVal < minValue) newVal = minValue;
+		if (value > maxValue) value = maxValue;
+		else if (value < minValue) value = minValue;
 
-		newState[control] = newVal;
+		newState[control] = value;
+
+		this.output.set(control, value);
 
 		this.setState(newState);
 	};

@@ -12,7 +12,7 @@ const Synth = props => {
 		handleMouseWheelControl,
 
 		layout,
-		master,
+		volume,
 		attack,
 		decay,
 		sustain,
@@ -143,10 +143,9 @@ const Synth = props => {
 	const renderMasterControl = () => (
 		<KnobControl
 			{...sharedControlProps}
-			name="master"
-			label="volume"
-			control={CONTROLS.master}
-			value={master}
+			name="volume"
+			control={CONTROLS.volume}
+			value={volume}
 			size="large"
 		/>
 	);

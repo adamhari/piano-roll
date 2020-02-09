@@ -183,7 +183,7 @@ export const CONTROLS = {
 			max: LAYOUTS.length - 1
 		}
 	},
-	master: {
+	volume: {
 		defaultValue: 50,
 		range: {
 			min: 0,
@@ -220,7 +220,7 @@ export const CONTROLS = {
 	},
 	/* OSC */
 	osc1Shape: {
-		defaultValue: 1,
+		defaultValue: 0,
 		range: {
 			min: 0,
 			max: OSC_SHAPES.length - 1

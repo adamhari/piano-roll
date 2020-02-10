@@ -63,10 +63,16 @@ class App extends Component {
 		// console.log('initializeSoundEngine');
 
 		this.audioContext = new Context();
+		this.setOutputFromState();
+	};
+
+	setOutputFromState = () => {
+		// console.log("setOutputFromState");
 
 		this.output = new Output(
 			this.audioContext,
 			this.state.volume,
+			this.state.polyphony,
 			this.state.attack,
 			this.state.decay,
 			this.state.sustain,
@@ -270,7 +276,7 @@ class App extends Component {
 
 		const change = e.deltaY > 0 ? -1 : 1;
 		const value = change * Math.round(5 / pixelStep);
-		this.changeControlValue(activeControl, value);
+		// this.changeControlValue(activeControl, value);
 		return false;
 	};
 

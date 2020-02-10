@@ -183,6 +183,13 @@ export const CONTROLS = {
 			max: LAYOUTS.length - 1
 		}
 	},
+	polyphony: {
+		defaultValue: 4,
+		range: {
+			min: 1,
+			max: 9
+		}
+	},
 	volume: {
 		defaultValue: 50,
 		range: {

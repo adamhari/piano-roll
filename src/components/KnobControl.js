@@ -48,7 +48,7 @@ const PianoKnobControl = ({
 	};
 
 	return (
-		<div className={'knob-control-container ' + (size || '')}>
+		<div className={'knob-control-container control-container ' + (size || '')}>
 			<div className="control-label">{label || name}</div>
 			<div className="knob-control-value" style={getValueStyles()}>
 				{value}

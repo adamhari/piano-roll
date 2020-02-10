@@ -12,6 +12,7 @@ const Synth = props => {
 		handleMouseWheelControl,
 
 		layout,
+		polyphony,
 		volume,
 		attack,
 		decay,
@@ -125,6 +126,14 @@ const Synth = props => {
 		<div id="synth-top-left">
 			<DigitalControl
 				{...sharedControlProps}
+				name="polyphony"
+				label="poly"
+				control={CONTROLS.polyphony}
+				value={polyphony}
+			/>
+			<br />
+			<DigitalControl
+				{...sharedControlProps}
 				name="layout"
 				control={CONTROLS.layout}
 				value={layout}
@@ -184,133 +193,134 @@ const Synth = props => {
 	);
 
 	const renderOscillators = () => (
-		<div id="oscillators">
-			<div id="regular-oscillators">
-				<div className="oscillator-container">
-					<div className="oscillator-label">OSC 1</div>
-					<div className="oscillator-controls-container controls-container">
-						<DigitalControl
-							{...sharedControlProps}
-							name="osc1Shape"
-							label="shape"
-							control={CONTROLS.osc1Shape}
-							value={osc1Shape}
-						/>
-						<DigitalControl
-							{...sharedControlProps}
-							name="osc1Octave"
-							label="octave"
-							control={CONTROLS.osc1Octave}
-							value={osc1Octave}
-						/>
-						<DigitalControl
-							{...sharedControlProps}
-							name="osc1Transpose"
-							label="transpose"
-							control={CONTROLS.osc1Transpose}
-							value={osc1Transpose}
-						/>
-						<KnobControl
-							{...sharedControlProps}
-							name="osc1Detune"
-							label="tune"
-							control={CONTROLS.osc1Detune}
-							value={osc1Detune}
-							size="medium"
-						/>
-						<KnobControl
-							{...sharedControlProps}
-							name="osc1Gain"
-							label="vol"
-							control={CONTROLS.osc1Gain}
-							value={osc1Gain}
-							size="medium"
-						/>
-					</div>
-				</div>
-				<div className="oscillator-container">
-					<div className="oscillator-label">OSC 2</div>
-					<div className="oscillator-controls-container controls-container">
-						<DigitalControl
-							{...sharedControlProps}
-							name="osc2Shape"
-							label="shape"
-							control={CONTROLS.osc2Shape}
-							value={osc2Shape}
-							type="single-digit"
-						/>
-						<DigitalControl
-							{...sharedControlProps}
-							name="osc2Octave"
-							label="octave"
-							control={CONTROLS.osc2Octave}
-							value={osc2Octave}
-						/>
-						<DigitalControl
-							{...sharedControlProps}
-							name="osc2Transpose"
-							label="transpose"
-							control={CONTROLS.osc2Transpose}
-							value={osc2Transpose}
-						/>
-						<KnobControl
-							{...sharedControlProps}
-							name="osc2Detune"
-							label="tune"
-							control={CONTROLS.osc2Detune}
-							value={osc2Detune}
-							size="medium"
-						/>
-						<KnobControl
-							{...sharedControlProps}
-							name="osc2Gain"
-							label="vol"
-							control={CONTROLS.osc2Gain}
-							value={osc2Gain}
-							size="medium"
-						/>
-					</div>
+		<div id="oscillators" className="control-section">
+			<div className="control-wrapper">
+				<div className="controls-container-label">OSC 1</div>
+				<div className="controls-container">
+					<DigitalControl
+						{...sharedControlProps}
+						name="osc1Shape"
+						label="shape"
+						control={CONTROLS.osc1Shape}
+						value={osc1Shape}
+					/>
+					<DigitalControl
+						{...sharedControlProps}
+						name="osc1Octave"
+						label="octave"
+						control={CONTROLS.osc1Octave}
+						value={osc1Octave}
+					/>
+					<DigitalControl
+						{...sharedControlProps}
+						name="osc1Transpose"
+						label="trans"
+						control={CONTROLS.osc1Transpose}
+						value={osc1Transpose}
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="osc1Detune"
+						label="tune"
+						control={CONTROLS.osc1Detune}
+						value={osc1Detune}
+						size="medium"
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="osc1Gain"
+						label="vol"
+						control={CONTROLS.osc1Gain}
+						value={osc1Gain}
+						size="medium"
+					/>
 				</div>
 			</div>
-			<div id="mod-oscillator">
-				<div className="oscillator-container">
-					<div className="oscillator-label">MOD OSC</div>
-					<div className="oscillator-controls-container controls-container">
-						<DigitalControl
-							{...sharedControlProps}
-							name="modOscShape"
-							label="shape"
-							control={CONTROLS.modOscShape}
-							value={modOscShape}
-							type="single-digit"
-						/>
-						<KnobControl
-							{...sharedControlProps}
-							name="modOscGain"
-							label="vol"
-							control={CONTROLS.modOscGain}
-							value={modOscGain}
-							size="small"
-						/>
-						<KnobControl
-							{...sharedControlProps}
-							name="modOscFreq"
-							label="freq"
-							control={CONTROLS.modOscFreq}
-							value={modOscFreq}
-							size="small"
-						/>
-					</div>
+			<div className="control-wrapper">
+				<div className="controls-container-label">OSC 2</div>
+				<div className="controls-container">
+					<DigitalControl
+						{...sharedControlProps}
+						name="osc2Shape"
+						label="shape"
+						control={CONTROLS.osc2Shape}
+						value={osc2Shape}
+						type="single-digit"
+					/>
+					<DigitalControl
+						{...sharedControlProps}
+						name="osc2Octave"
+						label="octave"
+						control={CONTROLS.osc2Octave}
+						value={osc2Octave}
+					/>
+					<DigitalControl
+						{...sharedControlProps}
+						name="osc2Transpose"
+						label="trans"
+						control={CONTROLS.osc2Transpose}
+						value={osc2Transpose}
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="osc2Detune"
+						label="tune"
+						control={CONTROLS.osc2Detune}
+						value={osc2Detune}
+						size="medium"
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="osc2Gain"
+						label="vol"
+						control={CONTROLS.osc2Gain}
+						value={osc2Gain}
+						size="medium"
+					/>
+				</div>
+			</div>
+		</div>
+	);
+
+	const renderModOscillator = () => (
+		<div id="mod-oscillator" className="control-section">
+			<div className="control-wrapper vertical">
+				<div className="controls-container-label">MOD OSC</div>
+				<div className="controls-container">
+					<DigitalControl
+						{...sharedControlProps}
+						name="modOscShape"
+						label="shape"
+						control={CONTROLS.modOscShape}
+						value={modOscShape}
+						type="single-digit"
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="modOscGain"
+						label="vol"
+						control={CONTROLS.modOscGain}
+						value={modOscGain}
+						size="small"
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="modOscFreq"
+						label="freq"
+						control={CONTROLS.modOscFreq}
+						value={modOscFreq}
+						size="small"
+					/>
 				</div>
 			</div>
 		</div>
 	);
 
 	const renderFilters = () => (
-		<div id="filters">
-			<div className="filter filter-1">
-				<div className="filter-label">FILTER 1</div>
-				<div className="filter-controls-container controls-container">
+		<div id="filters" className="control-section">
+			<div className="control-wrapper">
+				<div className="controls-container-label">FILTER 1</div>
+				<div className="controls-container">
 					<DigitalControl
 						{...sharedControlProps}
 						name="filter1Type"
@@ -336,9 +346,9 @@ const Synth = props => {
 					/>
 				</div>
 			</div>
-			<div className="filter filter-2">
-				<div className="filter-label">FILTER 2</div>
-				<div className="filter-controls-container controls-container">
+			<div className="control-wrapper">
+				<div className="controls-container-label">FILTER 2</div>
+				<div className="controls-container">
 					<DigitalControl
 						{...sharedControlProps}
 						name="filter2Type"
@@ -376,6 +386,7 @@ const Synth = props => {
 				<div id="synth-right-top">
 					{renderGlobalSection()}
 					{renderOscillators()}
+					{renderModOscillator()}
 					{renderFilters()}
 				</div>
 				<div id="synth-right-bottom">{renderPianoKeys()}</div>

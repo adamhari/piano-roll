@@ -58,7 +58,7 @@ const PianoDigitalControl = ({
 			<label id={'' + name + '-label'} className="control-label" htmlFor={'' + name}>
 				{label || name}
 			</label>
-			<div className="digital-control-input-container">
+			<div className="digital-control-input-container control-container">
 				<div id={'' + name} className={'digital-control-input ' + digits}>
 					{8}
 					<div

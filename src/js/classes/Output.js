@@ -1,11 +1,12 @@
 import {Filter, Master, PolySynth, Synth} from 'tone';
 import {FILTER_TYPES, FREQ_MULTIPLIER, KEYS, OSC_SHAPES} from '../statics';
-import {getSetterFromString} from '../utils';
+import {getDecibelsFromValue, getFrequencyFromValue, getSetterFromString} from '../utils';
 
 export default class Output {
 	constructor(
 		audioContext,
 		volume,
+		polyphony,
 		attack,
 		decay,
 		sustain,
@@ -31,6 +32,7 @@ export default class Output {
 
 		this.audioContext = audioContext;
 		this.volume = volume;
+		this.polyphony = polyphony;
 		this.attack = attack;
 		this.decay = decay;
 		this.sustain = sustain;
@@ -73,9 +75,9 @@ export default class Output {
 	};
 
 	initializeOscillators = () => {
-		this.osc1 = new PolySynth(4, Synth);
+		this.osc1 = new PolySynth(this.getPolyphony(), Synth);
 		this.setOsc1Shape();
-		this.osc2 = new PolySynth(4, Synth);
+		this.osc2 = new PolySynth(this.getPolyphony(), Synth);
 		this.setOsc2Shape();
 		this.oscillators = [this.osc1, this.osc2];
 		this.setEnvelope();
@@ -100,10 +102,16 @@ export default class Output {
 
 	// GLOBAL
 
-	getVolume = () => -50 + this.volume / 2;
+	getVolume = () => getDecibelsFromValue(this.volume);
 	setVolume = () => (this.master.volume.value = this.getVolume());
 
+	getPolyphony = () => this.polyphony;
+	setPolyphony = () => this.initializeOscillators();
+
 	getEnvelope = () => ({
+		attackCurve: 'exponential',
+		decayCurve: 'exponential',
+		releaseCurve: 'exponential',
 		attack: this.getAttack(),
 		decay: this.getDecay(),
 		sustain: this.getSustain(),
@@ -155,7 +163,7 @@ export default class Output {
 	setOsc1Detune = () => this.setOscDetune(1);
 	setOsc2Detune = () => this.setOscDetune(2);
 
-	getOscGain = i => this[`osc${i}Gain`] / 100;
+	getOscGain = i => getDecibelsFromValue(this[`osc${i}Gain`]);
 	setOscGain = i => this[`osc${i}`].set('volume', this.getOscGain(i));
 	setOsc1Gain = () => this.setOscGain(1);
 	setOsc2Gain = () => this.setOscGain(2);
@@ -172,7 +180,7 @@ export default class Output {
 
 	getFilterFreq = i => {
 		const value = this[`filter${i}Freq`];
-		return KEYS[value].freq;
+		return getFrequencyFromValue(value);
 	};
 	setFilterFreq = i => (this[`filter${i}`].frequency.value = this.getFilterFreq(i));
 	setFilter1Freq = () => this.setFilterFreq(1);

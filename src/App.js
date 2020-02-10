@@ -210,9 +210,10 @@ class App extends Component {
 
 		this.output.stopPlayingKey(KEYS_MAP[key].freq);
 
-		this.setState(prevState => ({
-			activeKeys: prevState.activeKeys.filter(k => k !== key)
-		}));
+		const activeKeys = [...this.state.activeKeys];
+		activeKeys.splice(activeKeys.indexOf(key), 1);
+
+		this.setState({activeKeys});
 	};
 
 	/** SYNTH CONTROLS */

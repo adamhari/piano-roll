@@ -1,6 +1,6 @@
 import {Filter, Master, PolySynth, Synth} from 'tone';
-import {FILTER_TYPES, FREQ_MULTIPLIER, OSC_SHAPES} from '../statics';
-import {getDecibelsFromValue, getFrequencyFromValue} from '../utils';
+import {FILTER_TYPES, OSC_SHAPES} from '../statics';
+import {getDecibelsFromValue, getFrequencyFromValue, getNoteFromValues, getSecondsFromValue} from '../utils';
 
 export default class Output {
 	constructor(
@@ -109,29 +109,15 @@ export default class Output {
 	startPlayingKey = freq => {
 		console.log('startPlayingKey', freq);
 
-		this.osc1.triggerAttack(
-			this.getOscFreq(freq, this._osc1Octave, this._osc1Transpose),
-			this._audioContext.now(),
-			1
-		);
-		this.osc2.triggerAttack(
-			this.getOscFreq(freq, this._osc2Octave, this._osc2Transpose),
-			this._audioContext.now(),
-			1
-		);
+		this.osc1.triggerAttack(getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose), this._audioContext.now(), 1);
+		this.osc2.triggerAttack(getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose), this._audioContext.now(), 1);
 	};
 
 	stopPlayingKey = freq => {
 		console.log('stopPlayingKey', freq);
 
-		this.osc1.triggerRelease(
-			this.getOscFreq(freq, this._osc1Octave, this._osc1Transpose),
-			this.audioContext.now()
-		);
-		this.osc2.triggerRelease(
-			this.getOscFreq(freq, this._osc2Octave, this._osc2Transpose),
-			this.audioContext.now()
-		);
+		this.osc1.triggerRelease(getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose), this.audioContext.now());
+		this.osc2.triggerRelease(getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose), this.audioContext.now());
 	};
 
 	// GLOBAL
@@ -165,7 +151,7 @@ export default class Output {
 	}
 
 	get attack() {
-		return this._attack / 100 || 0.01;
+		return getSecondsFromValue(this._attack);
 	}
 	set attack(x) {
 		this._attack = x;
@@ -173,7 +159,7 @@ export default class Output {
 	}
 
 	get decay() {
-		return this._decay / 100 || 0.01;
+		return getSecondsFromValue(this._decay);
 	}
 	set decay(x) {
 		this._decay = x;
@@ -181,7 +167,7 @@ export default class Output {
 	}
 
 	get sustain() {
-		return this._sustain / 100 || 0.01;
+		return this._sustain / 100;
 	}
 	set sustain(x) {
 		this._sustain = x;
@@ -189,7 +175,7 @@ export default class Output {
 	}
 
 	get release() {
-		return this._release / 100 || 0.01;
+		return getSecondsFromValue(this._release);
 	}
 	set release(x) {
 		this._release = x;
@@ -197,11 +183,6 @@ export default class Output {
 	}
 
 	// OSC
-
-	getOscFreq = (freq, octave, transpose) => {
-		const octavedFrequency = (freq * Math.pow(2, octave)) / 16;
-		return octavedFrequency * Math.pow(FREQ_MULTIPLIER, transpose);
-	};
 
 	get osc1Shape() {
 		return OSC_SHAPES[this._osc1Shape];
@@ -217,6 +198,34 @@ export default class Output {
 	set osc2Shape(x) {
 		this._osc2Shape = x;
 		this.osc2.set({oscillator: {type: this.osc2Shape}});
+	}
+
+	get osc1Octave() {
+		return this._osc1Octave;
+	}
+	set osc1Octave(x) {
+		this._osc1Octave = x;
+	}
+
+	get osc2Octave() {
+		return this._osc2Octave;
+	}
+	set osc2Octave(x) {
+		this._osc2Octave = x;
+	}
+
+	get osc1Transpose() {
+		return this._osc1Transpose;
+	}
+	set osc1Transpose(x) {
+		this._osc1Transpose = x;
+	}
+
+	get osc2Transpose() {
+		return this._osc2Transpose;
+	}
+	set osc2Transpose(x) {
+		this._osc2Transpose = x;
 	}
 
 	get osc1Detune() {
@@ -299,7 +308,7 @@ export default class Output {
 	}
 
 	set = (control, value) => {
-		console.log(control);
+		console.log(`setting ${control} to ${value}`);
 
 		this[control] = value;
 	};

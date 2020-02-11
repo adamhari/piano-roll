@@ -12,7 +12,6 @@ class App extends Component {
 
 		this.layout = props.layout || 0;
 		this.octaves = props.octaves;
-		this.voices = {};
 
 		if (!this.octaves || !Number.isInteger(this.octaves) || this.octaves > 10 || this.octaves < 4) {
 			this.octaves = 5;
@@ -128,8 +127,7 @@ class App extends Component {
 
 		const keyReleased = e.key.toLowerCase();
 
-		if (keyReleased === 'control' || keyReleased === 'command')
-			this.setState({activeModifierKey: false});
+		if (keyReleased === 'control' || keyReleased === 'command') this.setState({activeModifierKey: false});
 
 		const pianoKey = LAYOUTS[this.state.layout][keyReleased];
 		if (pianoKey) {

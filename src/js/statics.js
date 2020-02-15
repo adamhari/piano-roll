@@ -152,16 +152,7 @@ for (let i = 0; i < 10; i++) {
 
 export const OSC_SHAPES = ['sawtooth', 'square', 'triangle', 'sine'];
 
-export const FILTER_TYPES = [
-	'lowpass',
-	'highpass',
-	'bandpass',
-	'lowshelf',
-	'highshelf',
-	'peaking',
-	'notch',
-	'allpass'
-];
+export const FILTER_TYPES = ['lowpass', 'highpass', 'bandpass', 'lowshelf', 'highshelf', 'peaking', 'notch'];
 
 export const CONTROL_TYPES = {
 	digital: {
@@ -312,7 +303,7 @@ export const CONTROLS = {
 		}
 	},
 	modOscFreq: {
-		defaultValue: 0,
+		defaultValue: 50,
 		range: {
 			min: 0,
 			max: 100

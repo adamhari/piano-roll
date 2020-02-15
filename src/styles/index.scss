@@ -69,7 +69,7 @@ body {
 			width: 13rem;
 			height: 4.375rem;
 			padding: 0 0 0 0.375rem;
-			margin-left: 1rem;
+			margin: 0 0rem 1.25rem 1rem;
 
 			#logo {
 				// font-family:"Heroic Avenger", sans-serif;
@@ -99,13 +99,14 @@ body {
 
 		#global-controls {
 			display: flex;
-			margin: 0.75rem 0.375rem 0;
+			margin: 0rem 0.375rem 0;
 
 			#envelope-controls {
 				display: grid;
 				grid-template-columns: auto auto;
 				grid-template-rows: auto auto;
-				margin: 0 0.5rem;
+				margin: 0 0.75rem;
+				height: 8rem;
 			}
 		}
 	}
@@ -231,8 +232,8 @@ body {
 
 	.digital-control-input-foreground {
 		color: rgba($color-digital-text, 0.9375);
-		text-shadow: 0 0 0.625rem rgba($color-digital-text, 0.625),
-			0 0 0.375rem rgba($color-digital-text, 0.375), 0 0 0.125rem rgba($color-digital-text, 0.25);
+		text-shadow: 0 0 0.625rem rgba($color-digital-text, 0.625), 0 0 0.375rem rgba($color-digital-text, 0.375),
+			0 0 0.125rem rgba($color-digital-text, 0.25);
 
 		&:hover {
 			cursor: grab;
@@ -464,6 +465,9 @@ body {
 	width: 1.3rem;
 	height: 7.8rem;
 	border: $key-border;
+	border-left-width: 0.15rem;
+	border-right-width: 0.15rem;
+	border-bottom-width: 0.15rem;
 	border-bottom-left-radius: 0.2rem 0.3rem;
 	border-bottom-right-radius: 0.2rem 0.3rem;
 	background: $color-key-black;

@@ -35,6 +35,8 @@ class App extends Component {
 		this.registerEvents();
 	};
 
+	componentWillUnmount = () => {};
+
 	/** INIT */
 
 	registerEvents = () => {
@@ -86,6 +88,9 @@ class App extends Component {
 			this.state.osc2Transpose,
 			this.state.osc2Detune,
 			this.state.osc2Gain,
+			this.state.modOscShape,
+			this.state.modOscGain,
+			this.state.modOscFreq,
 			this.state.filter1Type,
 			this.state.filter1Freq,
 			this.state.filter1Q,
@@ -196,7 +201,7 @@ class App extends Component {
 		// console.log('activatePianoKey', key);
 
 		if (!this.state.activeKeys.includes(key)) {
-			this.output.startPlayingKey(KEYS_MAP[key].freq);
+			this.output.playKey(KEYS_MAP[key].freq);
 			this.setState(prevState => ({
 				activeKeys: [...prevState.activeKeys, key]
 			}));
@@ -206,12 +211,12 @@ class App extends Component {
 	deactivatePianoKey = key => {
 		// console.log('deactivatePianoKey', key);
 
-		this.output.stopPlayingKey(KEYS_MAP[key].freq);
-
-		const activeKeys = [...this.state.activeKeys];
-		activeKeys.splice(activeKeys.indexOf(key), 1);
-
-		this.setState({activeKeys});
+		if (this.state.activeKeys.includes(key)) {
+			this.output.stopKey(KEYS_MAP[key].freq);
+			this.setState(prevState => ({
+				activeKeys: prevState.activeKeys.filter(k => k !== key)
+			}));
+		}
 	};
 
 	/** SYNTH CONTROLS */
@@ -320,11 +325,8 @@ class App extends Component {
 	};
 
 	resetControlValue = control => {
-		const newState = {...this.state};
-		const newVal = CONTROLS[control].defaultValue;
-		newState[control] = newVal;
-
-		this.setState(newState);
+		console.log('resetControlValue', control);
+		this.setState({[control]: CONTROLS[control].defaultValue});
 	};
 
 	render() {

@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/piano-roll/static/css/main.ea71ef4d.chunk.css",
-    "main.js": "/piano-roll/static/js/main.6e6e3d68.chunk.js",
-    "main.js.map": "/piano-roll/static/js/main.6e6e3d68.chunk.js.map",
+    "main.js": "/piano-roll/static/js/main.37427d58.chunk.js",
+    "main.js.map": "/piano-roll/static/js/main.37427d58.chunk.js.map",
     "runtime-main.js": "/piano-roll/static/js/runtime-main.585bb622.js",
     "runtime-main.js.map": "/piano-roll/static/js/runtime-main.585bb622.js.map",
-    "static/js/2.4e043791.chunk.js": "/piano-roll/static/js/2.4e043791.chunk.js",
-    "static/js/2.4e043791.chunk.js.map": "/piano-roll/static/js/2.4e043791.chunk.js.map",
+    "static/js/2.447d7b47.chunk.js": "/piano-roll/static/js/2.447d7b47.chunk.js",
+    "static/js/2.447d7b47.chunk.js.map": "/piano-roll/static/js/2.447d7b47.chunk.js.map",
     "index.html": "/piano-roll/index.html",
-    "precache-manifest.a61b1f5a6661fdaccdc19c180c23f82c.js": "/piano-roll/precache-manifest.a61b1f5a6661fdaccdc19c180c23f82c.js",
+    "precache-manifest.98a9b1aeaf70e8e8dfbeb71f3d784935.js": "/piano-roll/precache-manifest.98a9b1aeaf70e8e8dfbeb71f3d784935.js",
     "service-worker.js": "/piano-roll/service-worker.js",
     "static/css/main.ea71ef4d.chunk.css.map": "/piano-roll/static/css/main.ea71ef4d.chunk.css.map",
-    "static/js/2.4e043791.chunk.js.LICENSE": "/piano-roll/static/js/2.4e043791.chunk.js.LICENSE",
+    "static/js/2.447d7b47.chunk.js.LICENSE": "/piano-roll/static/js/2.447d7b47.chunk.js.LICENSE",
     "static/media/index.css": "/piano-roll/static/media/segoe-ui-semilight.c5e631d3.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.585bb622.js",
-    "static/js/2.4e043791.chunk.js",
+    "static/js/2.447d7b47.chunk.js",
     "static/css/main.ea71ef4d.chunk.css",
-    "static/js/main.6e6e3d68.chunk.js"
+    "static/js/main.37427d58.chunk.js"
   ]
 }

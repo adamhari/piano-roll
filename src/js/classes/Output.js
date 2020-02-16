@@ -1,5 +1,5 @@
-import {Filter, FMSynth, Master, PolySynth, Reverb} from 'tone';
-import {CONTROLS_NAMES, FILTER_TYPES, OSC_SHAPES} from '../statics';
+import {Distortion, Filter, FMSynth, Master, PolySynth, Reverb} from 'tone';
+import {CONTROLS_NAMES, FILTER_TYPES, OSC_SHAPES, OVERSAMPLE_TYPES} from '../statics';
 import {
 	getDecibelsFromValue,
 	getFrequencyFromValue,
@@ -37,6 +37,9 @@ export default class Output {
 		filter2Type,
 		filter2Freq,
 		filter2Q,
+		distOver,
+		distAmount,
+		distWet,
 		reverbDelay,
 		reverbDecay,
 		reverbWet
@@ -49,6 +52,7 @@ export default class Output {
 
 		this.initializeMaster();
 		this.initializeReverb();
+		this.initializeDistortion();
 		this.initializeFilters();
 		this.initializeOscillators();
 		this.initializeValues();
@@ -64,11 +68,16 @@ export default class Output {
 		this.reverb.connect(this.master);
 	};
 
+	initializeDistortion = () => {
+		this.distortion = new Distortion();
+		this.distortion.connect(this.reverb);
+	};
+
 	initializeFilters = () => {
 		this.filter1 = new Filter(0, 'lowpass', -12);
 		this.filter2 = new Filter(0, 'lowpass', -12);
 		this.filter1.connect(this.filter2);
-		this.filter2.connect(this.reverb);
+		this.filter2.connect(this.distortion);
 	};
 
 	initializeOscillators = () => {
@@ -354,6 +363,34 @@ export default class Output {
 		this._filter2Q = x;
 		this.filter2.Q.value = this.filter2Q;
 	}
+
+	// DISTORTION
+
+	get distOver() {
+		return OVERSAMPLE_TYPES[this._distOver];
+	}
+	set distOver(x) {
+		this._distOver = x;
+		this.distortion.oversample = this.distOver;
+	}
+
+	get distAmount() {
+		return this._distAmount / 100;
+	}
+	set distAmount(x) {
+		this._distAmount = x;
+		this.distortion.distortion = this.distAmount;
+	}
+
+	get distWet() {
+		return this._distWet / 100;
+	}
+	set distWet(x) {
+		this._distWet = x;
+		this.distortion.wet.value = this.distWet;
+	}
+
+	// REVERB
 
 	get reverbDelay() {
 		return this._reverbDelay / 20;

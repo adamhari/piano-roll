@@ -152,7 +152,17 @@ for (let i = 0; i < 10; i++) {
 
 export const OSC_SHAPES = ['sawtooth', 'square', 'triangle', 'sine'];
 
-export const FILTER_TYPES = ['lowpass', 'highpass', 'bandpass', 'lowshelf', 'highshelf', 'peaking', 'notch'];
+export const FILTER_TYPES = [
+	'lowpass',
+	'highpass',
+	'bandpass',
+	'lowshelf',
+	'highshelf',
+	'peaking',
+	'notch'
+];
+
+export const OVERSAMPLE_TYPES = ['none', '2x', '4x'];
 
 export const CONTROL_TYPES = {
 	digital: {
@@ -353,6 +363,29 @@ export const CONTROLS = {
 			max: 100
 		}
 	},
+	/* DISTORTION */
+	distOver: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: OVERSAMPLE_TYPES.length - 1
+		}
+	},
+	distAmount: {
+		defaultValue: 50,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	distWet: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	/* REVERB */
 	reverbDelay: {
 		defaultValue: 0,
 		range: {

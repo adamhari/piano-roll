@@ -37,6 +37,9 @@ const Synth = props => {
 		filter2Type,
 		filter2Freq,
 		filter2Q,
+		distOver,
+		distAmount,
+		distWet,
 		reverbDelay,
 		reverbDecay,
 		reverbWet
@@ -147,21 +150,46 @@ const Synth = props => {
 
 	const renderGlobalControls = () => (
 		<div id="global-controls">
-			{renderMasterControl()}
+			{renderVolumeControl()}
 			{renderEnvelopeControls()}
 		</div>
 	);
 
-	const renderMasterControl = () => (
-		<KnobControl {...sharedControlProps} name="volume" value={volume} size="large" />
+	const renderVolumeControl = () => (
+    <KnobControl
+      {...sharedControlProps}
+      name="volume"
+      value={volume}
+      size="large"
+    />
 	);
 
 	const renderEnvelopeControls = () => (
 		<div id="envelope-controls">
-			<KnobControl {...sharedControlProps} name="attack" value={attack} size="small" />
-			<KnobControl {...sharedControlProps} name="decay" value={decay} size="small" />
-			<KnobControl {...sharedControlProps} name="sustain" value={sustain} size="small" />
-			<KnobControl {...sharedControlProps} name="release" value={release} size="small" />
+      <KnobControl
+        {...sharedControlProps}
+        name="attack"
+        value={attack}
+        size="small"
+      />
+      <KnobControl
+        {...sharedControlProps}
+        name="decay"
+        value={decay}
+        size="small"
+      />
+      <KnobControl
+        {...sharedControlProps}
+        name="sustain"
+        value={sustain}
+        size="small"
+      />
+      <KnobControl
+        {...sharedControlProps}
+        name="release"
+        value={release}
+        size="small"
+      />
 		</div>
 	);
 
@@ -331,6 +359,36 @@ const Synth = props => {
 		</div>
 	);
 
+	const renderDistortion = () => (
+		<div id="distortion" className="control-section">
+			<div className="control-wrapper vertical">
+				<div className="controls-container-label">DISTORTION</div>
+				<div className="controls-container">
+          <DigitalControl
+            {...sharedControlProps}
+            name="distOver"
+            label="over"
+            value={distOver}
+          />
+					<KnobControl
+						{...sharedControlProps}
+						name="distAmount"
+						label="amount"
+						value={distAmount}
+						size="small"
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="distWet"
+						label="wet"
+						value={distWet}
+						size="small"
+					/>
+				</div>
+			</div>
+		</div>
+	);
+
 	const renderReverb = () => (
 		<div id="reverb" className="control-section">
 			<div className="control-wrapper vertical">
@@ -362,20 +420,27 @@ const Synth = props => {
 		</div>
 	);
 
-	const renderPianoKeys = () => <PianoKeys {...props} />;
+  const renderPianoKeys = () => (
+    <PianoKeys {...props} />
+  );
 
 	return (
 		<div id="synth">
-			<div id="synth-left">{renderLeftControls()}</div>
+      <div id="synth-left">
+        {renderLeftControls()}
+      </div>
 			<div id="synth-right">
 				<div id="synth-right-top">
 					{renderGlobalSection()}
 					{renderOscillators()}
 					{renderModOscillator()}
 					{renderFilters()}
+					{renderDistortion()}
 					{renderReverb()}
 				</div>
-				<div id="synth-right-bottom">{renderPianoKeys()}</div>
+        <div id="synth-right-bottom">
+          {renderPianoKeys()}
+        </div>
 			</div>
 		</div>
 	);

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Context} from 'tone';
-import {CONTROL_TYPES, CONTROLS, CONTROLS_DEFAULT_VALUES, KEYS_MAP, LAYOUTS} from './js/statics';
+import {CONTROL_TYPES, CONTROLS, CONTROLS_NAMES, CONTROLS_DEFAULT_VALUES, KEYS_MAP, LAYOUTS} from './js/statics';
 import Synth from './components/Synth';
 import Output from './js/classes/Output';
 
@@ -70,34 +70,8 @@ class App extends Component {
 	setOutputFromState = () => {
 		// console.log("setOutputFromState");
 
-		this.output = new Output(
-			this.audioContext,
-			this.state.volume,
-			this.state.polyphony,
-			this.state.attack,
-			this.state.decay,
-			this.state.sustain,
-			this.state.release,
-			this.state.osc1Shape,
-			this.state.osc1Octave,
-			this.state.osc1Transpose,
-			this.state.osc1Detune,
-			this.state.osc1Gain,
-			this.state.osc2Shape,
-			this.state.osc2Octave,
-			this.state.osc2Transpose,
-			this.state.osc2Detune,
-			this.state.osc2Gain,
-			this.state.modOscShape,
-			this.state.modOscGain,
-			this.state.modOscFreq,
-			this.state.filter1Type,
-			this.state.filter1Freq,
-			this.state.filter1Q,
-			this.state.filter2Type,
-			this.state.filter2Freq,
-			this.state.filter2Q
-		);
+		const controlsState = CONTROLS_NAMES.map(n => this.state[n]);
+		this.output = new Output(this.audioContext, ...controlsState);
 	};
 
 	resumeAudioContext = () => {
@@ -187,8 +161,7 @@ class App extends Component {
 
 	handleMouseOverPianoKey = e => {
 		// console.log("handleMouseOverPianoKey", e);
-
-		this.mouseDownOnKeys && this.activatePianoKey(e.target.title);
+		// this.mouseDownOnKeys && this.activatePianoKey(e.target.title);
 	};
 
 	handleMouseLeavePianoKey = e => {

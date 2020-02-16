@@ -1,5 +1,5 @@
 import React from 'react';
-import {CONTROL_TYPES} from '../js/statics';
+import {CONTROL_TYPES, CONTROLS} from '../js/statics';
 
 const PianoDigitalControl = ({
 	handleMouseDownControl,
@@ -7,12 +7,13 @@ const PianoDigitalControl = ({
 	handleMouseWheelControl,
 	name,
 	label,
-	control: {
-		range: {min, max}
-	},
 	outline,
 	value
 }) => {
+	const {
+		range: {min, max}
+	} = CONTROLS[name];
+
 	const getDigits = () => {
 		let typeOfDigits = '';
 		if (max > 9) typeOfDigits = 'multi-digit';

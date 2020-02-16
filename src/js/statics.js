@@ -174,13 +174,6 @@ export const CONTROLS = {
 			max: LAYOUTS.length - 1
 		}
 	},
-	polyphony: {
-		defaultValue: 4,
-		range: {
-			min: 1,
-			max: 9
-		}
-	},
 	volume: {
 		defaultValue: 50,
 		range: {
@@ -188,6 +181,14 @@ export const CONTROLS = {
 			max: 100
 		}
 	},
+	polyphony: {
+		defaultValue: 4,
+		range: {
+			min: 1,
+			max: 9
+		}
+	},
+	/* ENVELOPE */
 	attack: {
 		defaultValue: 0,
 		range: {
@@ -351,8 +352,33 @@ export const CONTROLS = {
 			min: 0,
 			max: 100
 		}
+	},
+	reverbDelay: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	reverbDecay: {
+		defaultValue: 50,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	reverbWet: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100
+		}
 	}
 };
 
+export const CONTROLS_NAMES = [];
 export const CONTROLS_DEFAULT_VALUES = {};
-Object.keys(CONTROLS).forEach(k => (CONTROLS_DEFAULT_VALUES[k] = CONTROLS[k].defaultValue));
+Object.keys(CONTROLS).forEach(k => {
+	CONTROLS_NAMES.push(k);
+	CONTROLS_DEFAULT_VALUES[k] = CONTROLS[k].defaultValue;
+});

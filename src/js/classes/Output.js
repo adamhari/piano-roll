@@ -1,10 +1,9 @@
-import {Filter, FMSynth, Master, PolySynth} from 'tone';
-import {FILTER_TYPES, OSC_SHAPES} from '../statics';
+import {Filter, FMSynth, Master, PolySynth, Reverb} from 'tone';
+import {CONTROLS_NAMES, FILTER_TYPES, OSC_SHAPES} from '../statics';
 import {
 	getDecibelsFromValue,
 	getFrequencyFromValue,
 	getHarmonicityFromValue,
-	getModulationDepthFromValue,
 	getNoteFromValues,
 	getSecondsFromValue
 } from '../utils';
@@ -12,6 +11,7 @@ import {
 export default class Output {
 	constructor(
 		audioContext,
+		layout,
 		volume,
 		polyphony,
 		attack,
@@ -36,38 +36,19 @@ export default class Output {
 		filter1Q,
 		filter2Type,
 		filter2Freq,
-		filter2Q
+		filter2Q,
+		reverbDelay,
+		reverbDecay,
+		reverbWet
 	) {
+		console.log(arguments);
 		this._active = false;
-
 		this._audioContext = audioContext;
-		this._volume = volume;
-		this._polyphony = polyphony;
-		this._attack = attack;
-		this._decay = decay;
-		this._sustain = sustain;
-		this._release = release;
-		this._osc1Shape = osc1Shape;
-		this._osc1Octave = osc1Octave;
-		this._osc1Transpose = osc1Transpose;
-		this._osc1Detune = osc1Detune;
-		this._osc1Gain = osc1Gain;
-		this._osc2Shape = osc2Shape;
-		this._osc2Octave = osc2Octave;
-		this._osc2Transpose = osc2Transpose;
-		this._osc2Detune = osc2Detune;
-		this._osc2Gain = osc2Gain;
-		this._modOscShape = modOscShape;
-		this._modOscGain = modOscGain;
-		this._modOscFreq = modOscFreq;
-		this._filter1Type = filter1Type;
-		this._filter1Freq = filter1Freq;
-		this._filter1Q = filter1Q;
-		this._filter2Type = filter2Type;
-		this._filter2Freq = filter2Freq;
-		this._filter2Q = filter2Q;
+
+		CONTROLS_NAMES.forEach((n, i) => (this[`_${n}`] = arguments[i + 1]));
 
 		this.initializeMaster();
+		this.initializeReverb();
 		this.initializeFilters();
 		this.initializeOscillators();
 		this.initializeValues();
@@ -77,11 +58,17 @@ export default class Output {
 		this.master = Master;
 	};
 
+	initializeReverb = async () => {
+		this.reverb = new Reverb();
+		await this.reverb.generate();
+		this.reverb.connect(this.master);
+	};
+
 	initializeFilters = () => {
-		this.filter1 = new Filter(this.filter1Freq, this.filter1Type, -12);
-		this.filter2 = new Filter(this.filter2Freq, this.filter2Type, -12);
+		this.filter1 = new Filter(0, 'lowpass', -12);
+		this.filter2 = new Filter(0, 'lowpass', -12);
 		this.filter1.connect(this.filter2);
-		this.filter2.connect(this.master);
+		this.filter2.connect(this.reverb);
 	};
 
 	initializeOscillators = () => {
@@ -94,33 +81,7 @@ export default class Output {
 	};
 
 	initializeValues = () => {
-		this.audioContext = this._audioContext;
-		this.envelope = null;
-		this.volume = this._volume;
-		this.polyphony = this._polyphony;
-		this.attack = this._attack;
-		this.decay = this._decay;
-		this.sustain = this._sustain;
-		this.release = this._release;
-		this.osc1Shape = this._osc1Shape;
-		this.osc1Octave = this._osc1Octave;
-		this.osc1Transpose = this._osc1Transpose;
-		this.osc1Detune = this._osc1Detune;
-		this.osc1Gain = this._osc1Gain;
-		this.osc2Shape = this._osc2Shape;
-		this.osc2Octave = this._osc2Octave;
-		this.osc2Transpose = this._osc2Transpose;
-		this.osc2Detune = this._osc2Detune;
-		this.osc2Gain = this._osc2Gain;
-		this.modOscShape = this._modOscShape;
-		this.modOscGain = this._modOscGain;
-		this.modOscFreq = this._modOscFreq;
-		this.filter1Type = this._filter1Type;
-		this.filter1Freq = this._filter1Freq;
-		this.filter1Q = this._filter1Q;
-		this.filter2Type = this._filter2Type;
-		this.filter2Freq = this._filter2Freq;
-		this.filter2Q = this._filter2Q;
+		CONTROLS_NAMES.forEach(n => (this[n] = this[`_${n}`]));
 
 		this.freqs = [];
 	};
@@ -148,8 +109,8 @@ export default class Output {
 
 		const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
 		const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
-		this.osc1.triggerRelease(activeOsc1Freq, this.audioContext.now());
-		this.osc2.triggerRelease(activeOsc2Freq, this.audioContext.now());
+		this.osc1.triggerRelease(activeOsc1Freq, this._audioContext.now());
+		this.osc2.triggerRelease(activeOsc2Freq, this._audioContext.now());
 		this.freqs.splice(this.freqs.indexOf(freq), 1);
 	};
 
@@ -331,7 +292,7 @@ export default class Output {
 	}
 
 	get modOscGain() {
-		return getModulationDepthFromValue(this._modOscGain);
+		return this._modOscGain;
 	}
 	set modOscGain(x) {
 		this._modOscGain = x;
@@ -392,6 +353,30 @@ export default class Output {
 	set filter2Q(x) {
 		this._filter2Q = x;
 		this.filter2.Q.value = this.filter2Q;
+	}
+
+	get reverbDelay() {
+		return this._reverbDelay / 20;
+	}
+	set reverbDelay(x) {
+		this._reverbDelay = x;
+		this.reverb.preDelay = this.reverbDelay;
+	}
+
+	get reverbDecay() {
+		return getSecondsFromValue(this._reverbDecay);
+	}
+	set reverbDecay(x) {
+		this._reverbDecay = x;
+		this.reverb.decay = this.reverbDecay;
+	}
+
+	get reverbWet() {
+		return this._reverbWet / 100;
+	}
+	set reverbWet(x) {
+		this._reverbWet = x;
+		this.reverb.wet.value = this.reverbWet;
 	}
 
 	set = (control, value) => {

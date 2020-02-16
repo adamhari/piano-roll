@@ -1,5 +1,5 @@
 import React from 'react';
-import {CONTROL_TYPES} from '../js/statics';
+import {CONTROL_TYPES, CONTROLS} from '../js/statics';
 
 const PianoKnobControl = ({
 	activeControl,
@@ -8,11 +8,12 @@ const PianoKnobControl = ({
 	handleMouseWheelControl,
 	label,
 	name,
-	control,
 	size,
 	value
 }) => {
-	const {min, max} = control.range;
+	const {
+		range: {min, max}
+	} = CONTROLS[name];
 
 	const handleMouseDown = e => handleMouseDownControl(name, CONTROL_TYPES.knob.name, e);
 

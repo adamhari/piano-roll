@@ -17,6 +17,3 @@ export const getSecondsFromValue = value => Math.pow(value, 2) / 1000 || 0.0001;
 
 // (0 - 100) --> (0.03125 - 32)
 export const getHarmonicityFromValue = value => Math.pow(2, (value - 50) / 10);
-
-// (0 -100) --> (0 - 1)
-export const getModulationDepthFromValue = value => value;

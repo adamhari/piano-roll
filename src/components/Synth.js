@@ -36,7 +36,10 @@ const Synth = props => {
 		filter1Q,
 		filter2Type,
 		filter2Freq,
-		filter2Q
+		filter2Q,
+		reverbDelay,
+		reverbDecay,
+		reverbWet
 	} = props;
 
 	const sharedControlProps = {
@@ -150,45 +153,15 @@ const Synth = props => {
 	);
 
 	const renderMasterControl = () => (
-		<KnobControl
-			{...sharedControlProps}
-			name="volume"
-			control={CONTROLS.volume}
-			value={volume}
-			size="large"
-		/>
+		<KnobControl {...sharedControlProps} name="volume" value={volume} size="large" />
 	);
 
 	const renderEnvelopeControls = () => (
 		<div id="envelope-controls">
-			<KnobControl
-				{...sharedControlProps}
-				name="attack"
-				control={CONTROLS.attack}
-				value={attack}
-				size="small"
-			/>
-			<KnobControl
-				{...sharedControlProps}
-				name="decay"
-				control={CONTROLS.decay}
-				value={decay}
-				size="small"
-			/>
-			<KnobControl
-				{...sharedControlProps}
-				name="sustain"
-				control={CONTROLS.sustain}
-				value={sustain}
-				size="small"
-			/>
-			<KnobControl
-				{...sharedControlProps}
-				name="release"
-				control={CONTROLS.release}
-				value={release}
-				size="small"
-			/>
+			<KnobControl {...sharedControlProps} name="attack" value={attack} size="small" />
+			<KnobControl {...sharedControlProps} name="decay" value={decay} size="small" />
+			<KnobControl {...sharedControlProps} name="sustain" value={sustain} size="small" />
+			<KnobControl {...sharedControlProps} name="release" value={release} size="small" />
 		</div>
 	);
 
@@ -201,28 +174,24 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="osc1Shape"
 						label="shape"
-						control={CONTROLS.osc1Shape}
 						value={osc1Shape}
 					/>
 					<DigitalControl
 						{...sharedControlProps}
 						name="osc1Octave"
 						label="octave"
-						control={CONTROLS.osc1Octave}
 						value={osc1Octave}
 					/>
 					<DigitalControl
 						{...sharedControlProps}
 						name="osc1Transpose"
 						label="trans"
-						control={CONTROLS.osc1Transpose}
 						value={osc1Transpose}
 					/>
 					<KnobControl
 						{...sharedControlProps}
 						name="osc1Detune"
 						label="tune"
-						control={CONTROLS.osc1Detune}
 						value={osc1Detune}
 						size="medium"
 					/>
@@ -230,7 +199,6 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="osc1Gain"
 						label="vol"
-						control={CONTROLS.osc1Gain}
 						value={osc1Gain}
 						size="medium"
 					/>
@@ -243,7 +211,6 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="osc2Shape"
 						label="shape"
-						control={CONTROLS.osc2Shape}
 						value={osc2Shape}
 						type="single-digit"
 					/>
@@ -251,21 +218,18 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="osc2Octave"
 						label="octave"
-						control={CONTROLS.osc2Octave}
 						value={osc2Octave}
 					/>
 					<DigitalControl
 						{...sharedControlProps}
 						name="osc2Transpose"
 						label="trans"
-						control={CONTROLS.osc2Transpose}
 						value={osc2Transpose}
 					/>
 					<KnobControl
 						{...sharedControlProps}
 						name="osc2Detune"
 						label="tune"
-						control={CONTROLS.osc2Detune}
 						value={osc2Detune}
 						size="medium"
 					/>
@@ -273,7 +237,6 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="osc2Gain"
 						label="vol"
-						control={CONTROLS.osc2Gain}
 						value={osc2Gain}
 						size="medium"
 					/>
@@ -291,7 +254,6 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="modOscShape"
 						label="shape"
-						control={CONTROLS.modOscShape}
 						value={modOscShape}
 						type="single-digit"
 					/>
@@ -299,7 +261,6 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="modOscGain"
 						label="vol"
-						control={CONTROLS.modOscGain}
 						value={modOscGain}
 						size="small"
 					/>
@@ -307,7 +268,6 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="modOscFreq"
 						label="freq"
-						control={CONTROLS.modOscFreq}
 						value={modOscFreq}
 						size="small"
 					/>
@@ -325,14 +285,12 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="filter1Type"
 						label="type"
-						control={CONTROLS.filter1Type}
 						value={filter1Type}
 					/>
 					<KnobControl
 						{...sharedControlProps}
 						name="filter1Freq"
 						label="cutoff"
-						control={CONTROLS.filter1Freq}
 						value={filter1Freq}
 						size="medium"
 					/>
@@ -340,7 +298,6 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="filter1Q"
 						label="res"
-						control={CONTROLS.filter1Q}
 						value={filter1Q}
 						size="medium"
 					/>
@@ -353,14 +310,12 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="filter2Type"
 						label="type"
-						control={CONTROLS.filter2Type}
 						value={filter2Type}
 					/>
 					<KnobControl
 						{...sharedControlProps}
 						name="filter2Freq"
 						label="cutoff"
-						control={CONTROLS.filter2Freq}
 						value={filter2Freq}
 						size="medium"
 					/>
@@ -368,9 +323,39 @@ const Synth = props => {
 						{...sharedControlProps}
 						name="filter2Q"
 						label="res"
-						control={CONTROLS.filter2Q}
 						value={filter2Q}
 						size="medium"
+					/>
+				</div>
+			</div>
+		</div>
+	);
+
+	const renderReverb = () => (
+		<div id="reverb" className="control-section">
+			<div className="control-wrapper vertical">
+				<div className="controls-container-label">REVERB</div>
+				<div className="controls-container">
+					<KnobControl
+						{...sharedControlProps}
+						name="reverbDelay"
+						label="delay"
+						value={reverbDelay}
+						size="small"
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="reverbDecay"
+						label="decay"
+						value={reverbDecay}
+						size="small"
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name="reverbWet"
+						label="wet"
+						value={reverbWet}
+						size="small"
 					/>
 				</div>
 			</div>
@@ -388,6 +373,7 @@ const Synth = props => {
 					{renderOscillators()}
 					{renderModOscillator()}
 					{renderFilters()}
+					{renderReverb()}
 				</div>
 				<div id="synth-right-bottom">{renderPianoKeys()}</div>
 			</div>

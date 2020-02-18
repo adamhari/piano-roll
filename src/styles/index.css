@@ -81,7 +81,7 @@ body {
 }
 
 #root {
-  min-height: 100vh;
+  min-height: 98vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -132,20 +132,20 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 #synth-top-left {
-  padding: 0 3rem;
+  padding: 4.4375rem 3rem;
 }
 
 #synth-right-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 17rem;
+  height: 20rem;
   padding: 1rem 0;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -230,6 +230,18 @@ body {
           flex-flow: column nowrap;
 }
 
+.control-section .control-wrapper.horizontal {
+  height: 50%;
+}
+
+.control-section .control-wrapper.horizontal:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.control-section .control-wrapper.horizontal .controls-container {
+  height: 100%;
+}
+
 .control-section .control-wrapper.vertical {
   height: 100%;
 }
@@ -270,11 +282,11 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 0.625rem;
+  padding: 1.15rem 1rem 1rem;
 }
 
 .control-container {
-  margin: 0 0.375rem 0.25rem;
+  margin: 0 0.5rem 0.375rem;
 }
 
 .control-label {
@@ -306,6 +318,10 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+}
+
+.digital-control.digital-control-outlined {
+  margin-top: 0.5rem;
 }
 
 .digital-control.digital-control-outlined .control-label {
@@ -506,7 +522,7 @@ body {
 .knob-control-container.medium .knob:before {
   width: 2rem;
   height: 2rem;
-  border-width: 0.225rem;
+  border-width: 0.25rem;
 }
 
 .knob-control-container.medium .knob:after {
@@ -516,11 +532,11 @@ body {
 }
 
 .knob-control-container.large {
-  height: 6.5rem;
+  height: 5.875rem;
 }
 
 .knob-control-container.large .knob-control-value {
-  bottom: 0;
+  bottom: -0.5rem;
 }
 
 .knob-control-container.large .knob-container {

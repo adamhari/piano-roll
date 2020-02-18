@@ -12,7 +12,8 @@ const Synth = props => {
 		handleMouseWheelControl,
 
 		layout,
-		polyphony,
+    polyphony,
+    portamento,
 		volume,
 		attack,
 		decay,
@@ -28,20 +29,32 @@ const Synth = props => {
 		osc2Transpose,
 		osc2Detune,
 		osc2Gain,
-		modOscShape,
+    modOscShape,
+    modOscFreq,
 		modOscGain,
-		modOscFreq,
 		filter1Type,
 		filter1Freq,
 		filter1Q,
 		filter2Type,
 		filter2Freq,
-		filter2Q,
+    filter2Q,
+    vibratoDepth,
+    vibratoFreq,
+    vibratoWet,
+    chorusSpread,
+    chorusDepth,
+    chorusDelay,
+    chorusWet,
+    crusherBits,
+    crusherWet,
 		distOver,
 		distAmount,
-		distWet,
-		reverbDelay,
-		reverbDecay,
+    distWet,
+    pitcherPitch,
+    pitcherWindow,
+    pitcherWet,
+    reverbSize,
+		reverbDampening,
 		reverbWet
 	} = props;
 
@@ -129,22 +142,30 @@ const Synth = props => {
 	);
 
 	const renderLeftControls = () => (
-		<div id="synth-top-left">
-			<DigitalControl
-				{...sharedControlProps}
-				name="polyphony"
-				label="poly"
-				control={CONTROLS.polyphony}
-				value={polyphony}
-			/>
-			<br />
-			<DigitalControl
+    <div id="synth-top-left">
+      <DigitalControl
+        {...sharedControlProps}
+        name="polyphony"
+        label="poly"
+        control={CONTROLS.polyphony}
+        value={polyphony}
+      />
+      <br />
+      <KnobControl
+        {...sharedControlProps}
+        name="portamento"
+        label="porta"
+        value={portamento}
+        size="medium"
+      />
+      <br />
+      <DigitalControl
 				{...sharedControlProps}
 				name="layout"
 				control={CONTROLS.layout}
 				value={layout}
 				outline={true}
-			/>
+      />
 		</div>
 	);
 
@@ -195,7 +216,7 @@ const Synth = props => {
 
 	const renderOscillators = () => (
 		<div id="oscillators" className="control-section">
-			<div className="control-wrapper">
+			<div className="control-wrapper horizontal">
 				<div className="controls-container-label">OSC 1</div>
 				<div className="controls-container">
 					<DigitalControl
@@ -232,7 +253,7 @@ const Synth = props => {
 					/>
 				</div>
 			</div>
-			<div className="control-wrapper">
+			<div className="control-wrapper horizontal">
 				<div className="controls-container-label">OSC 2</div>
 				<div className="controls-container">
 					<DigitalControl
@@ -284,19 +305,19 @@ const Synth = props => {
 						label="shape"
 						value={modOscShape}
 						type="single-digit"
+          />
+          <KnobControl
+						{...sharedControlProps}
+						name="modOscFreq"
+						label="freq"
+						value={modOscFreq}
+						size="small"
 					/>
 					<KnobControl
 						{...sharedControlProps}
 						name="modOscGain"
 						label="vol"
 						value={modOscGain}
-						size="small"
-					/>
-					<KnobControl
-						{...sharedControlProps}
-						name="modOscFreq"
-						label="freq"
-						value={modOscFreq}
 						size="small"
 					/>
 				</div>
@@ -306,7 +327,7 @@ const Synth = props => {
 
 	const renderFilters = () => (
 		<div id="filters" className="control-section">
-			<div className="control-wrapper">
+			<div className="control-wrapper horizontal">
 				<div className="controls-container-label">FILTER 1</div>
 				<div className="controls-container">
 					<DigitalControl
@@ -331,7 +352,7 @@ const Synth = props => {
 					/>
 				</div>
 			</div>
-			<div className="control-wrapper">
+			<div className="control-wrapper horizontal">
 				<div className="controls-container-label">FILTER 2</div>
 				<div className="controls-container">
 					<DigitalControl
@@ -353,6 +374,98 @@ const Synth = props => {
 						label="res"
 						value={filter2Q}
 						size="medium"
+					/>
+				</div>
+			</div>
+		</div>
+  );
+
+  const renderVibrato = () => (
+    <div id="vibrato" className="control-section">
+      <div className="control-wrapper vertical">
+        <div className="controls-container-label">VIBRATO</div>
+        <div className="controls-container">
+          <KnobControl
+            {...sharedControlProps}
+            name="vibratoDepth"
+            label="depth"
+            value={vibratoDepth}
+            size="small"
+          />
+          <KnobControl
+            {...sharedControlProps}
+            name="vibratoFreq"
+            label="freq"
+            value={vibratoFreq}
+            size="small"
+          />
+          <KnobControl
+            {...sharedControlProps}
+            name="vibratoWet"
+            label="wet"
+            value={vibratoWet}
+            size="small"
+          />
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderChorus = () => (
+    <div id="chorus" className="control-section">
+			<div className="control-wrapper vertical">
+				<div className="controls-container-label">CHORUS</div>
+				<div className="controls-container">
+					<KnobControl
+						{...sharedControlProps}
+						name="chorusSpread"
+						label="spread"
+						value={chorusSpread}
+						size="small"
+          />
+          <KnobControl
+						{...sharedControlProps}
+						name="chorusDepth"
+						label="depth"
+						value={chorusDepth}
+						size="small"
+          />
+          <KnobControl
+						{...sharedControlProps}
+						name="chorusDelay"
+						label="delay"
+						value={chorusDelay}
+						size="small"
+          />
+          <KnobControl
+						{...sharedControlProps}
+						name="chorusWet"
+						label="wet"
+						value={chorusWet}
+						size="small"
+					/>
+				</div>
+			</div>
+		</div>
+  )
+
+  const renderBitcrusher = () => (
+		<div id="distortion" className="control-section">
+			<div className="control-wrapper vertical">
+				<div className="controls-container-label">BITCRUSHER</div>
+				<div className="controls-container">
+          <DigitalControl
+            {...sharedControlProps}
+            name="crusherBits"
+            label="bits"
+            value={crusherBits}
+          />
+					<KnobControl
+						{...sharedControlProps}
+						name="crusherWet"
+						label="wet"
+						value={crusherWet}
+						size="small"
 					/>
 				</div>
 			</div>
@@ -387,25 +500,56 @@ const Synth = props => {
 				</div>
 			</div>
 		</div>
-	);
+  );
+
+  const renderPitcher = () => (
+    <div id="pitcher" className="control-section">
+      <div className="control-wrapper vertical">
+        <div className="controls-container-label">PITCHER</div>
+        <div className="controls-container">
+          <KnobControl
+            {...sharedControlProps}
+            name="pitcherPitch"
+            label="pitch"
+            value={pitcherPitch}
+            size="small"
+          />
+          <KnobControl
+            {...sharedControlProps}
+            name="pitcherWindow"
+            label="win"
+            value={pitcherWindow}
+            size="small"
+          />
+          <KnobControl
+            {...sharedControlProps}
+            name="pitcherWet"
+            label="wet"
+            value={pitcherWet}
+            size="small"
+          />
+        </div>
+      </div>
+    </div>
+  );
 
 	const renderReverb = () => (
 		<div id="reverb" className="control-section">
 			<div className="control-wrapper vertical">
 				<div className="controls-container-label">REVERB</div>
-				<div className="controls-container">
-					<KnobControl
+        <div className="controls-container">
+          <KnobControl
 						{...sharedControlProps}
-						name="reverbDelay"
-						label="delay"
-						value={reverbDelay}
+						name="reverbSize"
+						label="size"
+						value={reverbSize}
 						size="small"
 					/>
 					<KnobControl
 						{...sharedControlProps}
-						name="reverbDecay"
-						label="decay"
-						value={reverbDecay}
+						name="reverbDampening"
+						label="damp"
+						value={reverbDampening}
 						size="small"
 					/>
 					<KnobControl
@@ -414,7 +558,7 @@ const Synth = props => {
 						label="wet"
 						value={reverbWet}
 						size="small"
-					/>
+          />
 				</div>
 			</div>
 		</div>
@@ -434,8 +578,12 @@ const Synth = props => {
 					{renderGlobalSection()}
 					{renderOscillators()}
 					{renderModOscillator()}
-					{renderFilters()}
-					{renderDistortion()}
+          {renderFilters()}
+          {renderVibrato()}
+          {renderChorus()}
+          {renderBitcrusher()}
+          {renderDistortion()}
+          {renderPitcher()}
 					{renderReverb()}
 				</div>
         <div id="synth-right-bottom">

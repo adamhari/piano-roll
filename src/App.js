@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import {Context} from 'tone';
-import {CONTROL_TYPES, CONTROLS, CONTROLS_NAMES, CONTROLS_DEFAULT_VALUES, KEYS_MAP, LAYOUTS} from './js/statics';
+import {
+	CONTROL_TYPES,
+	CONTROLS,
+	CONTROLS_NAMES,
+	CONTROLS_DEFAULT_VALUES,
+	KEYS_MAP,
+	LAYOUTS
+} from './js/statics';
 import Synth from './components/Synth';
 import Output from './js/classes/Output';
 
@@ -14,7 +21,7 @@ class App extends Component {
 		this.octaves = props.octaves;
 
 		if (!this.octaves || !Number.isInteger(this.octaves) || this.octaves > 10 || this.octaves < 4) {
-			this.octaves = 5;
+			this.octaves = 7;
 		}
 
 		this.state = {
@@ -106,7 +113,8 @@ class App extends Component {
 
 		const keyReleased = e.key.toLowerCase();
 
-		if (keyReleased === 'control' || keyReleased === 'command') this.setState({activeModifierKey: false});
+		if (keyReleased === 'control' || keyReleased === 'command')
+			this.setState({activeModifierKey: false});
 
 		const pianoKey = LAYOUTS[this.state.layout][keyReleased];
 		if (pianoKey) {

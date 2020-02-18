@@ -171,7 +171,7 @@ export const CONTROL_TYPES = {
 	},
 	knob: {
 		name: 'knob',
-		pixelStep: 1
+		pixelStep: 3
 	}
 };
 
@@ -196,6 +196,13 @@ export const CONTROLS = {
 		range: {
 			min: 1,
 			max: 9
+		}
+	},
+	portamento: {
+		defaultValue: 25,
+		range: {
+			min: 0,
+			max: 100
 		}
 	},
 	/* ENVELOPE */
@@ -292,7 +299,7 @@ export const CONTROLS = {
 		}
 	},
 	osc2Gain: {
-		defaultValue: 50,
+		defaultValue: 0,
 		range: {
 			min: 0,
 			max: 100
@@ -306,15 +313,15 @@ export const CONTROLS = {
 			max: OSC_SHAPES.length - 1
 		}
 	},
-	modOscGain: {
-		defaultValue: 0,
+	modOscFreq: {
+		defaultValue: 50,
 		range: {
 			min: 0,
 			max: 100
 		}
 	},
-	modOscFreq: {
-		defaultValue: 50,
+	modOscGain: {
+		defaultValue: 0,
 		range: {
 			min: 0,
 			max: 100
@@ -363,6 +370,72 @@ export const CONTROLS = {
 			max: 100
 		}
 	},
+	/* VIBRATO */
+	vibratoDepth: {
+		defaultValue: 100,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	vibratoFreq: {
+		defaultValue: 50,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	vibratoWet: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	/* CHORUS */
+	chorusSpread: {
+		defaultValue: 180,
+		range: {
+			min: 0,
+			max: 359
+		}
+	},
+	chorusDepth: {
+		defaultValue: 50,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	chorusDelay: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	chorusWet: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	/* BIT CRUSHER */
+	crusherBits: {
+		defaultValue: 4,
+		range: {
+			min: 1,
+			max: 8
+		}
+	},
+	crusherWet: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
 	/* DISTORTION */
 	distOver: {
 		defaultValue: 0,
@@ -385,15 +458,37 @@ export const CONTROLS = {
 			max: 100
 		}
 	},
-	/* REVERB */
-	reverbDelay: {
+	/* PITCHER */
+	pitcherPitch: {
+		defaultValue: 0,
+		range: {
+			min: -60,
+			max: 60
+		}
+	},
+	pitcherWindow: {
+		defaultValue: 100,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	pitcherWet: {
 		defaultValue: 0,
 		range: {
 			min: 0,
 			max: 100
 		}
 	},
-	reverbDecay: {
+	/* REVERB */
+	reverbSize: {
+		defaultValue: 50,
+		range: {
+			min: 0,
+			max: 100
+		}
+	},
+	reverbDampening: {
 		defaultValue: 50,
 		range: {
 			min: 0,

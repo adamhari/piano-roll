@@ -1,4 +1,15 @@
-import {Distortion, Filter, FMSynth, Master, PolySynth, Reverb} from 'tone';
+import {
+	BitCrusher,
+	Chorus,
+	Distortion,
+	Filter,
+	Freeverb,
+	FMSynth,
+	Master,
+	PitchShift,
+	PolySynth,
+	Vibrato
+} from 'tone';
 import {CONTROLS_NAMES, FILTER_TYPES, OSC_SHAPES, OVERSAMPLE_TYPES} from '../statics';
 import {
 	getDecibelsFromValue,
@@ -14,6 +25,7 @@ export default class Output {
 		layout,
 		volume,
 		polyphony,
+		portamento,
 		attack,
 		decay,
 		sustain,
@@ -37,14 +49,21 @@ export default class Output {
 		filter2Type,
 		filter2Freq,
 		filter2Q,
+		vibratoDepth,
+		vibratoFreq,
+		vibratoWet,
+		crusherBits,
+		crusherWet,
 		distOver,
 		distAmount,
 		distWet,
-		reverbDelay,
-		reverbDecay,
+		pitcherPitch,
+		pitcherWindow,
+		pitcherWet,
+		reverbSize,
+		reverbDampening,
 		reverbWet
 	) {
-		console.log(arguments);
 		this._active = false;
 		this._audioContext = audioContext;
 
@@ -52,7 +71,11 @@ export default class Output {
 
 		this.initializeMaster();
 		this.initializeReverb();
+		this.initializePitcher();
 		this.initializeDistortion();
+		this.initializeBitcrusher();
+		this.initializeChorus();
+		this.initializeVibrato();
 		this.initializeFilters();
 		this.initializeOscillators();
 		this.initializeValues();
@@ -62,22 +85,41 @@ export default class Output {
 		this.master = Master;
 	};
 
-	initializeReverb = async () => {
-		this.reverb = new Reverb();
-		await this.reverb.generate();
+	initializeReverb = () => {
+		this.reverb = new Freeverb();
 		this.reverb.connect(this.master);
+	};
+
+	initializePitcher = () => {
+		this.pitcher = new PitchShift();
+		this.pitcher.connect(this.reverb);
 	};
 
 	initializeDistortion = () => {
 		this.distortion = new Distortion();
-		this.distortion.connect(this.reverb);
+		this.distortion.connect(this.pitcher);
+	};
+
+	initializeBitcrusher = () => {
+		this.bitcrusher = new BitCrusher();
+		this.bitcrusher.connect(this.distortion);
+	};
+
+	initializeChorus = () => {
+		this.chorus = new Chorus();
+		this.chorus.connect(this.bitcrusher);
+	};
+
+	initializeVibrato = () => {
+		this.vibrato = new Vibrato();
+		this.vibrato.connect(this.chorus);
 	};
 
 	initializeFilters = () => {
 		this.filter1 = new Filter(0, 'lowpass', -12);
 		this.filter2 = new Filter(0, 'lowpass', -12);
 		this.filter1.connect(this.filter2);
-		this.filter2.connect(this.distortion);
+		this.filter2.connect(this.vibrato);
 	};
 
 	initializeOscillators = () => {
@@ -90,8 +132,13 @@ export default class Output {
 	};
 
 	initializeValues = () => {
-		CONTROLS_NAMES.forEach(n => (this[n] = this[`_${n}`]));
+		CONTROLS_NAMES.forEach(n => {
+			if (n !== 'polyphony') {
+				this[n] = this[`_${n}`];
+			}
+		});
 
+		this.envelope = 'set';
 		this.freqs = [];
 	};
 
@@ -105,22 +152,23 @@ export default class Output {
 		console.log('playKey', freqs);
 
 		freqs.forEach(freq => {
+			this.freqs.push(freq);
 			const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
 			const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
 			this.osc1.triggerAttack(activeOsc1Freq, this._audioContext.now(), 1);
 			this.osc2.triggerAttack(activeOsc2Freq, this._audioContext.now(), 1);
-			this.freqs.push(freq);
 		});
 	};
 
 	stopKey = freq => {
 		console.log('stopKey', freq);
+		this.freqs.splice(this.freqs.indexOf(freq), 1);
 
 		const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
 		const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
+
 		this.osc1.triggerRelease(activeOsc1Freq, this._audioContext.now());
 		this.osc2.triggerRelease(activeOsc2Freq, this._audioContext.now());
-		this.freqs.splice(this.freqs.indexOf(freq), 1);
 	};
 
 	stopKeys = () => {
@@ -139,6 +187,8 @@ export default class Output {
 		this.playKeys(this.stoppedFreqs);
 	};
 
+	hasPortamento = () => this.portamento !== 0;
+
 	// GLOBAL
 
 	get volume() {
@@ -155,6 +205,15 @@ export default class Output {
 	set polyphony(x) {
 		this._polyphony = x;
 		this.initializeOscillators();
+		this.initializeValues();
+	}
+
+	get portamento() {
+		return this._portamento / 500;
+	}
+	set portamento(x) {
+		this._portamento = x;
+		this.oscillators.forEach(o => o.set('portamento', this.portamento));
 	}
 
 	get envelope() {
@@ -300,20 +359,20 @@ export default class Output {
 		this.oscillators.forEach(o => o.set({modulation: {type: this.modOscShape}}));
 	}
 
-	get modOscGain() {
-		return this._modOscGain;
-	}
-	set modOscGain(x) {
-		this._modOscGain = x;
-		this.oscillators.forEach(o => o.set({modulationIndex: this.modOscGain}));
-	}
-
 	get modOscFreq() {
 		return getHarmonicityFromValue(this._modOscFreq);
 	}
 	set modOscFreq(x) {
 		this._modOscFreq = x;
 		this.oscillators.forEach(o => o.set({harmonicity: this.modOscFreq}));
+	}
+
+	get modOscGain() {
+		return this._modOscGain;
+	}
+	set modOscGain(x) {
+		this._modOscGain = x;
+		this.oscillators.forEach(o => o.set({modulationIndex: this.modOscGain}));
 	}
 
 	// FILTER
@@ -364,6 +423,84 @@ export default class Output {
 		this.filter2.Q.value = this.filter2Q;
 	}
 
+	// VIBRATO
+
+	get vibratoDepth() {
+		return this._vibratoDepth / 100;
+	}
+	set vibratoDepth(x) {
+		this._vibratoDepth = x;
+		this.vibrato.depth.value = this.vibratoDepth;
+	}
+
+	get vibratoFreq() {
+		return this._vibratoFreq / 10;
+	}
+	set vibratoFreq(x) {
+		this._vibratoFreq = x;
+		this.vibrato.frequency.value = this.vibratoFreq;
+	}
+
+	get vibratoWet() {
+		return this._vibratoWet / 100;
+	}
+	set vibratoWet(x) {
+		this._vibratoWet = x;
+		this.vibrato.wet.value = this.vibratoWet;
+	}
+
+	// CHORUS
+
+	get chorusSpread() {
+		return this._chorusSpread;
+	}
+	set chorusSpread(x) {
+		this._chorusSpread = x;
+		this.chorus.spread = this.chorusSpread;
+	}
+
+	get chorusDepth() {
+		return this._chorusDepth / 100;
+	}
+	set chorusDepth(x) {
+		this._chorusDepth = x;
+		this.chorus.depth = this.chorusDepth;
+	}
+
+	get chorusDelay() {
+		return this._chorusDelay;
+	}
+	set chorusDelay(x) {
+		this._chorusDelay = x;
+		this.chorus.delay = this.chorusDelay;
+	}
+
+	get chorusWet() {
+		return this._chorusWet / 100;
+	}
+	set chorusWet(x) {
+		this._chorusWet = x;
+		this.chorus.wet.value = this._chorusWet;
+	}
+
+	// BITCRUSHER
+
+	get crusherBits() {
+		return this._crusherBits;
+	}
+	set crusherBits(x) {
+		this._crusherBits = x;
+		this.bitcrusher.bits = this.crusherBits;
+	}
+
+	get crusherWet() {
+		return this._crusherWet / 100;
+	}
+	set crusherWet(x) {
+		this._crusherWet = x;
+		this.bitcrusher.wet.value = this.crusherWet;
+	}
+
 	// DISTORTION
 
 	get distOver() {
@@ -390,22 +527,48 @@ export default class Output {
 		this.distortion.wet.value = this.distWet;
 	}
 
+	// PITCHER
+
+	get pitcherPitch() {
+		return this._pitcherPitch;
+	}
+	set pitcherPitch(x) {
+		this._pitcherPitch = x;
+		this.pitcher.pitch = this.pitcherPitch;
+	}
+
+	get pitcherWindow() {
+		return this._pitcherWindow / 1000;
+	}
+	set pitcherWindow(x) {
+		this._pitcherWindow = x;
+		this.pitcher.windowSize = this.pitcherWindow;
+	}
+
+	get pitcherWet() {
+		return this._pitcherWet / 100;
+	}
+	set pitcherWet(x) {
+		this._pitcherWet = x;
+		this.pitcher.wet.value = this.pitcherWet;
+	}
+
 	// REVERB
 
-	get reverbDelay() {
-		return this._reverbDelay / 20;
+	get reverbSize() {
+		return this._reverbSize / 100;
 	}
-	set reverbDelay(x) {
-		this._reverbDelay = x;
-		this.reverb.preDelay = this.reverbDelay;
+	set reverbSize(x) {
+		this._reverbSize = x;
+		this.reverb.roomSize.value = this.reverbSize;
 	}
 
-	get reverbDecay() {
-		return getSecondsFromValue(this._reverbDecay);
+	get reverbDampening() {
+		return getFrequencyFromValue(this._reverbDampening);
 	}
-	set reverbDecay(x) {
-		this._reverbDecay = x;
-		this.reverb.decay = this.reverbDecay;
+	set reverbDampening(x) {
+		this._reverbDampening = x;
+		this.reverb.dampening.value = this.reverbDampening;
 	}
 
 	get reverbWet() {

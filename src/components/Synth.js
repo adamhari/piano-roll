@@ -1,24 +1,27 @@
 import React from 'react';
 import PianoKeys from './PianoKeys';
+import ButtonControl from './ButtonControl';
 import DigitalControl from './DigitalControl';
 import KnobControl from './KnobControl';
-import {CONTROLS} from '../js/statics';
+import {CONTROLS, INSTRUMENTS} from '../js/statics';
 
 const Synth = props => {
 	const {
-		activeControl,
+    activeControl,
+    handleClickControl,
 		handleMouseDownControl,
 		handleMouseUpControl,
 		handleMouseWheelControl,
 
-		layout,
+    layout,
+    volume,
     polyphony,
     portamento,
-		volume,
 		attack,
 		decay,
 		sustain,
-		release,
+    release,
+    instrument,
 		osc1Shape,
 		osc1Octave,
 		osc1Transpose,
@@ -59,7 +62,8 @@ const Synth = props => {
 	} = props;
 
 	const sharedControlProps = {
-		activeControl,
+    activeControl,
+    handleClickControl,
 		handleMouseDownControl,
 		handleMouseUpControl,
 		handleMouseWheelControl
@@ -212,7 +216,29 @@ const Synth = props => {
         size="small"
       />
 		</div>
-	);
+  );
+
+  const renderInstrumentSelector = () => (
+    <div id="instrument-selector" className="control-section">
+      <div className="control-wrapper vertical">
+        <div className="controls-container-label">INSTRUMENT</div>
+        <div className="controls-container">
+          <ButtonControl
+            {...sharedControlProps}
+            name="instrument"
+            label="synth"
+            value={instrument}
+          />
+          <ButtonControl
+            {...sharedControlProps}
+            name="instrument"
+            label="sampler"
+            value={instrument}
+          />
+        </div>
+      </div>
+    </div>
+  );
 
 	const renderOscillators = () => (
 		<div id="oscillators" className="control-section">
@@ -575,7 +601,8 @@ const Synth = props => {
       </div>
 			<div id="synth-right">
 				<div id="synth-right-top">
-					{renderGlobalSection()}
+          {renderGlobalSection()}
+          {renderInstrumentSelector()}
 					{renderOscillators()}
 					{renderModOscillator()}
           {renderFilters()}

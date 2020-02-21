@@ -1,7 +1,7 @@
 import React from 'react';
 import {CONTROL_TYPES, CONTROLS} from '../js/statics';
 
-const PianoKnobControl = ({
+const KnobControl = ({
 	activeControl,
 	handleMouseDownControl,
 	handleMouseUpControl,
@@ -67,4 +67,4 @@ const PianoKnobControl = ({
 	);
 };
 
-export default PianoKnobControl;
+export default KnobControl;

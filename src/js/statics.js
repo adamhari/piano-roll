@@ -150,6 +150,11 @@ for (let i = 0; i < 10; i++) {
 	});
 }
 
+export const INSTRUMENTS = [
+  "synth",
+  "sampler"
+];
+
 export const OSC_SHAPES = [
   'sawtooth',
   'square',
@@ -201,7 +206,7 @@ export const CONTROLS = {
 		}
 	},
 	polyphony: {
-		defaultValue: 4,
+		defaultValue: 9,
 		range: {
 			min: 1,
 			max: 9
@@ -242,7 +247,10 @@ export const CONTROLS = {
 			min: 0,
 			max: 100
 		}
-	},
+  },
+  instrument: {
+    defaultValue: INSTRUMENTS[0],
+  },
 	/* OSC */
 	osc1Shape: {
 		defaultValue: 0,

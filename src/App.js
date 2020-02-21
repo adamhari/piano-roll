@@ -21,7 +21,7 @@ class App extends Component {
 		this.octaves = props.octaves;
 
 		if (!this.octaves || !Number.isInteger(this.octaves) || this.octaves > 10 || this.octaves < 4) {
-			this.octaves = 7;
+			this.octaves = 8;
 		}
 
 		this.state = {
@@ -202,6 +202,12 @@ class App extends Component {
 
 	/** SYNTH CONTROLS */
 
+	handleClickControl = (control, value) => {
+		console.log(`handleClickControl(${control}, ${value})`);
+
+		this.setState({[control]: value});
+	};
+
 	handleMouseDownControl = (activeControl, activeControlType, e) => {
 		// console.log('handleMouseDownControl', activeControl, activeControlType, e);
 
@@ -257,10 +263,10 @@ class App extends Component {
 	handleMouseWheelControl = (activeControl, activeControlType, e) => {
 		// console.log('handleMouseWheelControl', activeControl, activeControlType, e.deltaY);
 
-		const {pixelStep} = CONTROL_TYPES[activeControlType];
+		// const {pixelStep} = CONTROL_TYPES[activeControlType];
 
-		const change = e.deltaY > 0 ? -1 : 1;
-		const value = change * Math.round(5 / pixelStep);
+		// const change = e.deltaY > 0 ? -1 : 1;
+		// const value = change * Math.round(5 / pixelStep);
 		// this.changeControlValue(activeControl, value);
 		return false;
 	};
@@ -324,6 +330,7 @@ class App extends Component {
 					handleMouseUpPianoKey={this.handleMouseUpPianoKey}
 					handleMouseOverPianoKey={this.handleMouseOverPianoKey}
 					handleMouseLeavePianoKey={this.handleMouseLeavePianoKey}
+					handleClickControl={this.handleClickControl}
 					handleMouseDownControl={this.handleMouseDownControl}
 					handleMouseUpControl={this.handleMouseUpControl}
 					handleMouseWheelControl={this.handleMouseWheelControl}

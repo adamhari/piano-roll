@@ -72,7 +72,7 @@ body {
 }
 
 html {
-  font-size: 24px;
+  font-size: 21px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -145,7 +145,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 20rem;
+  height: 19rem;
   padding: 1rem 0;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -199,7 +199,7 @@ body {
   -ms-grid-rows: auto auto;
       grid-template-rows: auto auto;
   margin: 0 0.75rem;
-  height: 8rem;
+  height: 8.5rem;
 }
 
 /***************************************

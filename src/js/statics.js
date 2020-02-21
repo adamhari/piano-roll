@@ -150,7 +150,12 @@ for (let i = 0; i < 10; i++) {
 	});
 }
 
-export const OSC_SHAPES = ['sawtooth', 'square', 'triangle', 'sine'];
+export const OSC_SHAPES = [
+  'sawtooth',
+  'square',
+  'triangle',
+  'sine'
+];
 
 export const FILTER_TYPES = [
 	'lowpass',
@@ -162,7 +167,11 @@ export const FILTER_TYPES = [
 	'notch'
 ];
 
-export const OVERSAMPLE_TYPES = ['none', '2x', '4x'];
+export const OVERSAMPLE_TYPES = [
+  'none',
+  '2x',
+  '4x'
+];
 
 export const CONTROL_TYPES = {
 	digital: {

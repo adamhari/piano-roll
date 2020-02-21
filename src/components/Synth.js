@@ -151,14 +151,14 @@ const Synth = props => {
         value={polyphony}
       />
       <br />
-      <KnobControl
+      {/* <KnobControl
         {...sharedControlProps}
         name="portamento"
         label="porta"
         value={portamento}
         size="medium"
       />
-      <br />
+      <br /> */}
       <DigitalControl
 				{...sharedControlProps}
 				name="layout"
@@ -430,13 +430,13 @@ const Synth = props => {
 						value={chorusDepth}
 						size="small"
           />
-          <KnobControl
+          {/* <KnobControl
 						{...sharedControlProps}
 						name="chorusDelay"
 						label="delay"
 						value={chorusDelay}
 						size="small"
-          />
+          /> */}
           <KnobControl
 						{...sharedControlProps}
 						name="chorusWet"
@@ -477,12 +477,12 @@ const Synth = props => {
 			<div className="control-wrapper vertical">
 				<div className="controls-container-label">DISTORTION</div>
 				<div className="controls-container">
-          <DigitalControl
+          {/* <DigitalControl
             {...sharedControlProps}
             name="distOver"
             label="over"
             value={distOver}
-          />
+          /> */}
 					<KnobControl
 						{...sharedControlProps}
 						name="distAmount"
@@ -517,7 +517,7 @@ const Synth = props => {
           <KnobControl
             {...sharedControlProps}
             name="pitcherWindow"
-            label="win"
+            label="slice"
             value={pitcherWindow}
             size="small"
           />

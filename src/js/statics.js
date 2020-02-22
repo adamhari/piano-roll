@@ -263,7 +263,7 @@ export const CONTROLS = {
 		}
   },
   mode: {
-    defaultValue: MODES.SYNTH,
+    defaultValue: MODES.SAMPLER,
   },
 /* SAMPLER */
   sample: {
@@ -310,7 +310,7 @@ export const CONTROLS = {
 		}
 	},
 	osc1Gain: {
-		defaultValue: 50,
+		defaultValue: 100,
 		range: {
 			min: 0,
 			max: 100

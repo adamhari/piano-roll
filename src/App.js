@@ -21,7 +21,7 @@ class App extends Component {
 		this.octaves = props.octaves;
 
 		if (!this.octaves || !Number.isInteger(this.octaves) || this.octaves > 10 || this.octaves < 4) {
-			this.octaves = 8;
+			this.octaves = 6;
 		}
 
 		this.state = {

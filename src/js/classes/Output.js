@@ -473,7 +473,7 @@ export default class Output {
 		return FILTER_TYPES[this._filter2Type];
 	}
 	set filter2Type(x) {
-		this._filter2type = x;
+		this._filter2Type = x;
 		this.filter2.type = this.filter2Type;
 	}
 
@@ -510,7 +510,7 @@ export default class Output {
 	}
 
 	get filter1Q() {
-		return Math.pow(this._filter1Q, 2) / 10;
+		return Math.pow(this._filter1Q, 2) / 100;
 	}
 	set filter1Q(x) {
 		this._filter1Q = x;
@@ -518,7 +518,7 @@ export default class Output {
 	}
 
 	get filter2Q() {
-		return Math.pow(this._filter2Q, 2) / 10;
+		return Math.pow(this._filter2Q, 2) / 100;
 	}
 	set filter2Q(x) {
 		this._filter2Q = x;

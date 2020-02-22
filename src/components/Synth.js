@@ -3,7 +3,7 @@ import PianoKeys from './PianoKeys';
 import ButtonControl from './ButtonControl';
 import DigitalControl from './DigitalControl';
 import KnobControl from './KnobControl';
-import {CONTROLS, INSTRUMENTS} from '../js/statics';
+import {CONTROLS} from '../js/statics';
 
 const Synth = props => {
 	const {
@@ -21,7 +21,9 @@ const Synth = props => {
 		decay,
 		sustain,
     release,
-    instrument,
+    mode,
+    sample,
+    samplePitch,
 		osc1Shape,
 		osc1Octave,
 		osc1Transpose,
@@ -140,7 +142,7 @@ const Synth = props => {
 					<span style={{letterSpacing: '-0.15625rem'}}>a</span>
 					<span>ct</span>
 				</span>
-				<span style={{marginLeft: '0.5rem'}}>Synthesizer</span>
+				<span style={{marginLeft: '0.5rem'}}>Instrument</span>
 			</div>
 		</div>
 	);
@@ -218,26 +220,55 @@ const Synth = props => {
 		</div>
   );
 
-  const renderInstrumentSelector = () => (
-    <div id="instrument-selector" className="control-section">
+  const renderModeSelector = () => (
+    <div id="mode-selector" className="control-section">
       <div className="control-wrapper vertical">
-        <div className="controls-container-label">INSTRUMENT</div>
+        <div className="controls-container-label">MODE</div>
         <div className="controls-container">
           <ButtonControl
             {...sharedControlProps}
-            name="instrument"
-            label="synth"
-            value={instrument}
+            name="mode"
+            label="sampler"
+            value={mode}
           />
           <ButtonControl
             {...sharedControlProps}
-            name="instrument"
-            label="sampler"
-            value={instrument}
+            name="mode"
+            label="synth"
+            value={mode}
           />
         </div>
       </div>
     </div>
+  );
+
+  const renderSampler = () => mode === 'sampler' && (
+    <div id="sampler" className="control-section">
+			<div className="control-wrapper vertical">
+				<div className="controls-container-label">SAMPLER</div>
+				<div className="controls-container">
+          <DigitalControl
+						{...sharedControlProps}
+            name="sample"
+						value={sample}
+          />
+          <KnobControl
+						{...sharedControlProps}
+						name="samplePitch"
+						label="pitch"
+						value={samplePitch}
+						size="medium"
+					/>
+				</div>
+			</div>
+		</div>
+  );
+
+  const renderSynth = () => mode === 'synth' && (
+    <>
+      {renderOscillators()}
+      {renderModOscillator()}
+    </>
   );
 
 	const renderOscillators = () => (
@@ -349,7 +380,7 @@ const Synth = props => {
 				</div>
 			</div>
 		</div>
-	);
+  );
 
 	const renderFilters = () => (
 		<div id="filters" className="control-section">
@@ -602,9 +633,9 @@ const Synth = props => {
 			<div id="synth-right">
 				<div id="synth-right-top">
           {renderGlobalSection()}
-          {renderInstrumentSelector()}
-					{renderOscillators()}
-					{renderModOscillator()}
+          {renderModeSelector()}
+          {renderSampler()}
+          {renderSynth()}
           {renderFilters()}
           {renderVibrato()}
           {renderChorus()}

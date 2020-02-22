@@ -8,9 +8,17 @@ import {
 	Master,
 	PitchShift,
 	PolySynth,
+	Sampler,
 	Vibrato
 } from 'tone';
-import {CONTROLS_NAMES, FILTER_TYPES, OSC_SHAPES, OVERSAMPLE_TYPES} from '../statics';
+import {
+	CONTROLS_NAMES,
+	FILTER_TYPES,
+	MODES,
+	OSC_SHAPES,
+	OVERSAMPLE_TYPES,
+	SAMPLES
+} from '../statics';
 import {
 	getDecibelsFromValue,
 	getFrequencyFromValue,
@@ -30,6 +38,9 @@ export default class Output {
 		decay,
 		sustain,
 		release,
+		mode,
+		sample,
+		samplePitch,
 		osc1Shape,
 		osc1Octave,
 		osc1Transpose,
@@ -77,6 +88,7 @@ export default class Output {
 		this.initializeChorus();
 		this.initializeVibrato();
 		this.initializeFilters();
+		this.initializeSampler();
 		this.initializeOscillators();
 		this.initializeValues();
 	}
@@ -122,6 +134,17 @@ export default class Output {
 		this.filter2.connect(this.vibrato);
 	};
 
+	initializeSampler = () => {
+		this.sampler = new Sampler(
+			{
+				C5: SAMPLES[0]
+			},
+			e => console.log('sampler buffers loaded: ', e)
+			// './src/assets/audio/samples/'
+		);
+		this.sampler.connect(this.filter1);
+	};
+
 	initializeOscillators = () => {
 		this.osc1 = new PolySynth(this.polyphony, FMSynth);
 		this.osc2 = new PolySynth(this.polyphony, FMSynth);
@@ -153,10 +176,19 @@ export default class Output {
 
 		freqs.forEach(freq => {
 			this.freqs.push(freq);
-			const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
-			const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
-			this.osc1.triggerAttack(activeOsc1Freq, this._audioContext.now(), 1);
-			this.osc2.triggerAttack(activeOsc2Freq, this._audioContext.now(), 1);
+
+			if (this.mode === 'synth') {
+				const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
+				const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
+				this.osc1.triggerAttack(activeOsc1Freq, this._audioContext.now(), 1);
+				this.osc2.triggerAttack(activeOsc2Freq, this._audioContext.now(), 1);
+			} else if (this.mode === 'sampler') {
+				this.sampler.triggerAttack(
+					getNoteFromValues(freq, 5, this.samplePitch),
+					this._audioContext.now(),
+					1
+				);
+			}
 		});
 	};
 
@@ -164,11 +196,17 @@ export default class Output {
 		console.log('stopKey', freq);
 		this.freqs.splice(this.freqs.indexOf(freq), 1);
 
-		const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
-		const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
-
-		this.osc1.triggerRelease(activeOsc1Freq, this._audioContext.now());
-		this.osc2.triggerRelease(activeOsc2Freq, this._audioContext.now());
+		if (this.mode === 'synth') {
+			const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
+			const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
+			this.osc1.triggerRelease(activeOsc1Freq, this._audioContext.now());
+			this.osc2.triggerRelease(activeOsc2Freq, this._audioContext.now());
+		} else if (this.mode === 'sampler') {
+			this.sampler.triggerRelease(
+				getNoteFromValues(freq, 5, this.samplePitch),
+				this._audioContext.now()
+			);
+		}
 	};
 
 	stopKeys = () => {
@@ -176,6 +214,7 @@ export default class Output {
 
 		this.osc1.releaseAll();
 		this.osc2.releaseAll();
+		this.sampler.releaseAll();
 		this.freqs = [];
 	};
 
@@ -241,7 +280,9 @@ export default class Output {
 	}
 	set attack(x) {
 		this._attack = x;
+
 		this.oscillators.forEach(o => o.set({envelope: {attack: this.attack}}));
+		this.sampler.attack = this.attack;
 	}
 
 	get decay() {
@@ -249,7 +290,9 @@ export default class Output {
 	}
 	set decay(x) {
 		this._decay = x;
+
 		this.oscillators.forEach(o => o.set({envelope: {decay: this.decay}}));
+		this.sampler.decay = this.decay;
 	}
 
 	get sustain() {
@@ -257,7 +300,9 @@ export default class Output {
 	}
 	set sustain(x) {
 		this._sustain = x;
+
 		this.oscillators.forEach(o => o.set({envelope: {sustain: this.sustain}}));
+		this.sampler.sustain = this.sustain;
 	}
 
 	get release() {
@@ -266,6 +311,33 @@ export default class Output {
 	set release(x) {
 		this._release = x;
 		this.oscillators.forEach(o => o.set({envelope: {release: this.release}}));
+		this.sampler.release = this.release;
+	}
+
+	get mode() {
+		return this._mode;
+	}
+	set mode(x) {
+		this._mode = x;
+	}
+
+	// SAMPLER
+
+	get sample() {
+		return SAMPLES[this._sample];
+	}
+	set sample(x) {
+		this._sample = x;
+		console.log(this.sample);
+		this.sampler.add('C5', this.sample, () => console.log('sample loaded'));
+	}
+
+	get samplePitch() {
+		return this._samplePitch;
+	}
+	set samplePitch(x) {
+		this._samplePitch = x;
+		this.retriggerKeys();
 	}
 
 	// OSC

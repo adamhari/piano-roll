@@ -205,7 +205,7 @@ class App extends Component {
 	handleClickControl = (control, value) => {
 		console.log(`handleClickControl(${control}, ${value})`);
 
-		this.setState({[control]: value});
+		this.changeControlValue(control, value);
 	};
 
 	handleMouseDownControl = (activeControl, activeControlType, e) => {
@@ -295,19 +295,19 @@ class App extends Component {
 		// console.log('changeControlValue', control, change);
 
 		const newState = {...this.state};
+		const {range} = CONTROLS[control];
 
-		const minValue = CONTROLS[control].range.min;
-		const maxValue = CONTROLS[control].range.max;
+		let value = change;
 
-		let value = newState[control] + change;
-
-		if (value > maxValue) value = maxValue;
-		else if (value < minValue) value = minValue;
+		if (range) {
+			value = newState[control] + change;
+			const {min, max} = range;
+			if (value > max) value = max;
+			else if (value < min) value = min;
+		}
 
 		newState[control] = value;
-
 		this.output.set(control, value);
-
 		this.setState(newState);
 	};
 

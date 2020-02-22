@@ -150,9 +150,14 @@ for (let i = 0; i < 10; i++) {
 	});
 }
 
-export const INSTRUMENTS = [
-  "synth",
-  "sampler"
+export const MODES = [
+  'sampler',
+  'synth'
+];
+
+export const SAMPLES = [
+  "https://freewavesamples.com/files/Ensoniq-ESQ-1-Sympy-C4.wav",
+  "https://freewavesamples.com/files/Alesis-Sanctuary-QCard-Crotales-C6.wav",
 ];
 
 export const OSC_SHAPES = [
@@ -235,23 +240,38 @@ export const CONTROLS = {
 		}
 	},
 	sustain: {
-		defaultValue: 25,
+		defaultValue: 75,
 		range: {
 			min: 0,
 			max: 100
 		}
 	},
 	release: {
-		defaultValue: 0,
+		defaultValue: 25,
 		range: {
 			min: 0,
 			max: 100
 		}
   },
-  instrument: {
-    defaultValue: INSTRUMENTS[0],
+  mode: {
+    defaultValue: MODES[0],
   },
-	/* OSC */
+/* SAMPLER */
+  sample: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: SAMPLES.length - 1
+    }
+  },
+  samplePitch: {
+    defaultValue: 0,
+    range: {
+      min: -50,
+      max: 50
+    }
+  },
+	/* SYNTH */
 	osc1Shape: {
 		defaultValue: 0,
 		range: {
@@ -322,7 +342,6 @@ export const CONTROLS = {
 			max: 100
 		}
 	},
-	/* MOD */
 	modOscShape: {
 		defaultValue: 0,
 		range: {

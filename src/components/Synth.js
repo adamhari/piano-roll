@@ -37,10 +37,12 @@ const Synth = props => {
     modOscShape,
     modOscFreq,
 		modOscGain,
-		filter1Type,
+    filter1Type,
+    filter1Rolloff,
 		filter1Freq,
 		filter1Q,
-		filter2Type,
+    filter2Type,
+    filter2Rolloff,
 		filter2Freq,
     filter2Q,
     vibratoDepth,
@@ -182,41 +184,51 @@ const Synth = props => {
 		</div>
 	);
 
-	const renderVolumeControl = () => (
-    <KnobControl
-      {...sharedControlProps}
-      name="volume"
-      value={volume}
-      size="large"
-    />
+  const renderVolumeControl = () => (
+    <div>
+      <KnobControl
+        {...sharedControlProps}
+        name="volume"
+        value={volume}
+        size="large"
+      />
+    </div>
 	);
 
 	const renderEnvelopeControls = () => (
-		<div id="envelope-controls">
-      <KnobControl
-        {...sharedControlProps}
-        name="attack"
-        value={attack}
-        size="small"
-      />
-      <KnobControl
-        {...sharedControlProps}
-        name="decay"
-        value={decay}
-        size="small"
-      />
-      <KnobControl
-        {...sharedControlProps}
-        name="sustain"
-        value={sustain}
-        size="small"
-      />
-      <KnobControl
-        {...sharedControlProps}
-        name="release"
-        value={release}
-        size="small"
-      />
+    <div id="envelope-controls">
+      <div>
+        <KnobControl
+          {...sharedControlProps}
+          name="attack"
+          value={attack}
+          size="small"
+        />
+      </div>
+      <div>
+        <KnobControl
+          {...sharedControlProps}
+          name="decay"
+          value={decay}
+          size="small"
+        />
+      </div>
+      <div>
+        <KnobControl
+          {...sharedControlProps}
+          name="sustain"
+          value={sustain}
+          size="small"
+        />
+      </div>
+      <div>
+        <KnobControl
+          {...sharedControlProps}
+          name="release"
+          value={release}
+          size="small"
+          />
+      </div>
 		</div>
   );
 
@@ -392,6 +404,12 @@ const Synth = props => {
 						name="filter1Type"
 						label="type"
 						value={filter1Type}
+          />
+          <DigitalControl
+						{...sharedControlProps}
+						name="filter1Rolloff"
+						label="steep"
+						value={filter1Rolloff}
 					/>
 					<KnobControl
 						{...sharedControlProps}
@@ -417,6 +435,12 @@ const Synth = props => {
 						name="filter2Type"
 						label="type"
 						value={filter2Type}
+          />
+          <DigitalControl
+						{...sharedControlProps}
+						name="filter2Rolloff"
+						label="steep"
+						value={filter2Rolloff}
 					/>
 					<KnobControl
 						{...sharedControlProps}

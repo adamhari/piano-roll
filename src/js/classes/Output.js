@@ -1,5 +1,6 @@
 import {
 	BitCrusher,
+	Buffer,
 	Chorus,
 	Distortion,
 	Filter,
@@ -13,6 +14,7 @@ import {
 } from 'tone';
 import {
 	CONTROLS_NAMES,
+	FILTER_ROLLOFFS,
 	FILTER_TYPES,
 	MODES,
 	OSC_SHAPES,
@@ -55,9 +57,11 @@ export default class Output {
 		modOscGain,
 		modOscFreq,
 		filter1Type,
+		filter1Rolloff,
 		filter1Freq,
 		filter1Q,
 		filter2Type,
+		filter2Rolloff,
 		filter2Freq,
 		filter2Q,
 		vibratoDepth,
@@ -119,7 +123,7 @@ export default class Output {
 
 	initializeChorus = () => {
 		this.chorus = new Chorus();
-		this.chorus.connect(this.bitcrusher);
+		this.chorus.connect(this.distortion);
 	};
 
 	initializeVibrato = () => {
@@ -166,25 +170,25 @@ export default class Output {
 	};
 
 	playKey = freq => {
-		console.log('playKey', freq);
+		// console.log('playKey', freq);
 
 		this.playKeys([freq]);
 	};
 
 	playKeys = (freqs = []) => {
-		console.log('playKey', freqs);
+		// console.log('playKey', freqs);
 
 		freqs.forEach(freq => {
 			this.freqs.push(freq);
 
-			if (this.mode === 'synth') {
+			if (this.mode === MODES.SYNTH) {
 				const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
 				const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
 				this.osc1.triggerAttack(activeOsc1Freq, this._audioContext.now(), 1);
 				this.osc2.triggerAttack(activeOsc2Freq, this._audioContext.now(), 1);
-			} else if (this.mode === 'sampler') {
+			} else if (this.mode === MODES.SAMPLER && this.sampler.loaded) {
 				this.sampler.triggerAttack(
-					getNoteFromValues(freq, 5, this.samplePitch),
+					getNoteFromValues(freq, 6, this.samplePitch),
 					this._audioContext.now(),
 					1
 				);
@@ -193,24 +197,25 @@ export default class Output {
 	};
 
 	stopKey = freq => {
-		console.log('stopKey', freq);
+		// console.log('stopKey', freq);
+
 		this.freqs.splice(this.freqs.indexOf(freq), 1);
 
-		if (this.mode === 'synth') {
+		if (this.mode === MODES.SYNTH) {
 			const activeOsc1Freq = getNoteFromValues(freq, this._osc1Octave, this._osc1Transpose);
 			const activeOsc2Freq = getNoteFromValues(freq, this._osc2Octave, this._osc2Transpose);
 			this.osc1.triggerRelease(activeOsc1Freq, this._audioContext.now());
 			this.osc2.triggerRelease(activeOsc2Freq, this._audioContext.now());
-		} else if (this.mode === 'sampler') {
+		} else if (this.mode === MODES.SAMPLER) {
 			this.sampler.triggerRelease(
-				getNoteFromValues(freq, 5, this.samplePitch),
+				getNoteFromValues(freq, 6, this.samplePitch),
 				this._audioContext.now()
 			);
 		}
 	};
 
 	stopKeys = () => {
-		console.log('stopKeys');
+		// console.log('stopKeys');
 
 		this.osc1.releaseAll();
 		this.osc2.releaseAll();
@@ -219,7 +224,7 @@ export default class Output {
 	};
 
 	retriggerKeys = () => {
-		console.log('retriggerKeys');
+		// console.log('retriggerKeys');
 
 		this.stoppedFreqs = this.freqs;
 		this.stopKeys();
@@ -319,6 +324,7 @@ export default class Output {
 	}
 	set mode(x) {
 		this._mode = x;
+		this.stopKeys();
 	}
 
 	// SAMPLER
@@ -328,8 +334,14 @@ export default class Output {
 	}
 	set sample(x) {
 		this._sample = x;
-		console.log(this.sample);
-		this.sampler.add('C5', this.sample, () => console.log('sample loaded'));
+		const sampleBuffer = new Buffer(
+			this.sample,
+			() => {
+				console.log('buffer loaded');
+				this.sampler.add('C5', sampleBuffer, () => console.log('sample loaded'));
+			},
+			e => console.log('error loading sample: ', e)
+		);
 	}
 
 	get samplePitch() {
@@ -453,6 +465,7 @@ export default class Output {
 		return FILTER_TYPES[this._filter1Type];
 	}
 	set filter1Type(x) {
+		this._filter1Type = x;
 		this.filter1.type = this.filter1Type;
 	}
 
@@ -460,7 +473,24 @@ export default class Output {
 		return FILTER_TYPES[this._filter2Type];
 	}
 	set filter2Type(x) {
+		this._filter2type = x;
 		this.filter2.type = this.filter2Type;
+	}
+
+	get filter1Rolloff() {
+		return FILTER_ROLLOFFS[this._filter1Rolloff];
+	}
+	set filter1Rolloff(x) {
+		this._filter1Rolloff = x;
+		this.filter1.rolloff = this.filter1Rolloff;
+	}
+
+	get filter2Rolloff() {
+		return FILTER_ROLLOFFS[this._filter2Rolloff];
+	}
+	set filter2Rolloff(x) {
+		this._filter2Rolloff = x;
+		this.filter2.rolloff = this.filter2Rolloff;
 	}
 
 	get filter1Freq() {
@@ -480,7 +510,7 @@ export default class Output {
 	}
 
 	get filter1Q() {
-		return Math.pow(this._filter1Q, 3) / 10000;
+		return Math.pow(this._filter1Q, 2) / 10;
 	}
 	set filter1Q(x) {
 		this._filter1Q = x;
@@ -488,7 +518,7 @@ export default class Output {
 	}
 
 	get filter2Q() {
-		return Math.pow(this._filter2Q, 3) / 10000;
+		return Math.pow(this._filter2Q, 2) / 10;
 	}
 	set filter2Q(x) {
 		this._filter2Q = x;

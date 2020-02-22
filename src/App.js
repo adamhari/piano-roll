@@ -203,7 +203,7 @@ class App extends Component {
 	/** SYNTH CONTROLS */
 
 	handleClickControl = (control, value) => {
-		console.log(`handleClickControl(${control}, ${value})`);
+		// console.log(`handleClickControl(${control}, ${value})`);
 
 		this.changeControlValue(control, value);
 	};

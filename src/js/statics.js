@@ -150,14 +150,16 @@ for (let i = 0; i < 10; i++) {
 	});
 }
 
-export const MODES = [
-  'sampler',
-  'synth'
-];
+export const MODES = {
+  SAMPLER: 'sampler',
+  SYNTH: 'synth'
+};
 
 export const SAMPLES = [
-  "https://freewavesamples.com/files/Ensoniq-ESQ-1-Sympy-C4.wav",
-  "https://freewavesamples.com/files/Alesis-Sanctuary-QCard-Crotales-C6.wav",
+  "https://freewavesamples.com/files/E-Mu-Proteus-FX-Javanese-C3.wav",
+  "https://freewavesamples.com/files/Casio-MT-600-Synth-Bells-C3.wav",
+  "https://freewavesamples.com/files/Alesis-Sanctuary-QCard-Music-Box-C6.wav",
+  "https://freewavesamples.com/files/Ensoniq-ESQ-1-Sympy-C4.wav"
 ];
 
 export const OSC_SHAPES = [
@@ -175,6 +177,13 @@ export const FILTER_TYPES = [
 	'highshelf',
 	'peaking',
 	'notch'
+];
+
+export const FILTER_ROLLOFFS = [
+  -12,
+  -24,
+  -48,
+  -96
 ];
 
 export const OVERSAMPLE_TYPES = [
@@ -218,7 +227,7 @@ export const CONTROLS = {
 		}
 	},
 	portamento: {
-		defaultValue: 25,
+		defaultValue: 0,
 		range: {
 			min: 0,
 			max: 100
@@ -254,7 +263,7 @@ export const CONTROLS = {
 		}
   },
   mode: {
-    defaultValue: MODES[0],
+    defaultValue: MODES.SYNTH,
   },
 /* SAMPLER */
   sample: {
@@ -370,7 +379,14 @@ export const CONTROLS = {
 			min: 0,
 			max: FILTER_TYPES.length - 1
 		}
-	},
+  },
+  filter1Rolloff: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: FILTER_ROLLOFFS.length - 1
+    }
+  },
 	filter1Freq: {
 		defaultValue: 100,
 		range: {
@@ -391,7 +407,14 @@ export const CONTROLS = {
 			min: 0,
 			max: FILTER_TYPES.length - 1
 		}
-	},
+  },
+  filter2Rolloff: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: FILTER_ROLLOFFS.length - 1
+    }
+  },
 	filter2Freq: {
 		defaultValue: 100,
 		range: {

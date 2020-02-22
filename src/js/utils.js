@@ -12,8 +12,8 @@ export const getDecibelsFromValue = value => 20 * Math.log10(value / 100);
 // (0 - 100) --> (0 - 21031)
 export const getFrequencyFromValue = value => BASE_FREQ * 4 * Math.pow(FREQ_MULTIPLIER, value) - BASE_FREQ * 4;
 
-// (0 - 100) --> (0.001 - 10)
-export const getSecondsFromValue = value => Math.pow(value, 2) / 1000 || 0.0001;
+// (0 - 100) --> (0.0001 - 4)
+export const getSecondsFromValue = value => Math.pow(value, 2) / 2500 || 0.0001;
 
 // (0 - 100) --> (0.03125 - 32)
 export const getHarmonicityFromValue = value => Math.pow(2, (value - 50) / 10);

@@ -1,16 +1,16 @@
 @charset "UTF-8";
 @font-face {
-  font-family: "DS Digital";
+  font-family: 'DS Digital';
   src: url("../assets/fonts/ds-digital/DS-DIGIT.TTF");
 }
 
 @font-face {
-  font-family: "Russo One";
+  font-family: 'Russo One';
   src: url("../assets/fonts/russo-one/Russo_One.ttf");
 }
 
 @font-face {
-  font-family: "Heroic Avenger";
+  font-family: 'Heroic Avenger';
   src: url("../assets/fonts/heroic-avenger/AVENGEANCE HEROIC AVENGER.ttf");
 }
 
@@ -188,7 +188,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 0rem 0.375rem 0;
+  margin: 0 0.375rem;
 }
 
 #synth-right-top #global-section #global-controls #envelope-controls {
@@ -198,8 +198,8 @@ body {
       grid-template-columns: auto auto;
   -ms-grid-rows: auto auto;
       grid-template-rows: auto auto;
-  margin: 0 0.75rem;
-  height: 8.5rem;
+  height: 9.6rem;
+  margin: 0 1rem;
 }
 
 /***************************************
@@ -260,11 +260,10 @@ body {
 .controls-container-label {
   text-transform: uppercase;
   color: #ababab;
-  font-family: "Russo One", sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 0.5625rem;
-  line-height: 1.15;
   letter-spacing: 0.03125rem;
-  padding: 0.1875rem 0.375rem 0.09375rem;
+  padding: 0.3125rem 0.375rem 0.25rem;
   color: #303030;
   background-color: #ababab;
   border-top-left-radius: 0.25rem;
@@ -282,21 +281,20 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 1.125rem 1rem 1rem;
+  padding: 0.75rem 1rem;
 }
 
 .control-container {
-  margin: 0 0.5rem 0.375rem;
+  margin: 0 0.5rem 0.5rem;
 }
 
 .control-label {
   text-transform: uppercase;
   color: #ababab;
-  font-family: "Russo One", sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 0.5625rem;
-  line-height: 1.15;
   letter-spacing: 0.03125rem;
-  padding: 0.1875rem 0.375rem 0.09375rem;
+  padding: 0.3125rem 0.375rem 0.25rem;
   text-align: center;
   margin: 0 0 0.375rem;
 }
@@ -324,13 +322,13 @@ body {
           align-items: center;
   width: 4.5rem;
   height: 3rem;
-  background: #121212;
+  background: #131313;
   border: solid #0f0f0f 0.15rem;
   border-radius: 0.25rem;
   -webkit-box-shadow: 0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
   box-shadow: 0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3);
-  -webkit-transition: 0.05s all linear;
-  transition: 0.05s all linear;
+  -webkit-transition: 0.1s all ease-out;
+  transition: 0.1s all ease-out;
   cursor: pointer;
 }
 
@@ -355,7 +353,7 @@ body {
 }
 
 .button:active {
-  background: #111;
+  background: #121212;
   -webkit-transform: scale(0.98438);
   transform: scale(0.98438);
 }
@@ -386,11 +384,10 @@ body {
 .digital-control.digital-control-outlined .control-label {
   text-transform: uppercase;
   color: #ababab;
-  font-family: "Russo One", sans-serif;
+  font-family: 'Russo One', sans-serif;
   font-size: 0.5625rem;
-  line-height: 1.15;
   letter-spacing: 0.03125rem;
-  padding: 0.1875rem 0.375rem 0.09375rem;
+  padding: 0.3125rem 0.375rem 0.25rem;
   color: #303030;
   background-color: #ababab;
   border-top-left-radius: 0.25rem;
@@ -481,13 +478,14 @@ body {
 
 .knob-control-container .knob-control-value {
   position: absolute;
+  bottom: -1.05rem;
   z-index: 2;
   width: 3rem;
   padding: 0 0 0.0625rem;
   background-color: #ababab;
   border-radius: 1rem;
   text-align: center;
-  font-size: 0.5rem;
+  font-size: 0.5625rem;
   font-weight: 700;
 }
 
@@ -539,10 +537,6 @@ body {
   left: 50%;
 }
 
-.knob-control-container.small .knob-control-value {
-  bottom: -1.05rem;
-}
-
 .knob-control-container.small .knob-container {
   width: 2rem;
   height: 2rem;
@@ -565,10 +559,6 @@ body {
   top: 0.4375rem;
 }
 
-.knob-control-container.medium .knob-control-value {
-  bottom: -1.1rem;
-}
-
 .knob-control-container.medium .knob-container {
   width: 3rem;
   height: 3rem;
@@ -589,14 +579,6 @@ body {
   width: 0.25rem;
   height: 0.9375rem;
   top: 0.6875rem;
-}
-
-.knob-control-container.large {
-  height: 5.875rem;
-}
-
-.knob-control-container.large .knob-control-value {
-  bottom: -0.5rem;
 }
 
 .knob-control-container.large .knob-container {
@@ -693,7 +675,7 @@ body {
   width: 1.3rem;
   height: 7.8rem;
   border: solid #231f20 0.075rem;
-  border-top-width: 0.05rem;
+  border-top-width: 0.075rem;
   border-left-width: 0.15rem;
   border-right-width: 0.15rem;
   border-bottom-width: 0.15rem;

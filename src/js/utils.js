@@ -1,5 +1,12 @@
 import {BASE_FREQ, FREQ_MULTIPLIER} from './statics';
 
+export const getValueFromRange = (value, range) => {
+  const { min, max } = range;
+  if (value > max) return max;
+  else if (value < min) return min;
+  return value;
+};
+
 // (base Hz, octave, transpose) --> (pitched Hz)
 export const getNoteFromValues = (freq, octave, transpose) => {
 	const octavedFrequency = (freq * Math.pow(2, octave)) / 8;

@@ -70,7 +70,7 @@ const DigitalControl = ({
 					<div
 						id={'' + name + '-foreground'}
 						className={'digital-control-input digital-control-input-foreground ' + digits}
-						children={value}
+						children={Number.isInteger(value) ? value : '-'}
 						style={digitTypes[digits].style(value)}
 						onMouseDown={handleMouseDown}
 						onMouseUp={handleMouseUp}

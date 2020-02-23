@@ -1,9 +1,10 @@
 import React from 'react';
 import PianoKeys from './PianoKeys';
 import ButtonControl from './ButtonControl';
+import FileInputControl from './FileInputControl';
 import DigitalControl from './DigitalControl';
 import KnobControl from './KnobControl';
-import {CONTROLS} from '../js/statics';
+import {CONTROLS, MODES, SUPPORTED_SAMPLE_FORMATS} from '../js/statics';
 
 const Synth = props => {
 	const {
@@ -11,7 +12,10 @@ const Synth = props => {
     handleClickControl,
 		handleMouseDownControl,
 		handleMouseUpControl,
-		handleMouseWheelControl,
+    handleMouseWheelControl,
+
+    sampleLoading,
+    sampleLoaded,
 
     layout,
     volume,
@@ -240,21 +244,23 @@ const Synth = props => {
           <ButtonControl
             {...sharedControlProps}
             name="mode"
-            label="sampler"
-            value={mode}
+            value='sampler'
+            active={mode === 'sampler'}
+            size="large"
           />
           <ButtonControl
             {...sharedControlProps}
             name="mode"
-            label="synth"
-            value={mode}
+            value='synth'
+            active={mode === 'synth'}
+            size="large"
           />
         </div>
       </div>
     </div>
   );
 
-  const renderSampler = () => mode === 'sampler' && (
+  const renderSampler = () => mode === MODES.SAMPLER && (
     <div id="sampler" className="control-section">
 			<div className="control-wrapper vertical">
 				<div className="controls-container-label">SAMPLER</div>
@@ -264,19 +270,30 @@ const Synth = props => {
             name="sample"
 						value={sample}
           />
+          <FileInputControl
+            {...sharedControlProps}
+            name="sample"
+            label="load"
+            value={'load'}
+            blinking={sampleLoading}
+            active={sampleLoaded}
+            type='file'
+            accept={SUPPORTED_SAMPLE_FORMATS.join(', ')}
+            size="small"
+          />
           <KnobControl
 						{...sharedControlProps}
 						name="samplePitch"
 						label="pitch"
 						value={samplePitch}
-						size="medium"
+						size="small"
 					/>
 				</div>
 			</div>
 		</div>
   );
 
-  const renderSynth = () => mode === 'synth' && (
+  const renderSynth = () => mode === MODES.SYNTH && (
     <>
       {renderOscillators()}
       {renderModOscillator()}

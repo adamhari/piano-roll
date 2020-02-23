@@ -56,6 +56,28 @@
   font-style: normal;
 }
 
+@-webkit-keyframes blinking-light {
+  from {
+    background-color: #303030;
+  }
+  to {
+    background-color: #ff2601;
+    -webkit-box-shadow: 0 0 1rem 0.125rem rgba(255, 38, 1, 0.6), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
+    box-shadow: 0 0 1rem 0.125rem rgba(255, 38, 1, 0.6), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
+  }
+}
+
+@keyframes blinking-light {
+  from {
+    background-color: #303030;
+  }
+  to {
+    background-color: #ff2601;
+    -webkit-box-shadow: 0 0 1rem 0.125rem rgba(255, 38, 1, 0.6), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
+    box-shadow: 0 0 1rem 0.125rem rgba(255, 38, 1, 0.6), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
+  }
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -72,7 +94,7 @@ body {
 }
 
 html {
-  font-size: 21px;
+  font-size: 2em;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -124,8 +146,8 @@ body {
   border-top-right-radius: 2.4rem 1.8rem;
   border-bottom-left-radius: 0.8rem 0.8rem;
   border-bottom-right-radius: 0.8rem 0.8rem;
-  -webkit-box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0.5rem 0rem -0.375rem rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0.3333rem 0rem -0.1667rem rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0.3333rem 0rem -0.1667rem rgba(0, 0, 0, 0.3);
 }
 
 #synth-left {
@@ -319,8 +341,6 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 4.5rem;
-  height: 3rem;
   background: #131313;
   border: solid #0f0f0f 0.15rem;
   border-radius: 0.25rem;
@@ -335,8 +355,6 @@ body {
   content: "";
   display: block;
   position: absolute;
-  width: 1.5rem;
-  height: 0.5rem;
   border-radius: 0.25rem;
   background: #303030;
   -webkit-box-shadow: inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3);
@@ -347,14 +365,39 @@ body {
 
 .button.active:after {
   background: #ff2601;
-  -webkit-box-shadow: inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
-  box-shadow: inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
+  -webkit-box-shadow: inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3), 0 0 1rem 0.125rem rgba(255, 38, 1, 0.6), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
+  box-shadow: inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3), 0 0 1rem 0.125rem rgba(255, 38, 1, 0.6), 0 0 0.25rem 0.0625rem rgba(255, 38, 1, 0.6);
+}
+
+.button.blinking:after {
+  -webkit-animation: blinking-light 0.45s ease-in-out infinite alternate;
+  animation: blinking-light 0.45s ease-in-out infinite alternate;
 }
 
 .button:active {
   background: #121212;
   -webkit-transform: scale(0.98438);
   transform: scale(0.98438);
+}
+
+.button.small {
+  width: 3rem;
+  height: 3rem;
+}
+
+.button.small:after {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.button.large {
+  width: 4.5rem;
+  height: 3rem;
+}
+
+.button.large:after {
+  width: 1.5rem;
+  height: 0.5rem;
 }
 
 .digital-control {
@@ -549,12 +592,12 @@ body {
 .knob-control-container.small .knob:before {
   width: 1.25rem;
   height: 1.25rem;
-  border-width: 0.15rem;
+  border-width: 0.1667rem;
 }
 
 .knob-control-container.small .knob:after {
   width: 0.2rem;
-  height: 0.625rem;
+  height: 0.667rem;
   top: 0.4375rem;
 }
 
@@ -565,13 +608,13 @@ body {
 
 .knob-control-container.medium .knob {
   width: 3rem;
-  height: 3em;
+  height: 3rem;
 }
 
 .knob-control-container.medium .knob:before {
   width: 2rem;
   height: 2rem;
-  border-width: 0.25rem;
+  border-width: 0.21875rem;
 }
 
 .knob-control-container.medium .knob:after {

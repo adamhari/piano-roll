@@ -31,6 +31,7 @@ import {
 
 export default class Output {
 	constructor(
+		app,
 		audioContext,
 		layout,
 		volume,
@@ -80,9 +81,10 @@ export default class Output {
 		reverbWet
 	) {
 		this._active = false;
+		this._app = app;
 		this._audioContext = audioContext;
 
-		CONTROLS_NAMES.forEach((n, i) => (this[`_${n}`] = arguments[i + 1]));
+		CONTROLS_NAMES.forEach((n, i) => (this[`_${n}`] = arguments[i + 2]));
 
 		this.initializeMaster();
 		this.initializeReverb();
@@ -330,17 +332,35 @@ export default class Output {
 	// SAMPLER
 
 	get sample() {
-		return SAMPLES[this._sample];
+		return SAMPLES[this._sample] || this._sample;
 	}
 	set sample(x) {
 		this._sample = x;
+
+		this._app.setState({
+			sampleLoaded: false,
+			sampleLoading: true
+		});
+
 		const sampleBuffer = new Buffer(
 			this.sample,
 			() => {
 				console.log('buffer loaded');
-				this.sampler.add('C5', sampleBuffer, () => console.log('sample loaded'));
+				this.sampler.add('C5', sampleBuffer, () => {
+					console.log('sample loaded');
+					this._app.setState({
+						sampleLoaded: true,
+						sampleLoading: false
+					});
+				});
 			},
-			e => console.log('error loading sample: ', e)
+			e => {
+				console.log('error loading sample: ', e);
+				this._app.setState({
+					sampleLoaded: false,
+					sampleLoading: false
+				});
+			}
 		);
 	}
 

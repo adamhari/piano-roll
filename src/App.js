@@ -8,6 +8,7 @@ import {
 	KEYS_MAP,
 	LAYOUTS
 } from './js/statics';
+import {getValueFromRange} from './js/utils';
 import Synth from './components/Synth';
 import Output from './js/classes/Output';
 
@@ -78,7 +79,7 @@ class App extends Component {
 		// console.log("setOutputFromState");
 
 		const controlsState = CONTROLS_NAMES.map(n => this.state[n]);
-		this.output = new Output(this.audioContext, ...controlsState);
+		this.output = new Output(this, this.audioContext, ...controlsState);
 	};
 
 	resumeAudioContext = () => {
@@ -205,7 +206,7 @@ class App extends Component {
 	handleClickControl = (control, value) => {
 		// console.log(`handleClickControl(${control}, ${value})`);
 
-		this.changeControlValue(control, value);
+		this.setControlValue(control, value);
 	};
 
 	handleMouseDownControl = (activeControl, activeControlType, e) => {
@@ -294,21 +295,22 @@ class App extends Component {
 	changeControlValue = (control, change) => {
 		// console.log('changeControlValue', control, change);
 
-		const newState = {...this.state};
 		const {range} = CONTROLS[control];
 
-		let value = change;
+		let value = Number.isInteger(this.state[control]) ? this.state[control] + change : 0;
 
 		if (range) {
-			value = newState[control] + change;
-			const {min, max} = range;
-			if (value > max) value = max;
-			else if (value < min) value = min;
+			value = getValueFromRange(value, range);
 		}
 
-		newState[control] = value;
+		this.setControlValue(control, value);
+	};
+
+	setControlValue = (control, value) => {
+		console.log('setControlValue', control, value);
+
 		this.output.set(control, value);
-		this.setState(newState);
+		this.setState({[control]: value});
 	};
 
 	resetControlValue = control => {

@@ -162,6 +162,12 @@ export const SAMPLES = [
   "https://freewavesamples.com/files/Ensoniq-ESQ-1-Sympy-C4.wav"
 ];
 
+export const SUPPORTED_SAMPLE_FORMATS = [
+  'audio/wav',
+  'audio/mp3',
+  'audio/ogg'
+];
+
 export const OSC_SHAPES = [
   'sawtooth',
   'square',

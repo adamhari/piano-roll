@@ -1,15 +1,22 @@
 import React from 'react';
 
-const ButtonControl = ({handleClickControl, label, name, value}) => {
-	const active = label === value;
+const ButtonControl = ({active, handleClickControl, label, name, size, value}) => {
+	const handleClick = e => {
+		handleClickControl(name, value);
+	};
 
-	const handleClick = e => handleClickControl(name, label);
+	const getClasses = () => {
+		let classes = 'button ';
+		if (active) classes += 'active ';
+		if (size) classes += `${size} `;
+		return classes;
+	};
 
 	return (
 		<div className={'button-control-container control-container'}>
-			<div className="control-label">{label}</div>
+			<div className="control-label">{label || value}</div>
 			<div className={'button-container'}>
-				<div onClick={handleClick} className={'button ' + (active ? 'active' : '')} />
+				<div onClick={handleClick} className={getClasses()} />
 			</div>
 		</div>
 	);

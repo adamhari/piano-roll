@@ -51,9 +51,6 @@ const KnobControl = ({
 	return (
 		<div className={'knob-control-container control-container ' + (size || '')}>
 			<div className="control-label">{label || name}</div>
-			<div className="knob-control-value" style={getValueStyles()}>
-				{value}
-			</div>
 			<div className="knob-container">
 				<div
 					className="knob"
@@ -62,6 +59,9 @@ const KnobControl = ({
 					onMouseUp={handleMouseUp}
 					onWheel={handleMouseWheel}
 				/>
+				<div className="knob-control-value" style={getValueStyles()}>
+					{value}
+				</div>
 			</div>
 		</div>
 	);

@@ -9,7 +9,7 @@ import {
 	LAYOUTS
 } from './js/statics';
 import {getValueFromRange} from './js/utils';
-import Synth from './components/Synth';
+import Instrument from './components/Instrument';
 import Output from './js/classes/Output';
 
 class App extends Component {
@@ -40,15 +40,17 @@ class App extends Component {
 
 	componentDidMount = () => {
 		this.initializeSoundEngine();
-		this.registerEvents();
+		this.registerEventListeners();
 	};
 
 	componentWillUnmount = () => {};
 
 	/** INIT */
 
-	registerEvents = () => {
+	registerEventListeners = () => {
 		// console.log("registerEvents");
+
+		window.addEventListener('beforeunload', e => this.terminateSoundEngine);
 
 		document.addEventListener('keydown', this.handleKeyDown);
 		document.addEventListener('keyup', this.handleKeyUp);
@@ -72,7 +74,12 @@ class App extends Component {
 		// console.log('initializeSoundEngine');
 
 		this.audioContext = new Context();
+		this.audioContext.latencyHint = 'fastest';
 		this.setOutputFromState();
+	};
+
+	terminateSoundEngine = () => {
+		this.audioContext && this.audioContext.dispose();
 	};
 
 	setOutputFromState = () => {
@@ -326,7 +333,7 @@ class App extends Component {
 				id="container"
 				// onContextMenu={(e) => {e.preventDefault()}}
 			>
-				<Synth
+				<Instrument
 					{...this.state}
 					handleMouseDownPianoKey={this.handleMouseDownPianoKey}
 					handleMouseUpPianoKey={this.handleMouseUpPianoKey}

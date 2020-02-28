@@ -90,7 +90,7 @@ export default class Output {
 		this.initializeReverb();
 		this.initializePitcher();
 		this.initializeDistortion();
-		this.initializeBitcrusher();
+		// this.initializeBitcrusher();
 		this.initializeChorus();
 		this.initializeVibrato();
 		this.initializeFilters();
@@ -530,7 +530,7 @@ export default class Output {
 	}
 
 	get filter1Q() {
-		return Math.pow(this._filter1Q, 2) / 100;
+		return Math.pow(this._filter1Q, 2) / 250;
 	}
 	set filter1Q(x) {
 		this._filter1Q = x;
@@ -538,7 +538,7 @@ export default class Output {
 	}
 
 	get filter2Q() {
-		return Math.pow(this._filter2Q, 2) / 100;
+		return Math.pow(this._filter2Q, 2) / 250;
 	}
 	set filter2Q(x) {
 		this._filter2Q = x;
@@ -602,26 +602,26 @@ export default class Output {
 	}
 	set chorusWet(x) {
 		this._chorusWet = x;
-		this.chorus.wet.value = this._chorusWet;
+		this.chorus.wet.value = this.chorusWet;
 	}
 
 	// BITCRUSHER
 
-	get crusherBits() {
-		return this._crusherBits;
-	}
-	set crusherBits(x) {
-		this._crusherBits = x;
-		this.bitcrusher.bits = this.crusherBits;
-	}
+	// get crusherBits() {
+	// 	return this._crusherBits;
+	// }
+	// set crusherBits(x) {
+	// 	this._crusherBits = x;
+	// 	this.bitcrusher.bits = this.crusherBits;
+	// }
 
-	get crusherWet() {
-		return this._crusherWet / 100;
-	}
-	set crusherWet(x) {
-		this._crusherWet = x;
-		this.bitcrusher.wet.value = this.crusherWet;
-	}
+	// get crusherWet() {
+	// 	return this._crusherWet / 100;
+	// }
+	// set crusherWet(x) {
+	// 	this._crusherWet = x;
+	// 	this.bitcrusher.wet.value = this.crusherWet;
+	// }
 
 	// DISTORTION
 

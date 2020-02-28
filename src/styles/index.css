@@ -131,7 +131,7 @@ body {
   padding: 1rem;
 }
 
-#synth {
+#instr {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -150,7 +150,7 @@ body {
   box-shadow: 0 0.3333rem 0rem -0.1667rem rgba(0, 0, 0, 0.3);
 }
 
-#synth-left {
+#instr-left {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -159,11 +159,11 @@ body {
           align-items: flex-end;
 }
 
-#synth-top-left {
+#instr-top-left {
   padding: 4.4375rem 3rem;
 }
 
-#synth-right-top {
+#instr-right-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -174,7 +174,7 @@ body {
           align-items: center;
 }
 
-#synth-right-top #global-section #logo-section {
+#instr-right-top #global-section #logo-section {
   cursor: default;
   position: relative;
   color: #ababab;
@@ -184,11 +184,11 @@ body {
   margin: 0 0rem 1.25rem 1rem;
 }
 
-#synth-right-top #global-section #logo-section #logo {
+#instr-right-top #global-section #logo-section #logo {
   width: 12rem;
 }
 
-#synth-right-top #global-section #logo-section #logo-subtext {
+#instr-right-top #global-section #logo-section #logo-subtext {
   position: absolute;
   left: -0.0625rem;
   line-height: 1.25;
@@ -198,7 +198,7 @@ body {
   letter-spacing: 0.125rem;
 }
 
-#synth-right-top #global-section #logo-section #logo-subtext #logo-subtext-bold {
+#instr-right-top #global-section #logo-section #logo-subtext #logo-subtext-bold {
   display: inline-block;
   font-weight: 800;
   font-size: 1.0625rem;
@@ -206,14 +206,14 @@ body {
   padding-right: 0.0625rem;
 }
 
-#synth-right-top #global-section #global-controls {
+#instr-right-top #global-section #global-controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin: 0 0.375rem;
 }
 
-#synth-right-top #global-section #global-controls #envelope-controls {
+#instr-right-top #global-section #global-controls #envelope-controls {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: auto auto;
@@ -519,16 +519,16 @@ body {
 }
 
 .knob-control-container .knob-control-value {
-  position: absolute;
-  bottom: -1.05rem;
-  z-index: 2;
-  width: 3rem;
+  width: 100%;
+  margin: 0.25rem auto 0;
   padding: 0 0 0.0625rem;
   background-color: #ababab;
   border-radius: 1rem;
   text-align: center;
   font-size: 0.5625rem;
   font-weight: 700;
+  -webkit-transition: 0.1s all ease-out;
+  transition: 0.1s all ease-out;
 }
 
 .knob-control-container .knob-container {

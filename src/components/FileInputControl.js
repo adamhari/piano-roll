@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+import Light from './Light';
 
 const FileInputControl = ({
 	active,
@@ -9,15 +10,15 @@ const FileInputControl = ({
 	name,
 	size,
 	type,
-	value
+	value,
 }) => {
 	let inputRef = useRef(null);
 
-	const handleClick = e => {
+	const handleClick = (e) => {
 		inputRef.current.click();
 	};
 
-	const handleChange = e => {
+	const handleChange = (e) => {
 		const file = inputRef.current.files[0];
 		const fileUrl = URL.createObjectURL(file);
 		console.log(file, fileUrl);
@@ -32,11 +33,15 @@ const FileInputControl = ({
 		return classes;
 	};
 
+	const renderLight = () => active !== null && <Light active={active} size={size} />;
+
 	return (
 		<div className={'button-control-container control-container'}>
 			<div className="control-label">{label || value}</div>
 			<div className={'button-container'}>
-				<div onClick={handleClick} className={getClasses()} />
+				<div onClick={handleClick} className={getClasses()}>
+					{renderLight()}
+				</div>
 				<input
 					ref={inputRef}
 					onChange={handleChange}

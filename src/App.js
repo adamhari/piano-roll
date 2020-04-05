@@ -6,7 +6,7 @@ import {
 	CONTROLS_NAMES,
 	CONTROLS_DEFAULT_VALUES,
 	KEYS_MAP,
-	LAYOUTS
+	LAYOUTS,
 } from './js/statics';
 import {getValueFromRange} from './js/utils';
 import Instrument from './components/Instrument';
@@ -34,7 +34,7 @@ class App extends Component {
 			audioContextStarted: false,
 			octaves: this.octaves,
 			layout: this.layout,
-			...CONTROLS_DEFAULT_VALUES
+			...CONTROLS_DEFAULT_VALUES,
 		};
 	}
 
@@ -50,7 +50,7 @@ class App extends Component {
 	registerEventListeners = () => {
 		// console.log("registerEvents");
 
-		window.addEventListener('beforeunload', e => this.terminateSoundEngine);
+		window.addEventListener('beforeunload', (e) => this.terminateSoundEngine);
 
 		document.addEventListener('keydown', this.handleKeyDown);
 		document.addEventListener('keyup', this.handleKeyUp);
@@ -60,21 +60,21 @@ class App extends Component {
 		document.addEventListener('mouseleave', this.handleMouseLeave);
 		document.addEventListener('mouseout', this.handleMouseOut);
 
-		document.addEventListener('drag', e => e.preventDefault());
-		document.addEventListener('dragend', e => e.preventDefault());
-		document.addEventListener('dragenter', e => e.preventDefault());
-		document.addEventListener('dragexit', e => e.preventDefault());
-		document.addEventListener('dragleave', e => e.preventDefault());
-		document.addEventListener('dragover', e => e.preventDefault());
-		document.addEventListener('dragstart', e => e.preventDefault());
-		document.addEventListener('drop', e => e.preventDefault());
+		document.addEventListener('drag', (e) => e.preventDefault());
+		document.addEventListener('dragend', (e) => e.preventDefault());
+		document.addEventListener('dragenter', (e) => e.preventDefault());
+		document.addEventListener('dragexit', (e) => e.preventDefault());
+		document.addEventListener('dragleave', (e) => e.preventDefault());
+		document.addEventListener('dragover', (e) => e.preventDefault());
+		document.addEventListener('dragstart', (e) => e.preventDefault());
+		document.addEventListener('drop', (e) => e.preventDefault());
 	};
 
 	initializeSoundEngine = () => {
 		// console.log('initializeSoundEngine');
 
 		this.audioContext = new Context();
-		this.audioContext.latencyHint = 'fastest';
+		// this.audioContext.latencyHint = 'fastest';
 		this.setOutputFromState();
 	};
 
@@ -85,7 +85,7 @@ class App extends Component {
 	setOutputFromState = () => {
 		// console.log("setOutputFromState");
 
-		const controlsState = CONTROLS_NAMES.map(n => this.state[n]);
+		const controlsState = CONTROLS_NAMES.map((n) => this.state[n]);
 		this.output = new Output(this, this.audioContext, ...controlsState);
 	};
 
@@ -100,7 +100,7 @@ class App extends Component {
 
 	/** GLOBAL EVENT HANDLERS */
 
-	handleKeyDown = e => {
+	handleKeyDown = (e) => {
 		// console.log("handleKeyDown", e);
 
 		e.preventDefault();
@@ -116,7 +116,7 @@ class App extends Component {
 		this.resumeAudioContext();
 	};
 
-	handleKeyUp = e => {
+	handleKeyUp = (e) => {
 		// console.log("handleKeyUp", e);
 
 		const keyReleased = e.key.toLowerCase();
@@ -130,34 +130,34 @@ class App extends Component {
 		}
 	};
 
-	handleMouseDown = e => {
+	handleMouseDown = (e) => {
 		// console.log('handleMouseDown', e);
 
 		this.resumeAudioContext();
 	};
 
-	handleMouseUp = e => {
+	handleMouseUp = (e) => {
 		// console.log('handleMouseUp', e);
 
 		this.mouseDownOnKeys = false;
 		this.state.activeControl &&
 			this.setState({
 				activeControl: null,
-				activeModifierKey: false
+				activeModifierKey: false,
 			});
 	};
 
-	handleMouseLeave = e => {
+	handleMouseLeave = (e) => {
 		// console.log("handleMouseLeave", e);
 	};
 
-	handleMouseOut = e => {
+	handleMouseOut = (e) => {
 		// console.log("handleMouseOut", e);
 	};
 
 	/** PIANO KEYS */
 
-	handleMouseDownPianoKey = e => {
+	handleMouseDownPianoKey = (e) => {
 		// console.log('handleMouseDownPianoKey', e);
 
 		if (e.button === 0) {
@@ -166,7 +166,7 @@ class App extends Component {
 		}
 	};
 
-	handleMouseUpPianoKey = e => {
+	handleMouseUpPianoKey = (e) => {
 		// console.log('handleMouseUpPianoKey', e);
 
 		if (e.button === 0) {
@@ -175,35 +175,35 @@ class App extends Component {
 		}
 	};
 
-	handleMouseOverPianoKey = e => {
+	handleMouseOverPianoKey = (e) => {
 		// console.log("handleMouseOverPianoKey", e);
 		// this.mouseDownOnKeys && this.activatePianoKey(e.target.title);
 	};
 
-	handleMouseLeavePianoKey = e => {
+	handleMouseLeavePianoKey = (e) => {
 		// console.log("handleMouseLeavePianoKey", e);
 
 		this.mouseDownOnKeys && this.deactivatePianoKey(e.target.title);
 	};
 
-	activatePianoKey = key => {
+	activatePianoKey = (key) => {
 		// console.log('activatePianoKey', key);
 
 		if (!this.state.activeKeys.includes(key)) {
 			this.output.playKey(KEYS_MAP[key].freq);
-			this.setState(prevState => ({
-				activeKeys: [...prevState.activeKeys, key]
+			this.setState((prevState) => ({
+				activeKeys: [...prevState.activeKeys, key],
 			}));
 		}
 	};
 
-	deactivatePianoKey = key => {
+	deactivatePianoKey = (key) => {
 		// console.log('deactivatePianoKey', key);
 
 		if (this.state.activeKeys.includes(key)) {
 			this.output.stopKey(KEYS_MAP[key].freq);
-			this.setState(prevState => ({
-				activeKeys: prevState.activeKeys.filter(k => k !== key)
+			this.setState((prevState) => ({
+				activeKeys: prevState.activeKeys.filter((k) => k !== key),
 			}));
 		}
 	};
@@ -238,7 +238,7 @@ class App extends Component {
 		}
 	};
 
-	handleMouseMoveControl = event => {
+	handleMouseMoveControl = (event) => {
 		// console.log("handleMouseMoveControl", event, this.state);
 
 		const {activeModifierKey, activeControl, activeControlType, activeScreenY} = this.state;
@@ -287,11 +287,11 @@ class App extends Component {
 		this.setState({
 			activeControl,
 			activeControlType,
-			activeScreenY: screenY
+			activeScreenY: screenY,
 		});
 	};
 
-	deactivateControl = activeControl => {
+	deactivateControl = (activeControl) => {
 		// console.log('deactiveControl', activeControl);
 
 		document.removeEventListener('mousemove', this.handleMouseMoveControl);
@@ -320,7 +320,7 @@ class App extends Component {
 		this.setState({[control]: value});
 	};
 
-	resetControlValue = control => {
+	resetControlValue = (control) => {
 		console.log('resetControlValue', control);
 		this.setState({[control]: CONTROLS[control].defaultValue});
 	};

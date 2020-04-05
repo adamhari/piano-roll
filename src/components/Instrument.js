@@ -2,11 +2,13 @@ import React from 'react';
 import PianoKeys from './PianoKeys';
 import ButtonControl from './ButtonControl';
 import FileInputControl from './FileInputControl';
+import InputRecorderControl from './InputRecorderControl';
 import DigitalControl from './DigitalControl';
 import KnobControl from './KnobControl';
+import Waveform from './Waveform';
 import {CONTROLS, MODES, SUPPORTED_SAMPLE_FORMATS} from '../js/statics';
 
-const Instrument = props => {
+const Instrument = (props) => {
 	const {
 		activeControl,
 		handleClickControl,
@@ -14,6 +16,7 @@ const Instrument = props => {
 		handleMouseUpControl,
 		handleMouseWheelControl,
 
+		recording,
 		sampleLoading,
 		sampleLoaded,
 
@@ -66,7 +69,7 @@ const Instrument = props => {
 		pitcherWet,
 		reverbSize,
 		reverbDampening,
-		reverbWet
+		reverbWet,
 	} = props;
 
 	const sharedControlProps = {
@@ -74,7 +77,7 @@ const Instrument = props => {
 		handleClickControl,
 		handleMouseDownControl,
 		handleMouseUpControl,
-		handleMouseWheelControl
+		handleMouseWheelControl,
 	};
 
 	const renderGlobalSection = () => (
@@ -241,18 +244,27 @@ const Instrument = props => {
 				<div className="control-wrapper vertical">
 					<div className="controls-container-label">SAMPLER</div>
 					<div className="controls-container">
-						<FileInputControl
-							{...sharedControlProps}
-							name="sample"
-							label="load"
-							value={'load'}
-							blinking={sampleLoading}
-							active={sampleLoaded}
-							type="file"
-							accept={SUPPORTED_SAMPLE_FORMATS.join(', ')}
-							size="small"
-						/>
-						<DigitalControl {...sharedControlProps} name="sample" label="select" value={sample} />
+						<div style={{display: 'flex'}}>
+							<FileInputControl
+								{...sharedControlProps}
+								name="sample"
+								label="load"
+								value={'load'}
+								blinking={sampleLoading}
+								active={sampleLoaded}
+								type="file"
+								accept={SUPPORTED_SAMPLE_FORMATS.join(', ')}
+								size="small"
+							/>
+							<InputRecorderControl
+								{...sharedControlProps}
+								label="record"
+								active={recording}
+								size="small"
+							/>
+							{/* <DigitalControl {...sharedControlProps} name="sample" label="select" value={sample} /> */}
+						</div>
+						<Waveform {...sharedControlProps} audio={sample} label={'waveform'} />
 						<KnobControl
 							{...sharedControlProps}
 							name="samplePitch"
@@ -649,8 +661,8 @@ const Instrument = props => {
 					{renderFilters()}
 					{renderVibrato()}
 					{renderChorus()}
-					{renderBitcrusher()}
-					{renderDistortion()}
+					{/* {renderBitcrusher()}
+					{renderDistortion()} */}
 					{renderPitcher()}
 					{renderReverb()}
 				</div>

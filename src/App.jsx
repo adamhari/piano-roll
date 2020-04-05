@@ -330,7 +330,7 @@ class App extends Component {
 
 		return (
 			<div
-				id="container"
+				id='container'
 				// onContextMenu={(e) => {e.preventDefault()}}
 			>
 				<Instrument

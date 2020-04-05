@@ -1,10 +1,18 @@
 import React from 'react';
 import Light from './Light';
 
-const ButtonControl = ({active, handleClickControl, label, name, size, value}) => {
-	const handleClick = (e) => {
-		handleClickControl(name, value);
-	};
+const ButtonControl = ({
+	active,
+	children,
+	handleClickControl,
+	label,
+	light,
+	name,
+	onClick,
+	size,
+	value,
+}) => {
+	const handleClick = (e) => handleClickControl(name, value);
 
 	const getClasses = () => {
 		let classes = 'button ';
@@ -13,14 +21,15 @@ const ButtonControl = ({active, handleClickControl, label, name, size, value}) =
 		return classes;
 	};
 
-	const renderLight = () => active !== null && <Light active={active} size={size} />;
+	const renderLight = () => light && <Light active={active} size={size} />;
 
 	return (
 		<div className={'button-control-container control-container'}>
-			<div className="control-label">{label || value}</div>
+			<div className='control-label'>{label || value}</div>
 			<div className={'button-container'}>
-				<div onClick={handleClick} className={getClasses()}>
+				<div onClick={onClick || handleClick} className={getClasses()}>
 					{renderLight()}
+					{children}
 				</div>
 			</div>
 		</div>

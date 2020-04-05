@@ -6,9 +6,9 @@ const Waveform = ({audio}) => {
 
 	useEffect(() => {
 		wavesurfer.current = WaveSurfer.create({
-			barGap: 0,
-			barRadius: 1,
-			barWidth: 4,
+			barGap: 3,
+			barRadius: 3,
+			barWidth: 3,
 			container: '.waveform',
 			cursorWidth: 0,
 			hideScrollbar: true,
@@ -26,8 +26,8 @@ const Waveform = ({audio}) => {
 	}, [audio]);
 
 	return (
-		<div className="waveform-container">
-			<div id="waveform" className="waveform" />
+		<div className='waveform-container'>
+			<div id='waveform' className='waveform' />
 		</div>
 	);
 };

@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d586445d6e169892add972123c3b98b0",
+    "revision": "fd92d684d559f57b2da6c2d43352c3f0",
     "url": "/piano-roll/index.html"
   },
   {
-    "revision": "a8ce4930d366ac56f511",
-    "url": "/piano-roll/static/css/main.27126a5f.chunk.css"
+    "revision": "931ef7ec20d5935d6a79",
+    "url": "/piano-roll/static/css/main.ae7801bd.chunk.css"
   },
   {
     "revision": "a54092be65eda75aaeff",
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/piano-roll/static/js/2.4e274c03.chunk.js.LICENSE"
   },
   {
-    "revision": "a8ce4930d366ac56f511",
-    "url": "/piano-roll/static/js/main.be4081d7.chunk.js"
+    "revision": "931ef7ec20d5935d6a79",
+    "url": "/piano-roll/static/js/main.e4ad3d59.chunk.js"
   },
   {
     "revision": "f32ad4936a85c55a29ba",

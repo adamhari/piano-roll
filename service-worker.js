@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/piano-roll/precache-manifest.e38f52e033ae061a27c6db6e4011f9e2.js"
+  "/piano-roll/precache-manifest.a2b05e3817902acdcae635a12bd6f779.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -473,52 +473,52 @@ const Instrument = (props) => {
 				<div className='controls-container-label'>CHORUS</div>
 				<div className='controls-container'>
 					<div className='controls-sub-container'>
-						<div className='controls-sub-container vertical'>
-							<KnobControl
-								{...sharedControlProps}
-								name='chorusSpread'
-								label='spread'
-								value={chorusSpread}
-								size='small'
-							/>
-							<KnobControl
-								{...sharedControlProps}
-								name='chorusDepth'
-								label='depth'
-								value={chorusDepth}
-								size='small'
-							/>
-							<KnobControl
-								{...sharedControlProps}
-								name='chorusDelay'
-								label='delay'
-								value={chorusDelay}
-								size='small'
-							/>
-						</div>
-						<div className='controls-sub-container vertical'>
-							<KnobControl
-								{...sharedControlProps}
-								name='chorusFreq'
-								label='freq'
-								value={chorusFreq}
-								size='small'
-							/>
-							<KnobControl
-								{...sharedControlProps}
-								name='chorusType'
-								label='type'
-								value={chorusType}
-								size='small'
-							/>
-							<KnobControl
-								{...sharedControlProps}
-								name='chorusWet'
-								label='wet'
-								value={chorusWet}
-								size='small'
-							/>
-						</div>
+						<KnobControl
+							{...sharedControlProps}
+							name='chorusSpread'
+							label='spread'
+							value={chorusSpread}
+							size='small'
+						/>
+						<KnobControl
+							{...sharedControlProps}
+							name='chorusDepth'
+							label='depth'
+							value={chorusDepth}
+							size='small'
+						/>
+					</div>
+					<div className='controls-sub-container'>
+						<KnobControl
+							{...sharedControlProps}
+							name='chorusDelay'
+							label='delay'
+							value={chorusDelay}
+							size='small'
+						/>
+						<KnobControl
+							{...sharedControlProps}
+							name='chorusFreq'
+							label='freq'
+							value={chorusFreq}
+							size='small'
+						/>
+					</div>
+					<div className='controls-sub-container'>
+						{/* <KnobControl
+							{...sharedControlProps}
+							name='chorusType'
+							label='type'
+							value={chorusType}
+							size='small'
+						/> */}
+						<KnobControl
+							{...sharedControlProps}
+							name='chorusWet'
+							label='wet'
+							value={chorusWet}
+							size='small'
+						/>
 					</div>
 				</div>
 			</div>
@@ -553,12 +553,7 @@ const Instrument = (props) => {
 			<div className='control-wrapper vertical'>
 				<div className='controls-container-label'>DISTORTION</div>
 				<div className='controls-container'>
-					{/* <DigitalControl
-            {...sharedControlProps}
-            name="distOver"
-            label="over"
-            value={distOver}
-          /> */}
+					{/* <DigitalControl {...sharedControlProps} name='distOver' label='over' value={distOver} /> */}
 					<KnobControl
 						{...sharedControlProps}
 						name='distAmount'
@@ -654,8 +649,8 @@ const Instrument = (props) => {
 					{renderFilters()}
 					{renderVibrato()}
 					{renderChorus()}
-					{/* {renderBitcrusher()}
-					{renderDistortion()} */}
+					{/* {renderBitcrusher()} */}
+					{renderDistortion()}
 					{renderPitcher()}
 					{renderReverb()}
 				</div>

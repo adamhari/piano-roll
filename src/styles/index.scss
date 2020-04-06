@@ -226,12 +226,7 @@ body {
 
 	.controls-sub-container {
 		display: flex;
-		justify-content: space-between;
-		height: 100%;
-
-		&.vertical {
-			flex-flow: column nowrap;
-		}
+		justify-content: center;
 	}
 }
 
@@ -429,6 +424,8 @@ body {
 	}
 
 	&.small {
+		width: 3rem;
+
 		.knob-container {
 			width: 2rem;
 			height: 2rem;

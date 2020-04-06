@@ -1,5 +1,6 @@
 import React from 'react';
 import {SUPPORTED_SAMPLE_FORMATS} from '../js/statics';
+import DigitalControl from './DigitalControl';
 import FileInputControl from './FileInputControl';
 import InputRecorderControl from './InputRecorderControl';
 import KnobControl from './KnobControl';
@@ -14,6 +15,7 @@ const Sampler = (props) => {
 				<div className='controls-container-label'>SAMPLER</div>
 				<div className='controls-container'>
 					<div style={{display: 'flex'}}>
+						{/* <DigitalControl {...props} name='sample' label='select' value={sample} /> */}
 						<FileInputControl
 							{...props}
 							name='sample'
@@ -26,16 +28,17 @@ const Sampler = (props) => {
 							size='small'
 						/>
 						<InputRecorderControl {...props} label='record' size='small' light={true} />
-						{/* <DigitalControl {...props} name="sample" label="select" value={sample} /> */}
 					</div>
 					<Waveform {...props} audio={sample} label={'waveform'} />
-					<KnobControl
-						{...props}
-						name='samplePitch'
-						label='pitch'
-						value={samplePitch}
-						size='small'
-					/>
+					<div className='controls-sub-container'>
+						<KnobControl
+							{...props}
+							name='samplePitch'
+							label='pitch'
+							value={samplePitch}
+							size='small'
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -146,8 +146,8 @@ body {
   border-top-right-radius: 2.4rem 1.8rem;
   border-bottom-left-radius: 0.8rem 0.8rem;
   border-bottom-right-radius: 0.8rem 0.8rem;
-  -webkit-box-shadow: 0 0.3333rem 0rem -0.1667rem rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0.3333rem 0rem -0.1667rem rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0.25rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0.25rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.6);
 }
 
 #instr-left {
@@ -376,17 +376,9 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: 100%;
-}
-
-.controls-container .controls-sub-container.vertical {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column nowrap;
-          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .control-container {
@@ -627,6 +619,10 @@ body {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   left: 50%;
+}
+
+.knob-control-container.small {
+  width: 3rem;
 }
 
 .knob-control-container.small .knob-container {

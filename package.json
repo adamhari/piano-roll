@@ -30,9 +30,6 @@
   "devDependencies": {
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
-    "gh-pages": "^2.2.0",
-    "source-map-loader": "^0.2.4",
-    "ts-loader": "^6.2.2",
-    "typescript": "^3.7.5"
+    "gh-pages": "^2.2.0"
   }
 }

@@ -478,7 +478,21 @@ export const CONTROLS = {
 			min: 0,
 			max: 100
 		}
-	},
+  },
+  chorusFreq: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: 100
+    }
+  },
+  chorusType: {
+    defaultValue: 0,
+    range: {
+      min: 0,
+      max: OSC_SHAPES.length - 1
+    }
+  },
 	chorusWet: {
 		defaultValue: 0,
 		range: {

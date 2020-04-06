@@ -25,13 +25,15 @@ const Waveform = ({audio, handleClickControl, recording}) => {
 
 	useEffect(() => {
 		wavesurfer.current = WaveSurfer.create({
-			barGap: 3,
-			barHeight: 3,
-			barRadius: 3,
-			barWidth: 3,
+			autoCenter: false,
+			// barGap: 3,
+			// barHeight: 3,
+			// barRadius: 3,
+			// barWidth: 3,
 			container: '.waveform',
 			cursorWidth: 0,
 			hideScrollbar: true,
+			normalize: true,
 			interact: false,
 			waveColor: '#ff2601',
 			// plugins: [MicrophonePlugin.create()],

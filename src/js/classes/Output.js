@@ -10,7 +10,7 @@ import {
 	PitchShift,
 	PolySynth,
 	Sampler,
-	Vibrato
+	Vibrato,
 } from 'tone';
 import {
 	CONTROLS_NAMES,
@@ -19,14 +19,14 @@ import {
 	MODES,
 	OSC_SHAPES,
 	OVERSAMPLE_TYPES,
-	SAMPLES
+	SAMPLES,
 } from '../statics';
 import {
 	getDecibelsFromValue,
 	getFrequencyFromValue,
 	getHarmonicityFromValue,
 	getNoteFromValues,
-	getSecondsFromValue
+	getSecondsFromValue,
 } from '../utils';
 
 export default class Output {
@@ -68,6 +68,12 @@ export default class Output {
 		vibratoDepth,
 		vibratoFreq,
 		vibratoWet,
+		chorusSpread,
+		chorusDepth,
+		chorusDelay,
+		chorusFreq,
+		chorusType,
+		chorusWet,
 		crusherBits,
 		crusherWet,
 		distOver,
@@ -143,9 +149,9 @@ export default class Output {
 	initializeSampler = () => {
 		this.sampler = new Sampler(
 			{
-				C5: SAMPLES[0]
+				C5: SAMPLES[0],
 			},
-			e => console.log('sampler buffers loaded: ', e)
+			(e) => console.log('sampler buffers loaded: ', e)
 			// './src/assets/audio/samples/'
 		);
 		this.sampler.connect(this.filter1);
@@ -155,13 +161,13 @@ export default class Output {
 		this.osc1 = new PolySynth(this.polyphony, FMSynth);
 		this.osc2 = new PolySynth(this.polyphony, FMSynth);
 		this.oscillators = [this.osc1, this.osc2];
-		this.oscillators.forEach(o => {
+		this.oscillators.forEach((o) => {
 			o.connect(this.filter1);
 		});
 	};
 
 	initializeValues = () => {
-		CONTROLS_NAMES.forEach(n => {
+		CONTROLS_NAMES.forEach((n) => {
 			if (n !== 'polyphony') {
 				this[n] = this[`_${n}`];
 			}
@@ -171,7 +177,7 @@ export default class Output {
 		this.freqs = [];
 	};
 
-	playKey = freq => {
+	playKey = (freq) => {
 		// console.log('playKey', freq);
 
 		this.playKeys([freq]);
@@ -180,7 +186,7 @@ export default class Output {
 	playKeys = (freqs = []) => {
 		// console.log('playKey', freqs);
 
-		freqs.forEach(freq => {
+		freqs.forEach((freq) => {
 			this.freqs.push(freq);
 
 			if (this.mode === MODES.SYNTH) {
@@ -198,7 +204,7 @@ export default class Output {
 		});
 	};
 
-	stopKey = freq => {
+	stopKey = (freq) => {
 		// console.log('stopKey', freq);
 
 		this.freqs.splice(this.freqs.indexOf(freq), 1);
@@ -259,7 +265,7 @@ export default class Output {
 	}
 	set portamento(x) {
 		this._portamento = x;
-		this.oscillators.forEach(o => o.set('portamento', this.portamento));
+		this.oscillators.forEach((o) => o.set('portamento', this.portamento));
 	}
 
 	get envelope() {
@@ -270,14 +276,14 @@ export default class Output {
 			attack: this.attack,
 			decay: this.decay,
 			sustain: this.sustain,
-			release: this.release
+			release: this.release,
 		};
 	}
 	set envelope(x = null) {
-		this.oscillators.forEach(o =>
+		this.oscillators.forEach((o) =>
 			o.set({
 				envelope: this.envelope,
-				modulationEnvelope: this.envelope
+				modulationEnvelope: this.envelope,
 			})
 		);
 	}
@@ -288,7 +294,7 @@ export default class Output {
 	set attack(x) {
 		this._attack = x;
 
-		this.oscillators.forEach(o => o.set({envelope: {attack: this.attack}}));
+		this.oscillators.forEach((o) => o.set({envelope: {attack: this.attack}}));
 		this.sampler.attack = this.attack;
 	}
 
@@ -298,7 +304,7 @@ export default class Output {
 	set decay(x) {
 		this._decay = x;
 
-		this.oscillators.forEach(o => o.set({envelope: {decay: this.decay}}));
+		this.oscillators.forEach((o) => o.set({envelope: {decay: this.decay}}));
 		this.sampler.decay = this.decay;
 	}
 
@@ -308,7 +314,7 @@ export default class Output {
 	set sustain(x) {
 		this._sustain = x;
 
-		this.oscillators.forEach(o => o.set({envelope: {sustain: this.sustain}}));
+		this.oscillators.forEach((o) => o.set({envelope: {sustain: this.sustain}}));
 		this.sampler.sustain = this.sustain;
 	}
 
@@ -317,7 +323,7 @@ export default class Output {
 	}
 	set release(x) {
 		this._release = x;
-		this.oscillators.forEach(o => o.set({envelope: {release: this.release}}));
+		this.oscillators.forEach((o) => o.set({envelope: {release: this.release}}));
 		this.sampler.release = this.release;
 	}
 
@@ -339,7 +345,7 @@ export default class Output {
 
 		this._app.setState({
 			sampleLoaded: false,
-			sampleLoading: true
+			sampleLoading: true,
 		});
 
 		const sampleBuffer = new Buffer(
@@ -350,15 +356,15 @@ export default class Output {
 					console.log('sample loaded');
 					this._app.setState({
 						sampleLoaded: true,
-						sampleLoading: false
+						sampleLoading: false,
 					});
 				});
 			},
-			e => {
+			(e) => {
 				console.log('error loading sample: ', e);
 				this._app.setState({
 					sampleLoaded: false,
-					sampleLoading: false
+					sampleLoading: false,
 				});
 			}
 		);
@@ -460,7 +466,7 @@ export default class Output {
 	}
 	set modOscShape(x) {
 		this._modOscShape = x;
-		this.oscillators.forEach(o => o.set({modulation: {type: this.modOscShape}}));
+		this.oscillators.forEach((o) => o.set({modulation: {type: this.modOscShape}}));
 	}
 
 	get modOscFreq() {
@@ -468,7 +474,7 @@ export default class Output {
 	}
 	set modOscFreq(x) {
 		this._modOscFreq = x;
-		this.oscillators.forEach(o => o.set({harmonicity: this.modOscFreq}));
+		this.oscillators.forEach((o) => o.set({harmonicity: this.modOscFreq}));
 	}
 
 	get modOscGain() {
@@ -476,7 +482,7 @@ export default class Output {
 	}
 	set modOscGain(x) {
 		this._modOscGain = x;
-		this.oscillators.forEach(o => o.set({modulationIndex: this.modOscGain}));
+		this.oscillators.forEach((o) => o.set({modulationIndex: this.modOscGain}));
 	}
 
 	// FILTER
@@ -595,6 +601,22 @@ export default class Output {
 	set chorusDelay(x) {
 		this._chorusDelay = x;
 		this.chorus.delay = this.chorusDelay;
+	}
+
+	get chorusFreq() {
+		return getSecondsFromValue(this._chorusFreq);
+	}
+	set chorusFreq(x) {
+		this._chorusFreq = x;
+		this.chorus.frequency.value = this.chorusFreq;
+	}
+
+	get chorusType() {
+		return OSC_SHAPES[this._chorusType];
+	}
+	set chorusType(x) {
+		this._chorusType = x;
+		this.chorus.type = this.chorusType;
 	}
 
 	get chorusWet() {

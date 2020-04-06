@@ -55,6 +55,8 @@ const Instrument = (props) => {
 		chorusSpread,
 		chorusDepth,
 		chorusDelay,
+		chorusFreq,
+		chorusType,
 		chorusWet,
 		crusherBits,
 		crusherWet,
@@ -470,34 +472,54 @@ const Instrument = (props) => {
 			<div className='control-wrapper vertical'>
 				<div className='controls-container-label'>CHORUS</div>
 				<div className='controls-container'>
-					<KnobControl
-						{...sharedControlProps}
-						name='chorusSpread'
-						label='spread'
-						value={chorusSpread}
-						size='small'
-					/>
-					<KnobControl
-						{...sharedControlProps}
-						name='chorusDepth'
-						label='depth'
-						value={chorusDepth}
-						size='small'
-					/>
-					{/* <KnobControl
-						{...sharedControlProps}
-						name="chorusDelay"
-						label="delay"
-						value={chorusDelay}
-						size="small"
-          /> */}
-					<KnobControl
-						{...sharedControlProps}
-						name='chorusWet'
-						label='wet'
-						value={chorusWet}
-						size='small'
-					/>
+					<div className='controls-sub-container'>
+						<div className='controls-sub-container vertical'>
+							<KnobControl
+								{...sharedControlProps}
+								name='chorusSpread'
+								label='spread'
+								value={chorusSpread}
+								size='small'
+							/>
+							<KnobControl
+								{...sharedControlProps}
+								name='chorusDepth'
+								label='depth'
+								value={chorusDepth}
+								size='small'
+							/>
+							<KnobControl
+								{...sharedControlProps}
+								name='chorusDelay'
+								label='delay'
+								value={chorusDelay}
+								size='small'
+							/>
+						</div>
+						<div className='controls-sub-container vertical'>
+							<KnobControl
+								{...sharedControlProps}
+								name='chorusFreq'
+								label='freq'
+								value={chorusFreq}
+								size='small'
+							/>
+							<KnobControl
+								{...sharedControlProps}
+								name='chorusType'
+								label='type'
+								value={chorusType}
+								size='small'
+							/>
+							<KnobControl
+								{...sharedControlProps}
+								name='chorusWet'
+								label='wet'
+								value={chorusWet}
+								size='small'
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

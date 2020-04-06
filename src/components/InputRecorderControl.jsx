@@ -2,20 +2,20 @@ import React, {useEffect, useRef, useState} from 'react';
 import {usePrevious} from '../js/hooks';
 import ButtonControl from './ButtonControl';
 
-const InputRecorderControl = ({handleClickControl, label, light, onClick, size}) => {
+const InputRecorderControl = ({handleClickControl, label, light, size}) => {
 	const mediaRecorder = useRef(null);
 	const [recording, setRecording] = useState(false);
 	const prevRecording = usePrevious(recording);
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		navigator.mediaDevices.getUserMedia({audio: true}).then((stream) => {
+			mediaRecorder.current = new MediaRecorder(stream);
+		});
+	}, []);
 
 	useEffect(() => {
 		if (!prevRecording && recording) {
-			navigator.mediaDevices.getUserMedia({audio: true}).then((stream) => {
-				mediaRecorder.current = new MediaRecorder(stream);
-
-				mediaRecorder.current.start();
-			});
+			mediaRecorder.current.start();
 		} else if (prevRecording && !recording) {
 			mediaRecorder.current.stop();
 			mediaRecorder.current.addEventListener('dataavailable', (e) => {

@@ -372,6 +372,23 @@ body {
   padding: 0.75rem 1rem;
 }
 
+.controls-container .controls-sub-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 100%;
+}
+
+.controls-container .controls-sub-container.vertical {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+
 .control-container {
   margin: 0 0.5rem 0.5rem;
 }

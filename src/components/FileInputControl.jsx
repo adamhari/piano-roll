@@ -8,9 +8,11 @@ const FileInputControl = ({accept, handleClickControl, label, name, size, type, 
 
 	const handleChange = (e) => {
 		const file = inputRef.current.files[0];
-		const fileUrl = URL.createObjectURL(file);
-		console.log(file, fileUrl);
-		handleClickControl(name, fileUrl);
+
+		if (file) {
+			const fileUrl = URL.createObjectURL(file);
+			handleClickControl(name, fileUrl);
+		}
 	};
 
 	return (

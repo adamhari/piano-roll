@@ -1,12 +1,10 @@
 import React from 'react';
 import PianoKeys from './PianoKeys';
+import Sampler from './Sampler';
 import ButtonControl from './ButtonControl';
-import FileInputControl from './FileInputControl';
-import InputRecorderControl from './InputRecorderControl';
 import DigitalControl from './DigitalControl';
 import KnobControl from './KnobControl';
-import Waveform from './Waveform';
-import {CONTROLS, MODES, SUPPORTED_SAMPLE_FORMATS} from '../js/statics';
+import {CONTROLS, MODES} from '../js/statics';
 
 const Instrument = (props) => {
 	const {
@@ -16,7 +14,6 @@ const Instrument = (props) => {
 		handleMouseUpControl,
 		handleMouseWheelControl,
 
-		recording,
 		sampleLoading,
 		sampleLoaded,
 
@@ -242,42 +239,13 @@ const Instrument = (props) => {
 
 	const renderSampler = () =>
 		mode === MODES.SAMPLER && (
-			<div id='sampler' className='control-section'>
-				<div className='control-wrapper vertical'>
-					<div className='controls-container-label'>SAMPLER</div>
-					<div className='controls-container'>
-						<div style={{display: 'flex'}}>
-							<FileInputControl
-								{...sharedControlProps}
-								name='sample'
-								label='load'
-								value={'load'}
-								blinking={sampleLoading}
-								active={sampleLoaded}
-								type='file'
-								accept={SUPPORTED_SAMPLE_FORMATS.join(', ')}
-								size='small'
-							/>
-							<InputRecorderControl
-								{...sharedControlProps}
-								label='record'
-								active={recording}
-								size='small'
-								light={true}
-							/>
-							{/* <DigitalControl {...sharedControlProps} name="sample" label="select" value={sample} /> */}
-						</div>
-						<Waveform {...sharedControlProps} audio={sample} label={'waveform'} />
-						<KnobControl
-							{...sharedControlProps}
-							name='samplePitch'
-							label='pitch'
-							value={samplePitch}
-							size='small'
-						/>
-					</div>
-				</div>
-			</div>
+			<Sampler
+				{...sharedControlProps}
+				sample={sample}
+				sampleLoading={sampleLoading}
+				sampleLoaded={sampleLoaded}
+				samplePitch={samplePitch}
+			/>
 		);
 
 	const renderSynth = () =>

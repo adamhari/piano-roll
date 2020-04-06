@@ -30,6 +30,7 @@
   "devDependencies": {
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "typescript": "^3.8.3"
   }
 }

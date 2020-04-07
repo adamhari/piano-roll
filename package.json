@@ -1,36 +1,36 @@
 {
-  "name": "react-piano-roll",
-  "version": "0.1.0",
-  "homepage": "http://adamhari.github.io/piano-roll",
-  "private": true,
-  "dependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "^3.3.0",
-    "tone": "^13.8.25",
-    "wavesurfer.js": "^3.3.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "@types/react": "^16.9.32",
-    "@types/react-dom": "^16.9.6",
-    "gh-pages": "^2.2.0",
-    "typescript": "^3.8.3"
-  }
+	"name": "react-piano-roll",
+	"version": "0.1.0",
+	"homepage": "http://adamhari.github.io/piano-roll",
+	"private": true,
+	"dependencies": {
+		"react": "^16.12.0",
+		"react-dom": "^16.12.0",
+		"react-scripts": "^3.3.0",
+		"tone": "^13.8.25",
+		"wavesurfer.js": "git+https://github.com/adamhari/wavesurfer.js.git"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	],
+	"devDependencies": {
+		"@types/react": "^16.9.32",
+		"@types/react-dom": "^16.9.6",
+		"gh-pages": "^2.2.0",
+		"typescript": "^3.8.3"
+	}
 }

@@ -12,7 +12,7 @@ object-assign
 */
 
 /*!
- * wavesurfer.js 3.3.1 (2020-01-14)
+ * wavesurfer.js 3.3.1 (2020-04-07)
  * https://github.com/katspaugh/wavesurfer.js
  * @license BSD-3-Clause
  */
@@ -175,7 +175,7 @@ object-assign
  */
 
 /*!
- * wavesurfer.js microphone plugin 3.3.1 (2020-01-14)
+ * wavesurfer.js microphone plugin 3.3.1 (2020-04-07)
  * https://github.com/katspaugh/wavesurfer.js
  * @license BSD-3-Clause
  */

@@ -1,16 +1,16 @@
 import React, {useEffect, useRef} from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
-const Waveform = ({audio}) => {
-	const wavesurfer = useRef(null);
+interface Props {
+	audio: string;
+}
+
+const Waveform = ({audio}: Props) => {
+	const wavesurfer = useRef<WaveSurfer | null>();
 
 	useEffect(() => {
 		wavesurfer.current = WaveSurfer.create({
 			autoCenter: false,
-			// barGap: 3,
-			// barHeight: 3,
-			// barRadius: 3,
-			// barWidth: 3,
 			container: '#waveform',
 			cursorWidth: 0,
 			hideScrollbar: true,
@@ -19,12 +19,14 @@ const Waveform = ({audio}) => {
 			waveColor: '#ff2601',
 		});
 
-		return () => wavesurfer.current.destroy();
+		return () => {
+			wavesurfer.current && wavesurfer.current.destroy();
+		};
 	}, []);
 
 	useEffect(() => {
-		if (audio) wavesurfer.current.load(audio);
-		else wavesurfer.current.empty();
+		if (audio) wavesurfer.current && wavesurfer.current.load(audio);
+		else wavesurfer.current && wavesurfer.current.empty();
 	}, [audio]);
 
 	return (

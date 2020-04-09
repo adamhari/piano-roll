@@ -169,9 +169,25 @@ body {
   display: flex;
   height: 19rem;
   padding: 1rem 0;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+#instr-right-top #global-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 #instr-right-top #global-section #logo-section {
@@ -180,8 +196,7 @@ body {
   color: #ababab;
   width: 13rem;
   height: 4.375rem;
-  padding: 0 0 0 0.375rem;
-  margin: 0 0rem 1.25rem 1rem;
+  margin: 0 0 1.5rem 0;
 }
 
 #instr-right-top #global-section #logo-section #logo {

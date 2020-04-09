@@ -156,10 +156,7 @@ export const MODES = {
 };
 
 export const SAMPLES = [
-  "https://freewavesamples.com/files/E-Mu-Proteus-FX-Javanese-C3.wav",
-  "https://freewavesamples.com/files/Casio-MT-600-Synth-Bells-C3.wav",
-  "https://freewavesamples.com/files/Alesis-Sanctuary-QCard-Music-Box-C6.wav",
-  "https://freewavesamples.com/files/Ensoniq-ESQ-1-Sympy-C4.wav"
+  "/assets/audio/samples/CS_Synth_Hit_9_G.mp3",
 ];
 
 export const SUPPORTED_SAMPLE_FORMATS = [

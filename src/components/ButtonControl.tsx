@@ -1,6 +1,18 @@
 import React from 'react';
 import Light from './Light';
 
+interface Props {
+	active?: boolean;
+	children?: React.ReactNode;
+	handleClickControl: (name: string, value: number) => void;
+	label?: string;
+	light?: boolean;
+	name: string;
+	onClick: () => void;
+	size: string;
+	value: any;
+}
+
 const ButtonControl = ({
 	active,
 	children,
@@ -11,8 +23,8 @@ const ButtonControl = ({
 	onClick,
 	size,
 	value,
-}) => {
-	const handleClick = (e) => handleClickControl(name, value);
+}: Props) => {
+	const handleClick = (e: MouseEvent) => handleClickControl(name, value);
 
 	const getClasses = () => {
 		let classes = 'button ';

@@ -169,9 +169,15 @@ body {
   display: flex;
   height: 19rem;
   padding: 1rem 0;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+}
+
+#instr-right-top #instr-right-top-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -181,13 +187,17 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  height: 100%;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-flow: row wrap;
-          flex-flow: row wrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #instr-right-top #global-section #logo-section {
@@ -196,7 +206,7 @@ body {
   color: #ababab;
   width: 13rem;
   height: 4.375rem;
-  margin: 0 0 1.5rem 0;
+  margin-bottom: 1.5rem;
 }
 
 #instr-right-top #global-section #logo-section #logo {
@@ -577,13 +587,13 @@ body {
 
 .knob-control-container .knob-control-value {
   width: 100%;
-  margin: 0.25rem auto 0;
+  margin: 0.3125rem auto 0;
   padding: 0 0 0.0625rem;
   background-color: #ababab;
   border-radius: 1rem;
   text-align: center;
   font-size: 0.5625rem;
-  font-weight: 700;
+  font-weight: 800;
   -webkit-transition: 0.1s all ease-out;
   transition: 0.1s all ease-out;
 }

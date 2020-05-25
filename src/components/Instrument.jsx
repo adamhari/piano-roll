@@ -642,17 +642,19 @@ const Instrument = (props) => {
 			<div id='instr-left'>{renderLeftControls()}</div>
 			<div id='instr-right'>
 				<div id='instr-right-top'>
-					{renderGlobalSection()}
-					{renderModeSelector()}
-					{renderSampler()}
-					{renderSynth()}
-					{renderFilters()}
-					{renderVibrato()}
-					{renderChorus()}
-					{/* {renderBitcrusher()} */}
-					{renderDistortion()}
-					{renderPitcher()}
-					{renderReverb()}
+					<div id='instr-right-top-left'>{renderGlobalSection()}</div>
+					<div id='instr-right-top-right'>
+						{renderModeSelector()}
+						{renderSampler()}
+						{renderSynth()}
+						{renderFilters()}
+						{renderVibrato()}
+						{renderChorus()}
+						{/* {renderBitcrusher()} */}
+						{renderDistortion()}
+						{renderPitcher()}
+						{renderReverb()}
+					</div>
 				</div>
 				<div id='instr-right-bottom'>{renderPianoKeys()}</div>
 			</div>

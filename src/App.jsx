@@ -122,7 +122,9 @@ class App extends Component {
 
 		const keyReleased = e.key.toLowerCase();
 
-		if (MODIFIER_KEYS.includes(keyReleased)) this.setState({activeModifierKey: false});
+		if (MODIFIER_KEYS.includes(keyReleased)) {
+			this.setState({activeModifierKey: false});
+		}
 
 		const pianoKey = LAYOUTS[this.state.layout][keyReleased];
 		if (pianoKey) {

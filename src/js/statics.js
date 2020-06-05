@@ -83,6 +83,7 @@ export const LAYOUTS = [
 	}
 ];
 
+export const MODIFIER_KEYS = ['control', 'command', 'meta'];
 export const BASE_FREQ = 16.3516;
 export const FREQ_MULTIPLIER = 1.0594630943593;
 export const NOTES = [

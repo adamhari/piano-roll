@@ -7,6 +7,7 @@ import {
 	CONTROLS_DEFAULT_VALUES,
 	KEYS_MAP,
 	LAYOUTS,
+	MODIFIER_KEYS,
 } from './js/statics';
 import {getValueFromRange} from './js/utils';
 import Instrument from './components/Instrument';
@@ -101,7 +102,7 @@ class App extends Component {
 	/** GLOBAL EVENT HANDLERS */
 
 	handleKeyDown = (e) => {
-		// console.log("handleKeyDown", e);
+		// console.log('handleKeyDown', e);
 
 		e.preventDefault();
 		const keyPressed = e.key.toLowerCase();
@@ -109,7 +110,7 @@ class App extends Component {
 
 		if (pianoKey) {
 			this.activatePianoKey(pianoKey);
-		} else if (keyPressed === 'control' || keyPressed === 'command') {
+		} else if (MODIFIER_KEYS.includes(keyPressed)) {
 			this.setState({activeModifierKey: true});
 		}
 
@@ -121,8 +122,7 @@ class App extends Component {
 
 		const keyReleased = e.key.toLowerCase();
 
-		if (keyReleased === 'control' || keyReleased === 'command')
-			this.setState({activeModifierKey: false});
+		if (MODIFIER_KEYS.includes(keyReleased)) this.setState({activeModifierKey: false});
 
 		const pianoKey = LAYOUTS[this.state.layout][keyReleased];
 		if (pianoKey) {
@@ -331,7 +331,9 @@ class App extends Component {
 		return (
 			<div
 				id='container'
-				// onContextMenu={(e) => {e.preventDefault()}}
+				onContextMenu={(e) => {
+					e.preventDefault();
+				}}
 			>
 				<Instrument
 					{...this.state}

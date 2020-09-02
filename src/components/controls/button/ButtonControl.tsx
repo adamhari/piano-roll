@@ -1,6 +1,6 @@
 import React, {MouseEvent} from 'react';
-import Light from './Light';
-import {ButtonMouseEvents, Size} from '../types';
+import ButtonLight from './ButtonLight';
+import {ButtonMouseEvents, Size} from '../../../types';
 
 type Props = ButtonMouseEvents & {
 	active?: boolean;
@@ -33,14 +33,14 @@ const ButtonControl = ({
 		return classes.join(' ');
 	};
 
-	const renderLight = () => light && <Light active={active || false} size={size} />;
+	const renderButtonLight = () => light && <ButtonLight active={active || false} size={size} />;
 
 	return (
 		<div className={'button-control-container control-container'}>
 			<div className='control-label'>{label || value}</div>
 			<div className={'button-container'}>
 				<div onClick={onClick || handleClick} className={getClasses()}>
-					{renderLight()}
+					{renderButtonLight()}
 					{children}
 				</div>
 			</div>

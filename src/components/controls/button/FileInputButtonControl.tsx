@@ -1,7 +1,7 @@
 import React, {FormEvent, useRef} from 'react';
 import ButtonControl from './ButtonControl';
-import {ButtonMouseEvents, Size} from '../types';
-import {SUPPORTED_SAMPLE_FORMATS} from '../js/statics';
+import {ButtonMouseEvents, Size} from '../../../types';
+import {SUPPORTED_SAMPLE_FORMATS} from '../../../js/statics';
 
 type Props = ButtonMouseEvents & {
 	name: string;

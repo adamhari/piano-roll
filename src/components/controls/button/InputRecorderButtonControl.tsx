@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ButtonControl from './ButtonControl';
-import {ButtonMouseEvents, Size} from '../types';
+import {ButtonMouseEvents, Size} from '../../../types';
 
 type Props = ButtonMouseEvents & {
 	label?: string;

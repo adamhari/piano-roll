@@ -1,6 +1,6 @@
 import React, {CSSProperties, MouseEvent} from 'react';
-import {CONTROL_TYPES, CONTROLS} from '../js/statics';
-import {Size, ControlMouseEvents} from '../types';
+import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
+import {Size, ControlMouseEvents} from '../../types';
 
 type Props = ControlMouseEvents & {
 	activeControl: string;

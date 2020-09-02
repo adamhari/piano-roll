@@ -1,9 +1,11 @@
 import React from 'react';
 import PianoKeys from './PianoKeys';
-import Sampler from './Sampler';
-import ButtonControl from './ButtonControl';
-import DigitalControl from './DigitalControl';
-import KnobControl from './KnobControl';
+import ButtonControl from './controls/button/ButtonControl';
+import DigitalControl from './controls/DigitalControl';
+import KnobControl from './controls/KnobControl';
+import FileInputButtonControl from './controls/button/FileInputButtonControl';
+import InputRecorderButtonControl from './controls/button/InputRecorderButtonControl';
+import Waveform from './Waveform';
 import {MODES} from '../js/statics';
 import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents} from '../types';
 
@@ -300,13 +302,39 @@ const Instrument = ({
 	const renderAudioSource = () => (mode === MODES.SAMPLER ? renderSampler() : renderSynth());
 
 	const renderSampler = () => (
-		<Sampler
-			{...sharedControlProps}
-			sample={sample}
-			sampleLoading={sampleLoading}
-			sampleLoaded={sampleLoaded}
-			samplePitch={samplePitch}
-		/>
+		<div id='sampler' className='control-section'>
+			<div className='control-wrapper vertical'>
+				<div className='controls-container-label'>SAMPLER</div>
+				<div className='controls-container'>
+					<div style={{display: 'flex'}}>
+						{/* <DigitalControl {...props} name='sample' label='select' value={sample} /> */}
+						<FileInputButtonControl
+							handleClickControl={handleClickControl}
+							name='sample'
+							label='load'
+							value={'load'}
+							size='small'
+						/>
+						<InputRecorderButtonControl
+							handleClickControl={handleClickControl}
+							label='record'
+							size='small'
+							light={true}
+						/>
+					</div>
+					<Waveform audio={sample} />
+					<div className='controls-sub-container'>
+						<KnobControl
+							{...sharedControlProps}
+							name='samplePitch'
+							label='pitch'
+							value={samplePitch}
+							size='small'
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 
 	const renderSynth = () => (

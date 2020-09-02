@@ -4,9 +4,19 @@ import FileInputControl from './FileInputControl';
 import InputRecorderControl from './InputRecorderControl';
 import KnobControl from './KnobControl';
 import Waveform from './Waveform';
+import {ButtonMouseEvents, ControlMouseEvents} from '../types';
 
-const Sampler = (props) => {
-	const {sample, samplePitch, sampleLoading, sampleLoaded} = props;
+type Props = ButtonMouseEvents &
+	ControlMouseEvents & {
+		activeControl: string;
+		sample: string;
+		samplePitch: number;
+		sampleLoading: boolean;
+		sampleLoaded: boolean;
+	};
+
+const Sampler = (props: Props) => {
+	const {sample, samplePitch} = props;
 
 	return (
 		<div id='sampler' className='control-section'>
@@ -15,18 +25,10 @@ const Sampler = (props) => {
 				<div className='controls-container'>
 					<div style={{display: 'flex'}}>
 						{/* <DigitalControl {...props} name='sample' label='select' value={sample} /> */}
-						<FileInputControl
-							{...props}
-							name='sample'
-							label='load'
-							value={'load'}
-							blinking={sampleLoading}
-							active={sampleLoaded}
-							size='small'
-						/>
+						<FileInputControl {...props} name='sample' label='load' value={'load'} size='small' />
 						<InputRecorderControl {...props} label='record' size='small' light={true} />
 					</div>
-					<Waveform {...props} audio={sample} label={'waveform'} />
+					<Waveform {...props} audio={sample} />
 					<div className='controls-sub-container'>
 						<KnobControl
 							{...props}

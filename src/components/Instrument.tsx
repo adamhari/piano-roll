@@ -5,72 +5,140 @@ import ButtonControl from './ButtonControl';
 import DigitalControl from './DigitalControl';
 import KnobControl from './KnobControl';
 import {MODES} from '../js/statics';
+import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents} from '../types';
 
-const Instrument = (props: any) => {
-	const {
-		activeControl,
-		handleClickControl,
-		handleMouseDownControl,
-		handleMouseUpControl,
-		handleMouseWheelControl,
+type Props = ControlMouseEvents &
+	ButtonMouseEvents &
+	PianoKeyMouseEvents & {
+		activeKeys: string[];
+		activeControl: string;
+		octaves: number;
+		layout: number;
+		volume: number;
+		polyphony: number;
+		portamento: number;
+		attack: number;
+		decay: number;
+		sustain: number;
+		release: number;
+		mode: number;
+		sample: string;
+		samplePitch: number;
+		sampleLoading: boolean;
+		sampleLoaded: boolean;
+		osc1Shape: number;
+		osc1Octave: number;
+		osc1Transpose: number;
+		osc1Detune: number;
+		osc1Gain: number;
+		osc2Shape: number;
+		osc2Octave: number;
+		osc2Transpose: number;
+		osc2Detune: number;
+		osc2Gain: number;
+		modOscShape: number;
+		modOscFreq: number;
+		modOscGain: number;
+		filter1Type: number;
+		filter1Rolloff: number;
+		filter1Freq: number;
+		filter1Q: number;
+		filter2Type: number;
+		filter2Rolloff: number;
+		filter2Freq: number;
+		filter2Q: number;
+		vibratoDepth: number;
+		vibratoFreq: number;
+		vibratoWet: number;
+		chorusSpread: number;
+		chorusDepth: number;
+		chorusDelay: number;
+		chorusFreq: number;
+		chorusType: number;
+		chorusWet: number;
+		crusherBits: number;
+		crusherWet: number;
+		distOver: number;
+		distAmount: number;
+		distWet: number;
+		pitcherPitch: number;
+		pitcherWindow: number;
+		pitcherWet: number;
+		reverbSize: number;
+		reverbDampening: number;
+		reverbWet: number;
+	};
 
-		sampleLoading,
-		sampleLoaded,
+const Instrument = ({
+	octaves,
+	activeKeys,
+	activeControl,
 
-		layout,
-		volume,
-		polyphony,
-		portamento,
-		attack,
-		decay,
-		sustain,
-		release,
-		mode,
-		sample,
-		samplePitch,
-		osc1Shape,
-		osc1Octave,
-		osc1Transpose,
-		osc1Detune,
-		osc1Gain,
-		osc2Shape,
-		osc2Octave,
-		osc2Transpose,
-		osc2Detune,
-		osc2Gain,
-		modOscShape,
-		modOscFreq,
-		modOscGain,
-		filter1Type,
-		filter1Rolloff,
-		filter1Freq,
-		filter1Q,
-		filter2Type,
-		filter2Rolloff,
-		filter2Freq,
-		filter2Q,
-		vibratoDepth,
-		vibratoFreq,
-		vibratoWet,
-		chorusSpread,
-		chorusDepth,
-		chorusDelay,
-		chorusFreq,
-		chorusType,
-		chorusWet,
-		crusherBits,
-		crusherWet,
-		distOver,
-		distAmount,
-		distWet,
-		pitcherPitch,
-		pitcherWindow,
-		pitcherWet,
-		reverbSize,
-		reverbDampening,
-		reverbWet,
-	} = props;
+	layout,
+	volume,
+	polyphony,
+	portamento,
+	attack,
+	decay,
+	sustain,
+	release,
+	mode,
+	sample,
+	samplePitch,
+	sampleLoading,
+	sampleLoaded,
+	osc1Shape,
+	osc1Octave,
+	osc1Transpose,
+	osc1Detune,
+	osc1Gain,
+	osc2Shape,
+	osc2Octave,
+	osc2Transpose,
+	osc2Detune,
+	osc2Gain,
+	modOscShape,
+	modOscFreq,
+	modOscGain,
+	filter1Type,
+	filter1Rolloff,
+	filter1Freq,
+	filter1Q,
+	filter2Type,
+	filter2Rolloff,
+	filter2Freq,
+	filter2Q,
+	vibratoDepth,
+	vibratoFreq,
+	vibratoWet,
+	chorusSpread,
+	chorusDepth,
+	chorusDelay,
+	chorusFreq,
+	chorusType,
+	chorusWet,
+	crusherBits,
+	crusherWet,
+	distOver,
+	distAmount,
+	distWet,
+	pitcherPitch,
+	pitcherWindow,
+	pitcherWet,
+	reverbSize,
+	reverbDampening,
+	reverbWet,
 
+	handleClickControl,
+	handleMouseDownControl,
+	handleMouseUpControl,
+	handleMouseWheelControl,
+
+	handleMouseDownPianoKey,
+	handleMouseUpPianoKey,
+	handleMouseOverPianoKey,
+	handleMouseLeavePianoKey,
+}: Props) => {
 	const sharedControlProps = {
 		activeControl,
 		handleClickControl,
@@ -229,24 +297,24 @@ const Instrument = (props: any) => {
 		</div>
 	);
 
-	const renderSampler = () =>
-		mode === MODES.SAMPLER && (
-			<Sampler
-				{...sharedControlProps}
-				sample={sample}
-				sampleLoading={sampleLoading}
-				sampleLoaded={sampleLoaded}
-				samplePitch={samplePitch}
-			/>
-		);
+	const renderAudioSource = () => (mode === MODES.SAMPLER ? renderSampler() : renderSynth());
 
-	const renderSynth = () =>
-		mode === MODES.SYNTH && (
-			<>
-				{renderOscillators()}
-				{renderModOscillator()}
-			</>
-		);
+	const renderSampler = () => (
+		<Sampler
+			{...sharedControlProps}
+			sample={sample}
+			sampleLoading={sampleLoading}
+			sampleLoaded={sampleLoaded}
+			samplePitch={samplePitch}
+		/>
+	);
+
+	const renderSynth = () => (
+		<>
+			{renderOscillators()}
+			{renderModOscillator()}
+		</>
+	);
 
 	const renderOscillators = () => (
 		<div id='oscillators' className='control-section'>
@@ -623,7 +691,16 @@ const Instrument = (props: any) => {
 		</div>
 	);
 
-	const renderPianoKeys = () => <PianoKeys {...props} />;
+	const renderPianoKeys = () => (
+		<PianoKeys
+			activeKeys={activeKeys}
+			octaves={octaves}
+			handleMouseDownPianoKey={handleMouseDownPianoKey}
+			handleMouseUpPianoKey={handleMouseUpPianoKey}
+			handleMouseOverPianoKey={handleMouseOverPianoKey}
+			handleMouseLeavePianoKey={handleMouseLeavePianoKey}
+		/>
+	);
 
 	return (
 		<div id='instr'>
@@ -633,8 +710,7 @@ const Instrument = (props: any) => {
 					<div id='instr-right-top-left'>{renderGlobalSection()}</div>
 					<div id='instr-right-top-right'>
 						{renderModeSelector()}
-						{renderSampler()}
-						{renderSynth()}
+						{renderAudioSource()}
 						{renderFilters()}
 						{renderVibrato()}
 						{renderChorus()}

@@ -20,13 +20,13 @@ const Waveform = ({audio}: Props) => {
 		});
 
 		return () => {
-			wavesurfer.current && wavesurfer.current.destroy();
+			wavesurfer.current?.destroy();
 		};
 	}, []);
 
 	useEffect(() => {
-		if (audio) wavesurfer.current && wavesurfer.current.load(audio);
-		else wavesurfer.current && wavesurfer.current.empty();
+		if (audio) wavesurfer.current?.load(audio);
+		else wavesurfer.current?.empty();
 	}, [audio]);
 
 	return (

@@ -1,6 +1,6 @@
 import React, {CSSProperties, MouseEvent, useMemo} from 'react';
 import {CONTROL_TYPES, CONTROLS} from '../js/statics';
-import {ControlMouseEvents, DigitTypes} from '../types';
+import {ControlMouseEvents, DigitType} from '../types';
 
 type Props = ControlMouseEvents & {
 	name: string;
@@ -22,7 +22,7 @@ const DigitalControl = ({
 		range: {min, max},
 	} = CONTROLS[name];
 
-	const getDigits = (min: number, max: number): DigitTypes => {
+	const getDigits = (min: number, max: number): DigitType => {
 		if (min > -1 && max < 10) return 'single-digit';
 		if (min <= -1 && max < 10) return 'single-digit-negative';
 		if (min > -1 && max >= 10) return 'double-digit';

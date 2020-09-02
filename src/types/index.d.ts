@@ -1,10 +1,14 @@
 import { MouseEvent } from 'react';
 
-declare module 'wavesurfer.js';
-
 export type Size = 'small' | 'medium' | 'large';
 
-export type DigitTypes = 'single-digit' | 'single-digit-negative' | 'double-digit' | 'double-digit-negative';
+export type DigitType = 'single-digit' | 'single-digit-negative' | 'double-digit' | 'double-digit-negative';
+
+export type ControlMouseEvents = {
+  handleMouseDownControl: (activeControl: string, activeControlType: string, e: MouseEvent<HTMLDivElement>) => void;
+  handleMouseUpControl: (activeControl: string, activeControlType: string, e: MouseEvent<HTMLDivElement>) => void;
+  handleMouseWheelControl: (activeControl: string, activeControlType: string, e: MouseEvent<HTMLDivElement>) => void;
+};
 
 export type ButtonMouseEvents = {
   handleClickControl: (name: string, value: number | string) => void
@@ -15,10 +19,4 @@ export type PianoKeyMouseEvents = {
 	handleMouseUpPianoKey: (e: MouseEvent) => void;
 	handleMouseOverPianoKey: (e: MouseEvent) => void;
 	handleMouseLeavePianoKey: (e: MouseEvent) => void;
-};
-
-export type ControlMouseEvents = {
-	handleMouseDownControl: (activeControl: string, activeControlType: string, e: MouseEvent<HTMLDivElement>) => void;
-	handleMouseUpControl: (activeControl: string, activeControlType: string, e: MouseEvent<HTMLDivElement>) => void;
-	handleMouseWheelControl: (activeControl: string, activeControlType: string, e: MouseEvent<HTMLDivElement>) => void;
 };

@@ -18,23 +18,14 @@ class App extends Component {
 
 	constructor(props) {
 		super(props);
-
-		this.layout = props.layout || 0;
-		this.octaves = props.octaves;
-
-		if (!this.octaves || !Number.isInteger(this.octaves) || this.octaves > 10 || this.octaves < 4) {
-			this.octaves = 6;
-		}
-
 		this.state = {
+			octaves: 6,
 			activeKeys: [],
 			activeControl: null,
 			activeControlType: null,
 			activeScreenY: null,
 			activeModifierKey: false,
 			audioContextStarted: false,
-			octaves: this.octaves,
-			layout: this.layout,
 			...CONTROLS_DEFAULT_VALUES,
 		};
 	}

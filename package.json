@@ -30,9 +30,11 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@types/dom-mediacapture-record": "^1.0.7",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.6",
-    "@types/wavesurfer": "git+https://github.com/d10221/wavesurfer-typescript.git",
+    "@types/wavesurfer.js": "^3.3.1",
+    "csstype": "^3.0.3",
     "gh-pages": "^2.2.0",
     "typescript": "^3.8.3"
   }

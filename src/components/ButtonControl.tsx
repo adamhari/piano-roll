@@ -1,17 +1,17 @@
-import React from 'react';
+import React, {MouseEvent} from 'react';
 import Light from './Light';
+import {ButtonMouseEvents, Size} from '../types';
 
-interface Props {
+type Props = ButtonMouseEvents & {
 	active?: boolean;
 	children?: React.ReactNode;
-	handleClickControl: (name: string, value: number) => void;
 	label?: string;
 	light?: boolean;
 	name: string;
-	onClick: () => void;
-	size: string;
-	value: any;
-}
+	onClick?: (e: any) => void;
+	size: Size;
+	value: number | string;
+};
 
 const ButtonControl = ({
 	active,
@@ -27,13 +27,13 @@ const ButtonControl = ({
 	const handleClick = (e: MouseEvent) => handleClickControl(name, value);
 
 	const getClasses = () => {
-		let classes = 'button ';
-		if (active) classes += 'active ';
-		if (size) classes += `${size} `;
-		return classes;
+		let classes = ['button'];
+		active && classes.push('active');
+		size && classes.push(size);
+		return classes.join(' ');
 	};
 
-	const renderLight = () => light && <Light active={active} size={size} />;
+	const renderLight = () => light && <Light active={active || false} size={size} />;
 
 	return (
 		<div className={'button-control-container control-container'}>

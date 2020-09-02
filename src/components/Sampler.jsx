@@ -1,5 +1,4 @@
 import React from 'react';
-import {SUPPORTED_SAMPLE_FORMATS} from '../js/statics';
 import DigitalControl from './DigitalControl';
 import FileInputControl from './FileInputControl';
 import InputRecorderControl from './InputRecorderControl';
@@ -23,8 +22,6 @@ const Sampler = (props) => {
 							value={'load'}
 							blinking={sampleLoading}
 							active={sampleLoaded}
-							type='file'
-							accept={SUPPORTED_SAMPLE_FORMATS.join(', ')}
 							size='small'
 						/>
 						<InputRecorderControl {...props} label='record' size='small' light={true} />

@@ -4,9 +4,9 @@ import Sampler from './Sampler';
 import ButtonControl from './ButtonControl';
 import DigitalControl from './DigitalControl';
 import KnobControl from './KnobControl';
-import {CONTROLS, MODES} from '../js/statics';
+import {MODES} from '../js/statics';
 
-const Instrument = (props) => {
+const Instrument = (props: any) => {
 	const {
 		activeControl,
 		handleClickControl,
@@ -157,13 +157,7 @@ const Instrument = (props) => {
 
 	const renderLeftControls = () => (
 		<div id='instr-top-left'>
-			<DigitalControl
-				{...sharedControlProps}
-				name='polyphony'
-				label='poly'
-				control={CONTROLS.polyphony}
-				value={polyphony}
-			/>
+			<DigitalControl {...sharedControlProps} name='polyphony' label='poly' value={polyphony} />
 			<br />
 			{/* <KnobControl
         {...sharedControlProps}
@@ -173,13 +167,7 @@ const Instrument = (props) => {
         size="medium"
       />
       <br /> */}
-			<DigitalControl
-				{...sharedControlProps}
-				name='layout'
-				control={CONTROLS.layout}
-				value={layout}
-				outline={true}
-			/>
+			<DigitalControl {...sharedControlProps} name='layout' value={layout} outline={true} />
 		</div>
 	);
 
@@ -221,16 +209,18 @@ const Instrument = (props) => {
 					<ButtonControl
 						{...sharedControlProps}
 						name='mode'
-						value='sampler'
-						active={mode === 'sampler'}
+						label={'SAMPLER'}
+						value={MODES.SAMPLER}
+						active={mode === MODES.SAMPLER}
 						size='large'
 						light={true}
 					/>
 					<ButtonControl
 						{...sharedControlProps}
 						name='mode'
-						value='synth'
-						active={mode === 'synth'}
+						label={'SYNTH'}
+						value={MODES.SYNTH}
+						active={mode === MODES.SYNTH}
 						size='large'
 						light={true}
 					/>
@@ -305,7 +295,6 @@ const Instrument = (props) => {
 						name='osc2Shape'
 						label='shape'
 						value={osc2Shape}
-						type='single-digit'
 					/>
 					<DigitalControl
 						{...sharedControlProps}
@@ -348,7 +337,6 @@ const Instrument = (props) => {
 						name='modOscShape'
 						label='shape'
 						value={modOscShape}
-						type='single-digit'
 					/>
 					<KnobControl
 						{...sharedControlProps}

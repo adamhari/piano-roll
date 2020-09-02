@@ -1,9 +1,9 @@
 import React, {useEffect, useRef} from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
-interface Props {
+type Props = {
 	audio: string;
-}
+};
 
 const Waveform = ({audio}: Props) => {
 	const wavesurfer = useRef<WaveSurfer | null>();

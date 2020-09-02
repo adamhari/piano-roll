@@ -1,4 +1,12 @@
 import React from 'react';
+import {PianoKeyMouseEvents} from '../types';
+
+type Props = PianoKeyMouseEvents & {
+	active: boolean;
+	disabled?: boolean;
+	name: string;
+	note: string;
+};
 
 const PianoKey = ({
 	active,
@@ -8,25 +16,21 @@ const PianoKey = ({
 	handleMouseOverPianoKey,
 	handleMouseLeavePianoKey,
 	name,
-	note
-}) => {
-	const getClassNames = () => {
-		let classNames = [
+	note,
+}: Props) => {
+	const getClasses = () =>
+		[
 			'piano-key',
 			`piano-key-${note}`,
-			name.includes('♯') ? 'piano-key-black' : 'piano-key-white',
-			active ? 'piano-key-active' : disabled ? 'piano-key-disabled' : 'piano-key-inactive'
-		];
-
-		return classNames.join(' ');
-	};
+			note.endsWith('♯') ? 'piano-key-black' : 'piano-key-white',
+			active ? 'piano-key-active' : disabled ? 'piano-key-disabled' : 'piano-key-inactive',
+		].join(' ');
 
 	return (
 		<div
 			title={name}
-			className={getClassNames()}
+			className={getClasses()}
 			id={`piano-key-${name}`}
-			tabIndex="0"
 			onMouseDown={handleMouseDownPianoKey}
 			onMouseUp={handleMouseUpPianoKey}
 			onMouseOver={handleMouseOverPianoKey}

@@ -1,28 +1,40 @@
-import React from 'react';
+import React, {CSSProperties, MouseEvent} from 'react';
 import {CONTROL_TYPES, CONTROLS} from '../js/statics';
+import {Size, ControlMouseEvents} from '../types';
+
+type Props = ControlMouseEvents & {
+	activeControl: string;
+	name: string;
+	label?: string;
+	size: Size;
+	value: number;
+};
 
 const KnobControl = ({
 	activeControl,
 	handleMouseDownControl,
 	handleMouseUpControl,
 	handleMouseWheelControl,
-	label,
 	name,
+	label,
 	size,
-	value
-}) => {
+	value,
+}: Props) => {
 	const {
-		range: {min, max}
+		range: {min, max},
 	} = CONTROLS[name];
 
-	const handleMouseDown = e => handleMouseDownControl(name, CONTROL_TYPES.knob.name, e);
+	const handleMouseDown = (e: MouseEvent<HTMLDivElement>) =>
+		handleMouseDownControl(name, CONTROL_TYPES.knob.name, e);
 
-	const handleMouseUp = e => handleMouseUpControl(name, CONTROL_TYPES.knob.name, e);
+	const handleMouseUp = (e: MouseEvent<HTMLDivElement>) =>
+		handleMouseUpControl(name, CONTROL_TYPES.knob.name, e);
 
-	const handleMouseWheel = e => handleMouseWheelControl(name, CONTROL_TYPES.knob.name, e);
+	const handleMouseWheel = (e: MouseEvent<HTMLDivElement>) =>
+		handleMouseWheelControl(name, CONTROL_TYPES.knob.name, e);
 
 	const getKnobStyle = () => {
-		const style = {};
+		const style: CSSProperties = {};
 
 		const valueAsPercent = ((value - min) * 100) / (max - min);
 		const valueAsDeg = valueAsPercent * 3.6;
@@ -41,8 +53,8 @@ const KnobControl = ({
 	};
 
 	const getValueStyles = () => {
-		const styles = {
-			opacity: activeControl === name ? 1 : 0
+		const styles: CSSProperties = {
+			opacity: activeControl === name ? 1 : 0,
 		};
 
 		return styles;
@@ -50,16 +62,16 @@ const KnobControl = ({
 
 	return (
 		<div className={'knob-control-container control-container ' + (size || '')}>
-			<div className="control-label">{label || name}</div>
-			<div className="knob-container">
+			<div className='control-label'>{label || name}</div>
+			<div className='knob-container'>
 				<div
-					className="knob"
+					className='knob'
 					style={getKnobStyle()}
 					onMouseDown={handleMouseDown}
 					onMouseUp={handleMouseUp}
 					onWheel={handleMouseWheel}
 				/>
-				<div className="knob-control-value" style={getValueStyles()}>
+				<div className='knob-control-value' style={getValueStyles()}>
 					{value}
 				</div>
 			</div>

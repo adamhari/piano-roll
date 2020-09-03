@@ -24,19 +24,11 @@ const MidiInputDropdown = ({handleMidiKeyDown, handleMidiKeyUp}: Props) => {
 	const getNoteFromEvent = (e: InputEventNoteon | InputEventNoteoff) =>
 		`${e.note.name}${e.note.octave}`.replace('#', '♯');
 
-	const handleNoteon = (e: InputEventNoteon) => {
-		handleMidiKeyDown(getNoteFromEvent(e));
-	};
-
-	const handleNoteoff = (e: InputEventNoteoff) => {
-		handleMidiKeyUp(getNoteFromEvent(e));
-	};
-
 	const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
 		activeInput?.current?.removeListener();
 		const selectedInput = inputs.find((x) => x.name === e.target.value);
-		selectedInput?.addListener('noteon', 1, handleNoteon);
-		selectedInput?.addListener('noteoff', 1, handleNoteoff);
+		selectedInput?.addListener('noteon', 1, (e) => handleMidiKeyDown(getNoteFromEvent(e)));
+		selectedInput?.addListener('noteoff', 1, (e) => handleMidiKeyUp(getNoteFromEvent(e)));
 		activeInput.current = selectedInput;
 		setActiveInputName(selectedInput?.name);
 	};

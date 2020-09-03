@@ -72,7 +72,7 @@ body {
     display: flex;
     height: 100%;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 
     #logo-section {
@@ -125,7 +125,6 @@ body {
 ****************************************/
 
 #midi-input-container {
-  margin: 0.5rem 0;
   width: 100%;
   // display: flex;
   // flex: 1;
@@ -136,8 +135,7 @@ body {
 .midi-input-dropdown {
   display: block;
   font-size: 0.5rem;
-  font-family: sans-serif;
-  font-weight: 700;
+  @include label-text;
   color: $color-label;
   line-height: 1.3;
   padding: 0.5rem;

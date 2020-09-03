@@ -324,9 +324,9 @@ class App extends Component {
 		return (
 			<div
 				id='container'
-				onContextMenu={(e) => {
-					e.preventDefault();
-				}}
+				// onContextMenu={(e) => {
+				// 	e.preventDefault();
+				// }}
 			>
 				<Instrument
 					{...this.state}
@@ -338,6 +338,8 @@ class App extends Component {
 					handleMouseDownControl={this.handleMouseDownControl}
 					handleMouseUpControl={this.handleMouseUpControl}
 					handleMouseWheelControl={this.handleMouseWheelControl}
+					handleMidiKeyDown={this.activatePianoKey}
+					handleMidiKeyUp={this.deactivatePianoKey}
 				/>
 			</div>
 		);

@@ -20,3 +20,8 @@ export type PianoKeyMouseEvents = {
 	handleMouseOverPianoKey: (e: MouseEvent) => void;
 	handleMouseLeavePianoKey: (e: MouseEvent) => void;
 };
+
+export type MidiKeyEvents = {
+  handleMidiKeyDown: (key: string) => void;
+  handleMidiKeyUp: (key: string) => void
+}

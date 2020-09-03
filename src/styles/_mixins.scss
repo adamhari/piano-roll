@@ -8,6 +8,12 @@
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#{$from}, endColorstr=#{$to})
 }
 
+@mixin appearance($appearance) {
+  -webkit-appearance: $appearance;
+  -moz-appearance: $appearance;
+  appearance: $appearance;
+}
+
 @mixin animation($animation) {
   -webkit-animation: $animation;
   -moz-animation: $animation;

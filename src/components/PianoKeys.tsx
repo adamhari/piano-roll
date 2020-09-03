@@ -1,5 +1,4 @@
 import React, {ReactNode} from 'react';
-import PianoKey from './PianoKey';
 import {KEYS} from '../js/statics';
 import {PianoKeyMouseEvents} from '../types';
 
@@ -8,21 +7,38 @@ type Props = PianoKeyMouseEvents & {
 	octaves: number;
 };
 
-const PianoKeys = (props: Props) => {
+const PianoKeys = ({
+	activeKeys,
+	octaves,
+	handleMouseDownPianoKey,
+	handleMouseUpPianoKey,
+	handleMouseOverPianoKey,
+	handleMouseLeavePianoKey,
+}: Props) => {
 	const blackKeys: ReactNode[] = [];
 	const whiteKeys: ReactNode[] = [];
 
-	const pianoKeys = KEYS.slice(0, 12 * props.octaves);
-
-	pianoKeys.forEach((key, index) => {
-		const keySet = key.name.includes('♯') ? blackKeys : whiteKeys;
+	KEYS.slice(0, 12 * octaves).forEach((key, index) => {
+		const {name} = key;
+		const active = activeKeys.includes(name);
+		const note = name.substring(0, name.length - 1);
+		const keySet = note.endsWith('♯') ? blackKeys : whiteKeys;
 
 		keySet.push(
-			<PianoKey
-				{...props}
-				name={key.name}
-				note={key.name.substring(0, key.name.length - 1)}
-				active={props.activeKeys.includes(key.name)}
+			<div
+				key={index}
+				title={name}
+				className={[
+					'piano-key',
+					`piano-key-${note}`,
+					note.endsWith('♯') ? 'piano-key-black' : 'piano-key-white',
+					active ? 'piano-key-active' : 'piano-key-inactive',
+				].join(' ')}
+				id={`piano-key-${name}`}
+				onMouseDown={handleMouseDownPianoKey}
+				onMouseUp={handleMouseUpPianoKey}
+				onMouseOver={handleMouseOverPianoKey}
+				onMouseLeave={handleMouseLeavePianoKey}
 			/>
 		);
 	});

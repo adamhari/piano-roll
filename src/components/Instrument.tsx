@@ -7,11 +7,13 @@ import FileInputButtonControl from './controls/button/FileInputButtonControl';
 import InputRecorderButtonControl from './controls/button/InputRecorderButtonControl';
 import Waveform from './Waveform';
 import {MODES} from '../js/statics';
-import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents} from '../types';
+import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents, MidiKeyEvents} from '../types';
+import MidiInputDropdown from './MidiInputDropdown';
 
 type Props = ControlMouseEvents &
 	ButtonMouseEvents &
-	PianoKeyMouseEvents & {
+	PianoKeyMouseEvents &
+	MidiKeyEvents & {
 		activeKeys: string[];
 		activeControl: string;
 		octaves: number;
@@ -140,6 +142,9 @@ const Instrument = ({
 	handleMouseUpPianoKey,
 	handleMouseOverPianoKey,
 	handleMouseLeavePianoKey,
+
+	handleMidiKeyDown,
+	handleMidiKeyUp,
 }: Props) => {
 	const sharedControlProps = {
 		activeControl,
@@ -149,9 +154,26 @@ const Instrument = ({
 		handleMouseWheelControl,
 	};
 
+	const renderLeftControls = () => (
+		<div id='instr-top-left'>
+			<DigitalControl {...sharedControlProps} name='polyphony' label='poly' value={polyphony} />
+			<br />
+			{/* <KnobControl
+        {...sharedControlProps}
+        name="portamento"
+        label="porta"
+        value={portamento}
+        size="medium"
+      />
+      <br /> */}
+			<DigitalControl {...sharedControlProps} name='layout' value={layout} outline={true} />
+		</div>
+	);
+
 	const renderGlobalSection = () => (
 		<div id='global-section'>
 			{renderLogo()}
+			{renderInputDropdown()}
 			{renderGlobalControls()}
 		</div>
 	);
@@ -225,20 +247,8 @@ const Instrument = ({
 		</div>
 	);
 
-	const renderLeftControls = () => (
-		<div id='instr-top-left'>
-			<DigitalControl {...sharedControlProps} name='polyphony' label='poly' value={polyphony} />
-			<br />
-			{/* <KnobControl
-        {...sharedControlProps}
-        name="portamento"
-        label="porta"
-        value={portamento}
-        size="medium"
-      />
-      <br /> */}
-			<DigitalControl {...sharedControlProps} name='layout' value={layout} outline={true} />
-		</div>
+	const renderInputDropdown = () => (
+		<MidiInputDropdown handleMidiKeyDown={handleMidiKeyDown} handleMidiKeyUp={handleMidiKeyUp} />
 	);
 
 	const renderGlobalControls = () => (

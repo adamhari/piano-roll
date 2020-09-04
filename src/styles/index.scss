@@ -177,8 +177,8 @@ body {
   }
 
   &:focus {
-    box-shadow: 0 0 0.0125rem 0.0375rem rgba($color-label, 1);
-    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    // box-shadow: 0 0 0.0125rem 0.0375rem rgba($color-label, 1);
+    // box-shadow: 0 0 0 3px -moz-mac-focusring;
     outline: none;
   }
 

@@ -42,7 +42,8 @@ class App extends Component {
 	registerEventListeners = () => {
 		// console.log("registerEvents");
 
-		window.addEventListener('beforeunload', (e) => this.terminateSoundEngine);
+		window.addEventListener('beforeunload', this.terminateSoundEngine);
+		window.addEventListener('blur', this.handleBlur);
 
 		document.addEventListener('keydown', this.handleKeyDown);
 		document.addEventListener('keyup', this.handleKeyUp);
@@ -91,6 +92,12 @@ class App extends Component {
 	};
 
 	/** GLOBAL EVENT HANDLERS */
+
+	handleBlur = (e) => {
+		// console.log('handleBlur', e);
+
+		this.setState({activeModifierKey: false});
+	};
 
 	handleKeyDown = (e) => {
 		// console.log('handleKeyDown', e);
@@ -210,7 +217,7 @@ class App extends Component {
 	};
 
 	handleMouseDownControl = (activeControl, activeControlType, e) => {
-		// console.log('handleMouseDownControl', activeControl, activeControlType, e);
+		console.log('handleMouseDownControl', activeControl, activeControlType, e);
 
 		if (e.button === 0) {
 			// left click

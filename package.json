@@ -9,7 +9,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.3.0",
-    "tone": "^13.8.25",
+    "tone": "^14.7.39",
     "wavesurfer.js": "git+https://github.com/adamhari/wavesurfer.js.git",
     "webmidi": "^2.5.1"
   },

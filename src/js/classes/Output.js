@@ -1,15 +1,15 @@
 import {
 	BitCrusher,
-	Buffer,
 	Chorus,
+	Destination,
 	Distortion,
 	Filter,
 	Freeverb,
 	FMSynth,
-	Master,
 	PitchShift,
 	PolySynth,
 	Sampler,
+	ToneAudioBuffer,
 	Vibrato,
 } from 'tone';
 import {
@@ -92,7 +92,7 @@ export default class Output {
 
 		CONTROLS_NAMES.forEach((n, i) => (this[`_${n}`] = arguments[i + 2]));
 
-		this.initializeMaster();
+		this.initializeDestination();
 		this.initializeReverb();
 		this.initializePitcher();
 		this.initializeDistortion();
@@ -105,13 +105,13 @@ export default class Output {
 		this.initializeValues();
 	}
 
-	initializeMaster = () => {
-		this.master = Master;
+	initializeDestination = () => {
+		this.destination = Destination;
 	};
 
 	initializeReverb = () => {
 		this.reverb = new Freeverb();
-		this.reverb.connect(this.master);
+		this.reverb.connect(this.destination);
 	};
 
 	initializePitcher = () => {
@@ -158,8 +158,8 @@ export default class Output {
 	};
 
 	initializeOscillators = () => {
-		this.osc1 = new PolySynth(this.polyphony, FMSynth);
-		this.osc2 = new PolySynth(this.polyphony, FMSynth);
+		this.osc1 = new PolySynth(FMSynth);
+		this.osc2 = new PolySynth(FMSynth);
 		this.oscillators = [this.osc1, this.osc2];
 		this.oscillators.forEach((o) => {
 			o.connect(this.filter1);
@@ -248,7 +248,7 @@ export default class Output {
 	}
 	set volume(x) {
 		this._volume = x;
-		this.master.volume.value = this.volume;
+		this.destination.volume.value = this.volume;
 	}
 
 	get polyphony() {
@@ -265,7 +265,7 @@ export default class Output {
 	}
 	set portamento(x) {
 		this._portamento = x;
-		this.oscillators.forEach((o) => o.set('portamento', this.portamento));
+		this.oscillators.forEach((o) => o.set({portamento: this.portamento}));
 	}
 
 	get envelope() {
@@ -348,7 +348,7 @@ export default class Output {
 			sampleLoading: true,
 		});
 
-		const sampleBuffer = new Buffer(
+		const sampleBuffer = new ToneAudioBuffer(
 			this.sample,
 			() => {
 				console.log('buffer loaded');
@@ -433,7 +433,7 @@ export default class Output {
 	}
 	set osc1Detune(x) {
 		this._osc1Detune = x;
-		this.osc1.set('detune', this.osc1Detune);
+		this.osc1.set({detune: this.osc1Detune});
 	}
 
 	get osc2Detune() {
@@ -441,7 +441,7 @@ export default class Output {
 	}
 	set osc2Detune(x) {
 		this._osc2Detune = x;
-		this.osc2.set('detune', this.osc2Detune);
+		this.osc2.set({detune: this.osc2Detune});
 	}
 
 	get osc1Gain() {
@@ -449,14 +449,14 @@ export default class Output {
 	}
 	set osc1Gain(x) {
 		this._osc1Gain = x;
-		this.osc1.set('volume', this.osc1Gain);
+		this.osc1.set({volume: this.osc1Gain});
 	}
 	get osc2Gain() {
 		return getDecibelsFromValue(this._osc2Gain);
 	}
 	set osc2Gain(x) {
 		this._osc2Gain = x;
-		this.osc2.set('volume', this.osc2Gain);
+		this.osc2.set({volume: this.osc2Gain});
 	}
 
 	// MOD OSC
@@ -712,7 +712,7 @@ export default class Output {
 	}
 	set reverbDampening(x) {
 		this._reverbDampening = x;
-		this.reverb.dampening.value = this.reverbDampening;
+		this.reverb.dampening = this.reverbDampening;
 	}
 
 	get reverbWet() {

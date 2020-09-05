@@ -66,8 +66,7 @@ class App extends Component {
 	initializeSoundEngine = () => {
 		// console.log('initializeSoundEngine');
 
-		this.audioContext = new Context();
-		// this.audioContext.latencyHint = 'fastest';
+		this.audioContext = new Context({});
 		this.setOutputFromState();
 	};
 

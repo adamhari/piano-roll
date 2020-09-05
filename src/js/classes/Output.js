@@ -5,6 +5,7 @@ import {
 	Distortion,
 	Filter,
 	Freeverb,
+	FrequencyShifter,
 	FMSynth,
 	PitchShift,
 	PolySynth,
@@ -79,6 +80,8 @@ export default class Output {
 		distOver,
 		distAmount,
 		distWet,
+		freqShifterAmount,
+		freqShifterWet,
 		pitcherPitch,
 		pitcherWindow,
 		pitcherWet,
@@ -95,6 +98,7 @@ export default class Output {
 		this.initializeDestination();
 		this.initializeReverb();
 		this.initializePitcher();
+		this.initializeFreqShifter();
 		this.initializeDistortion();
 		// this.initializeBitcrusher();
 		this.initializeChorus();
@@ -119,9 +123,14 @@ export default class Output {
 		this.pitcher.connect(this.reverb);
 	};
 
+	initializeFreqShifter = () => {
+		this.freqShifter = new FrequencyShifter();
+		this.freqShifter.connect(this.pitcher);
+	};
+
 	initializeDistortion = () => {
 		this.distortion = new Distortion();
-		this.distortion.connect(this.pitcher);
+		this.distortion.connect(this.freqShifter);
 	};
 
 	initializeBitcrusher = () => {
@@ -669,6 +678,23 @@ export default class Output {
 	set distWet(x) {
 		this._distWet = x;
 		this.distortion.wet.value = this.distWet;
+	}
+
+	// FREQ SHIFTER
+	get freqShifterAmount() {
+		return this._freqShifterAmount;
+	}
+	set freqShifterAmount(x) {
+		this._freqShifterAmount = x;
+		this.freqShifter.frequency.value = this.freqShifterAmount;
+	}
+
+	get freqShifterWet() {
+		return this._freqShifterWet / 100;
+	}
+	set freqShifterWet(x) {
+		this._freqShifterWet = x;
+		this.freqShifter.wet.value = this.freqShifterWet;
 	}
 
 	// PITCHER

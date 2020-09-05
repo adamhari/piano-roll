@@ -56,7 +56,7 @@ const MidiInputDropdown = ({handleMidiKeyDown, handleMidiKeyUp}: Props) => {
 	return (
 		<div id='midi-input-container'>
 			{renderIcon()}
-			<select value={activeInputName} onChange={handleChange} className={'midi-input-dropdown'}>
+			<select value={activeInputName} onChange={handleChange} id={'midi-input-dropdown'}>
 				{renderOptions()}
 			</select>
 		</div>

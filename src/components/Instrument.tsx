@@ -65,6 +65,8 @@ type Props = ControlMouseEvents &
 		distOver: number;
 		distAmount: number;
 		distWet: number;
+		freqShifterAmount: number;
+		freqShifterWet: number;
 		pitcherPitch: number;
 		pitcherWindow: number;
 		pitcherWet: number;
@@ -126,6 +128,8 @@ const Instrument = ({
 	distOver,
 	distAmount,
 	distWet,
+	freqShifterAmount,
+	freqShifterWet,
 	pitcherPitch,
 	pitcherWindow,
 	pitcherWet,
@@ -667,6 +671,30 @@ const Instrument = ({
 		</div>
 	);
 
+	const renderFreqShifter = () => (
+		<div id='pitcher' className='control-section'>
+			<div className='control-wrapper vertical'>
+				<div className='controls-container-label'>FREQ SHIFT</div>
+				<div className='controls-container'>
+					<KnobControl
+						{...sharedControlProps}
+						name='freqShifterAmount'
+						label='pitch'
+						value={freqShifterAmount}
+						size='small'
+					/>
+					<KnobControl
+						{...sharedControlProps}
+						name='freqShifterWet'
+						label='wet'
+						value={freqShifterWet}
+						size='small'
+					/>
+				</div>
+			</div>
+		</div>
+	);
+
 	const renderPitcher = () => (
 		<div id='pitcher' className='control-section'>
 			<div className='control-wrapper vertical'>
@@ -754,6 +782,7 @@ const Instrument = ({
 						{renderChorus()}
 						{/* {renderBitcrusher()} */}
 						{renderDistortion()}
+						{renderFreqShifter()}
 						{renderPitcher()}
 						{renderReverb()}
 					</div>

@@ -538,6 +538,21 @@ export const CONTROLS: Controls = {
 			max: 100,
 		},
 	},
+	/* FREQUENCY SHIFTER */
+	freqShifterAmount: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100,
+		},
+	},
+	freqShifterWet: {
+		defaultValue: 0,
+		range: {
+			min: 0,
+			max: 100,
+		},
+	},
 	/* PITCHER */
 	pitcherPitch: {
 		defaultValue: 0,

@@ -293,18 +293,18 @@ const Instrument = ({
 					<ButtonControl
 						{...sharedControlProps}
 						name='mode'
-						label={'SAMPLER'}
-						value={MODES.SAMPLER}
-						active={mode === MODES.SAMPLER}
+						label={'SYNTH'}
+						value={MODES.SYNTH}
+						active={mode === MODES.SYNTH}
 						size='large'
 						light={true}
 					/>
 					<ButtonControl
 						{...sharedControlProps}
 						name='mode'
-						label={'SYNTH'}
-						value={MODES.SYNTH}
-						active={mode === MODES.SYNTH}
+						label={'SAMPLER'}
+						value={MODES.SAMPLER}
+						active={mode === MODES.SAMPLER}
 						size='large'
 						light={true}
 					/>
@@ -674,12 +674,12 @@ const Instrument = ({
 	const renderFreqShifter = () => (
 		<div id='pitcher' className='control-section'>
 			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>FREQ SHIFT</div>
+				<div className='controls-container-label'>FREQ SHIFTER</div>
 				<div className='controls-container'>
 					<KnobControl
 						{...sharedControlProps}
 						name='freqShifterAmount'
-						label='pitch'
+						label='amount'
 						value={freqShifterAmount}
 						size='small'
 					/>

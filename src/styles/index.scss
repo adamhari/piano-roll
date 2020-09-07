@@ -207,6 +207,12 @@ body {
     wave {
       height: 2.5rem !important;
     }
+
+    #waveform-canvas {
+      object-fit: cover;
+      width: 100%;
+      height: auto;
+    }
   }
 }
 

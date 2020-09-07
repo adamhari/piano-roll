@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Context} from 'tone';
 import {
 	CONTROL_TYPES,
 	CONTROLS,
@@ -10,6 +9,7 @@ import {
 	MODIFIER_KEYS,
 } from './js/statics';
 import {getValueFromRange} from './js/utils';
+import {audioContext} from './js/globals';
 import Instrument from './components/Instrument';
 import Output from './js/classes/Output';
 
@@ -65,27 +65,25 @@ class App extends Component {
 
 	initializeSoundEngine = () => {
 		// console.log('initializeSoundEngine');
-
-		this.audioContext = new Context({});
 		this.setOutputFromState();
 	};
 
 	terminateSoundEngine = () => {
-		this.audioContext && this.audioContext.dispose();
+		audioContext && audioContext.dispose();
 	};
 
 	setOutputFromState = () => {
 		// console.log("setOutputFromState");
 
 		const controlsState = CONTROLS_NAMES.map((n) => this.state[n]);
-		this.output = new Output(this, this.audioContext, ...controlsState);
+		this.output = new Output(this, audioContext, ...controlsState);
 	};
 
 	resumeAudioContext = () => {
 		// console.log('resumeAudioContext');
 
 		if (!this.state.audioContextStarted) {
-			this.audioContext.resume();
+			audioContext.resume();
 			this.setState({audioContextStarted: true});
 		}
 	};

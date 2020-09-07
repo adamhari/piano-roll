@@ -3,12 +3,13 @@ import ButtonControl from './ButtonControl';
 import {ButtonMouseEvents, Size} from '../../../types';
 
 type Props = ButtonMouseEvents & {
+	name: string;
 	label?: string;
 	light?: boolean;
 	size: Size;
 };
 
-const InputRecorderControl = ({handleClickControl, label, light, size}: Props) => {
+const InputRecorderControl = ({handleClickControl, label, light, name, size}: Props) => {
 	const [recording, setRecording] = useState(false);
 	const mediaRecorder = useRef<MediaRecorder | null>(null);
 
@@ -24,10 +25,10 @@ const InputRecorderControl = ({handleClickControl, label, light, size}: Props) =
 		} else if (!recording) {
 			mediaRecorder.current?.stop();
 			mediaRecorder.current?.addEventListener('dataavailable', (e: BlobEvent) => {
-				handleClickControl('sample', URL.createObjectURL(e.data));
+				handleClickControl(name, URL.createObjectURL(e.data));
 			});
 		}
-	}, [handleClickControl, recording]);
+	}, [name, handleClickControl, recording]);
 
 	const toggleRecording = () => setRecording(!recording);
 

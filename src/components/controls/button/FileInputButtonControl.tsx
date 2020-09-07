@@ -15,9 +15,8 @@ const FileInputControl = ({handleClickControl, name, label, size, value}: Props)
 
 	const handleClick = (e: FormEvent<HTMLInputElement>) => inputRef.current?.click();
 
-	const handleChange = (e: FormEvent<HTMLInputElement>) => {
+	const handleChange = async (e: FormEvent<HTMLInputElement>) => {
 		if (inputRef?.current) {
-			// const file = inputRef && inputRef.current && inputRef.current.files && inputRef.current.files[0];
 			const file = inputRef?.current?.files?.[0];
 
 			if (file) {

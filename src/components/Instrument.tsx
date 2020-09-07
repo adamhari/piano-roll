@@ -9,6 +9,7 @@ import Waveform from './Waveform';
 import {MODES} from '../js/statics';
 import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents, MidiKeyEvents} from '../types';
 import MidiInputDropdown from './MidiInputDropdown';
+import WaveformNew from './WaveformNew';
 
 type Props = ControlMouseEvents &
 	ButtonMouseEvents &
@@ -331,12 +332,14 @@ const Instrument = ({
 						/>
 						<InputRecorderButtonControl
 							handleClickControl={handleClickControl}
+							name={'sample'}
 							label='record'
 							size='small'
 							light={true}
 						/>
 					</div>
-					<Waveform audio={sample} />
+					{/* <Waveform sampleUrl={sample} /> */}
+					<WaveformNew sampleUrl={sample} />
 					<div className='controls-sub-container'>
 						<KnobControl
 							{...sharedControlProps}

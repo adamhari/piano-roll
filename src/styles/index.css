@@ -320,6 +320,13 @@ body {
   height: 2.5rem !important;
 }
 
+.waveform-container .waveform #waveform-canvas {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
 /***************************************
 *************** LIGHT ******************
 ****************************************/

@@ -2,10 +2,10 @@ import React, {useEffect, useRef} from 'react';
 import WaveSurfer from 'wavesurfer.js';
 
 type Props = {
-	audio: string;
+	sampleUrl: string;
 };
 
-const Waveform = ({audio}: Props) => {
+const Waveform = ({sampleUrl}: Props) => {
 	const wavesurfer = useRef<WaveSurfer | null>();
 
 	useEffect(() => {
@@ -14,7 +14,7 @@ const Waveform = ({audio}: Props) => {
 			container: '#waveform',
 			cursorWidth: 0,
 			hideScrollbar: true,
-			normalize: true,
+			normalize: false,
 			interact: false,
 			waveColor: '#ff2601',
 		});
@@ -25,9 +25,9 @@ const Waveform = ({audio}: Props) => {
 	}, []);
 
 	useEffect(() => {
-		if (audio) wavesurfer.current?.load(audio);
+		if (sampleUrl) wavesurfer.current?.load(sampleUrl);
 		else wavesurfer.current?.empty();
-	}, [audio]);
+	}, [sampleUrl]);
 
 	return (
 		<div className='waveform-container'>

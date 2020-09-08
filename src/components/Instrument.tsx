@@ -319,7 +319,7 @@ const Instrument = ({
 	const renderSampler = () => (
 		<div id='sampler' className='control-section'>
 			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>SAMPLER</div>
+				<div className='controls-container-label'>SAMPLE</div>
 				<div className='controls-container'>
 					<div style={{display: 'flex'}}>
 						{/* <DigitalControl {...props} name='sample' label='select' value={sample} /> */}

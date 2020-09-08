@@ -5,7 +5,7 @@
 @import './_reset';
 
 html {
-  font-size: 2em; //global scale
+  font-size: 4em; //global scale
   -webkit-font-smoothing: antialiased;
 }
 
@@ -524,7 +524,7 @@ body {
       }
 
       &:after {
-        width: 0.2rem;
+        width: 0.1875rem;
         height: 0.667rem;
 
         top: 0.4375rem;
@@ -545,13 +545,13 @@ body {
       &:before {
         width: 2rem;
         height: 2rem;
-        border-width: 0.21875rem;
+        border-width: 0.1875rem;
       }
 
       &:after {
-        width: 0.25rem;
-        height: 0.9375rem;
-        top: 0.6875rem;
+        width: 0.21875rem;
+        height: 0.625rem;
+        top: 0.5rem;
       }
     }
   }

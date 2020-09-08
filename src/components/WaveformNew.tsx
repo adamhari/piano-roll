@@ -30,10 +30,11 @@ const WaveformNew = ({sampleUrl}: Props) => {
 			const ctx = canvas.getContext('2d');
 
 			if (ctx) {
-				ctx.shadowColor = 'rgba(255, 38, 1, 0.5)';
-				ctx.shadowBlur = 8;
 				ctx.strokeStyle = '#ff2601';
-				ctx.fillStyle = '#ff2601';
+				ctx.fillStyle = 'rgba(255, 38, 1, 1)';
+				ctx.shadowColor = 'rgba(255, 38, 1, 0.5)';
+				ctx.shadowBlur = 6;
+				ctx.filter = 'drop-shadow(0 0 0.25rem rgba(255, 38, 1, 0.5))';
 			}
 
 			return ctx;

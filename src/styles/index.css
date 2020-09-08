@@ -94,7 +94,7 @@ body {
 }
 
 html {
-  font-size: 2em;
+  font-size: 4em;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -725,7 +725,7 @@ body {
 }
 
 .knob-control-container.small .knob:after {
-  width: 0.2rem;
+  width: 0.1875rem;
   height: 0.667rem;
   top: 0.4375rem;
 }
@@ -743,13 +743,13 @@ body {
 .knob-control-container.medium .knob:before {
   width: 2rem;
   height: 2rem;
-  border-width: 0.21875rem;
+  border-width: 0.1875rem;
 }
 
 .knob-control-container.medium .knob:after {
-  width: 0.25rem;
-  height: 0.9375rem;
-  top: 0.6875rem;
+  width: 0.21875rem;
+  height: 0.625rem;
+  top: 0.5rem;
 }
 
 .knob-control-container.large .knob-container {

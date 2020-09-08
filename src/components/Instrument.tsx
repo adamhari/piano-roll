@@ -5,11 +5,10 @@ import DigitalControl from './controls/DigitalControl';
 import KnobControl from './controls/KnobControl';
 import FileInputButtonControl from './controls/button/FileInputButtonControl';
 import InputRecorderButtonControl from './controls/button/InputRecorderButtonControl';
-import Waveform from './Waveform';
 import {MODES} from '../js/statics';
 import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents, MidiKeyEvents} from '../types';
 import MidiInputDropdown from './MidiInputDropdown';
-import WaveformNew from './WaveformNew';
+import Waveform from './Waveform';
 
 type Props = ControlMouseEvents &
 	ButtonMouseEvents &
@@ -338,8 +337,7 @@ const Instrument = ({
 							light={true}
 						/>
 					</div>
-					{/* <Waveform sampleUrl={sample} /> */}
-					<WaveformNew sampleUrl={sample} />
+					<Waveform sampleUrl={sample} />
 					<div className='controls-sub-container'>
 						<KnobControl
 							{...sharedControlProps}

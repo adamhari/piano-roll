@@ -83,7 +83,7 @@ const Waveform = ({sampleUrl}: Props) => {
 		drawWaveformOnCanvas();
 	}, [waveformData]);
 
-	console.log('WAVEFORM DATA', waveformData);
+	// console.log('WAVEFORM DATA', waveformData);
 
 	return (
 		<div className='waveform-container'>

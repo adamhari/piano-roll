@@ -1,42 +1,46 @@
 {
-  "name": "react-piano-roll",
-  "version": "0.1.0",
-  "homepage": "http://adamhari.github.io/piano-roll",
-  "private": true,
-  "dependencies": {
-    "@types/jest": "^25.2.1",
-    "@types/node": "^13.11.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "^3.3.0",
-    "tone": "^14.7.39",
-    "waveform-data": "^3.3.4",
-    "webmidi": "^2.5.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "@types/dom-mediacapture-record": "^1.0.7",
-    "@types/react": "^16.9.34",
-    "@types/react-dom": "^16.9.6",
-    "@types/wavesurfer.js": "^3.3.1",
-    "csstype": "^3.0.3",
-    "gh-pages": "^2.2.0",
-    "typescript": "^3.8.3"
-  }
+	"name": "react-piano-roll",
+	"version": "0.1.0",
+	"homepage": "http://adamhari.github.io/piano-roll",
+	"private": true,
+	"dependencies": {
+		"@types/jest": "^25.2.1",
+		"@types/node": "^13.11.1",
+		"react": "^16.12.0",
+		"react-dom": "^16.12.0",
+		"react-scripts": "^3.3.0",
+		"styled-components": "^5.2.0",
+		"tone": "^14.7.39",
+		"waveform-data": "^3.3.4",
+		"webmidi": "^2.5.1"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	],
+	"devDependencies": {
+		"@types/dom-mediacapture-record": "^1.0.7",
+		"@types/react": "^16.9.34",
+		"@types/react-dom": "^16.9.6",
+		"@types/wavesurfer.js": "^3.3.1",
+		"csstype": "^3.0.3",
+		"gh-pages": "^2.2.0",
+		"typescript": "^3.8.3"
+	},
+	"resolutions": {
+		"styled-components": "^S"
+	}
 }

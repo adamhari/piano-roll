@@ -7,7 +7,7 @@ type Props = {
 	sampleUrl?: string;
 };
 
-const WaveformNew = ({sampleUrl}: Props) => {
+const Waveform = ({sampleUrl}: Props) => {
 	const prevSampleUrl = usePrevious(sampleUrl);
 	const [waveformData, setWaveformData] = useState<WaveformData>();
 	const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -26,7 +26,16 @@ const WaveformNew = ({sampleUrl}: Props) => {
 
 	// RESPOND TO WAVEFORM STATE CHANGE BY RE-DRAWING THE CANVAS
 	useEffect(() => {
-		const getPresetContext = (canvas: HTMLCanvasElement): CanvasRenderingContext2D | null => {
+		const clearCanvas = () => (canvasRef.current ? (canvasRef.current.width += 0) : null);
+
+		const scaleY = (amplitude: number, height: number) => {
+			const range = 256;
+			const offset = 128;
+
+			return height - ((amplitude + offset) * height) / range + 0.5;
+		};
+
+		const getContextForWaveform = (canvas: HTMLCanvasElement): CanvasRenderingContext2D | null => {
 			const ctx = canvas.getContext('2d');
 
 			if (ctx) {
@@ -40,40 +49,27 @@ const WaveformNew = ({sampleUrl}: Props) => {
 			return ctx;
 		};
 
-		const clearCanvas = () => (canvasRef.current ? (canvasRef.current.width += 0) : null);
-
-		const stepX = (index: number, width: number) => width / index;
-
-		const scaleY = (amplitude: number, height: number) => {
-			const range = 256;
-			const offset = 128;
-
-			return height - ((amplitude + offset) * height) / range;
-		};
-
 		const drawWaveformOnCanvas = () => {
 			const canvas = canvasRef.current;
 
 			if (canvas && waveformData) {
-				const ctx = getPresetContext(canvas);
+				const ctx = getContextForWaveform(canvas);
 
 				if (ctx) {
 					ctx.beginPath();
-
-					const channel = waveformData.channel(0);
 
 					let lineXPos = 0;
 
 					// Loop forwards, drawing the upper half of the waveform
 					for (let x = 0; x < waveformData.length; x++) {
-						lineXPos += stepX(waveformData.length, canvas.width);
-						ctx.lineTo(lineXPos, scaleY(channel.max_sample(x), canvas.height) + 0.5);
+						ctx.lineTo(lineXPos, scaleY(waveformData.channel(0).max_sample(x), canvas.height));
+						lineXPos += canvas.width / waveformData.length;
 					}
 
 					// Loop backwards, drawing the lower half of the waveform
 					for (let x = waveformData.length - 1; x >= 0; x--) {
-						lineXPos -= stepX(waveformData.length, canvas.width);
-						ctx.lineTo(lineXPos, scaleY(channel.min_sample(x), canvas.height) + 0.5);
+						ctx.lineTo(lineXPos, scaleY(waveformData.channel(0).min_sample(x), canvas.height));
+						lineXPos -= canvas.width / waveformData.length;
 					}
 
 					ctx.closePath();
@@ -92,10 +88,10 @@ const WaveformNew = ({sampleUrl}: Props) => {
 	return (
 		<div className='waveform-container'>
 			<div className='waveform'>
-				<canvas id='waveform-canvas' ref={canvasRef} height='100%' />
+				<canvas id='waveform-canvas' ref={canvasRef} width='250' />
 			</div>
 		</div>
 	);
 };
 
-export default WaveformNew;
+export default Waveform;

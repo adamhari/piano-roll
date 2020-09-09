@@ -197,21 +197,18 @@ body {
   margin: 0 0.5rem;
 
   .waveform {
-    padding: 0.375rem 0rem;
+    padding: 0.125rem 0;
+    display: flex;
     background-color: $color-digital-background;
     border-left: $digital-control-vertical-border;
     border-right: $digital-control-vertical-border;
     border-top: $digital-control-horizontal-border;
     border-bottom: $digital-control-horizontal-border;
 
-    wave {
-      height: 2.5rem !important;
-    }
-
     #waveform-canvas {
       object-fit: cover;
       width: 100%;
-      height: auto;
+      height: 4rem;
     }
   }
 }
@@ -525,7 +522,7 @@ body {
 
       &:after {
         width: 0.1875rem;
-        height: 0.667rem;
+        height: 0.625rem;
 
         top: 0.4375rem;
       }
@@ -549,9 +546,12 @@ body {
       }
 
       &:after {
-        width: 0.21875rem;
-        height: 0.625rem;
         top: 0.5rem;
+        width: 0.25rem;
+        height: 0.5rem;
+
+        border-bottom-left-radius: 37.5% 100%;
+        border-bottom-right-radius: 37.5% 100%;
       }
     }
   }
@@ -575,7 +575,7 @@ body {
       &:after {
         top: 0.65625rem;
         height: 0.15rem;
-        width: 0.3125rem;
+        width: 0.375rem;
 
         border-top-left-radius: 0.05rem;
         border-top-right-radius: 0.05rem;

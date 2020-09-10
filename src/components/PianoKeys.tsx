@@ -127,11 +127,8 @@ const PianoKeys = ({
 			onMouseLeave: handleMouseLeavePianoKey,
 		};
 
-		if (keySet === whiteKeys) {
-			keySet.push(<WhiteKey {...keyProps} />);
-		} else {
-			keySet.push(<BlackKey {...keyProps} />);
-		}
+		const Key = keySet === whiteKeys ? WhiteKey : BlackKey;
+		keySet.push(<Key {...keyProps} />);
 	});
 
 	return (

@@ -1,5 +1,5 @@
 import React, {CSSProperties, MouseEvent} from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
 import {Size, ControlMouseEvents} from '../../types';
 import {ControlLabel, ControlContainer} from '.';
@@ -57,6 +57,9 @@ const KnobContainer = styled.div<KnobContainerProps>`
 
 type KnobProps = {
 	size: Size;
+	value: number;
+	min: number;
+	max: number;
 };
 
 const Knob = styled.div<KnobProps>`
@@ -84,6 +87,12 @@ const Knob = styled.div<KnobProps>`
 			case 'large':
 				return '4rem';
 		}
+	}};
+	transform: ${({value, min, max}) => {
+		const valueAsPercent = ((value - min) * 100) / (max - min);
+		const valueAsDeg = valueAsPercent * 3.6;
+		const valueForRotate = (valueAsDeg + 180) * 0.875 + 45;
+		return css`rotate(${valueForRotate}deg)`;
 	}};
 
 	&:before {
@@ -213,9 +222,11 @@ const Knob = styled.div<KnobProps>`
 	}
 `;
 
-type ValueTooltipProps = {};
+type ValueTooltipProps = {
+	visible: boolean;
+};
 
-const ValueTooltip = styled.div`
+const ValueTooltip = styled.div<ValueTooltipProps>`
 	width: 100%;
 	margin: 0.3125rem auto 0;
 	padding: 0 0 0.0625rem;
@@ -227,6 +238,7 @@ const ValueTooltip = styled.div`
 	font-weight: 800;
 
 	transition: 0.1s all ease-out;
+	opacity: ${({visible}) => (visible ? 1 : 0)};
 `;
 
 type Props = ControlMouseEvents & {
@@ -260,45 +272,20 @@ export default ({
 	const handleMouseWheel = (e: MouseEvent<HTMLDivElement>) =>
 		handleMouseWheelControl(name, CONTROL_TYPES.knob.name, e);
 
-	const getKnobStyle = () => {
-		const style: CSSProperties = {};
-
-		const valueAsPercent = ((value - min) * 100) / (max - min);
-		const valueAsDeg = valueAsPercent * 3.6;
-		const valueForRotate = (valueAsDeg + 180) * 0.875 + 45;
-
-		style.transform = `rotate(${valueForRotate}deg)`;
-
-		return style;
-
-		//min: 0, 0
-		//max: 30, 50
-		//input: 5, 15
-
-		// (5 - 0) * 100 / (30 - 0) = 16.667
-		// (15 - 0) * 100 / (50 - 0) = 30
-	};
-
-	const getValueStyles = () => {
-		const styles: CSSProperties = {
-			opacity: activeControl === name ? 1 : 0,
-		};
-
-		return styles;
-	};
-
 	return (
 		<Container size={size}>
 			<ControlLabel>{label || name}</ControlLabel>
 			<KnobContainer size={size}>
 				<Knob
 					size={size}
-					style={getKnobStyle()}
+					value={value}
+					min={min}
+					max={max}
 					onMouseDown={handleMouseDown}
 					onMouseUp={handleMouseUp}
 					onWheel={handleMouseWheel}
 				/>
-				<ValueTooltip style={getValueStyles()}>{value}</ValueTooltip>
+				<ValueTooltip visible={activeControl === name}>{value}</ValueTooltip>
 			</KnobContainer>
 		</Container>
 	);

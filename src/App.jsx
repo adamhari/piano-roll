@@ -13,7 +13,7 @@ import {getValueFromRange} from './js/utils';
 import {audioContext} from './js/globals';
 import Instrument from './components/Instrument';
 import Output from './js/classes/Output';
-import {GlobalStyle} from './styles';
+import GlobalStyle from './styles/global';
 
 const Container = styled.div`
 	display: flex;

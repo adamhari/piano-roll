@@ -1,7 +1,26 @@
 import React, {useEffect, useRef, useState} from 'react';
+import styled from 'styled-components';
 import WaveformData from 'waveform-data';
 import {getWaveformFromArrayBuffer} from '../js/utils';
 import {usePrevious} from '../js/hooks';
+import {border, color} from '../styles';
+
+const WaveformContainer = styled.div`
+	margin: 0 0.5rem;
+	padding: 0.125rem 0;
+	display: flex;
+	background-color: ${color.digitalBackground};
+	border-left: ${border.digitalDisplayVertical};
+	border-right: ${border.digitalDisplayVertical};
+	border-top: ${border.digitalDisplayHorizontal};
+	border-bottom: ${border.digitalDisplayHorizontal};
+`;
+
+const WaveformCanvas = styled.canvas`
+	object-fit: cover;
+	width: 100%;
+	height: 4rem;
+`;
 
 type Props = {
 	sampleUrl?: string;
@@ -86,11 +105,9 @@ const Waveform = ({sampleUrl}: Props) => {
 	// console.log('WAVEFORM DATA', waveformData);
 
 	return (
-		<div className='waveform-container'>
-			<div className='waveform'>
-				<canvas id='waveform-canvas' ref={canvasRef} width='250' />
-			</div>
-		</div>
+		<WaveformContainer>
+			<WaveformCanvas id='waveform-canvas' ref={canvasRef} width='250' />
+		</WaveformContainer>
 	);
 };
 

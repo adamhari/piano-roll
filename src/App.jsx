@@ -12,6 +12,7 @@ import {getValueFromRange} from './js/utils';
 import {audioContext} from './js/globals';
 import Instrument from './components/Instrument';
 import Output from './js/classes/Output';
+import {GlobalStyle} from './styles';
 
 class App extends Component {
 	/** LIFECYCLE */
@@ -345,6 +346,7 @@ class App extends Component {
 					handleMidiKeyDown={this.activatePianoKey}
 					handleMidiKeyUp={this.deactivatePianoKey}
 				/>
+				<GlobalStyle />
 			</div>
 		);
 	}

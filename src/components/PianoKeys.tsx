@@ -19,7 +19,11 @@ const WhiteKeysContainer = styled.div`
 	display: flex;
 `;
 
-const Key = styled.div`
+type KeyProps = {
+	active: boolean;
+};
+
+const Key = styled.div<KeyProps>`
 	display: inline-block;
 	border: ${border.key};
 	border-top: ${border.instrument};
@@ -29,8 +33,9 @@ const Key = styled.div`
 const WhiteKey = styled(Key)`
 	width: 2.3rem;
 	height: 12rem;
-	background: ${color.keyWhite};
-	box-shadow: ${shadow.keyInsetTop}, ${shadow.keyInsetBottom}, ${shadow.keyWhiteOutset};
+	background: ${({active}) => (active ? color.keyWhiteActive : color.keyWhite)};
+	box-shadow: ${({active}) => (active ? shadow.keyWhiteOutsetActive : shadow.keyInsetTop)},
+		${shadow.keyInsetBottom}, ${shadow.keyWhiteOutset};
 
 	& :first-child {
 		border-left: ${border.instrument};
@@ -45,24 +50,19 @@ const WhiteKey = styled(Key)`
 	}
 `;
 
-const WhiteKeyActive = styled(WhiteKey)`
-	background: ${color.keyWhiteActive};
-	box-shadow: ${shadow.keyWhiteOutsetActive};
-`;
-
 const BlackKey = styled(Key)`
 	margin-top: 0.1rem;
 	width: 1.3rem;
 	height: 7.8rem;
-	background: ${color.keyBlack};
-	border: ${color.keyBorder};
+	background: ${({active}) => (active ? color.keyBlackActive : color.keyBlack)};
+	border-color: ${color.keyBorder};
 	border-top-width: 0.075rem;
 	border-left-width: 0.15rem;
 	border-right-width: 0.15rem;
 	border-bottom-width: 0.15rem;
 	border-bottom-left-radius: 0.2rem 0.3rem;
 	border-bottom-right-radius: 0.2rem 0.3rem;
-	box-shadow: ${shadow.keyBlackOutset};
+	box-shadow: ${({active}) => (active ? shadow.keyBlackOutsetActive : shadow.keyBlackOutset)};
 	position: absolute;
 
 	${Array(10)
@@ -95,11 +95,6 @@ const BlackKey = styled(Key)`
 		.join(' ')}
 `;
 
-const BlackKeyActive = styled(BlackKey)`
-	background: ${color.keyBlackActive};
-	box-shadow: ${shadow.keyBlackOutsetActive};
-`;
-
 type Props = PianoKeyMouseEvents & {
 	activeKeys: string[];
 	octaves: number;
@@ -125,18 +120,17 @@ const PianoKeys = ({
 		const keyProps = {
 			key: index,
 			title: name,
+			active: active,
 			onMouseDown: handleMouseDownPianoKey,
 			onMouseUp: handleMouseUpPianoKey,
-			onMouseMover: handleMouseOverPianoKey,
+			onMouseOver: handleMouseOverPianoKey,
 			onMouseLeave: handleMouseLeavePianoKey,
 		};
 
 		if (keySet === whiteKeys) {
-			if (active) keySet.push(<WhiteKeyActive {...keyProps} />);
-			else keySet.push(<WhiteKey {...keyProps} />);
+			keySet.push(<WhiteKey {...keyProps} />);
 		} else {
-			if (active) keySet.push(<BlackKeyActive {...keyProps} />);
-			else keySet.push(<BlackKey {...keyProps} />);
+			keySet.push(<BlackKey {...keyProps} />);
 		}
 	});
 

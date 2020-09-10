@@ -1,17 +1,50 @@
-import React, {MouseEvent} from 'react';
+import React, {MouseEvent, ReactNode} from 'react';
+import styled from 'styled-components';
 import ButtonLight from './ButtonLight';
 import {ButtonMouseEvents, Size} from '../../../types';
+import {ControlContainer, ControlLabel} from '..';
+import {color, border, shadow} from '../../../styles';
 
-type Props = ButtonMouseEvents & {
+const ButtonContainer = styled.div`
+	display: flex;
+	justify-content: center;
+`;
+
+type ButtonProps = {
 	active?: boolean;
-	children?: React.ReactNode;
-	label?: string;
-	light?: boolean;
-	name: string;
-	onClick?: (e: any) => void;
 	size: Size;
-	value: number | string;
+	onClick?: (e: any) => void;
 };
+
+const Button = styled.div<ButtonProps>`
+	width: ${({size}) => (size === 'large' ? '4.5rem' : '3rem')};
+	height: 3rem;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: ${({active}) => (active ? color.buttonBackgroundActive : color.buttonBackground)};
+	border: ${border.button};
+	border-radius: 0.25rem;
+	box-shadow: ${shadow.buttonOutset};
+	transition: 0.15s all ease-out;
+	cursor: pointer;
+
+	&:active {
+		background: ${color.buttonBackgroundActive};
+		transform: scale(0.984375);
+	}
+`;
+
+type Props = ButtonProps &
+	ButtonMouseEvents & {
+		children?: React.ReactNode;
+		label?: string;
+		light?: boolean;
+		name: string;
+		renderButtonLight?: () => ReactNode;
+		value: number | string;
+	};
 
 const ButtonControl = ({
 	active,
@@ -21,30 +54,24 @@ const ButtonControl = ({
 	light,
 	name,
 	onClick,
+	renderButtonLight,
 	size,
 	value,
 }: Props) => {
 	const handleClick = (e: MouseEvent) => handleClickControl(name, value);
 
-	const getClasses = () => {
-		let classes = ['button'];
-		active && classes.push('active');
-		size && classes.push(size);
-		return classes.join(' ');
-	};
-
-	const renderButtonLight = () => light && <ButtonLight active={active || false} size={size} />;
+	const renderLight = () => light && <ButtonLight active={active || false} size={size} />;
 
 	return (
-		<div className={'button-control-container control-container'}>
-			<div className='control-label'>{label || value}</div>
-			<div className={'button-container'}>
-				<div onClick={onClick || handleClick} className={getClasses()}>
-					{renderButtonLight()}
+		<ControlContainer>
+			<ControlLabel>{label || value}</ControlLabel>
+			<ButtonContainer>
+				<Button active={active} size={size} onClick={onClick || handleClick}>
+					{renderButtonLight ? renderButtonLight() : renderLight()}
 					{children}
-				</div>
-			</div>
-		</div>
+				</Button>
+			</ButtonContainer>
+		</ControlContainer>
 	);
 };
 

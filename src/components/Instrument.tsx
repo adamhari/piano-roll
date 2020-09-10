@@ -1,4 +1,5 @@
 import React from 'react';
+import styled, {css} from 'styled-components';
 import PianoKeys from './PianoKeys';
 import ButtonControl from './controls/button/ButtonControl';
 import DigitalControl from './controls/DigitalControl';
@@ -9,6 +10,167 @@ import {MODES} from '../js/statics';
 import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents, MidiKeyEvents} from '../types';
 import MidiInputDropdown from './MidiInputDropdown';
 import Waveform from './Waveform';
+import {color, border} from '../styles';
+import {labelText, controlOutline} from './controls';
+
+const Instrument = styled.div`
+	user-select: none;
+	display: flex;
+	background-color: ${color.instrumentPlastic};
+	padding: 0rem 3rem 0.25rem 0rem;
+
+	border: ${border.instrument};
+	border-top-left-radius: 2.4rem 1.8rem;
+	border-top-right-radius: 2.4rem 1.8rem;
+	border-bottom-left-radius: 0.8rem 0.8rem;
+	border-bottom-right-radius: 0.8rem 0.8rem;
+`;
+
+const InstrumentRight = styled.div``;
+
+const InstrumentLeft = styled.div`
+	display: flex;
+	align-items: flex-end;
+`;
+
+const InstrumentBottomLeft = styled.div`
+	padding: 4.4375rem 3rem;
+`;
+
+const InstrumentRightTop = styled.div`
+	display: flex;
+	height: 19rem;
+	padding: 1rem 0;
+`;
+
+const InstrumentRightTopLeft = styled.div``;
+
+const InstrumentRightTopRight = styled.div`
+	display: flex;
+	flex: 1;
+	align-items: center;
+`;
+
+const InstrumentRightBottom = styled.div``;
+
+const GlobalSection = styled.div`
+	display: flex;
+	height: 100%;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 0.5rem;
+`;
+
+const LogoSection = styled.div`
+	cursor: default;
+	position: relative;
+	color: ${color.label};
+	width: 13rem;
+	height: 4.375rem;
+`;
+
+const Logo = styled.svg`
+	width: 12rem;
+`;
+
+const LogoSubtext = styled.div`
+	position: absolute;
+	left: -0.0625rem;
+	line-height: 1.25;
+	text-transform: uppercase;
+	font-style: italic;
+	font-weight: 400;
+	letter-spacing: 0.125rem;
+`;
+
+const LogoSubtextBold = styled.span`
+	display: inline-block;
+	font-weight: 800;
+	font-size: 1.0625rem;
+	letter-spacing: -0.053125rem;
+	padding-right: 0.0625rem;
+`;
+
+const GlobalControls = styled.div`
+	display: flex;
+`;
+
+const EnvelopeControls = styled.div`
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-template-rows: auto auto;
+	height: 9rem;
+	margin: 0 1rem;
+`;
+
+const ControlSection = styled.div`
+	height: 100%;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+
+	margin-left: 1rem;
+`;
+
+const ControlWrapper = styled.div`
+	display: flex;
+	flex-flow: column nowrap;
+
+	&:not(:last-child) {
+		margin-bottom: 1rem;
+	}
+`;
+
+const ControlWrapperVertical = styled(ControlWrapper)`
+	height: 100%;
+`;
+
+const ControlWrapperHorizontal = styled(ControlWrapper)`
+	height: 50%;
+`;
+
+const ControlsContainer = styled.div`
+	${controlOutline};
+	height: 100%;
+	display: flex;
+	padding: 0.75rem 1rem;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+`;
+
+const ControlsContainerVertical = styled(ControlsContainer)`
+	flex-flow: column nowrap;
+`;
+
+const ControlsContainerHorizontal = styled(ControlsContainer)`
+	flex-flow: row nowrap;
+`;
+
+const ControlsContainerGrid = styled.div`
+	height: 100%;
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-template-rows: auto auto;
+`;
+
+const ControlsSubContainer = styled.div`
+	display: flex;
+	justify-content: center;
+`;
+
+const controlOutlineLabel = css`
+	${labelText};
+	color: ${color.instrumentPlastic};
+	background-color: ${color.label};
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+`;
+
+const ControlsContainerLabel = styled.div`
+	${controlOutlineLabel};
+	text-align: center;
+`;
 
 type Props = ControlMouseEvents &
 	ButtonMouseEvents &
@@ -75,7 +237,7 @@ type Props = ControlMouseEvents &
 		reverbWet: number;
 	};
 
-const Instrument = ({
+export default ({
 	octaves,
 	activeKeys,
 	activeControl,
@@ -159,7 +321,7 @@ const Instrument = ({
 	};
 
 	const renderLeftControls = () => (
-		<div id='instr-top-left'>
+		<InstrumentBottomLeft>
 			<DigitalControl {...sharedControlProps} name='polyphony' label='poly' value={polyphony} />
 			<br />
 			{/* <KnobControl
@@ -171,20 +333,20 @@ const Instrument = ({
       />
       <br /> */}
 			<DigitalControl {...sharedControlProps} name='layout' value={layout} outline={true} />
-		</div>
+		</InstrumentBottomLeft>
 	);
 
 	const renderGlobalSection = () => (
-		<div id='global-section'>
+		<GlobalSection>
 			{renderLogo()}
 			{renderInputDropdown()}
 			{renderGlobalControls()}
-		</div>
+		</GlobalSection>
 	);
 
 	const renderLogo = () => (
-		<div id='logo-section'>
-			<svg id='logo' viewBox='304.103 332.216 470.661 104.256'>
+		<LogoSection>
+			<Logo viewBox='304.103 332.216 470.661 104.256'>
 				<g>
 					<path
 						d='M 654.248 361.208 L 652.04 368.792 L 623.528 431 L 608.264 431 L 635.24 373.784 L 617.768 373.784 L 621.512 361.208 L 654.248 361.208 Z '
@@ -239,16 +401,16 @@ const Instrument = ({
 						fill='rgb(171,171,171)'
 					/>
 				</g>
-			</svg>
-			<div id='logo-subtext'>
-				<span id='logo-subtext-bold'>
+			</Logo>
+			<LogoSubtext>
+				<LogoSubtextBold>
 					<span>Re</span>
 					<span style={{letterSpacing: '-0.15625rem'}}>a</span>
 					<span>ct</span>
-				</span>
+				</LogoSubtextBold>
 				<span style={{marginLeft: '0.5rem'}}>Instrument</span>
-			</div>
-		</div>
+			</LogoSubtext>
+		</LogoSection>
 	);
 
 	const renderInputDropdown = () => (
@@ -256,10 +418,10 @@ const Instrument = ({
 	);
 
 	const renderGlobalControls = () => (
-		<div id='global-controls'>
+		<GlobalControls>
 			{renderVolumeControl()}
 			{renderEnvelopeControls()}
-		</div>
+		</GlobalControls>
 	);
 
 	const renderVolumeControl = () => (
@@ -269,7 +431,7 @@ const Instrument = ({
 	);
 
 	const renderEnvelopeControls = () => (
-		<div id='envelope-controls'>
+		<EnvelopeControls>
 			<div>
 				<KnobControl {...sharedControlProps} name='attack' value={attack} size='small' />
 			</div>
@@ -282,14 +444,14 @@ const Instrument = ({
 			<div>
 				<KnobControl {...sharedControlProps} name='release' value={release} size='small' />
 			</div>
-		</div>
+		</EnvelopeControls>
 	);
 
 	const renderModeSelector = () => (
-		<div id='mode-selector' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>MODE</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>MODE</ControlsContainerLabel>
+				<ControlsContainer>
 					<ButtonControl
 						{...sharedControlProps}
 						name='mode'
@@ -308,19 +470,19 @@ const Instrument = ({
 						size='large'
 						light={true}
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderAudioSource = () => (mode === MODES.SAMPLER ? renderSampler() : renderSynth());
 
 	const renderSampler = () => (
-		<div id='sampler' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>SAMPLE</div>
-				<div className='controls-container'>
-					<div style={{display: 'flex'}}>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>SAMPLE</ControlsContainerLabel>
+				<ControlsContainer>
+					<ControlsSubContainer>
 						{/* <DigitalControl {...props} name='sample' label='select' value={sample} /> */}
 						<FileInputButtonControl
 							handleClickControl={handleClickControl}
@@ -336,9 +498,9 @@ const Instrument = ({
 							size='small'
 							light={true}
 						/>
-					</div>
+					</ControlsSubContainer>
 					<Waveform sampleUrl={sample} />
-					<div className='controls-sub-container'>
+					<ControlsSubContainer>
 						<KnobControl
 							{...sharedControlProps}
 							name='samplePitch'
@@ -346,10 +508,10 @@ const Instrument = ({
 							value={samplePitch}
 							size='small'
 						/>
-					</div>
-				</div>
-			</div>
-		</div>
+					</ControlsSubContainer>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderSynth = () => (
@@ -360,10 +522,10 @@ const Instrument = ({
 	);
 
 	const renderOscillators = () => (
-		<div id='oscillators' className='control-section'>
-			<div className='control-wrapper horizontal'>
-				<div className='controls-container-label'>OSC 1</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperHorizontal>
+				<ControlsContainerLabel>OSC 1</ControlsContainerLabel>
+				<ControlsContainerHorizontal>
 					<DigitalControl
 						{...sharedControlProps}
 						name='osc1Shape'
@@ -396,11 +558,11 @@ const Instrument = ({
 						value={osc1Gain}
 						size='medium'
 					/>
-				</div>
-			</div>
-			<div className='control-wrapper horizontal'>
-				<div className='controls-container-label'>OSC 2</div>
-				<div className='controls-container'>
+				</ControlsContainerHorizontal>
+			</ControlWrapperHorizontal>
+			<ControlWrapperHorizontal>
+				<ControlsContainerLabel>OSC 2</ControlsContainerLabel>
+				<ControlsContainerHorizontal>
 					<DigitalControl
 						{...sharedControlProps}
 						name='osc2Shape'
@@ -433,16 +595,16 @@ const Instrument = ({
 						value={osc2Gain}
 						size='medium'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainerHorizontal>
+			</ControlWrapperHorizontal>
+		</ControlSection>
 	);
 
 	const renderModOscillator = () => (
-		<div id='mod-oscillator' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>MOD OSC</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>MOD OSC</ControlsContainerLabel>
+				<ControlsContainer>
 					<DigitalControl
 						{...sharedControlProps}
 						name='modOscShape'
@@ -463,16 +625,16 @@ const Instrument = ({
 						value={modOscGain}
 						size='small'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderFilters = () => (
-		<div id='filters' className='control-section'>
-			<div className='control-wrapper horizontal'>
-				<div className='controls-container-label'>FILTER 1</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperHorizontal>
+				<ControlsContainerLabel>FILTER 1</ControlsContainerLabel>
+				<ControlsContainerHorizontal>
 					<DigitalControl
 						{...sharedControlProps}
 						name='filter1Type'
@@ -499,11 +661,11 @@ const Instrument = ({
 						value={filter1Q}
 						size='medium'
 					/>
-				</div>
-			</div>
-			<div className='control-wrapper horizontal'>
-				<div className='controls-container-label'>FILTER 2</div>
-				<div className='controls-container'>
+				</ControlsContainerHorizontal>
+			</ControlWrapperHorizontal>
+			<ControlWrapperHorizontal>
+				<ControlsContainerLabel>FILTER 2</ControlsContainerLabel>
+				<ControlsContainerHorizontal>
 					<DigitalControl
 						{...sharedControlProps}
 						name='filter2Type'
@@ -530,16 +692,16 @@ const Instrument = ({
 						value={filter2Q}
 						size='medium'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainerHorizontal>
+			</ControlWrapperHorizontal>
+		</ControlSection>
 	);
 
 	const renderVibrato = () => (
-		<div id='vibrato' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>VIBRATO</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>VIBRATO</ControlsContainerLabel>
+				<ControlsContainer>
 					<KnobControl
 						{...sharedControlProps}
 						name='vibratoDepth'
@@ -561,17 +723,17 @@ const Instrument = ({
 						value={vibratoWet}
 						size='small'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderChorus = () => (
-		<div id='chorus' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>CHORUS</div>
-				<div className='controls-container'>
-					<div className='controls-sub-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>CHORUS</ControlsContainerLabel>
+				<ControlsContainer>
+					<ControlsSubContainer>
 						<KnobControl
 							{...sharedControlProps}
 							name='chorusSpread'
@@ -586,8 +748,8 @@ const Instrument = ({
 							value={chorusDepth}
 							size='small'
 						/>
-					</div>
-					<div className='controls-sub-container'>
+					</ControlsSubContainer>
+					<ControlsSubContainer>
 						<KnobControl
 							{...sharedControlProps}
 							name='chorusDelay'
@@ -602,8 +764,8 @@ const Instrument = ({
 							value={chorusFreq}
 							size='small'
 						/>
-					</div>
-					<div className='controls-sub-container'>
+					</ControlsSubContainer>
+					<ControlsSubContainer>
 						{/* <KnobControl
 							{...sharedControlProps}
 							name='chorusType'
@@ -618,17 +780,17 @@ const Instrument = ({
 							value={chorusWet}
 							size='small'
 						/>
-					</div>
-				</div>
-			</div>
-		</div>
+					</ControlsSubContainer>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderBitcrusher = () => (
-		<div id='distortion' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>BITCRUSHER</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>BITCRUSHER</ControlsContainerLabel>
+				<ControlsContainer>
 					<DigitalControl
 						{...sharedControlProps}
 						name='crusherBits'
@@ -642,16 +804,16 @@ const Instrument = ({
 						value={crusherWet}
 						size='small'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderDistortion = () => (
-		<div id='distortion' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>DISTORTION</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>DISTORTION</ControlsContainerLabel>
+				<ControlsContainer>
 					{/* <DigitalControl {...sharedControlProps} name='distOver' label='over' value={distOver} /> */}
 					<KnobControl
 						{...sharedControlProps}
@@ -667,16 +829,16 @@ const Instrument = ({
 						value={distWet}
 						size='small'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderFreqShifter = () => (
-		<div id='pitcher' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>FREQ SHIFTER</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>FREQ SHIFTER</ControlsContainerLabel>
+				<ControlsContainer>
 					<KnobControl
 						{...sharedControlProps}
 						name='freqShifterAmount'
@@ -691,16 +853,16 @@ const Instrument = ({
 						value={freqShifterWet}
 						size='small'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderPitcher = () => (
-		<div id='pitcher' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>PITCHER</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>PITCHER</ControlsContainerLabel>
+				<ControlsContainer>
 					<KnobControl
 						{...sharedControlProps}
 						name='pitcherPitch'
@@ -722,16 +884,16 @@ const Instrument = ({
 						value={pitcherWet}
 						size='small'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderReverb = () => (
-		<div id='reverb' className='control-section'>
-			<div className='control-wrapper vertical'>
-				<div className='controls-container-label'>REVERB</div>
-				<div className='controls-container'>
+		<ControlSection>
+			<ControlWrapperVertical>
+				<ControlsContainerLabel>REVERB</ControlsContainerLabel>
+				<ControlsContainer>
 					<KnobControl
 						{...sharedControlProps}
 						name='reverbSize'
@@ -753,9 +915,9 @@ const Instrument = ({
 						value={reverbWet}
 						size='small'
 					/>
-				</div>
-			</div>
-		</div>
+				</ControlsContainer>
+			</ControlWrapperVertical>
+		</ControlSection>
 	);
 
 	const renderPianoKeys = () => (
@@ -770,12 +932,12 @@ const Instrument = ({
 	);
 
 	return (
-		<div id='instr'>
-			<div id='instr-left'>{renderLeftControls()}</div>
-			<div id='instr-right'>
-				<div id='instr-right-top'>
-					<div id='instr-right-top-left'>{renderGlobalSection()}</div>
-					<div id='instr-right-top-right'>
+		<Instrument>
+			<InstrumentLeft>{renderLeftControls()}</InstrumentLeft>
+			<InstrumentRight>
+				<InstrumentRightTop>
+					<InstrumentRightTopLeft>{renderGlobalSection()}</InstrumentRightTopLeft>
+					<InstrumentRightTopRight>
 						{renderModeSelector()}
 						{renderAudioSource()}
 						{renderFilters()}
@@ -786,12 +948,10 @@ const Instrument = ({
 						{renderFreqShifter()}
 						{renderPitcher()}
 						{renderReverb()}
-					</div>
-				</div>
-				<div id='instr-right-bottom'>{renderPianoKeys()}</div>
-			</div>
-		</div>
+					</InstrumentRightTopRight>
+				</InstrumentRightTop>
+				<InstrumentRightBottom>{renderPianoKeys()}</InstrumentRightBottom>
+			</InstrumentRight>
+		</Instrument>
 	);
 };
-
-export default Instrument;

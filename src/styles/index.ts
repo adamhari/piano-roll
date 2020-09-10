@@ -1,4 +1,13 @@
-import {createGlobalStyle} from 'styled-components';
+import {createGlobalStyle, css, keyframes} from 'styled-components';
+import {getRgbFromHexString} from '../js/utils';
+import DS_Digital from '../assets/fonts/ds-digital/DS-DIGIT.ttf';
+import Russo_One from '../assets/fonts/russo-one/Russo_One.ttf';
+import Segoe_UI_Black from '../assets/fonts/segoe-ui/segoe-ui-black.ttf';
+import Segoe_UI_Bold from '../assets/fonts/segoe-ui/segoe-ui-bold.ttf';
+import Segoe_UI_Light from '../assets/fonts/segoe-ui/segoe-ui-light.ttf';
+import Segoe_UI_Normal from '../assets/fonts/segoe-ui/segoe-ui-normal.ttf';
+import Segoe_UI_Semibold from '../assets/fonts/segoe-ui/segoe-ui-semibold.ttf';
+import Segoe_UI_Semilight from '../assets/fonts/segoe-ui/segoe-ui-semilight.ttf';
 
 const palette = {
 	gray100: '#0b0b0b',
@@ -20,6 +29,7 @@ const palette = {
 	black: '#000000',
 
 	primary: '#ff2601',
+	secondary: '#629183',
 };
 
 export const color = {
@@ -40,6 +50,7 @@ export const color = {
 	digitalHorizontalBorder: palette.gray550,
 	digitalBackground: palette.gray100,
 	digitalText: palette.primary,
+	digitalTextBackground: palette.secondary,
 	knobRubber: palette.gray400,
 	knobMetal: palette.gray750,
 	knobDial: palette.gray650,
@@ -68,8 +79,8 @@ export const shadow = {
 
 	buttonOutset: `0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3)`,
 	buttonLightInset: `inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3)`,
-	buttonLightOutset: `0 0 1rem 0.125rem rgba(${color.buttonLightActive}, 0.6),
-    0 0 0.25rem 0.0625rem rgba(${color.buttonLightActive}, 0.6)`,
+	buttonLightOutset: `0 0 1rem 0.125rem rgba(${getRgbFromHexString(color.buttonLightActive)}, 0.6),
+    0 0 0.25rem 0.0625rem rgba(${getRgbFromHexString(color.buttonLightActive)}, 0.6)`,
 
 	knobInset: `inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15)`,
 	knobOutset: `0 0.0625rem 0.0625rem 0rem rgba(0, 0, 0, 0.3)`,
@@ -78,63 +89,94 @@ export const shadow = {
 export const font = {
 	digital: 'DS Digital',
 	label: 'Russo One',
+	title: 'Heroic Avenger',
+	subtitle: 'Segoe UI',
 };
 
+export const pseudoElement = css`
+	display: block;
+	position: absolute;
+	content: '';
+`;
+
+export const blinkingLight = keyframes`
+  from {
+    background-color: ${color.buttonLightInactive};
+  }
+
+  to {
+    background-color: ${color.buttonLightActive};
+    box-shadow: ${shadow.buttonLightOutset};
+  }
+`;
+
+// defining font faces in createGlobalStyle is troublesome, see: https://github.com/styled-components/styled-components/issues/1593
 export const GlobalStyle = createGlobalStyle`
-  @font-face {
+  html {
+    font-size: 2em; /* global scale */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  #root {
+    min-height: 98vh;
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+
+  /* @font-face {
     font-family: 'DS Digital';
-    src: url('../assets/fonts/ds-digital/DS-DIGIT.TTF');
+    src: url(${DS_Digital})
   }
 
   @font-face {
     font-family: 'Russo One';
-    src: url('../assets/fonts/russo-one/Russo_One.ttf');
-  }
-
-  @font-face {
-    font-family: 'Heroic Avenger';
-    src: url('../assets/fonts/heroic-avenger/AVENGEANCE\ HEROIC\ AVENGER.ttf');
+    src: url(${Russo_One});
   }
 
   @font-face {
     font-family: 'Segoe UI';
-    src: url('../assets/fonts/segoe-ui/segoe-ui-light.ttf');
+    src: url(${Segoe_UI_Light});
     font-weight: 100;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Segoe UI';
-    src: url('../assets/fonts/segoe-ui/segoe-ui-semilight.ttf');
+    src: url(${Segoe_UI_Semilight});
     font-weight: 300;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Segoe UI';
-    src: url('../assets/fonts/segoe-ui/segoe-ui-normal.ttf');
+    src: url(${Segoe_UI_Normal});
     font-weight: 400;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Segoe UI';
-    src: url('../assets/fonts/segoe-ui/segoe-ui-semibold.ttf');
+    src: url(${Segoe_UI_Semibold});
     font-weight: 600;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Segoe UI';
-    src: url('../assets/fonts/segoe-ui/segoe-ui-bold.ttf');
+    src: url(${Segoe_UI_Bold});
     font-weight: 700;
     font-style: normal;
   }
 
   @font-face {
     font-family: 'Segoe UI';
-    src: url('../assets/fonts/segoe-ui/segoe-ui-black.ttf');
+    src: url(${Segoe_UI_Black});
     font-weight: 800;
     font-style: normal;
-  }
+  } */
 `;

@@ -2,6 +2,13 @@ import WaveformData from 'waveform-data';
 import {BASE_FREQ, FREQ_MULTIPLIER} from './statics';
 import {audioContext} from './globals';
 
+export const getRgbFromHexString = (hexString: string): string => {
+	const aRgbHex = hexString.replace('#', '').match(/.{1,2}/g);
+	return aRgbHex
+		? `${parseInt(aRgbHex[0], 16)}, ${parseInt(aRgbHex[1], 16)}, ${parseInt(aRgbHex[2], 16)}`
+		: '';
+};
+
 export const getArrayBufferFromFile = (file: any) =>
 	new Promise<ArrayBuffer>((resolve, reject) => {
 		try {

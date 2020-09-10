@@ -1,6 +1,148 @@
 import React, {CSSProperties, MouseEvent, useMemo} from 'react';
+import styled from 'styled-components';
 import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
 import {ControlMouseEvents, DigitType} from '../../types';
+import {ControlContainer, ControlLabel, outlinedControlLabelText} from '.';
+import {controlOutline, labelText} from './';
+import {border, color, font} from '../../styles';
+import {getRgbFromHexString} from '../../js/utils';
+
+type ContainerProps = {
+	outline?: boolean;
+};
+
+const Container = styled.div<ContainerProps>`
+	position: relative;
+	display: flex;
+	align-content: center;
+	flex-flow: column wrap;
+
+	text-align: center;
+	border-radius: 0.1875rem;
+	user-select: none;
+
+	margin-top: ${({outline}) => (outline ? '0.5rem' : 0)};
+`;
+
+type LabelProps = {
+	outline?: boolean;
+};
+
+const Label = styled(ControlLabel)<LabelProps>`
+	${labelText};
+	${({outline}) => outline && outlinedControlLabelText};
+	margin-bottom: ${({outline}) => (outline ? 0 : '0.5rem')};
+`;
+
+type DigitalControlContainerProps = {
+	outline?: boolean;
+};
+
+const DigitalControlContainer = styled(ControlContainer)<DigitalControlContainerProps>`
+	background: ${color.instrumentPlastic};
+	padding: ${({outline}) => (outline ? '0.5rem' : undefined)};
+	margin: ${({outline}) => (outline ? 0 : '0 0.5rem 0.5rem')};
+	${({outline}) => outline && controlOutline}
+`;
+
+type DigitalControlInputProps = {
+	digitType: DigitType;
+	outline?: boolean;
+};
+
+const DigitalControlInput = styled.div<DigitalControlInputProps>`
+	position: relative;
+	font-family: ${font.digital};
+	font-size: 2rem;
+	color: transparent;
+	width: ${({digitType}) => (digitType === 'single-digit' ? '2.75rem' : '3.375rem')};
+	padding: ${({digitType, outline}) =>
+		outline
+			? '0.375rem'
+			: digitType === 'single-digit'
+			? '0.375rem 0rem 0.375rem 0.6875rem'
+			: '0.375rem 0rem 0.375rem 0.25rem'};
+	background-color: ${color.digitalBackground};
+	border-left: ${border.digitalDisplayVertical};
+	border-right: ${border.digitalDisplayVertical};
+	border-top: ${border.digitalDisplayHorizontal};
+	border-bottom: ${border.digitalDisplayHorizontal};
+	margin: 0 auto;
+`;
+
+type DigitalControlInputTextProps = {
+	value: number;
+	digitType: DigitType;
+};
+
+const DigitalControlInputText = styled.div<DigitalControlInputTextProps>`
+	position: absolute;
+	top: -0.1rem;
+	left: -0.53125rem;
+	background: none;
+	border-color: transparent;
+	width: ${({digitType}) => (digitType === 'single-digit' ? '2.75rem' : '3.375rem')};
+	padding: ${({digitType}) =>
+		digitType === 'single-digit'
+			? '0.5rem 0rem 0.375rem 0.6875rem'
+			: '0.5rem 0rem 0.375rem 0.25rem'};
+`;
+
+const DigitalControlInputBackgroundText = styled(DigitalControlInputText)`
+	color: rgba(${getRgbFromHexString(color.digitalText)}, 0.625);
+	opacity: 0.1875;
+	text-shadow: 0.03125rem 0.03125rem 0rem
+		rgba(${getRgbFromHexString(color.digitalTextBackground)}, 0.5);
+`;
+
+const DigitalControlInputForegroundText = styled(DigitalControlInputText)`
+	color: rgba(${getRgbFromHexString(color.digitalText)}, 0.9375);
+	text-shadow: 0 0 0.625rem rgba(${getRgbFromHexString(color.digitalText)}, 0.625),
+		0 0 0.375rem rgba(${getRgbFromHexString(color.digitalText)}, 0.375),
+		0 0 0.125rem rgba(${getRgbFromHexString(color.digitalText)}, 0.25);
+
+	&:hover {
+		cursor: grab;
+	}
+`;
+
+const digitTypes = {
+	'single-digit': {
+		backgroundText: 8,
+		foregroundTextStyle: (val: number) => {
+			const styles: CSSProperties = {};
+			if (val === 1) styles.left = '-0.25rem';
+			return styles;
+		},
+	},
+	'single-digit-negative': {
+		backgroundText: -8,
+		foregroundTextStyle: (val: number) => {
+			const styles: CSSProperties = {};
+			if (val > 1 || val === 0) styles.left = '-0.0625rem';
+			if (val === 1) styles.left = '0.245rem';
+			if (val === -1) {
+				styles.left = '-0.225rem';
+				styles.letterSpacing = '0.5375rem';
+			}
+			return styles;
+		},
+	},
+	'double-digit': {
+		backgroundText: 88,
+		foregroundTextStyle: (val: number) => {
+			const styles: CSSProperties = {};
+			return styles;
+		},
+	},
+	'double-digit-negative': {
+		backgroundText: -88,
+		foregroundTextStyle: (val: number) => {
+			const styles: CSSProperties = {};
+			return styles;
+		},
+	},
+};
 
 type Props = ControlMouseEvents & {
 	name: string;
@@ -22,14 +164,14 @@ const DigitalControl = ({
 		range: {min, max},
 	} = CONTROLS[name];
 
-	const getDigits = (min: number, max: number): DigitType => {
+	const getDigitType = (min: number, max: number): DigitType => {
 		if (min > -1 && max < 10) return 'single-digit';
 		if (min <= -1 && max < 10) return 'single-digit-negative';
 		if (min > -1 && max >= 10) return 'double-digit';
 		return 'double-digit-negative';
 	};
 
-	const digits = useMemo(() => getDigits(min, max), [min, max]);
+	const digitType = useMemo(() => getDigitType(min, max), [min, max]);
 
 	const handleMouseDown = (e: MouseEvent<HTMLDivElement>) =>
 		handleMouseDownControl(name, CONTROL_TYPES.digital.name, e);
@@ -40,69 +182,27 @@ const DigitalControl = ({
 	const handleMouseWheel = (e: MouseEvent<HTMLDivElement>) =>
 		handleMouseWheelControl(name, CONTROL_TYPES.digital.name, e);
 
-	const digitTypes = {
-		'single-digit': {
-			backgroundValue: 8,
-			style: (val: number) => {
-				const styles: CSSProperties = {};
-				if (val === 1) styles.left = '-0.25rem';
-				return styles;
-			},
-		},
-		'single-digit-negative': {
-			backgroundValue: -8,
-			style: (val: number) => {
-				const styles: CSSProperties = {};
-				if (val > 1 || val === 0) styles.left = '-0.0625rem';
-				if (val === 1) styles.left = '0.245rem';
-				if (val === -1) {
-					styles.left = '-0.225rem';
-					styles.letterSpacing = '0.5375rem';
-				}
-				return styles;
-			},
-		},
-		'double-digit': {
-			backgroundValue: 88,
-			style: (val: number) => {
-				const styles: CSSProperties = {};
-				return styles;
-			},
-		},
-		'double-digit-negative': {
-			backgroundValue: -88,
-			style: (val: number) => {
-				const styles: CSSProperties = {};
-				return styles;
-			},
-		},
-	};
-
 	return (
-		<div className={'digital-control ' + (outline ? 'digital-control-outlined' : '')}>
-			<label id={'' + name + '-label'} className='control-label' htmlFor={'' + name}>
-				{label || name}
-			</label>
-			<div className='digital-control-input-container control-container'>
-				<div id={'' + name} className={'digital-control-input ' + digits}>
-					{8}
-					<div
-						id={'' + name + '-background'}
-						className={'digital-control-input digital-control-input-background ' + digits}
-						children={digitTypes[digits].backgroundValue}
-					/>
-					<div
-						id={'' + name + '-foreground'}
-						className={'digital-control-input digital-control-input-foreground ' + digits}
+		<Container outline={outline}>
+			<Label outline={outline}>{label || name}</Label>
+			<DigitalControlContainer outline={outline}>
+				<DigitalControlInput digitType={digitType} outline={outline}>
+					8
+					<DigitalControlInputBackgroundText digitType={digitType} value={value}>
+						{digitTypes[digitType].backgroundText}
+					</DigitalControlInputBackgroundText>
+					<DigitalControlInputForegroundText
+						value={value}
+						digitType={digitType}
 						children={Number.isInteger(value) ? value : '-'}
-						style={digitTypes[digits].style(value)}
 						onMouseDown={handleMouseDown}
 						onMouseUp={handleMouseUp}
 						onWheel={handleMouseWheel}
+						style={digitTypes[digitType].foregroundTextStyle(value)}
 					/>
-				</div>
-			</div>
-		</div>
+				</DigitalControlInput>
+			</DigitalControlContainer>
+		</Container>
 	);
 };
 

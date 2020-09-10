@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'DS Digital';
-  src: url('../assets/fonts/ds-digital/DS-DIGIT.TTF');
+  src: url('../assets/fonts/ds-digital/DS-DIGIT.ttf')
 }
 
 @font-face {
@@ -53,30 +53,4 @@
   src: url('../assets/fonts/segoe-ui/segoe-ui-black.ttf');
   font-weight: 800;
   font-style: normal;
-}
-
-@mixin label-text {
-  text-transform: uppercase;
-  color: $color-label;
-  font-family: 'Russo One', sans-serif;
-  font-size: 0.5625rem;
-  letter-spacing: 0.015625rem;
-  padding: 0.225rem 0.375rem 0.1875rem;
-}
-
-@mixin control-outline {
-  border: solid $color-label 0.1875rem;
-  border-top: none;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
-
-@mixin control-outline-label {
-  @include label-text;
-  color: $color-plastic;
-  background-color: $color-label;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
 }

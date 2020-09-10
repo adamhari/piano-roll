@@ -1,27 +1,21 @@
 {
-  "compilerOptions": {
-    "outDir": "./compiled_js",
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es5",
-    "jsx": "react",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "types": ["node", "dom-mediacapture-record"]
-  },
-  "include": [
-    "./src/**/*"
-  ]
+	"compilerOptions": {
+		"outDir": "./compiled_js",
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "es5",
+		"jsx": "react",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"types": ["node", "dom-mediacapture-record"]
+	},
+	"include": ["./src/**/*"]
 }

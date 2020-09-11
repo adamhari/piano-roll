@@ -10,8 +10,7 @@ import {MODES} from '../js/statics';
 import {ControlMouseEvents, ButtonMouseEvents, PianoKeyMouseEvents, MidiKeyEvents} from '../types';
 import MidiInputDropdown from './MidiInputDropdown';
 import Waveform from './Waveform';
-import {color, border} from '../styles';
-import {labelText, controlOutline} from './controls';
+import {color, border, labelText, controlOutline} from '../styles';
 
 const Instrument = styled.div`
 	user-select: none;

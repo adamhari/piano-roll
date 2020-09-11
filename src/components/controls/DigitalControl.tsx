@@ -2,10 +2,16 @@ import React, {CSSProperties, MouseEvent, useMemo} from 'react';
 import styled from 'styled-components';
 import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
 import {ControlMouseEvents, DigitType} from '../../types';
-import {ControlContainer, ControlLabel, outlinedControlLabelText} from '.';
-import {controlOutline, labelText} from './';
-import {border, color, font} from '../../styles';
-import {getRgbFromHexString} from '../../js/utils';
+import {ControlContainer, ControlLabel} from '.';
+import {
+	border,
+	color,
+	font,
+	labelText,
+	controlOutline,
+	outlinedControlLabelText,
+} from '../../styles';
+import {rgba} from 'polished';
 
 type ContainerProps = {
 	outline?: boolean;
@@ -21,7 +27,7 @@ const Container = styled.div<ContainerProps>`
 	border-radius: 0.1875rem;
 	user-select: none;
 
-	margin-top: ${({outline}) => (outline ? '0.5rem' : 0)};
+	margin-top: ${({outline}) => outline && '0.5rem'};
 `;
 
 type LabelProps = {
@@ -89,17 +95,15 @@ const DigitalControlInputText = styled.div<DigitalControlInputTextProps>`
 `;
 
 const DigitalControlInputBackgroundText = styled(DigitalControlInputText)`
-	color: rgba(${getRgbFromHexString(color.digitalText)}, 0.625);
+	color: ${rgba(color.digitalText, 0.625)};
 	opacity: 0.1875;
-	text-shadow: 0.03125rem 0.03125rem 0rem
-		rgba(${getRgbFromHexString(color.digitalTextBackground)}, 0.5);
+	text-shadow: 0.03125rem 0.03125rem 0rem ${rgba(color.digitalTextBackground, 0.5)};
 `;
 
 const DigitalControlInputForegroundText = styled(DigitalControlInputText)`
-	color: rgba(${getRgbFromHexString(color.digitalText)}, 0.9375);
-	text-shadow: 0 0 0.625rem rgba(${getRgbFromHexString(color.digitalText)}, 0.625),
-		0 0 0.375rem rgba(${getRgbFromHexString(color.digitalText)}, 0.375),
-		0 0 0.125rem rgba(${getRgbFromHexString(color.digitalText)}, 0.25);
+	color: ${rgba(color.digitalText, 0.9375)};
+	text-shadow: 0 0 0.625rem ${rgba(color.digitalText, 0.625)},
+		0 0 0.375rem ${rgba(color.digitalText, 0.375)}, 0 0 0.125rem ${rgba(color.digitalText, 0.25)};
 
 	&:hover {
 		cursor: grab;

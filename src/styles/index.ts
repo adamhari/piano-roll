@@ -1,5 +1,5 @@
 import {css, keyframes} from 'styled-components';
-import {getRgbFromHexString} from '../js/utils';
+import {rgba} from 'polished';
 
 const palette = {
 	gray100: '#0b0b0b',
@@ -71,8 +71,8 @@ export const shadow = {
 
 	buttonOutset: `0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3)`,
 	buttonLightInset: `inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3)`,
-	buttonLightOutset: `0 0 1rem 0.125rem rgba(${getRgbFromHexString(color.buttonLightActive)}, 0.6),
-    0 0 0.25rem 0.0625rem rgba(${getRgbFromHexString(color.buttonLightActive)}, 0.6)`,
+	buttonLightOutset: `0 0 1rem 0.125rem ${rgba(color.buttonLightActive, 0.6)},
+    0 0 0.25rem 0.0625rem ${rgba(color.buttonLightActive, 0.6)}`,
 
 	knobInset: `inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15)`,
 	knobOutset: `0 0.0625rem 0.0625rem 0rem rgba(0, 0, 0, 0.3)`,
@@ -89,6 +89,31 @@ export const pseudoElement = css`
 	display: block;
 	position: absolute;
 	content: '';
+`;
+
+export const controlOutline = css`
+	border: solid ${color.label} 0.1875rem;
+	border-top: none;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-left-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+`;
+
+export const labelText = css`
+	text-transform: uppercase;
+	color: ${color.label};
+	font-family: ${font.label};
+	font-size: 0.5625rem;
+	letter-spacing: 0.015625rem;
+	padding: 0.225rem 0.375rem 0.1875rem;
+`;
+
+export const outlinedControlLabelText = css`
+	color: ${color.instrumentPlastic};
+	background-color: ${color.label};
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
 `;
 
 export const blinkingLight = keyframes`

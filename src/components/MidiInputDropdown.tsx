@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
 import styled from 'styled-components';
+import {rgba} from 'polished';
 import WebMidi, {Input, InputEventNoteon, InputEventNoteoff} from 'webmidi';
 import {MidiKeyEvents} from '../types';
 import {border, color, font} from '../styles';
-import {getRgbFromHexString} from '../js/utils';
 
 const MidiInputContainer = styled.div`
 	width: 100%;
@@ -33,9 +33,8 @@ const MidiInputSelect = styled.select`
 	font-family: '${font.digital}';
 	font-weight: 700;
 	color: ${color.digitalText};
-	text-shadow: 0 0 0.5rem rgba(${getRgbFromHexString(color.digitalText)}, 0.625),
-		0 0 0.25rem rgba(${getRgbFromHexString(color.digitalText)}, 0.375),
-		0 0 0.125rem rgba(${getRgbFromHexString(color.digitalText)}, 0.25);
+	text-shadow: 0 0 0.5rem ${rgba(color.digitalText, 0.625)},
+		0 0 0.25rem ${rgba(color.digitalText, 0.375)}, 0 0 0.125rem ${rgba(color.digitalText, 0.25)};
 
 	&::-ms-expand {
 		display: none;

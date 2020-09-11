@@ -1,5 +1,5 @@
 import React, {FormEvent, useRef} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import ButtonControl from './ButtonControl';
 import {ButtonMouseEvents, Size} from '../../../types';
 import {SUPPORTED_SAMPLE_FORMATS} from '../../../js/statics';

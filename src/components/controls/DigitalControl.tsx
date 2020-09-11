@@ -1,5 +1,5 @@
 import React, {CSSProperties, MouseEvent, useMemo} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
 import {ControlMouseEvents, DigitType} from '../../types';
 import {ControlContainer, ControlLabel} from '.';

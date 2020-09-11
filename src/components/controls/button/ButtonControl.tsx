@@ -1,5 +1,5 @@
 import React, {MouseEvent, ReactNode} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import ButtonLight from './ButtonLight';
 import {ButtonMouseEvents, Size} from '../../../types';
 import {ControlContainer, ControlLabel} from '..';

@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import {rgba} from 'polished';
 import WebMidi, {Input, InputEventNoteon, InputEventNoteoff} from 'webmidi';
 import {MidiKeyEvents} from '../types';

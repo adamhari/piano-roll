@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {css} from 'styled-components';
+import styled, {css} from 'styled-components/macro';
 import PianoKeys from './PianoKeys';
 import ButtonControl from './controls/button/ButtonControl';
 import DigitalControl from './controls/DigitalControl';

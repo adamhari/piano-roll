@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ButtonControl from './ButtonControl';
 import {ButtonMouseEvents, Size} from '../../../types';
+import ButtonLight from './ButtonLight';
 
 type Props = ButtonMouseEvents & {
 	name: string;
@@ -40,6 +41,7 @@ const InputRecorderControl = ({handleClickControl, label, light, name, size}: Pr
 			light={light}
 			handleClickControl={handleClickControl}
 			onClick={toggleRecording}
+			renderButtonLight={() => <ButtonLight active={false} blinking={recording} size={size} />}
 			size={size}
 			value={Number(recording)}
 		/>

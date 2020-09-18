@@ -1,7 +1,12 @@
 import React, {FormEvent, useRef} from 'react';
+import styled from 'styled-components/macro';
 import ButtonControl from './ButtonControl';
 import {ButtonMouseEvents, Size} from '../../../types';
 import {SUPPORTED_SAMPLE_FORMATS} from '../../../js/statics';
+
+const Input = styled.input`
+	display: none;
+`;
 
 type Props = ButtonMouseEvents & {
 	name: string;
@@ -35,12 +40,11 @@ const FileInputControl = ({handleClickControl, name, label, size, value}: Props)
 			size={size}
 			value={value}
 		>
-			<input
+			<Input
 				ref={inputRef}
 				onChange={handleChange}
 				type={'file'}
 				accept={SUPPORTED_SAMPLE_FORMATS.join(', ')}
-				style={{display: 'none'}}
 			/>
 		</ButtonControl>
 	);

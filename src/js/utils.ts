@@ -2,21 +2,6 @@ import WaveformData from 'waveform-data';
 import {BASE_FREQ, FREQ_MULTIPLIER} from './statics';
 import {audioContext} from './globals';
 
-export const getArrayBufferFromFile = (file: any) =>
-	new Promise<ArrayBuffer>((resolve, reject) => {
-		try {
-			const reader = new FileReader();
-			reader.readAsArrayBuffer(file);
-			reader.onloadend = (e: any) => {
-				e.target.readyState === FileReader.DONE
-					? resolve(e.target.result)
-					: reject(e.target.result);
-			};
-		} catch (err) {
-			reject(err);
-		}
-	});
-
 export const getWaveformFromArrayBuffer = (arrayBuffer: ArrayBuffer) =>
 	new Promise<WaveformData>((resolve, reject) => {
 		WaveformData.createFromAudio(

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import styled from 'styled-components/macro';
 import {
 	CONTROL_TYPES,
 	CONTROLS,
@@ -12,6 +13,14 @@ import {getValueFromRange} from './js/utils';
 import {audioContext} from './js/globals';
 import Instrument from './components/Instrument';
 import Output from './js/classes/Output';
+import GlobalStyle from './styles/global';
+
+const Container = styled.div`
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	padding: 1rem;
+`;
 
 class App extends Component {
 	/** LIFECYCLE */
@@ -326,26 +335,28 @@ class App extends Component {
 		// console.log("State:", this.state);
 
 		return (
-			<div
-				id='container'
+			<>
+				<GlobalStyle />
+				<Container
 				// onContextMenu={(e) => {
 				// 	e.preventDefault();
 				// }}
-			>
-				<Instrument
-					{...this.state}
-					handleMouseDownPianoKey={this.handleMouseDownPianoKey}
-					handleMouseUpPianoKey={this.handleMouseUpPianoKey}
-					handleMouseOverPianoKey={this.handleMouseOverPianoKey}
-					handleMouseLeavePianoKey={this.handleMouseLeavePianoKey}
-					handleClickControl={this.handleClickControl}
-					handleMouseDownControl={this.handleMouseDownControl}
-					handleMouseUpControl={this.handleMouseUpControl}
-					handleMouseWheelControl={this.handleMouseWheelControl}
-					handleMidiKeyDown={this.activatePianoKey}
-					handleMidiKeyUp={this.deactivatePianoKey}
-				/>
-			</div>
+				>
+					<Instrument
+						{...this.state}
+						handleMouseDownPianoKey={this.handleMouseDownPianoKey}
+						handleMouseUpPianoKey={this.handleMouseUpPianoKey}
+						handleMouseOverPianoKey={this.handleMouseOverPianoKey}
+						handleMouseLeavePianoKey={this.handleMouseLeavePianoKey}
+						handleClickControl={this.handleClickControl}
+						handleMouseDownControl={this.handleMouseDownControl}
+						handleMouseUpControl={this.handleMouseUpControl}
+						handleMouseWheelControl={this.handleMouseWheelControl}
+						handleMidiKeyDown={this.activatePianoKey}
+						handleMidiKeyUp={this.deactivatePianoKey}
+					/>
+				</Container>
+			</>
 		);
 	}
 }

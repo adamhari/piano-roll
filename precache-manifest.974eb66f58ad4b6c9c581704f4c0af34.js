@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "009dbd6c503b0c2ef1ca67f1ad8e7d1c",
+    "revision": "47c38ca4fe9e361ded136280799f1a3c",
     "url": "/piano-roll/index.html"
   },
   {
-    "revision": "f96bb886f9bcb40ee53f",
-    "url": "/piano-roll/static/css/main.684e4977.chunk.css"
+    "revision": "dae8b120a9912be6ad55",
+    "url": "/piano-roll/static/css/main.b3620aff.chunk.css"
   },
   {
-    "revision": "9ca17acd211255e3eb29",
-    "url": "/piano-roll/static/js/2.0ef2bfb8.chunk.js"
+    "revision": "b836a16a38f80aac096c",
+    "url": "/piano-roll/static/js/2.953d83c5.chunk.js"
   },
   {
-    "revision": "54f2f904f1555df75309df05a865679c",
-    "url": "/piano-roll/static/js/2.0ef2bfb8.chunk.js.LICENSE"
+    "revision": "dfe11d075cd3dd1ecac406d1c4899388",
+    "url": "/piano-roll/static/js/2.953d83c5.chunk.js.LICENSE"
   },
   {
-    "revision": "f96bb886f9bcb40ee53f",
-    "url": "/piano-roll/static/js/main.1213287f.chunk.js"
+    "revision": "dae8b120a9912be6ad55",
+    "url": "/piano-roll/static/js/main.403ccb9a.chunk.js"
   },
   {
     "revision": "f32ad4936a85c55a29ba",
@@ -29,7 +29,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   },
   {
     "revision": "223f224650510797e0f06233d2a0f97b",
-    "url": "/piano-roll/static/media/DS-DIGIT.223f2246.TTF"
+    "url": "/piano-roll/static/media/DS-DIGIT.223f2246.ttf"
   },
   {
     "revision": "22432e609f3d330163a4bfe3a63f00e7",

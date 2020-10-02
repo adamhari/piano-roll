@@ -14,7 +14,7 @@ import {
 	Vibrato,
 } from 'tone';
 import {
-	CONTROLS_NAMES,
+	CONTROLS_DEFAULT_VALUES,
 	FILTER_ROLLOFFS,
 	FILTER_TYPES,
 	MODES,
@@ -31,69 +31,14 @@ import {
 } from '../utils';
 
 export default class Output {
-	constructor(
-		app,
-		audioContext,
-		layout,
-		volume,
-		polyphony,
-		portamento,
-		attack,
-		decay,
-		sustain,
-		release,
-		mode,
-		sample,
-		samplePitch,
-		osc1Shape,
-		osc1Octave,
-		osc1Transpose,
-		osc1Detune,
-		osc1Gain,
-		osc2Shape,
-		osc2Octave,
-		osc2Transpose,
-		osc2Detune,
-		osc2Gain,
-		modOscShape,
-		modOscGain,
-		modOscFreq,
-		filter1Type,
-		filter1Rolloff,
-		filter1Freq,
-		filter1Q,
-		filter2Type,
-		filter2Rolloff,
-		filter2Freq,
-		filter2Q,
-		vibratoDepth,
-		vibratoFreq,
-		vibratoWet,
-		chorusSpread,
-		chorusDepth,
-		chorusDelay,
-		chorusFreq,
-		chorusType,
-		chorusWet,
-		crusherBits,
-		crusherWet,
-		distOver,
-		distAmount,
-		distWet,
-		freqShifterAmount,
-		freqShifterWet,
-		pitcherPitch,
-		pitcherWindow,
-		pitcherWet,
-		reverbSize,
-		reverbDampening,
-		reverbWet
-	) {
+	constructor(app, audioContext) {
 		this._active = false;
 		this._app = app;
 		this._audioContext = audioContext;
 
-		CONTROLS_NAMES.forEach((n, i) => (this[`_${n}`] = arguments[i + 2]));
+		Object.keys(CONTROLS_DEFAULT_VALUES).forEach((k) => {
+			this[`_${k}`] = CONTROLS_DEFAULT_VALUES[k];
+		});
 
 		this.initializeDestination();
 		this.initializeReverb();
@@ -176,9 +121,9 @@ export default class Output {
 	};
 
 	initializeValues = () => {
-		CONTROLS_NAMES.forEach((n) => {
-			if (n !== 'polyphony') {
-				this[n] = this[`_${n}`];
+		Object.keys(CONTROLS_DEFAULT_VALUES).forEach((k) => {
+			if (k !== 'polyphony') {
+				this[k] = this[`_${k}`];
 			}
 		});
 

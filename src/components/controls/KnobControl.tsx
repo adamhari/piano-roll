@@ -1,4 +1,4 @@
-import React, {CSSProperties, MouseEvent} from 'react';
+import React, {MouseEvent} from 'react';
 import styled, {css} from 'styled-components/macro';
 import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
 import {Size, ControlMouseEvents} from '../../types';

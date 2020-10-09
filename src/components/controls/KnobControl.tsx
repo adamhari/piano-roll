@@ -241,7 +241,7 @@ const ValueTooltip = styled.div<ValueTooltipProps>`
 	opacity: ${({visible}) => (visible ? 1 : 0)};
 `;
 
-type Props = ControlMouseEvents & {
+export type Props = ControlMouseEvents & {
 	activeControl: string;
 	name: string;
 	label?: string;

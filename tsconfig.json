@@ -15,7 +15,7 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"types": ["node", "dom-mediacapture-record"]
+		"types": ["node", "dom-mediacapture-record", "jest"]
 	},
 	"include": ["./src/**/*"]
 }

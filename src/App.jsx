@@ -711,7 +711,7 @@ class App extends Component {
 					<Waveform sampleUrl={this.state.sample} />
 					<ControlsSubContainer>
 						<KnobControl
-							{...this.state.sharedControlProps}
+							{...this.sharedControlProps}
 							name='samplePitch'
 							label='pitch'
 							value={this.state.samplePitch}

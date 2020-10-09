@@ -41,7 +41,7 @@ const InputRecorderControl = ({handleClickControl, label, light, name, size}: Pr
 			light={light}
 			handleClickControl={handleClickControl}
 			onClick={toggleRecording}
-			renderButtonLight={() => <ButtonLight active={false} blinking={recording} size={size} />}
+			renderButtonLight={() => <ButtonLight active={recording} blinking={false} size={size} />}
 			size={size}
 			value={Number(recording)}
 		/>

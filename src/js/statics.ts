@@ -35,7 +35,20 @@ export const LAYOUTS = [
 		'[': 'F3',
 		']': 'G3',
 		'\\': 'A3',
-		delete: 'B3',
+    delete: 'B3',
+    1: 'C4',
+    2: 'D4',
+    3: 'E4',
+    4: 'F4',
+    5: 'G4',
+    6: 'A4',
+    7: 'B4',
+    8: 'C5',
+    9: 'D5',
+    0: 'E5',
+    '-': 'F5',
+    '=': 'G5',
+    'backspace': 'A5'
 	},
 	{
 		// MINOR
@@ -79,7 +92,7 @@ export const LAYOUTS = [
 		backspace: 'G♯2',
 		'\\': 'A2',
 		insert: 'A♯2',
-		delete: 'B2',
+    delete: 'B2'
 	},
 ];
 

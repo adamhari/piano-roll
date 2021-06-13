@@ -139,4 +139,4 @@ const PianoKeys = ({
 	);
 };
 
-export default PianoKeys;
+export default React.memo(PianoKeys, (prevProps, nextProps) => prevProps.octaves === nextProps.octaves && prevProps.activeKeys.sort().join('') === nextProps.activeKeys.sort().join(''));

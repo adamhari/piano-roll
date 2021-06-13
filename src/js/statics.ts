@@ -48,7 +48,7 @@ export const LAYOUTS = [
     0: 'E4',
     '-': 'F4',
     '=': 'G4',
-    'backspace': 'A4'
+    backspace: 'A4'
 	},
 	{
 		// MINOR

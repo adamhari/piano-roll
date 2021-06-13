@@ -3,6 +3,7 @@ import {
 	Chorus,
 	Destination,
 	Distortion,
+	FFT,
 	Filter,
 	Freeverb,
 	FrequencyShifter,
@@ -41,6 +42,7 @@ export default class Output {
 		});
 
 		this.initializeDestination();
+		this.initializeFFT();
 		this.initializeReverb();
 		this.initializePitcher();
 		this.initializeFreqShifter();
@@ -58,9 +60,15 @@ export default class Output {
 		this.destination = Destination;
 	};
 
+	initializeFFT = () => {
+		this.fft = new FFT();
+		this.fft.normalRange = true;
+		this.fft.connect(this.destination);
+	};
+
 	initializeReverb = () => {
 		this.reverb = new Freeverb();
-		this.reverb.connect(this.destination);
+		this.reverb.connect(this.fft);
 	};
 
 	initializePitcher = () => {

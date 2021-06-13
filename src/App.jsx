@@ -22,6 +22,7 @@ import InputRecorderButtonControl from './components/controls/button/InputRecord
 import {MODES} from './js/statics';
 import MidiInputDropdown from './components/MidiInputDropdown';
 import Waveform from './components/Waveform';
+import Meter from './components/Meter';
 
 /* STYLING */
 
@@ -1127,7 +1128,9 @@ class App extends Component {
 				</ControlsContainer>
 			</ControlWrapperVertical>
 		</ControlSection>
-	);
+  );
+
+  renderMeter = () => <Meter fft={this.output?.fft} />;
 
 	renderPianoKeys = () => (
 		<PianoKeys
@@ -1174,7 +1177,8 @@ class App extends Component {
 									{this.renderDistortion()}
 									{this.renderFreqShifter()}
 									{this.renderPitcher()}
-									{this.renderReverb()}
+                  {this.renderReverb()}
+                  {this.renderMeter()}
 								</InstrumentRightTopRight>
 							</InstrumentRightTop>
 							<InstrumentRightBottom>{this.renderPianoKeys()}</InstrumentRightBottom>

@@ -3,16 +3,17 @@ import {
 	Chorus,
 	Destination,
 	Distortion,
-	FFT,
 	Filter,
 	Freeverb,
 	FrequencyShifter,
 	FMSynth,
+	Meter,
 	PitchShift,
 	PolySynth,
 	Sampler,
 	ToneAudioBuffer,
 	Vibrato,
+	Volume,
 } from 'tone';
 import {
 	CONTROLS_DEFAULT_VALUES,
@@ -42,7 +43,8 @@ export default class Output {
 		});
 
 		this.initializeDestination();
-		this.initializeFFT();
+		this.initializeMeter();
+		this.initializeVolume();
 		this.initializeReverb();
 		this.initializePitcher();
 		this.initializeFreqShifter();
@@ -60,15 +62,20 @@ export default class Output {
 		this.destination = Destination;
 	};
 
-	initializeFFT = () => {
-		this.fft = new FFT();
-		this.fft.normalRange = true;
-		this.fft.connect(this.destination);
+	initializeMeter = () => {
+		this.meter = new Meter(0.5);
+		this.meter.normalRange = true;
+		this.meter.connect(this.destination);
+	};
+
+	initializeVolume = () => {
+		this.vol = new Volume();
+		this.vol.connect(this.meter);
 	};
 
 	initializeReverb = () => {
 		this.reverb = new Freeverb();
-		this.reverb.connect(this.fft);
+		this.reverb.connect(this.vol);
 	};
 
 	initializePitcher = () => {
@@ -210,7 +217,7 @@ export default class Output {
 	}
 	set volume(x) {
 		this._volume = x;
-		this.destination.volume.value = this.volume;
+		this.vol.volume.value = this.volume;
 	}
 
 	get polyphony() {

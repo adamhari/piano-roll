@@ -1,42 +1,68 @@
 import React, { useState } from 'react';
-import styled from 'styled-components/macro';
-import { FFT } from 'tone';
+import { Meter } from 'tone';
+import styled from 'styled-components';
 import useAnimationFrame from 'use-animation-frame';
-import {border, color, shadow} from '../styles';
+import { border, color } from '../styles';
+import { rgba } from 'polished';
+
+const C_WIDTH = 4;
+const C_PADDING = 0.125;
+const STEPS = 24;
+const STEP_GAP = 0.0625;
 
 const Container = styled.div`
-  width: 4rem;
+  height: 0.75rem;
+  width: ${`${C_WIDTH}rem`};
   display: flex;
+  gap: ${`${STEP_GAP}rem`};
+  background-color: ${color.digitalBackground};
+  padding: ${`${C_PADDING}rem`};
+  border-top: ${border.digitalDisplayHorizontal};
+  border-bottom: ${border.digitalDisplayHorizontal};
+  border-left: ${border.digitalDisplayVertical};
+  border-right: ${border.digitalDisplayVertical};
+  overflow-x: hidden;
+  /* border-radius: 0.25rem; */
+`;
+
+const Step = styled.div<{ index: number }>`
+  width: ${`${(C_WIDTH - C_PADDING * 2) / STEPS - STEP_GAP}rem`};
   height: 100%;
-  align-items: flex-end;
-`
+  background-color: ${color.meterLight};
+  box-shadow: ${({ index }) =>
+    `0 0 1rem 0.125rem ${rgba(color.meterLight, 0.375 + index * 0.015625)}, 0 0 0.25rem 0.0625rem ${rgba(
+      color.meterLight,
+      0.375 + index * 0.015625
+    )}`};
+  /* border-top-left-radius: ${({ index }) => (index === 0 ? '0.0625rem' : '0')}; */
+  /* border-bottom-left-radius: ${({ index }) => (index === 0 ? '0.0625rem' : '0')}; */
+  /* border-top-right-radius: ${({ index }) => (index === STEPS - 1 ? '0.0625rem' : '0')}; */
+  /* border-bottom-right-radius: ${({ index }) => (index === STEPS - 1 ? '0.0625rem' : '0')}; */
+`;
+
+
 
 type Props = {
-  fft: FFT
+  meter: Meter
 }
 
-const Meter = ({ fft, ...props }: Props) => {
-  const [values, setValues] = useState<number[]>();
+const MeterComponent = ({ meter, ...props }: Props) => {
+  const [value, setValue] = useState<number>();
 
-  useAnimationFrame((e: any) => {
-    if (fft) {
-      const values = Array.from(fft.getValue()).filter((x, i) => i % 64 === 0);
-      setValues(values);
+  useAnimationFrame(() => {
+    if (meter) {
+      const value = meter.getValue();
+      setValue(Math.min(STEPS, Math.round((value > 1 ? 1 : value) as number * STEPS * 4)));
     }
-  }, [fft]);
+  }, [meter]);
 
   return (
     <Container>
       {
-        values?.map((x, i) => <div key={i} style={{
-          display: 'flex',
-          flex: 1,
-          backgroundColor: color.label,
-          height: (Math.pow(x, 0.2) * 100).toFixed(2) + '%'
-        }} />)
+        new Array(value).fill(null).map((x, i) => <Step index={i} />)
       }
     </Container>
   );
 };
 
-export default React.memo(Meter);
+export default React.memo(MeterComponent);

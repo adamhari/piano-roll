@@ -46,6 +46,7 @@ export const color = {
 	knobRubber: palette.gray400,
 	knobMetal: palette.gray750,
 	knobDial: palette.gray650,
+  meterLight: palette.primary,
 	tooltipBackground: palette.gray700,
 };
 
@@ -54,7 +55,7 @@ export const border = {
 	key: `solid ${color.keyBorder} 0.075rem`,
 	button: `solid ${color.buttonBorder} 0.15rem`,
 	digitalDisplayVertical: `solid ${color.digitalVerticalBorder} 0.15rem`,
-	digitalDisplayHorizontal: `solid ${color.digitalHorizontalBorder} 0.15rem`,
+  digitalDisplayHorizontal: `solid ${color.digitalHorizontalBorder} 0.15rem`,
 };
 
 export const shadow = {

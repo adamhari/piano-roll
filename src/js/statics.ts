@@ -279,7 +279,7 @@ export const CONTROLS: Controls = {
 		},
 	},
 	mode: {
-		defaultValue: MODES.SAMPLER,
+		defaultValue: MODES.SYNTH,
 		range: {
 			min: 0,
 			max: Object.keys(MODES).length - 1,

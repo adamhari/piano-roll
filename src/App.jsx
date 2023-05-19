@@ -116,6 +116,12 @@ const GlobalControls = styled.div`
 	display: flex;
 `;
 
+const VolumeSection = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+`;
+
 const EnvelopeControls = styled.div`
 	display: grid;
 	grid-template-columns: auto auto;
@@ -193,7 +199,6 @@ class App extends Component {
 			activeControlType: null,
 			activeScreenY: null,
 			activeModifierKey: false,
-			audioContextStarted: false,
 			...CONTROLS_DEFAULT_VALUES,
 		};
 	}
@@ -232,27 +237,17 @@ class App extends Component {
 	};
 
 	initializeSoundEngine = () => {
-		// console.log('initializeSoundEngine');
-		this.setOutputFromState();
+		this.output = new Output(this, audioContext);
 	};
 
 	terminateSoundEngine = () => {
 		audioContext && audioContext.dispose();
 	};
 
-	setOutputFromState = () => {
-		// console.log("setOutputFromState");
-
-		this.output = new Output(this, audioContext);
-	};
-
 	resumeAudioContext = () => {
-		// console.log('resumeAudioContext');
-
-		if (!this.state.audioContextStarted) {
-			audioContext.resume();
-			this.setState({audioContextStarted: true});
-		}
+    if (audioContext.state !== 'running') {
+      audioContext.resume();
+    }
 	};
 
 	/** GLOBAL EVENT HANDLERS */
@@ -603,23 +598,24 @@ class App extends Component {
 
 	renderGlobalControls = () => (
 		<GlobalControls>
-			{this.renderVolumeControl()}
-			{this.renderEnvelopeControls()}
+			{this.renderVolumeSection()}
+			{this.renderEnvelopeSection()}
 		</GlobalControls>
 	);
 
-	renderVolumeControl = () => (
-		<div>
+	renderVolumeSection = () => (
+		<VolumeSection>
 			<KnobControl
 				{...this.sharedControlProps}
 				name='volume'
 				value={this.state.volume}
 				size='large'
-			/>
-		</div>
+      />
+      <Meter meter={this.output?.meter} />
+		</VolumeSection>
 	);
 
-	renderEnvelopeControls = () => (
+	renderEnvelopeSection = () => (
 		<EnvelopeControls>
 			<div>
 				<KnobControl
@@ -1130,8 +1126,6 @@ class App extends Component {
 		</ControlSection>
   );
 
-  renderMeter = () => <Meter fft={this.output?.fft} />;
-
 	renderPianoKeys = () => (
 		<PianoKeys
 			activeKeys={this.state.activeKeys}
@@ -1178,7 +1172,6 @@ class App extends Component {
 									{this.renderFreqShifter()}
 									{this.renderPitcher()}
                   {this.renderReverb()}
-                  {this.renderMeter()}
 								</InstrumentRightTopRight>
 							</InstrumentRightTop>
 							<InstrumentRightBottom>{this.renderPianoKeys()}</InstrumentRightBottom>

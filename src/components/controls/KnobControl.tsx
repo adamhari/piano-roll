@@ -63,163 +63,164 @@ type KnobProps = {
 };
 
 const Knob = styled.div<KnobProps>`
-	cursor: grab;
-	position: relative;
-	background-color: ${color.knobRubber};
-	border-radius: 50%;
-	box-shadow: ${shadow.knobInset};
-	width: ${({size}) => {
-		switch (size) {
-			case 'small':
-				return '2rem';
-			case 'medium':
-				return '3rem';
-			case 'large':
-				return '4rem';
-		}
-	}};
-	height: ${({size}) => {
-		switch (size) {
-			case 'small':
-				return '2rem';
-			case 'medium':
-				return '3rem';
-			case 'large':
-				return '4rem';
-		}
-	}};
-	transform: ${({value, min, max}) => {
-		const valueAsPercent = ((value - min) * 100) / (max - min);
-		const valueAsDeg = valueAsPercent * 3.6;
-		const valueForRotate = (valueAsDeg + 180) * 0.875 + 45;
-		return css`rotate(${valueForRotate}deg)`;
-	}};
+  cursor: grab;
+  position: relative;
+  background-color: ${color.knobRubber};
+  border-radius: 50%;
+  box-shadow: ${shadow.knobInset};
+  width: ${({ size }) => {
+    switch (size) {
+      case "small":
+        return "2rem";
+      case "medium":
+        return "3rem";
+      case "large":
+        return "4rem";
+    }
+  }};
+  height: ${({ size }) => {
+    switch (size) {
+      case "small":
+        return "2rem";
+      case "medium":
+        return "3rem";
+      case "large":
+        return "4rem";
+    }
+  }};
+  transform: ${({ value, min, max }) => {
+    const valueAsPercent = ((value - min) * 100) / (max - min);
+    const valueAsDeg = valueAsPercent * 3.6;
+    const valueForRotate = (valueAsDeg + 180) * 0.875 + 45;
+    return css`rotate(${valueForRotate}deg)`;
+  }};
 
-	&:before {
-		${pseudoElement};
-		box-sizing: border-box;
-		background-color: ${color.knobMetal};
-		transform: translateY(-50%);
-		border-radius: 50%;
-		position: relative;
-		top: 50%;
-		margin: auto;
-		border-style: solid;
-		border-color: ${color.knobDial};
-		width: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return '1.25rem';
-				case 'medium':
-					return '2rem';
-				case 'large':
-					return '3rem';
-			}
-		}};
-		height: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return '1.25rem';
-				case 'medium':
-					return '2rem';
-				case 'large':
-					return '3rem';
-			}
-		}};
-		border-width: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return '0.1667rem';
-				case 'medium':
-					return '0.1875rem';
-				case 'large':
-					return '0.1875rem';
-			}
-		}};
-	}
+  &:before {
+    ${pseudoElement};
+    box-sizing: border-box;
+    background-color: ${color.knobMetal};
+    box-shadow: ${shadow.knobDialOutset}, ${shadow.knobDialInset};
+    transform: translateY(-50%);
+    border-radius: 50%;
+    position: relative;
+    top: 50%;
+    margin: auto;
+    border-style: solid;
+    border-color: ${color.knobDial};
+    width: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return "1.25rem";
+        case "medium":
+          return "2rem";
+        case "large":
+          return "3rem";
+      }
+    }};
+    height: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return "1.25rem";
+        case "medium":
+          return "2rem";
+        case "large":
+          return "3rem";
+      }
+    }};
+    border-width: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return "0.1667rem";
+        case "medium":
+          return "0.1875rem";
+        case "large":
+          return "0.1875rem";
+      }
+    }};
+  }
 
-	&:after {
-		${pseudoElement};
-		background-color: ${color.knobDial};
-		border-top-left-radius: 0.075rem;
-		border-top-right-radius: 0.075rem;
-		border-bottom-left-radius: 0.125rem;
-		border-bottom-right-radius: 0.125rem;
-		margin: auto;
-		transform: translateX(-50%);
-		left: 50%;
-		width: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return '0.1875rem';
-				case 'medium':
-					return '0.25rem';
-				case 'large':
-					return '0.375rem';
-			}
-		}};
-		height: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return '0.625rem';
-				case 'medium':
-					return '0.5rem';
-				case 'large':
-					return '0.15625rem';
-			}
-		}};
-		top: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return '0.4375rem';
-				case 'medium':
-					return '0.5rem';
-				case 'large':
-					return '0.65625rem';
-			}
-		}};
+  &:after {
+    ${pseudoElement};
+    background-color: ${color.knobDial};
+    border-top-left-radius: 0.075rem;
+    border-top-right-radius: 0.075rem;
+    border-bottom-left-radius: 0.125rem;
+    border-bottom-right-radius: 0.125rem;
+    margin: auto;
+    transform: translateX(-50%);
+    left: 50%;
+    width: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return "0.1875rem";
+        case "medium":
+          return "0.25rem";
+        case "large":
+          return "0.375rem";
+      }
+    }};
+    height: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return "0.625rem";
+        case "medium":
+          return "0.5rem";
+        case "large":
+          return "0.15625rem";
+      }
+    }};
+    top: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return "0.4375rem";
+        case "medium":
+          return "0.5rem";
+        case "large":
+          return "0.65625rem";
+      }
+    }};
 
-		border-bottom-left-radius: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return undefined;
-				case 'medium':
-					return '37.5% 100%';
-				case 'large':
-					return '0.0625rem';
-			}
-		}};
-		border-bottom-right-radius: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return undefined;
-				case 'medium':
-					return '37.5% 100%';
-				case 'large':
-					return '0.0625rem';
-			}
-		}};
-		border-top-left-radius: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return undefined;
-				case 'medium':
-					return undefined;
-				case 'large':
-					return '0.05rem';
-			}
-		}};
-		border-top-right-radius: ${({size}) => {
-			switch (size) {
-				case 'small':
-					return undefined;
-				case 'medium':
-					return undefined;
-				case 'large':
-					return '0.05rem';
-			}
-		}};
-	}
+    border-bottom-left-radius: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return undefined;
+        case "medium":
+          return "37.5% 100%";
+        case "large":
+          return "0.0625rem";
+      }
+    }};
+    border-bottom-right-radius: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return undefined;
+        case "medium":
+          return "37.5% 100%";
+        case "large":
+          return "0.0625rem";
+      }
+    }};
+    border-top-left-radius: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return undefined;
+        case "medium":
+          return undefined;
+        case "large":
+          return "0.05rem";
+      }
+    }};
+    border-top-right-radius: ${({ size }) => {
+      switch (size) {
+        case "small":
+          return undefined;
+        case "medium":
+          return undefined;
+        case "large":
+          return "0.05rem";
+      }
+    }};
+  }
 `;
 
 type ValueTooltipProps = {

@@ -59,24 +59,26 @@ export const border = {
 };
 
 export const shadow = {
-	pianoOutset: `0 0.25rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.6)`,
+  pianoOutset: `0 0.25rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.6)`,
 
-	keyInsetTop: `inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15)`,
-	keyInsetBottom: `inset 0 0.0625rem 0.5rem 0 rgba(0, 0, 0, 0.45)`,
-	keyInsetLeft: `inset 0.15625rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45)`,
-	keyInsetRight: `inset -0.15625rem 0 0.5em 0rem rgba(0, 0, 0, 0.45)`,
-	keyWhiteOutset: `0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15)`,
-	keyWhiteOutsetActive: `0rem 0.15rem 0.03125rem -0.0625rem rgba(0, 0, 0, 0.15)`,
-	keyBlackOutset: `0 0.1rem 0.03125rem 0rem rgba(0, 0, 0, 0.3)`,
-	keyBlackOutsetActive: `0 0.075rem 0.00625rem 0rem rgba(0, 0, 0, 0.3)`,
+  keyInsetTop: `inset 0rem 0.25rem 0.09375rem 0rem rgba(0, 0, 0, 0.15)`,
+  keyInsetBottom: `inset 0 0.0625rem 0.5rem 0 rgba(0, 0, 0, 0.45)`,
+  keyInsetLeft: `inset 0.15625rem 0 0.5rem 0rem rgba(0, 0, 0, 0.45)`,
+  keyInsetRight: `inset -0.15625rem 0 0.5em 0rem rgba(0, 0, 0, 0.45)`,
+  keyWhiteOutset: `0rem 0.1875rem 0.0625rem -0.0625rem rgba(0, 0, 0, 0.15)`,
+  keyWhiteOutsetActive: `0rem 0.15rem 0.03125rem -0.0625rem rgba(0, 0, 0, 0.15)`,
+  keyBlackOutset: `0 0.1rem 0.03125rem 0rem rgba(0, 0, 0, 0.3)`,
+  keyBlackOutsetActive: `0 0.075rem 0.00625rem 0rem rgba(0, 0, 0, 0.3)`,
 
-	buttonOutset: `0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3)`,
-	buttonLightInset: `inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3)`,
-	buttonLightOutset: `0 0 1rem 0.125rem ${rgba(color.buttonLightActive, 0.6)},
+  buttonOutset: `0 0.0625rem 0.03125rem 0rem rgba(0, 0, 0, 0.3)`,
+  buttonLightInset: `inset 0 0 0 0.125rem rgba(15, 15, 15, 0.3)`,
+  buttonLightOutset: `0 0 1rem 0.125rem ${rgba(color.buttonLightActive, 0.6)},
     0 0 0.25rem 0.0625rem ${rgba(color.buttonLightActive, 0.6)}`,
 
-	knobInset: `inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15)`,
-	knobOutset: `0 0.0625rem 0.0625rem 0rem rgba(0, 0, 0, 0.3)`,
+  knobInset: `inset 0 0 0rem 0.125rem rgba(0, 0, 0, 0.15)`,
+  knobOutset: `0 0.0625rem 0.0625rem 0rem rgba(0, 0, 0, 0.3)`,
+  knobDialInset: `inset 0 0 0.25rem 0.03125rem rgba(0, 0, 0, 0.3)`,
+  knobDialOutset: `0 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15)`,
 };
 
 export const font = {
@@ -102,12 +104,12 @@ export const controlOutline = css`
 `;
 
 export const labelText = css`
-	text-transform: uppercase;
-	color: ${color.label};
-	font-family: ${font.label};
-	font-size: 0.5625rem;
-	letter-spacing: 0.015625rem;
-	padding: 0.225rem 0.375rem 0.1875rem;
+  text-transform: uppercase;
+  color: ${color.label};
+  font-family: ${font.label};
+  font-size: 0.5625rem;
+  letter-spacing: 0.015625rem;
+  padding: 0.1875rem 0.375rem;
 `;
 
 export const outlinedControlLabelText = css`

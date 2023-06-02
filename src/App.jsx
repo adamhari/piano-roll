@@ -65,16 +65,19 @@ const InstrumentBottomLeft = styled.div`
 
 const InstrumentRightTop = styled.div`
   display: flex;
+  gap: 1rem;
   height: 19rem;
   padding: 1rem 0;
 `;
 
-const InstrumentRightTopLeft = styled.div``;
+const InstrumentRightTopLeft = styled.div`
+`;
 
 const InstrumentRightTopRight = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
+  gap: 1rem;
 `;
 
 const InstrumentRightBottom = styled.div``;
@@ -136,17 +139,12 @@ const ControlSection = styled.div`
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
-
-  margin-left: 1rem;
+  gap: 1rem;
 `;
 
 const ControlWrapper = styled.div`
   display: flex;
   flex-flow: column nowrap;
-
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-  }
 `;
 
 const ControlWrapperVertical = styled(ControlWrapper)`
@@ -161,7 +159,7 @@ const ControlsContainer = styled.div`
   ${controlOutline};
   height: 100%;
   display: flex;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 1rem;
   flex-flow: column nowrap;
   justify-content: space-between;
 `;
@@ -194,7 +192,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      octaves: 6,
+      octaves: 7,
       activeKeys: [],
       activeControl: null,
       activeControlType: null,

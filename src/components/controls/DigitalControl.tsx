@@ -8,8 +8,6 @@ import {
   color,
   font,
   labelText,
-  controlOutline,
-  outlinedControlLabelText,
 } from "../../styles";
 import { rgba } from "polished";
 
@@ -23,20 +21,10 @@ const Container = styled(ControlContainer)<ContainerProps>`
 
   text-align: center;
   border-radius: 0.1875rem;
+  margin-bottom: 0;
+
   user-select: none;
 `;
-
-type LabelProps = {
-  outline?: boolean;
-};
-
-const Label = styled(ControlLabel)<LabelProps>`
-  ${labelText};
-`;
-
-type DigitalControlContainerProps = {
-  outline?: boolean;
-};
 
 type DigitalControlInputProps = {
   digitType: DigitType;
@@ -174,7 +162,7 @@ const DigitalControl = ({
 
   return (
     <Container>
-      <Label>{label || name}</Label>
+      <ControlLabel>{label || name}</ControlLabel>
         <DigitalControlInput digitType={digitType}>
           8
           <DigitalControlInputBackgroundText

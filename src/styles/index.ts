@@ -109,7 +109,7 @@ export const labelText = css`
   font-family: ${font.label};
   font-size: 0.5625rem;
   letter-spacing: 0.015625rem;
-  padding: 0.1875rem 0.375rem;
+  padding: 0.1875rem;
 `;
 
 export const outlinedControlLabelText = css`

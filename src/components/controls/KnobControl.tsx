@@ -1,65 +1,65 @@
-import React, {MouseEvent} from 'react';
-import styled, {css} from 'styled-components';
-import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
-import {Size, ControlMouseEvents} from '../../types';
-import {ControlLabel, ControlContainer} from '.';
-import {shadow, color, pseudoElement} from '../../styles';
+import React, { MouseEvent } from "react";
+import styled, { css } from "styled-components";
+import { CONTROL_TYPES, CONTROLS } from "../../js/statics";
+import { Size, ControlMouseEvents } from "../../types";
+import { ControlLabel, ControlContainer } from ".";
+import { shadow, color, pseudoElement } from "../../styles";
 
 type ContainerProps = {
-	size: Size;
+  size: Size;
 };
 
 const Container = styled(ControlContainer)<ContainerProps>`
-	position: relative;
-	display: flex;
-	flex-flow: column nowrap;
-	justify-content: flex-start;
-	align-items: center;
-	width: ${({size}) => {
-		switch (size) {
-			case 'small':
-				return '3rem';
-			default:
-				return undefined;
-		}
-	}};
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: ${({ size }) => {
+    switch (size) {
+      case "small":
+        return "3rem";
+      default:
+        return undefined;
+    }
+  }};
 `;
 
 type KnobContainerProps = {
-	size: Size;
+  size: Size;
 };
 
 const KnobContainer = styled.div<KnobContainerProps>`
-	border-radius: 50%;
-	box-shadow: ${shadow.knobOutset};
+  border-radius: 50%;
+  box-shadow: ${shadow.knobOutset};
 
-	width: ${({size}) => {
-		switch (size) {
-			case 'small':
-				return '2rem';
-			case 'medium':
-				return '3rem';
-			case 'large':
-				return '4rem';
-		}
-	}};
-	height: ${({size}) => {
-		switch (size) {
-			case 'small':
-				return '2rem';
-			case 'medium':
-				return '3rem';
-			case 'large':
-				return '4rem';
-		}
-	}};
+  width: ${({ size }) => {
+    switch (size) {
+      case "small":
+        return "2rem";
+      case "medium":
+        return "3rem";
+      case "large":
+        return "4rem";
+    }
+  }};
+  height: ${({ size }) => {
+    switch (size) {
+      case "small":
+        return "2rem";
+      case "medium":
+        return "3rem";
+      case "large":
+        return "4rem";
+    }
+  }};
 `;
 
 type KnobProps = {
-	size: Size;
-	value: number;
-	min: number;
-	max: number;
+  size: Size;
+  value: number;
+  min: number;
+  max: number;
 };
 
 const Knob = styled.div<KnobProps>`
@@ -224,70 +224,70 @@ const Knob = styled.div<KnobProps>`
 `;
 
 type ValueTooltipProps = {
-	visible: boolean;
+  visible: boolean;
 };
 
 const ValueTooltip = styled.div<ValueTooltipProps>`
-	width: 100%;
-	margin: 0.3125rem auto 0;
-	padding: 0 0 0.0625rem;
-	background-color: ${color.tooltipBackground};
-	border-radius: 1rem;
+  width: 100%;
+  margin: 0.3125rem auto 0;
+  padding: 0 0 0.0625rem;
+  background-color: ${color.tooltipBackground};
+  border-radius: 1rem;
 
-	text-align: center;
-	font-size: 0.5625rem;
-	font-weight: 800;
+  text-align: center;
+  font-size: 0.5625rem;
+  font-weight: 800;
 
-	transition: 0.1s all ease-out;
-	opacity: ${({visible}) => (visible ? 1 : 0)};
+  transition: 0.1s all ease-out;
+  opacity: ${({ visible }) => (visible ? 1 : 0)};
 `;
 
 export type Props = ControlMouseEvents & {
-	activeControl: string;
-	name: string;
-	label?: string;
-	size: Size;
-	value: number;
+  activeControl: string;
+  name: string;
+  label?: string;
+  size: Size;
+  value: number;
 };
 
 export default ({
-	activeControl,
-	handleMouseDownControl,
-	handleMouseUpControl,
-	handleMouseWheelControl,
-	name,
-	label,
-	size,
-	value,
+  activeControl,
+  handleMouseDownControl,
+  handleMouseUpControl,
+  handleMouseWheelControl,
+  name,
+  label,
+  size,
+  value,
 }: Props) => {
-	const {
-		range: {min, max},
-	} = CONTROLS[name];
+  const {
+    range: { min, max },
+  } = CONTROLS[name];
 
-	const handleMouseDown = (e: MouseEvent<HTMLDivElement>) =>
-		handleMouseDownControl(name, CONTROL_TYPES.knob.name, e);
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) =>
+    handleMouseDownControl(name, CONTROL_TYPES.knob.name, e);
 
-	const handleMouseUp = (e: MouseEvent<HTMLDivElement>) =>
-		handleMouseUpControl(name, CONTROL_TYPES.knob.name, e);
+  const handleMouseUp = (e: MouseEvent<HTMLDivElement>) =>
+    handleMouseUpControl(name, CONTROL_TYPES.knob.name, e);
 
-	const handleMouseWheel = (e: MouseEvent<HTMLDivElement>) =>
-		handleMouseWheelControl(name, CONTROL_TYPES.knob.name, e);
+  const handleMouseWheel = (e: MouseEvent<HTMLDivElement>) =>
+    handleMouseWheelControl(name, CONTROL_TYPES.knob.name, e);
 
-	return (
-		<Container size={size}>
-			<ControlLabel>{label || name}</ControlLabel>
-			<KnobContainer size={size}>
-				<Knob
-					size={size}
-					value={value}
-					min={min}
-					max={max}
-					onMouseDown={handleMouseDown}
-					onMouseUp={handleMouseUp}
-					onWheel={handleMouseWheel}
-				/>
-				<ValueTooltip visible={activeControl === name}>{value}</ValueTooltip>
-			</KnobContainer>
-		</Container>
-	);
+  return (
+    <Container size={size}>
+      <ControlLabel>{label || name}</ControlLabel>
+      <KnobContainer size={size}>
+        <Knob
+          size={size}
+          value={value}
+          min={min}
+          max={max}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onWheel={handleMouseWheel}
+        />
+        <ValueTooltip visible={activeControl === name}>{value}</ValueTooltip>
+      </KnobContainer>
+    </Container>
+  );
 };

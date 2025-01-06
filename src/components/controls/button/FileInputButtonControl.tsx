@@ -1,53 +1,60 @@
-import React, {FormEvent, useRef} from 'react';
-import styled from 'styled-components';
-import ButtonControl from './ButtonControl';
-import {ButtonMouseEvents, Size} from '../../../types';
-import {SUPPORTED_SAMPLE_FORMATS} from '../../../js/statics';
+import React, { FormEvent, useRef } from "react";
+import styled from "styled-components";
+import ButtonControl from "./ButtonControl";
+import { ButtonMouseEvents, Size } from "../../../types";
+import { SUPPORTED_SAMPLE_FORMATS } from "../../../js/statics";
 
 const Input = styled.input`
-	display: none;
+  display: none;
 `;
 
 type Props = ButtonMouseEvents & {
-	name: string;
-	label?: string;
-	size: Size;
-	value: number | string;
+  name: string;
+  label?: string;
+  size: Size;
+  value: number | string;
 };
 
-const FileInputControl = ({handleClickControl, name, label, size, value}: Props) => {
-	const inputRef = useRef<HTMLInputElement>(null);
+const FileInputControl = ({
+  handleClickControl,
+  name,
+  label,
+  size,
+  value,
+}: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-	const handleClick = (e: FormEvent<HTMLInputElement>) => inputRef.current?.click();
+  const handleClick = (e: FormEvent<HTMLInputElement>) =>
+    inputRef.current?.click();
 
-	const handleChange = async (e: FormEvent<HTMLInputElement>) => {
-		if (inputRef?.current) {
-			const file = inputRef?.current?.files?.[0];
+  const handleChange = async (e: FormEvent<HTMLInputElement>) => {
+    if (inputRef?.current) {
+      const file = inputRef?.current?.files?.[0];
 
-			if (file) {
-				const fileUrl = URL.createObjectURL(file);
-				handleClickControl(name, fileUrl);
-			}
-		}
-	};
+      if (file) {
+        const fileUrl = URL.createObjectURL(file);
+        handleClickControl(name, fileUrl);
+      }
+    }
+  };
 
-	return (
-		<ButtonControl
-			label={label}
-			name={name}
-			handleClickControl={handleClickControl}
-			onClick={handleClick}
-			size={size}
-			value={value}
-		>
-			<Input
-				ref={inputRef}
-				onChange={handleChange}
-				type={'file'}
-				accept={SUPPORTED_SAMPLE_FORMATS.join(', ')}
-			/>
-		</ButtonControl>
-	);
+  return (
+    <ButtonControl
+      label={label}
+      name={name}
+      handleClickControl={handleClickControl}
+      onClick={handleClick}
+      size={size}
+      value={value}
+    >
+      <Input
+        ref={inputRef}
+        onChange={handleChange}
+        type={"file"}
+        accept={SUPPORTED_SAMPLE_FORMATS.join(", ")}
+      />
+    </ButtonControl>
+  );
 };
 
 export default FileInputControl;

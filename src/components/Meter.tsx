@@ -29,15 +29,11 @@ const Container = styled.div`
 `;
 
 const Step = styled.div<{ index: number }>`
-  height: ${`${((C_LENGTH - C_PADDING * 2) / STEPS) - STEP_GAP / 2}rem`};
+  height: ${`${(C_LENGTH - C_PADDING * 2) / STEPS - STEP_GAP / 2}rem`};
   background-color: ${color.meterLight};
   box-shadow: ${({ index }) =>
-    `0 0 0.25rem 0.015625rem ${rgba(
-      color.meterLight,
-      0.75
-    )}`};
-  border-top-left-radius: ${({ index }) =>
-    index === 0 ? "0.0625rem" : "0"};
+    `0 0 0.25rem 0.015625rem ${rgba(color.meterLight, 0.75)}`};
+  border-top-left-radius: ${({ index }) => (index === 0 ? "0.0625rem" : "0")};
   border-bottom-left-radius: ${({ index }) =>
     index === 0 ? "0.0625rem" : "0"};
   border-top-right-radius: ${({ index }) =>
@@ -59,8 +55,8 @@ const MeterComponent = ({ meter, ...props }: Props) => {
       setValue(
         Math.min(
           STEPS,
-          Math.round(((value > 1 ? 1 : value) as number) * STEPS * 4)
-        )
+          Math.round(((value > 1 ? 1 : value) as number) * STEPS * 4),
+        ),
       );
     }
   }, [meter]);
@@ -68,8 +64,8 @@ const MeterComponent = ({ meter, ...props }: Props) => {
   return (
     <ControlContainer>
       <Container>
-        {new Array(value).fill(null).map((x, i) => (
-          <Step index={i} />
+        {new Array(value).fill(0).map((x, i) => (
+          <Step key={i} index={i} />
         ))}
       </Container>
     </ControlContainer>

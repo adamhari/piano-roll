@@ -70,8 +70,7 @@ const InstrumentRightTop = styled.div`
   padding: 1rem 0;
 `;
 
-const InstrumentRightTopLeft = styled.div`
-`;
+const InstrumentRightTopLeft = styled.div``;
 
 const InstrumentRightTopRight = styled.div`
   display: flex;

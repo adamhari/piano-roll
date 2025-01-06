@@ -3,12 +3,7 @@ import styled from "styled-components";
 import { CONTROL_TYPES, CONTROLS } from "../../js/statics";
 import { ControlMouseEvents, DigitType } from "../../types";
 import { ControlContainer, ControlLabel } from ".";
-import {
-  border,
-  color,
-  font,
-  labelText,
-} from "../../styles";
+import { border, color, font, labelText } from "../../styles";
 import { rgba } from "polished";
 
 type ContainerProps = {};
@@ -77,7 +72,8 @@ const DigitalControlInputBackgroundText = styled(DigitalControlInputText)`
 
 const DigitalControlInputForegroundText = styled(DigitalControlInputText)`
   color: ${rgba(color.digitalText, 0.9375)};
-  text-shadow: 0 0 0.625rem ${rgba(color.digitalText, 0.625)},
+  text-shadow:
+    0 0 0.625rem ${rgba(color.digitalText, 0.625)},
     0 0 0.375rem ${rgba(color.digitalText, 0.375)},
     0 0 0.125rem ${rgba(color.digitalText, 0.25)};
 
@@ -163,24 +159,21 @@ const DigitalControl = ({
   return (
     <Container>
       <ControlLabel>{label || name}</ControlLabel>
-        <DigitalControlInput digitType={digitType}>
-          8
-          <DigitalControlInputBackgroundText
-            digitType={digitType}
-            value={value}
-          >
-            {digitTypes[digitType].backgroundText}
-          </DigitalControlInputBackgroundText>
-          <DigitalControlInputForegroundText
-            value={value}
-            digitType={digitType}
-            children={Number.isInteger(value) ? value : "-"}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onWheel={handleMouseWheel}
-            style={digitTypes[digitType].foregroundTextStyle(value)}
-          />
-        </DigitalControlInput>
+      <DigitalControlInput digitType={digitType}>
+        8
+        <DigitalControlInputBackgroundText digitType={digitType} value={value}>
+          {digitTypes[digitType].backgroundText}
+        </DigitalControlInputBackgroundText>
+        <DigitalControlInputForegroundText
+          value={value}
+          digitType={digitType}
+          children={Number.isInteger(value) ? value : "-"}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onWheel={handleMouseWheel}
+          style={digitTypes[digitType].foregroundTextStyle(value)}
+        />
+      </DigitalControlInput>
     </Container>
   );
 };

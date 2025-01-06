@@ -1,60 +1,60 @@
-import {css, keyframes} from 'styled-components';
-import {rgba} from 'polished';
+import { css, keyframes } from "styled-components";
+import { rgba } from "polished";
 
 const palette = {
-	gray100: '#0b0b0b',
-	gray150: '#0f0f0f',
-	gray200: '#121212',
-	gray250: '#141414',
-	gray300: '#191718',
-	gray400: '#231f20',
-	gray500: '#303030',
-	gray550: '#3a3a3a',
-	gray600: '#666666',
-	gray650: '#707071',
-	gray700: '#ababab',
-	gray750: '#cacaca',
-	gray800: '#d7d7d7',
-	gray900: '#eeeeee',
+  gray100: "#0b0b0b",
+  gray150: "#0f0f0f",
+  gray200: "#121212",
+  gray250: "#141414",
+  gray300: "#191718",
+  gray400: "#231f20",
+  gray500: "#303030",
+  gray550: "#3a3a3a",
+  gray600: "#666666",
+  gray650: "#707071",
+  gray700: "#ababab",
+  gray750: "#cacaca",
+  gray800: "#d7d7d7",
+  gray900: "#eeeeee",
 
-	white: '#ffffff',
-	black: '#000000',
+  white: "#ffffff",
+  black: "#000000",
 
-	primary: '#ff2601',
-	secondary: '#629183',
+  primary: "#ff2601",
+  secondary: "#629183",
 };
 
 export const color = {
-	instrumentBorder: palette.gray400,
-	instrumentPlastic: palette.gray500,
-	label: palette.gray700,
-	keyBorder: palette.gray400,
-	keyWhite: palette.gray800,
-	keyWhiteActive: palette.white,
-	keyBlack: palette.gray300,
-	keyBlackActive: palette.gray600,
-	buttonBackground: palette.gray250,
-	buttonBackgroundActive: palette.gray200,
-	buttonBorder: palette.gray150,
-	buttonLightInactive: palette.gray500,
-	buttonLightActive: palette.primary,
-	digitalVerticalBorder: palette.gray400,
-	digitalHorizontalBorder: palette.gray550,
-	digitalBackground: palette.gray100,
-	digitalText: palette.primary,
-	digitalTextBackground: palette.secondary,
-	knobRubber: palette.gray400,
-	knobMetal: palette.gray750,
-	knobDial: palette.gray650,
+  instrumentBorder: palette.gray400,
+  instrumentPlastic: palette.gray500,
+  label: palette.gray700,
+  keyBorder: palette.gray400,
+  keyWhite: palette.gray800,
+  keyWhiteActive: palette.white,
+  keyBlack: palette.gray300,
+  keyBlackActive: palette.gray600,
+  buttonBackground: palette.gray250,
+  buttonBackgroundActive: palette.gray200,
+  buttonBorder: palette.gray150,
+  buttonLightInactive: palette.gray500,
+  buttonLightActive: palette.primary,
+  digitalVerticalBorder: palette.gray400,
+  digitalHorizontalBorder: palette.gray550,
+  digitalBackground: palette.gray100,
+  digitalText: palette.primary,
+  digitalTextBackground: palette.secondary,
+  knobRubber: palette.gray400,
+  knobMetal: palette.gray750,
+  knobDial: palette.gray650,
   meterLight: palette.primary,
-	tooltipBackground: palette.gray700,
+  tooltipBackground: palette.gray700,
 };
 
 export const border = {
-	instrument: `solid ${color.instrumentBorder} 0.15rem`,
-	key: `solid ${color.keyBorder} 0.075rem`,
-	button: `solid ${color.buttonBorder} 0.15rem`,
-	digitalDisplayVertical: `solid ${color.digitalVerticalBorder} 0.15rem`,
+  instrument: `solid ${color.instrumentBorder} 0.15rem`,
+  key: `solid ${color.keyBorder} 0.075rem`,
+  button: `solid ${color.buttonBorder} 0.15rem`,
+  digitalDisplayVertical: `solid ${color.digitalVerticalBorder} 0.15rem`,
   digitalDisplayHorizontal: `solid ${color.digitalHorizontalBorder} 0.15rem`,
 };
 
@@ -82,25 +82,25 @@ export const shadow = {
 };
 
 export const font = {
-	digital: 'DS Digital',
-	label: 'Russo One',
-	title: 'Heroic Avenger',
-	subtitle: 'Segoe UI',
+  digital: "DS Digital",
+  label: "Russo One",
+  title: "Heroic Avenger",
+  subtitle: "Segoe UI",
 };
 
 export const pseudoElement = css`
-	display: block;
-	position: absolute;
-	content: '';
+  display: block;
+  position: absolute;
+  content: "";
 `;
 
 export const controlOutline = css`
-	border: solid ${color.label} 0.1875rem;
-	border-top: none;
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
-	border-bottom-left-radius: 0.25rem;
-	border-bottom-right-radius: 0.25rem;
+  border: solid ${color.label} 0.1875rem;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
 `;
 
 export const labelText = css`
@@ -113,10 +113,10 @@ export const labelText = css`
 `;
 
 export const outlinedControlLabelText = css`
-	color: ${color.instrumentPlastic};
-	background-color: ${color.label};
-	border-top-left-radius: 0.25rem;
-	border-top-right-radius: 0.25rem;
+  color: ${color.instrumentPlastic};
+  background-color: ${color.label};
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 `;
 
 export const blinkingLight = keyframes`

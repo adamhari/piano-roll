@@ -1,12 +1,12 @@
-import {createGlobalStyle} from 'styled-components';
-import DS_Digital from '../assets/fonts/ds-digital/DS-DIGIT.ttf';
-import Russo_One from '../assets/fonts/russo-one/Russo_One.ttf';
-import Segoe_UI_Black from '../assets/fonts/segoe-ui/segoe-ui-black.ttf';
-import Segoe_UI_Bold from '../assets/fonts/segoe-ui/segoe-ui-bold.ttf';
-import Segoe_UI_Light from '../assets/fonts/segoe-ui/segoe-ui-light.ttf';
-import Segoe_UI_Normal from '../assets/fonts/segoe-ui/segoe-ui-normal.ttf';
-import Segoe_UI_Semibold from '../assets/fonts/segoe-ui/segoe-ui-semibold.ttf';
-import Segoe_UI_Semilight from '../assets/fonts/segoe-ui/segoe-ui-semilight.ttf';
+import { createGlobalStyle } from "styled-components";
+import DS_Digital from "../assets/fonts/ds-digital/DS-DIGIT.ttf";
+import Russo_One from "../assets/fonts/russo-one/Russo_One.ttf";
+import Segoe_UI_Black from "../assets/fonts/segoe-ui/segoe-ui-black.ttf";
+import Segoe_UI_Bold from "../assets/fonts/segoe-ui/segoe-ui-bold.ttf";
+import Segoe_UI_Light from "../assets/fonts/segoe-ui/segoe-ui-light.ttf";
+import Segoe_UI_Normal from "../assets/fonts/segoe-ui/segoe-ui-normal.ttf";
+import Segoe_UI_Semibold from "../assets/fonts/segoe-ui/segoe-ui-semibold.ttf";
+import Segoe_UI_Semilight from "../assets/fonts/segoe-ui/segoe-ui-semilight.ttf";
 
 // defining font faces in createGlobalStyle is troublesome, see: https://github.com/styled-components/styled-components/issues/1593
 export default createGlobalStyle`

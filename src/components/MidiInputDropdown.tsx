@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import { rgba } from "polished";
-import WebMidi, { Input, InputEventNoteon, InputEventNoteoff } from "webmidi";
+import { WebMidi, Input, NoteMessageEvent } from "webmidi";
 import { MidiKeyEvents } from "../types";
 import { border, color, font } from "../styles";
 
@@ -58,34 +58,35 @@ type Props = MidiKeyEvents & {};
 const MidiInputDropdown = ({ handleMidiKeyDown, handleMidiKeyUp }: Props) => {
   const [inputs, setInputs] = useState<Input[]>([]);
   const [activeInputName, setActiveInputName] = useState<string>();
-  const activeInput = useRef<Input>();
+  const activeInput = useRef<Input | null>(null);
 
   useEffect(() => {
-    WebMidi.enable((err) => {
-      if (!err) {
-        WebMidi.addListener("connected", (e) => setInputs(WebMidi.inputs));
-        WebMidi.addListener("disconnected", (e) => setInputs(WebMidi.inputs));
-
+    WebMidi.enable()
+      .then(() => {
+        WebMidi.addListener("connected", () => setInputs(WebMidi.inputs));
+        WebMidi.addListener("disconnected", () => setInputs(WebMidi.inputs));
         setInputs(WebMidi.inputs);
         if (WebMidi.inputs.length > 0) activeInput.current = WebMidi.inputs[0];
-      }
-    });
+      })
+      .catch((err) => console.error(err));
   }, []);
 
-  const getNoteFromEvent = (e: InputEventNoteon | InputEventNoteoff) =>
+  const getNoteFromEvent = (e: NoteMessageEvent) =>
     `${e.note.name}${e.note.octave}`.replace("#", "♯");
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     activeInput?.current?.removeListener();
     const selectedInput = inputs.find((x) => x.name === e.target.value);
-    selectedInput?.addListener("noteon", 1, (e) =>
-      handleMidiKeyDown(getNoteFromEvent(e)),
-    );
-    selectedInput?.addListener("noteoff", 1, (e) =>
-      handleMidiKeyUp(getNoteFromEvent(e)),
-    );
-    activeInput.current = selectedInput;
-    setActiveInputName(selectedInput?.name);
+    if (selectedInput) {
+      selectedInput.addListener("noteon", (e) =>
+        handleMidiKeyDown(getNoteFromEvent(e)),
+      );
+      selectedInput.addListener("noteoff", (e) =>
+        handleMidiKeyUp(getNoteFromEvent(e)),
+      );
+      activeInput.current = selectedInput;
+      setActiveInputName(selectedInput.name);
+    }
   };
 
   const renderIcon = () => (

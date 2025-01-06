@@ -12,7 +12,7 @@
     "tone": "^15.0.4",
     "use-animation-frame": "^0.2.1",
     "waveform-data": "^4.5.0",
-    "webmidi": "~2.5.1"
+    "webmidi": "^3.1.12"
   },
   "scripts": {
     "dev": "vite",
@@ -20,9 +20,6 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",

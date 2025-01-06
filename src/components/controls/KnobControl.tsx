@@ -1,5 +1,5 @@
 import React, {MouseEvent} from 'react';
-import styled, {css} from 'styled-components/macro';
+import styled, {css} from 'styled-components';
 import {CONTROL_TYPES, CONTROLS} from '../../js/statics';
 import {Size, ControlMouseEvents} from '../../types';
 import {ControlLabel, ControlContainer} from '.';

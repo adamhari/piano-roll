@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import WaveformData from 'waveform-data';
 import {getWaveformFromArrayBuffer} from '../js/utils';
 import {usePrevious} from '../js/hooks';

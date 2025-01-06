@@ -1,4 +1,4 @@
-import {createGlobalStyle} from 'styled-components/macro';
+import {createGlobalStyle} from 'styled-components';
 import DS_Digital from '../assets/fonts/ds-digital/DS-DIGIT.ttf';
 import Russo_One from '../assets/fonts/russo-one/Russo_One.ttf';
 import Segoe_UI_Black from '../assets/fonts/segoe-ui/segoe-ui-black.ttf';

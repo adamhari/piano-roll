@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled, { css } from "styled-components/macro";
+import styled, { css } from "styled-components";
 import {
   CONTROL_TYPES,
   CONTROLS,

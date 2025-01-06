@@ -1,5 +1,5 @@
 import React, {ReactNode} from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import {KEYS} from '../js/statics';
 import {PianoKeyMouseEvents} from '../types';
 import {border, color, shadow} from '../styles';

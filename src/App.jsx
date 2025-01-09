@@ -530,6 +530,7 @@ class App extends Component {
                 <DigitalControl
                   {...this.sharedControlProps}
                   name="layout"
+                  label="map"
                   value={this.state.layout}
                 />
               </InstrumentBottomLeft>
@@ -614,6 +615,7 @@ class App extends Component {
                       <KnobControl
                         {...this.sharedControlProps}
                         name="volume"
+                        label="vol"
                         value={this.state.volume}
                         size="large"
                       />
@@ -622,6 +624,7 @@ class App extends Component {
                           <KnobControl
                             {...this.sharedControlProps}
                             name="attack"
+                            label="atk"
                             value={this.state.attack}
                             size="small"
                           />
@@ -630,6 +633,7 @@ class App extends Component {
                           <KnobControl
                             {...this.sharedControlProps}
                             name="decay"
+                            label="dec"
                             value={this.state.decay}
                             size="small"
                           />
@@ -638,6 +642,7 @@ class App extends Component {
                           <KnobControl
                             {...this.sharedControlProps}
                             name="sustain"
+                            label="sus"
                             value={this.state.sustain}
                             size="small"
                           />
@@ -646,6 +651,7 @@ class App extends Component {
                           <KnobControl
                             {...this.sharedControlProps}
                             name="release"
+                            label="rel"
                             value={this.state.release}
                             size="small"
                           />
@@ -662,7 +668,7 @@ class App extends Component {
                         <ButtonControl
                           {...this.sharedControlProps}
                           name="mode"
-                          label={"SYNTH"}
+                          label="synth"
                           value={MODES.SYNTH}
                           active={this.state.mode === MODES.SYNTH}
                           size="large"
@@ -671,7 +677,7 @@ class App extends Component {
                         <ButtonControl
                           {...this.sharedControlProps}
                           name="mode"
-                          label={"SAMPLER"}
+                          label="sample"
                           value={MODES.SAMPLER}
                           active={this.state.mode === MODES.SAMPLER}
                           size="large"
@@ -730,7 +736,7 @@ class App extends Component {
                             <DigitalControl
                               {...this.sharedControlProps}
                               name="osc1Octave"
-                              label="octave"
+                              label="oct"
                               value={this.state.osc1Octave}
                             />
                             <DigitalControl
@@ -767,7 +773,7 @@ class App extends Component {
                             <DigitalControl
                               {...this.sharedControlProps}
                               name="osc2Octave"
-                              label="octave"
+                              label="oct"
                               value={this.state.osc2Octave}
                             />
                             <DigitalControl
@@ -837,13 +843,13 @@ class App extends Component {
                         <DigitalControl
                           {...this.sharedControlProps}
                           name="filter1Rolloff"
-                          label="steep"
+                          label="slope"
                           value={this.state.filter1Rolloff}
                         />
                         <KnobControl
                           {...this.sharedControlProps}
                           name="filter1Freq"
-                          label="cutoff"
+                          label="cut"
                           value={this.state.filter1Freq}
                           size="medium"
                         />
@@ -868,13 +874,13 @@ class App extends Component {
                         <DigitalControl
                           {...this.sharedControlProps}
                           name="filter2Rolloff"
-                          label="steep"
+                          label="slope"
                           value={this.state.filter2Rolloff}
                         />
                         <KnobControl
                           {...this.sharedControlProps}
                           name="filter2Freq"
-                          label="cutoff"
+                          label="cut"
                           value={this.state.filter2Freq}
                           size="medium"
                         />
@@ -924,7 +930,7 @@ class App extends Component {
                           <KnobControl
                             {...this.sharedControlProps}
                             name="chorusSpread"
-                            label="spread"
+                            label="width"
                             value={this.state.chorusSpread}
                             size="small"
                           />
@@ -1003,7 +1009,7 @@ class App extends Component {
                         <KnobControl
                           {...this.sharedControlProps}
                           name="distAmount"
-                          label="amount"
+                          label="amt"
                           value={this.state.distAmount}
                           size="small"
                         />
@@ -1020,13 +1026,13 @@ class App extends Component {
                   <ControlSection>
                     <ControlWrapperVertical>
                       <ControlsContainerLabel>
-                        FREQ SHIFTER
+                        FREQ SHIFT
                       </ControlsContainerLabel>
                       <ControlsContainer>
                         <KnobControl
                           {...this.sharedControlProps}
                           name="freqShifterAmount"
-                          label="amount"
+                          label="amt"
                           value={this.state.freqShifterAmount}
                           size="small"
                         />

@@ -38,7 +38,7 @@
     "prettier": "^3.4.2",
     "typescript": "^5.7.2",
     "vite": "^6.4.1",
-    "web-audio-api": "^0.2.2"
+    "web-audio-api": "^1.2.0"
   },
   "resolutions": {
     "styled-components": "^S"
